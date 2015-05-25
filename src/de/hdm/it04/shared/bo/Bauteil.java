@@ -4,6 +4,8 @@ public class Bauteil extends Element {
 	
 	private String materialbzeichnung;
 	
+	// test
+	
 	private int teilNummer;
 
 	/**
