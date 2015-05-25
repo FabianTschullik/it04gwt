@@ -5,6 +5,8 @@ import java.sql.Connection;
 
 public class DbConnection {
 	
+	private static Connection con = null;
+	
 	public static Connection verb = null;
 	
 	// Werte eintragen!
