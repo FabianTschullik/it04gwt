@@ -1,6 +1,6 @@
 package de.hdm.it04.shared.bo;
 
-public class StÃ¼ckliste extends BusinessObject {
+public class Stückliste extends BusinessObject {
 	
 	private String name;
 

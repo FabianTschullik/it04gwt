@@ -1,7 +1,7 @@
 package de.hdm.it04.server.db;
 
 
-import java.sql.Connection;
+import java.sql.*;
 
 public class DbConnection {
 	
