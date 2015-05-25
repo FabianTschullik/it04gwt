@@ -7,8 +7,6 @@ public class DbConnection {
 	
 	private static Connection con = null;
 	
-	public static Connection verb = null;
-	
 	// Werte eintragen!
 	
 	private static String localurl = "Lokale Adresse";
