@@ -8,7 +8,7 @@ public class BusinessObject {
 	
 	private Date erstellungsDatum;
 	
-	private Date ÄnderungsDatum;
+	private Date änderungsDatum;
 	
 	private Benutzer letzterBenutzer;
 
@@ -41,17 +41,17 @@ public class BusinessObject {
 	}
 
 	/**
-	 * @return the ÄnderungsDatum
+	 * @return the änderungsDatum
 	 */
 	public Date getÄnderungsDatum() {
-		return ÄnderungsDatum;
+		return änderungsDatum;
 	}
 
 	/**
 	 * @param ÄnderungsDatum the ÄnderungsDatum to set
 	 */
-	public void setÄnderungsDatum(Date ÄnderungsDatum) {
-		this.ÄnderungsDatum = ÄnderungsDatum;
+	public void setÄnderungsDatum(Date änderungsDatum) {
+		this.änderungsDatum = änderungsDatum;
 	}
 
 	/**
