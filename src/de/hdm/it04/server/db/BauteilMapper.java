@@ -97,7 +97,9 @@ public class BauteilMapper {
    bt.setBeschreibung(rs.getString("beschreibung"));
    bt.setErstellungsDatum(rs.getDate("erstellungsDatum"));
    bt.setÄnderungsDatum(rs.getDate("änderungsDatum"));
+   
    // Letzter Benutzer muss noch eingefügt werden!!!
+   
    bt.setMaterialbzeichnung(rs.getString("materialbezeichnung"));
    bt.setTeilNummer(rs.getInt("teilnummer"));
    
@@ -114,42 +116,46 @@ public class BauteilMapper {
    }
    
    /**
-   * Auslesen aller Benutzer.
+   * Auslesen aller Bauteile.
    *
-   * @return Ein Vektor mit Benutzer-Objekten, die samtliche Benutzer
+   * @return Ein Vektor mit Bauteil-Objekten, die samtliche Bauteile
    * repräsentieren. Bei evtl. Exceptions wird ein partiell gefällter
    * oder ggf. auch leerer Vetor zurückgeliefert.
    */
-   public Vector<Benutzer> findAll() {
+   public Vector<Bauteil> findAll() {
  	  
    Connection con = DbConnection.connection();
    
    // Ergebnisvektor vorbereiten
    
-   Vector<Benutzer> result = new Vector<Benutzer>();
+   Vector<Bauteil> result = new Vector<Bauteil>();
    
    try {
  	  
    Statement stmt = con.createStatement();
    
-   ResultSet rs = stmt.executeQuery("SELECT id, vorname, nachname, aktivität, mail, erstellungsDatum FROM benutzer "
+   ResultSet rs = stmt.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, änderungsDatum, letzterBearbeiter, materialBezeichnung, teilNummer FROM bauteil "
    + " ORDER BY id");
    
    // Für jeden Eintrag im Suchergebnis wird nun ein Benutzer-Objekt erstellt.
    
    while (rs.next()) {
  	  
-   Benutzer be = new Benutzer();
-   be.setId(rs.getInt("id"));
-   be.setNachname(rs.getString("nachname"));
-   be.setVorname(rs.getString("vorname"));
-   be.setAktiv(rs.getBoolean("aktivität"));
-   be.setMail(rs.getString("mail"));
-   be.setErstellungsDatum(rs.getDate("erstellungsDatum"));
+   Bauteil bt = new Bauteil();
+   bt.setId(rs.getInt("id"));
+   bt.setName(rs.getString("name"));
+   bt.setBeschreibung(rs.getString("beschreibung"));
+   bt.setErstellungsDatum(rs.getDate("erstellungsDatum"));
+   bt.setÄnderungsDatum(rs.getDate("änderungsDatum"));
+   
+   // Letzter Benutzer muss noch eingefügt werden!!!
+   
+   bt.setMaterialbzeichnung(rs.getString("materialbezeichnung"));
+   bt.setTeilNummer(rs.getInt("teilnummer"));
    
    // Hinzufügen des neuen Objekts zum Ergebnisvektor
    
-   result.addElement(be);
+   result.addElement(bt);
    }
    }
    catch (SQLException e2) {
@@ -160,7 +166,7 @@ public class BauteilMapper {
    }
    
    /**
-   * Einfügen eines <code>Benutzer</code>-Objekts in die Datenbank. Dabei wird
+   * Einfügen eines <code>Bauteil</code>-Objekts in die Datenbank. Dabei wird
    * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
    * berichtigt.
    *
@@ -169,7 +175,7 @@ public class BauteilMapper {
    * <code>id</code>.
    */
 
-   public Benutzer insert(Benutzer be) {
+   public Bauteil insert(Bauteil bt) {
      Connection con = DbConnection.connection();
 
      try {
@@ -180,32 +186,35 @@ public class BauteilMapper {
         * Primärschlüsselwert ist.
         */
        ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-           + "FROM benutzer ");
+           + "FROM bauteil ");
 
        // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
        if (rs.next()) {
          /*
-          * be erhält den bisher maximalen, nun um 1 inkrementierten
+          * bt erhält den bisher maximalen, nun um 1 inkrementierten
           * Primärschlüssel.
           */
-         be.setId(rs.getInt("maxid") + 1);
+         bt.setId(rs.getInt("maxid") + 1);
 
          stmt = con.createStatement();
 
          // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-         stmt.executeUpdate("INSERT INTO benutzer (id, vorname, nachname, aktivität, mail, erstellungsDatum) "
+         stmt.executeUpdate("INSERT INTO benutzer (id, name, beschreibung, erstellungsDatum, änderungsDatum, letzterBearbeiter, materialBezeichnung, teilNummer) "
              + "VALUES ("
-         	+ be.getId()
+         	+ bt.getId()
          	+ ",'" 
-         	+ be.getVorname()
+         	+ bt.getName()
          	+ "','"
-         	+ be.getNachname()
+         	+ bt.getBeschreibung()
          	+ "','"
-         	+ be.isAktiv()
+         	+ bt.getErstellungsDatum()
          	+ "','"
-         	+ be.getMail()
+         	+ bt.getÄnderungsDatum()
+         	// Hier muss noch der letzte Bearbeiter eingefügt werden.
          	+ "','"
-         	+ be.getErstellungsDatum()
+         	+ bt.getMaterialbzeichnung()
+         	+ "','"
+         	+ bt.getTeilNummer()
          	+ "')");
        }
      }
@@ -214,24 +223,24 @@ public class BauteilMapper {
      }
 
      /*
-      * Rückgabe, des evtl. korrigierten Benutzers.
+      * Rückgabe, des evtl. korrigierten Bauteils.
       * 
       * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-      * Objekte übergeben werden, wäre die Anpassung des Benutzer-Objekts auch
+      * Objekte übergeben werden, wäre die Anpassung des Bauteil-Objekts auch
       * ohne diese explizite Rückgabe außerhalb dieser Methode sichtbar. Die
       * explizite Rückgabe von be ist eher ein Stilmittel, um zu signalisieren,
       * dass sich das Objekt evtl. im Laufe der Methode verändert hat.
       */
-     return be; }
+     return bt; }
    
    /**
     * Wiederholtes Schreiben eines Objekts in die Datenbank.
     * 
-    * @param be das Objekt, das in die DB geschrieben werden soll
+    * @param bt das Objekt, das in die DB geschrieben werden soll
     * @return das als Parameter übergebene Objekt
     */
    
-   public Benutzer update(Benutzer be) {
+   public Bauteil update(Bauteil bt) {
  	  
      Connection con = DbConnection.connection();
 
@@ -239,36 +248,37 @@ public class BauteilMapper {
      	
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("UPDATE benutzer " 
-     	+ "SET vorname= '" + be.getVorname() + "', " 
-     	+ "nachname = '" + be.getNachname() + "', "
-     	+ "aktivität = '" + be.isAktiv() + "', "
-     	+ "mail = '" + be.getMail() + "', "
-     	+ "erstellungsDatum = '" + be.getErstellungsDatum() + "' "
-         + "WHERE id=" + be.getId());
+       stmt.executeUpdate("UPDATE bauteil " 
+     	+ "SET name= '" + bt.getName() + "', " 
+     	+ "beschreibung = '" + bt.getBeschreibung() + "', "
+     	+ "erstellungsDatum = '" + bt.getErstellungsDatum() + "', "
+     	+ "änderungsDatum = '" + bt.getÄnderungsDatum() + "', "
+     	+ "materialBezeichnung = '" + bt.getMaterialbzeichnung() + "', "
+     	+ "teilNummer = '" + bt.getTeilNummer() + "' "
+        + "WHERE id=" + bt.getId());
 
      }
      catch (SQLException e) {
        e.printStackTrace();
      }
 
-     // Um Analogie zu insert(Benutzer be) zu wahren, geben wir be zurück
-     return be;
+     // Um Analogie zu insert(Bauteil bt) zu wahren, geben wir be zurück
+     return bt;
    }
 
    /**
-    * Löschen der Daten eines <code>Benutzer</code>-Objekts aus der Datenbank.
+    * Löschen der Daten eines <code>Bauteil</code>-Objekts aus der Datenbank.
     * 
-    * @param be das aus der DB zu löschende "Objekt"
+    * @param bt das aus der DB zu löschende "Objekt"
     */
-   public void delete(Benutzer be) {
+   public void delete(Bauteil bt) {
  	  
      Connection con = DbConnection.connection();
 
      try {
        Statement stmt = con.createStatement();
 
-       stmt.executeUpdate("DELETE FROM benutzer " + "WHERE id=" + be.getId());
+       stmt.executeUpdate("DELETE FROM bauteil " + "WHERE id=" + bt.getId());
      }
      catch (SQLException e) {
        e.printStackTrace();
@@ -281,4 +291,4 @@ public class BauteilMapper {
   
   
   
-}
+
