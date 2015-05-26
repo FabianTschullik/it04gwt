@@ -8,9 +8,9 @@ public class BusinessObject {
 	
 	private Date erstellungsDatum;
 	
-	private Date änderungsDatum;
+	private Date Ã„nderungsDatum;
 	
-	private Benutzer letzterBenutzer;
+	private Benutzer letzterbenutzer;
 
 	/**
 	 * @return the id
@@ -41,31 +41,31 @@ public class BusinessObject {
 	}
 
 	/**
-	 * @return the änderungsDatum
+	 * @return the ï¿½nderungsDatum
 	 */
-	public Date getÄnderungsDatum() {
-		return änderungsDatum;
+	public Date getÃ„nderungsDatum() {
+		return Ã„nderungsDatum;
 	}
 
 	/**
-	 * @param ÄnderungsDatum the ÄnderungsDatum to set
+	 * @param ï¿½nderungsDatum the ï¿½nderungsDatum to set
 	 */
-	public void setÄnderungsDatum(Date änderungsDatum) {
-		this.änderungsDatum = änderungsDatum;
+	public void setÃ„nderungsDatum(Date Ã„nderungsDatum) {
+		this.Ã„nderungsDatum = Ã„nderungsDatum;
 	}
 
 	/**
 	 * @return the letzterBenutzer
 	 */
 	public Benutzer getLetzterBenutzer() {
-		return letzterBenutzer;
+		return letzterbenutzer;
 	}
 
 	/**
 	 * @param letzterBenutzer the letzterBenutzer to set
 	 */
-	public void setLetzterBenutzer(Benutzer letzterBenutzer) {
-		this.letzterBenutzer = letzterBenutzer;
+	public void setLetzterBenutzer(Benutzer letzterbenutzer) {
+		this.letzterbenutzer = letzterbenutzer;
 	}
 
 }
