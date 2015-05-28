@@ -9,11 +9,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class BauteilMain extends Composite {
 	
 	private VerticalPanel vPanel = new VerticalPanel();
-	//private MainViewEditor main;
+	private MainViewEditor main;
 	public BauteilMain() {
 		
 		initWidget(this.vPanel);
-		//this.main = main;
+		this.main = main;
 		
 	
 		
