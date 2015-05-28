@@ -22,9 +22,6 @@ public class MainViewEditor extends Composite {
 		this.vPanel.add(menu);
 		
 		
-		
-		
-		
 		this.contentPanel = new VerticalPanel();
 		this.vPanel.add(contentPanel);
 		
@@ -41,20 +38,25 @@ public class MainViewEditor extends Composite {
 		
 		
 	}
-		
-		
-		public void openBaugruppeMain() {
-			this.vPanel.clear();
-			BaugruppeMain BaugruppeMain = new BaugruppeMain(this);
-			this.contentPanel.add(BaugruppeMain);
-			
-		}
-		
-		
-		
-		
-		
+	
+	public void openBaugruppeMain() {
+		this.vPanel.clear();
+		BaugruppeMain BaugruppeMain = new BaugruppeMain(this);
+		this.contentPanel.add(BaugruppeMain);
+	}	
+	
+	public void openImpressumMain() {
+		this.vPanel.clear();
+		ImpressumMain ImpressumMain = new ImpressumMain();
+		this.contentPanel.add(ImpressumMain);
 	}
+	
+	public void openStuecklisteMain() {
+		this.vPanel.clear();
+		StuecklisteMain StuecklisteMain = new StuecklisteMain();
+		this.contentPanel.add(StuecklisteMain);
+	}
+}
 	
 	
 	
