@@ -16,9 +16,9 @@ public class MenuViewEditor extends Composite {
 		initWidget(this.hPanel);
 		this.main = main;
 
-		Button baugruppeBtn1 = new Button("Baugruppe");
-		baugruppeBtn1.addClickHandler(new BaugruppeBtn1ClickHandler());
-		this.hPanel.add(baugruppeBtn1);
+		Button BaugruppeBtn1 = new Button("Baugruppe");
+		BaugruppeBtn1.addClickHandler(new BaugruppeBtn1ClickHandler());
+		this.hPanel.add(BaugruppeBtn1);
 
 		Button BauteilBtn1 = new Button("Bauteil");
 		BauteilBtn1.addClickHandler(new BauteilBtn1ClickHandler());
@@ -52,7 +52,7 @@ public class MenuViewEditor extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			// main.openBauteilMain();
+			main.openBauteilMain();
 
 		}
 
