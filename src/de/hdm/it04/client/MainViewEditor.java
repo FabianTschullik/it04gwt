@@ -9,7 +9,7 @@ public class MainViewEditor extends Composite {
 	private VerticalPanel vPanel = new VerticalPanel();
 	private VerticalPanel contentPanel;
 	private Label label1;
-	private Image abaugruppeMain;
+	private Image titelbild;
 	
 	
 	
@@ -27,15 +27,15 @@ public class MainViewEditor extends Composite {
 		this.contentPanel = new VerticalPanel();
 		this.vPanel.add(contentPanel);
 		
-		Label label1 = new Label("Hallo Welt!!!!!!!!!!!!!!!!!!!!!!!");
+		Label label1 = new Label("Herzlich willkommen beim Stücklistenmanagementsystem der IT-Projektgruppe 4.");
 		this.vPanel.add(label1);
 		
 	
 		
 		
-		Image abaugruppeMain = new Image("war/images/baugruppe.jpg");
-		abaugruppeMain.setWidth("600px");
-		this.vPanel.add(abaugruppeMain);
+		Image titelbild = new Image("war/images/baugruppe.jpg");
+		titelbild.setWidth("600px");
+		this.vPanel.add(titelbild);
 		
 		
 	}
@@ -49,8 +49,14 @@ public class MainViewEditor extends Composite {
 		}
 		
 		
+		public void openBauteilMain() {
+			this.contentPanel.clear();
+			BauteilMain bauteilmain = new BauteilMain(this);
+			this.contentPanel.add(bauteilmain);
 		
 		
+		
+		}
 		
 	}
 	
