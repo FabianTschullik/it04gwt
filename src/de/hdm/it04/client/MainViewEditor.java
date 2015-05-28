@@ -9,7 +9,6 @@ public class MainViewEditor extends Composite {
 	private VerticalPanel vPanel = new VerticalPanel();
 	private VerticalPanel contentPanel;
 	private Label label1;
-	private Label label2;
 	private Image abaugruppeMain;
 	
 	
@@ -31,8 +30,7 @@ public class MainViewEditor extends Composite {
 		Label label1 = new Label("Hallo Welt!!!!!!!!!!!!!!!!!!!!!!!");
 		this.vPanel.add(label1);
 		
-		Label label2 = new Label("Hallo Welt!!!!!!!!!!!!!!!!!!!!!!!");
-		this.vPanel.add(label2);
+	
 		
 		
 		Image abaugruppeMain = new Image("war/images/baugruppe.jpg");
