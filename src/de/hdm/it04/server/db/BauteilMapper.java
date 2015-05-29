@@ -96,7 +96,7 @@ public class BauteilMapper {
    bt.setName(rs.getString("name"));
    bt.setBeschreibung(rs.getString("beschreibung"));
    bt.setErstellungsDatum(rs.getDate("erstellungsDatum"));
-   bt.setÄnderungsDatum(rs.getDate("änderungsDatum"));
+   bt.set�nderungsDatum(rs.getDate("änderungsDatum"));
    
    // Letzter Benutzer muss noch eingefügt werden!!!
    
@@ -146,7 +146,7 @@ public class BauteilMapper {
    bt.setName(rs.getString("name"));
    bt.setBeschreibung(rs.getString("beschreibung"));
    bt.setErstellungsDatum(rs.getDate("erstellungsDatum"));
-   bt.setÄnderungsDatum(rs.getDate("änderungsDatum"));
+   bt.set�nderungsDatum(rs.getDate("änderungsDatum"));
    
    // Letzter Benutzer muss noch eingefügt werden!!!
    
@@ -209,7 +209,7 @@ public class BauteilMapper {
          	+ "','"
          	+ bt.getErstellungsDatum()
          	+ "','"
-         	+ bt.getÄnderungsDatum()
+         	+ bt.get�nderungsDatum()
          	// Hier muss noch der letzte Bearbeiter eingefügt werden.
          	+ "','"
          	+ bt.getMaterialbzeichnung()
@@ -252,7 +252,7 @@ public class BauteilMapper {
      	+ "SET name= '" + bt.getName() + "', " 
      	+ "beschreibung = '" + bt.getBeschreibung() + "', "
      	+ "erstellungsDatum = '" + bt.getErstellungsDatum() + "', "
-     	+ "änderungsDatum = '" + bt.getÄnderungsDatum() + "', "
+     	+ "änderungsDatum = '" + bt.get�nderungsDatum() + "', "
      	+ "materialBezeichnung = '" + bt.getMaterialbzeichnung() + "', "
      	+ "teilNummer = '" + bt.getTeilNummer() + "' "
         + "WHERE id=" + bt.getId());

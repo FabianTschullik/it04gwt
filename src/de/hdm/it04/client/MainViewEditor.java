@@ -25,22 +25,17 @@ public class MainViewEditor extends Composite {
 		this.contentPanel = new VerticalPanel();
 		this.vPanel.add(contentPanel);
 		
-		Label label1 = new Label("Hallo Welt!!!!!!!!!!!!!!!!!!!!!!!");
-		this.vPanel.add(label1);
 		
-		Label label2 = new Label("Hallo Welt!!!!!!!!!!!!!!!!!!!!!!!");
-		this.vPanel.add(label2);
+					Label label1 = new Label("Herzlich willkommen beim Stuecklistenmanagementsystem der IT-Projektgruppe 4.");
+		this.contentPanel.add(label1);
 		
 		
-		Image abaugruppeMain = new Image("war/images/baugruppe.jpg");
-		abaugruppeMain.setWidth("600px");
-		this.vPanel.add(abaugruppeMain);
-		
+
 		
 	}
 	
 	public void openBaugruppeMain() {
-		this.vPanel.clear();
+		this.contentPanel.clear();
 		BaugruppeMain BaugruppeMain = new BaugruppeMain(this);
 		this.contentPanel.add(BaugruppeMain);
 	}	
