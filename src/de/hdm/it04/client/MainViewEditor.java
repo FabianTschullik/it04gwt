@@ -19,7 +19,7 @@ public class MainViewEditor extends Composite {
 		
 		this.contentPanel = new VerticalPanel();
 		this.vPanel.add(contentPanel);
-		
+		contentPanel.setBorderWidth(1);
 		
 		Label label1 = new Label("Herzlich willkommen beim Stuecklistenmanagementsystem der IT-Projektgruppe 4.");
 		this.contentPanel.add(label1);

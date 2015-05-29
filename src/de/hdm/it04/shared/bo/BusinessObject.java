@@ -2,13 +2,19 @@ package de.hdm.it04.shared.bo;
 
 import java.sql.Date;
 
+/**
+ * 
+ * @author Maehler, Schneider, Schwab
+ *
+ */
+
 public class BusinessObject {
 	
 	private int id;
 	
 	private Date erstellungsDatum;
 	
-	private Date ÄnderungsDatum;
+	private Date AenderungsDatum;
 	
 	private Benutzer letzterbenutzer;
 
@@ -43,15 +49,15 @@ public class BusinessObject {
 	/**
 	 * @return the ï¿½nderungsDatum
 	 */
-	public Date getÄnderungsDatum() {
-		return ÄnderungsDatum;
+	public Date getAenderungsDatum() {
+		return AenderungsDatum;
 	}
 
 	/**
 	 * @param ï¿½nderungsDatum the ï¿½nderungsDatum to set
 	 */
-	public void setÄnderungsDatum(Date ÄnderungsDatum) {
-		this.ÄnderungsDatum = ÄnderungsDatum;
+	public void setAenderungsDatum(Date AenderungsDatum) {
+		this.AenderungsDatum = AenderungsDatum;
 	}
 
 	/**

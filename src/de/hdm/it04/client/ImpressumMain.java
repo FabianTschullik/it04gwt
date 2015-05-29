@@ -25,7 +25,7 @@ public class ImpressumMain extends Composite {
 						+ "<p><b>IT-Projekt Sommersemster 2015</b></p>"
 						+ "<p><b>Studiengang:</b></p>"
 						+ "<p>Wirtschaftsinformatik und digitale Medien</p><br>"
-						+ "<p><b>Betreunde Professoren:</b></p>"
+						+ "<p><b>Betreuende Professoren:</b></p>"
 						+ "<p>Prof. Dr. Peter Thies, Prof. Dr. Christian Rathke</p><br>"
 						+ "<p><b>Team 04</p></b>"
 						+ "<p>Florin Geier, Christian Maehler, Friedrich Schneider, Benjamin Schwab, Fabian Tschullik, Manuel Voelker</p><br>"

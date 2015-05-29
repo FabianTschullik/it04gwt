@@ -7,14 +7,14 @@ import de.hdm.it04.shared.bo.Bauteil;
 
 /**
  * Mapper-Klasse, die <code>Bauteil</code>-Objekte auf eine relationale
- * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verf�gung
+ * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfuegung
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gel�scht werden k�nnen. Das Mapping ist bidirektional. D.h., Objekte k�nnen
+ * geloescht werden koennen. Das Mapping ist bidirektional. D.h., Objekte koennen
  * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
- * {@link BaugruppeMapper, St�cklisteMapper, EnderzeugnisMapper, BenutzerMapper}
+ * {@link BaugruppeMapper, StuecklisteMapper, EnderzeugnisMapper, BenutzerMapper}
  *
- * @author Schneider, M�hler, Thies
+ * @author Schneider, Maehler, Schwab, Thies
  */
 public class BauteilMapper {
 
@@ -22,8 +22,8 @@ public class BauteilMapper {
    * Die Klasse BauteilMapper wird nur einmal instantiiert. Man spricht hierbei
    * von einem sogenannten <b>Singleton</b>.
    * <p>
-   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal f�r
-   * s�mtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
+   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal fuer
+   * saemtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
    * einzige Instanz dieser Klasse.
    * 
    * @see bauteilMapper()
@@ -31,7 +31,7 @@ public class BauteilMapper {
   private static BauteilMapper bauteilMapper = null;
 
   /**
-   * Gesch�tzter Konstruktor - verhindert die M�glichkeit, mit <code>new</code>
+   * Geschuetzter Konstruktor - verhindert die Moeglichkeit, mit <code>new</code>
    * neue Instanzen dieser Klasse zu erzeugen.
    */
   protected BauteilMapper() {
@@ -40,7 +40,7 @@ public class BauteilMapper {
   /**
    * Diese statische Methode kann aufgrufen werden durch
    * <code>BauteilMapper.bauteilMapper()</code>. Sie stellt die
-   * Singleton-Eigenschaft sicher, indem Sie daf�r sorgt, dass nur eine einzige
+   * Singleton-Eigenschaft sicher, indem Sie dafuer sorgt, dass nur eine einzige
    * Instanz von <code>BauteilMapper</code> existiert.
    * <p>
    * 
@@ -96,7 +96,7 @@ public class BauteilMapper {
    bt.setName(rs.getString("name"));
    bt.setBeschreibung(rs.getString("beschreibung"));
    bt.setErstellungsDatum(rs.getDate("erstellungsDatum"));
-   bt.set�nderungsDatum(rs.getDate("änderungsDatum"));
+   bt.setAenderungsDatum(rs.getDate("änderungsDatum"));
    
    // Letzter Benutzer muss noch eingefügt werden!!!
    
@@ -146,7 +146,7 @@ public class BauteilMapper {
    bt.setName(rs.getString("name"));
    bt.setBeschreibung(rs.getString("beschreibung"));
    bt.setErstellungsDatum(rs.getDate("erstellungsDatum"));
-   bt.set�nderungsDatum(rs.getDate("änderungsDatum"));
+   bt.setAenderungsDatum(rs.getDate("änderungsDatum"));
    
    // Letzter Benutzer muss noch eingefügt werden!!!
    
@@ -209,7 +209,7 @@ public class BauteilMapper {
          	+ "','"
          	+ bt.getErstellungsDatum()
          	+ "','"
-         	+ bt.get�nderungsDatum()
+         	+ bt.getAenderungsDatum()
          	// Hier muss noch der letzte Bearbeiter eingefügt werden.
          	+ "','"
          	+ bt.getMaterialbzeichnung()
@@ -252,7 +252,7 @@ public class BauteilMapper {
      	+ "SET name= '" + bt.getName() + "', " 
      	+ "beschreibung = '" + bt.getBeschreibung() + "', "
      	+ "erstellungsDatum = '" + bt.getErstellungsDatum() + "', "
-     	+ "änderungsDatum = '" + bt.get�nderungsDatum() + "', "
+     	+ "änderungsDatum = '" + bt.getAenderungsDatum() + "', "
      	+ "materialBezeichnung = '" + bt.getMaterialbzeichnung() + "', "
      	+ "teilNummer = '" + bt.getTeilNummer() + "' "
         + "WHERE id=" + bt.getId());

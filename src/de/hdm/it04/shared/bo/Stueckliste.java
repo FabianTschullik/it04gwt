@@ -1,6 +1,12 @@
 package de.hdm.it04.shared.bo;
 
-public class Stückliste extends BusinessObject {
+/**
+ * 
+ * @author Maehler, Schneider, Schwab
+ *
+ */
+
+public class Stueckliste extends BusinessObject {
 	
 	private String name;
 
