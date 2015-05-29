@@ -8,10 +8,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class MainViewEditor extends Composite {
 	private VerticalPanel vPanel = new VerticalPanel();
 	private VerticalPanel contentPanel;
-	private Label label1;
-	private Label label2;
-	private Image abaugruppeMain;
-	
 	
 	
 	public MainViewEditor() {                         //Constructor
@@ -26,7 +22,7 @@ public class MainViewEditor extends Composite {
 		this.vPanel.add(contentPanel);
 		
 		
-					Label label1 = new Label("Herzlich willkommen beim Stuecklistenmanagementsystem der IT-Projektgruppe 4.");
+		Label label1 = new Label("Herzlich willkommen beim Stuecklistenmanagementsystem der IT-Projektgruppe 4.");
 		this.contentPanel.add(label1);
 		
 		
@@ -36,18 +32,32 @@ public class MainViewEditor extends Composite {
 	
 	public void openBaugruppeMain() {
 		this.contentPanel.clear();
-		BaugruppeMain BaugruppeMain = new BaugruppeMain(this);
+		BaugruppeMain BaugruppeMain = new BaugruppeMain();
 		this.contentPanel.add(BaugruppeMain);
 	}	
 	
+	public void openBauteilMain() {
+		this.contentPanel.clear();
+		BauteilMain BauteilMain = new BauteilMain();
+		this.contentPanel.add(BauteilMain);
+	}
+	
+	public void openEnderzeugnisMain() {
+		this.contentPanel.clear();
+		EnderzeugnisMain EnderzeugnisMain = new EnderzeugnisMain();
+		this.contentPanel.add(EnderzeugnisMain);
+	}
+	
+	
+	
 	public void openImpressumMain() {
-		this.vPanel.clear();
+		this.contentPanel.clear();
 		ImpressumMain ImpressumMain = new ImpressumMain();
 		this.contentPanel.add(ImpressumMain);
 	}
 	
 	public void openStuecklisteMain() {
-		this.vPanel.clear();
+		this.contentPanel.clear();
 		StuecklisteMain StuecklisteMain = new StuecklisteMain();
 		this.contentPanel.add(StuecklisteMain);
 	}

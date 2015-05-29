@@ -29,7 +29,7 @@ public class MenuViewEditor extends Composite {
 		this.hPanel.add(EnderzeugnisBtn1);
 
 		Button StuecklisteBtn1 = new Button("Stueckliste");
-		EnderzeugnisBtn1.addClickHandler(new StuecklisteBtn1ClickHandler());
+		StuecklisteBtn1.addClickHandler(new StuecklisteBtn1ClickHandler());
 		this.hPanel.add(StuecklisteBtn1);
 
 		Button ImpressumBtn1 = new Button("Impressum");
@@ -62,7 +62,7 @@ public class MenuViewEditor extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			// main.openEnderzeugnisMain();
+			main.openEnderzeugnisMain();
 
 		}
 
@@ -72,7 +72,7 @@ public class MenuViewEditor extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			// main.openStuecklsiteMain();
+			main.openStuecklisteMain();
 
 		}
 
@@ -82,7 +82,7 @@ public class MenuViewEditor extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			// main.openImpressumMain();
+			main.openImpressumMain();
 		}
 	}
 
