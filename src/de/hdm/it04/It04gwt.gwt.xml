@@ -21,6 +21,8 @@
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='de.hdm.it04.client.It04gwtEditor'/>
+  //<entry-point class='de.hdm.it04.client.It04gwtReport'/>
+  
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>

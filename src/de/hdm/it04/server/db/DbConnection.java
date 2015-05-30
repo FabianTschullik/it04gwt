@@ -9,7 +9,7 @@ public class DbConnection {
 	
 	// Werte eintragen!
 	
-	private static String localurl = "Lokale Adresse";
+	private static String localurl = "jdbc:mysql://127.0.0.1:3306/sms?user=root&password=root";
 	private static String googleurl = "Google Link";
 	
 	public static Connection connection(){
