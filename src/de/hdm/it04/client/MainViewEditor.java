@@ -35,11 +35,15 @@ public class MainViewEditor extends Composite {
 		this.contentPanel.add(BaugruppeMain);
 	}	
 	
+	
+	
 	public void openBauteilMain() {
 		this.contentPanel.clear();
 		BauteilMain BauteilMain = new BauteilMain();
 		this.contentPanel.add(BauteilMain);
 	}
+	
+	
 	
 	public void openEnderzeugnisMain() {
 		this.contentPanel.clear();
@@ -62,6 +66,8 @@ public class MainViewEditor extends Composite {
 	}
 }
 	
+
+
 	
 	
 	
