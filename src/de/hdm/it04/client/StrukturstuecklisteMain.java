@@ -5,16 +5,18 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * 
- * @author Benjamin
+ * @author Schwab
  *
  */
 
 public class StrukturstuecklisteMain extends Composite {
 	private VerticalPanel vPanel = new VerticalPanel();
+	private MainViewReport main;
 	
 	//Konstruktor
 	public StrukturstuecklisteMain() {
 		initWidget(this.vPanel);
+		this.main = main;
 	}
 
 }

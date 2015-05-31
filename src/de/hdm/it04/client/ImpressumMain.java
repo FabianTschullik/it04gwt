@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * Diese Klasse enthält das Impressum.
  * Das Impressum wird zur eindeutigen Identifizierung der Website nach §5 TMG benötigt.
  *  
- * @author Benjamin
+ * @author Schwab
  */
 
 public class ImpressumMain extends Composite {

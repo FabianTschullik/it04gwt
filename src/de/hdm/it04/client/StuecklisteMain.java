@@ -5,6 +5,10 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
+/**
+ * @author Schwab
+ */
+
 
 public class StuecklisteMain extends Composite {
 
@@ -24,11 +28,14 @@ public class StuecklisteMain extends Composite {
 		//vPanel um HPanel ergänzen
 		this.vPanel.add(hPanel);	
 		
-		//Anlegen der Buttons für Editieren und Löschen
-		Button edit = new Button("Edit");
+		//Anlegen der Buttons fürs Anzeigen, Editieren und Löschen
+		Button show = new Button("Anzeigen");
+		this.hPanelBtn.add(show);
+		
+		Button edit = new Button("Bearbeiten");
 		this.hPanelBtn.add(edit);
 		
-		Button delete = new Button("Delete");
+		Button delete = new Button("Loeschen");
 		this.hPanelBtn.add(delete);		
 		
 		

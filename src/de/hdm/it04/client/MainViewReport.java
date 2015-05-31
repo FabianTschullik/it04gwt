@@ -5,7 +5,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * 
- * @author Benjamin, Fabian
+ * @author Schwab, Tschullik
  *
  */
 public class MainViewReport extends Composite {

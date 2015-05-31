@@ -6,6 +6,12 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
+/**
+ * 
+ * @author Tschullik, Schwab
+ *
+ */
+
 public class MenuViewEditor extends Composite {
 
 	private HorizontalPanel hPanel = new HorizontalPanel();

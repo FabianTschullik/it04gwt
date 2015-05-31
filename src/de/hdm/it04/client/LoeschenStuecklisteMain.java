@@ -9,12 +9,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  *
  */
 
-public class MaterialbedarfMain extends Composite {
+public class LoeschenStuecklisteMain extends Composite {
 	private VerticalPanel vPanel = new VerticalPanel();
+	private MainViewEditor main;
 	
-	//Konstruktor
-	public MaterialbedarfMain() {
+	public LoeschenStuecklisteMain() {
 		initWidget(this.vPanel);
+		this.main = main;
 	}
 
 }
