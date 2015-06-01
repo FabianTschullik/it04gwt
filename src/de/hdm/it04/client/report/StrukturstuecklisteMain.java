@@ -1,4 +1,4 @@
-package de.hdm.it04.client;
+package de.hdm.it04.client.report;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -9,12 +9,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  *
  */
 
-public class MaterialbedarfMain extends Composite {
+public class StrukturstuecklisteMain extends Composite {
 	private VerticalPanel vPanel = new VerticalPanel();
+	private MainViewReport main;
 	
 	//Konstruktor
-	public MaterialbedarfMain() {
+	public StrukturstuecklisteMain() {
 		initWidget(this.vPanel);
+		this.main = main;
 	}
 
 }

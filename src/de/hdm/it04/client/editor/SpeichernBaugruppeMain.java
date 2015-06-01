@@ -1,15 +1,15 @@
-package de.hdm.it04.client;
+package de.hdm.it04.client.editor;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class SpeichernBauteilMain extends Composite {
+public class SpeichernBaugruppeMain extends Composite {
 	
 	private VerticalPanel vPanel = new VerticalPanel();
 	private MainViewEditor main;
 	
-	public SpeichernBauteilMain() {
+	public SpeichernBaugruppeMain() {
 
 		initWidget(this.vPanel);
 		this.main = main;

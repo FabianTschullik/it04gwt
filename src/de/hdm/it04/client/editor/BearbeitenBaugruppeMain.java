@@ -1,25 +1,27 @@
-package de.hdm.it04.client;
+package de.hdm.it04.client.editor;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 
-public class BearbeitenEnderzeugnisMain extends Composite {
+public class BearbeitenBaugruppeMain extends Composite {
 	
 	private VerticalPanel vPanel = new VerticalPanel();
 	private MainViewEditor main;
+	private HorizontalPanel hPanel = new HorizontalPanel();
 	
-	public BearbeitenEnderzeugnisMain() {
+	public BearbeitenBaugruppeMain() {
 
 		initWidget(this.vPanel);
 		this.main = main;
 
-		Label label1 = new Label("Bearbeiten Sie das Enderzeugnis:");
+		Label label1 = new Label("Bearbeiten Sie die Baugruppe:");
 		this.vPanel.add(label1);
 		
 		
@@ -53,10 +55,10 @@ public class BearbeitenEnderzeugnisMain extends Composite {
 
 	}
 	
-	public void openSpeichernEnderzeugnisMain() {
+	public void openSpeichernBaugruppeMain() {
 		vPanel.clear();
-		SpeichernEnderzeugnisMain SpeichernEnderzeugnisMain = new SpeichernEnderzeugnisMain();
-		vPanel.add(SpeichernEnderzeugnisMain);
+		SpeichernBaugruppeMain SpeichernBaugruppeMain = new SpeichernBaugruppeMain();
+		vPanel.add(SpeichernBaugruppeMain);
 	}
 
 	
@@ -64,11 +66,9 @@ public class BearbeitenEnderzeugnisMain extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			openSpeichernEnderzeugnisMain();
+			openSpeichernBaugruppeMain();
 
 		}
-		
-
-	}
-}
+	
+	}}
 

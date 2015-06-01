@@ -5,8 +5,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
-import de.hdm.it04.client.MainViewEditor;
 /**
  * @author Schwab
  */

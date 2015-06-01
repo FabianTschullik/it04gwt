@@ -1,4 +1,4 @@
-package de.hdm.it04.client;
+package de.hdm.it04.client.editor;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;

@@ -1,4 +1,4 @@
-package de.hdm.it04.client;
+package de.hdm.it04.client.editor;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -9,20 +9,22 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 
-public class EnderzeugnisMain extends Composite {
-	
+public class BauteilMain extends Composite {
+
 	private VerticalPanel vPanel = new VerticalPanel();
 	private MainViewEditor main;
 	private HorizontalPanel hPanel = new HorizontalPanel();
 	
-	public EnderzeugnisMain() {
+	
+	public BauteilMain() {
 
 		initWidget(this.vPanel);
 		this.main = main;
-
-		Label label1 = new Label("Hallo EnderzeugnisMain");
+		
+		
+		Label label1 = new Label("Hallo BauteilMain");
 		this.vPanel.add(label1);
-
+		
 		Button AnzeigenBtn1 = new Button("Anzeigen");
 		AnzeigenBtn1.addClickHandler(new AnzeigenBtn1ClickHandler());
 		this.hPanel.add(AnzeigenBtn1);
@@ -40,16 +42,16 @@ public class EnderzeugnisMain extends Composite {
 	}
 	
 	
-		public void openBearbeitenEnderzeugnisMain() {
+		public void openBearbeitenBauteilMain() {
 			vPanel.clear();
-			BearbeitenEnderzeugnisMain BearbeitenEnderzeugnisMain = new BearbeitenEnderzeugnisMain();
-			vPanel.add(BearbeitenEnderzeugnisMain);
+			BearbeitenBauteilMain BearbeitenBauteilMain = new BearbeitenBauteilMain();
+			vPanel.add(BearbeitenBauteilMain);
 		}
 		
-		public void openLoeschenEnderzeugnisMain() {
+		public void openLoeschenBauteilMain() {
 			vPanel.clear();
-			LoeschenEnderzeugnisMain LoeschenEnderzeugnisMain = new LoeschenEnderzeugnisMain();
-			vPanel.add(LoeschenEnderzeugnisMain);
+			LoeschenBauteilMain LoeschenBauteilMain = new LoeschenBauteilMain();
+			vPanel.add(LoeschenBauteilMain);
 		}
 
 	
@@ -58,7 +60,7 @@ public class EnderzeugnisMain extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			main.openEnderzeugnisMain();
+			main.openBauteilMain();
 
 		}
 	}
@@ -67,7 +69,7 @@ public class EnderzeugnisMain extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			openBearbeitenEnderzeugnisMain();
+			openBearbeitenBauteilMain();
 
 		}
 	}
@@ -76,7 +78,7 @@ public class EnderzeugnisMain extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			openLoeschenEnderzeugnisMain();
+			openLoeschenBauteilMain();
 
 		}
 	}
@@ -84,5 +86,3 @@ public class EnderzeugnisMain extends Composite {
 	
 	
 }
-
-

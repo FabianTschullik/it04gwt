@@ -1,4 +1,4 @@
-package de.hdm.it04.client;
+package de.hdm.it04.client.editor;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -9,12 +9,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  *
  */
 
-public class StrukturstuecklisteMain extends Composite {
+public class LoeschenStuecklisteMain extends Composite {
 	private VerticalPanel vPanel = new VerticalPanel();
-	private MainViewReport main;
+	private MainViewEditor main;
 	
-	//Konstruktor
-	public StrukturstuecklisteMain() {
+	public LoeschenStuecklisteMain() {
 		initWidget(this.vPanel);
 		this.main = main;
 	}

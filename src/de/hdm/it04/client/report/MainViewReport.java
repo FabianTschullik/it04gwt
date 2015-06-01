@@ -1,7 +1,9 @@
-package de.hdm.it04.client;
+package de.hdm.it04.client.report;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+import de.hdm.it04.client.editor.MaterialbedarfMain;
 
 /**
  * 

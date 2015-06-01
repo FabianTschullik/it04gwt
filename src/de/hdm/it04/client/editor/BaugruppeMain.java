@@ -1,4 +1,4 @@
-package de.hdm.it04.client;
+package de.hdm.it04.client.editor;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -9,20 +9,19 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 
-public class BauteilMain extends Composite {
 
+public class BaugruppeMain extends Composite {
+	
 	private VerticalPanel vPanel = new VerticalPanel();
 	private MainViewEditor main;
 	private HorizontalPanel hPanel = new HorizontalPanel();
 	
-	
-	public BauteilMain() {
+	public BaugruppeMain() {
 
 		initWidget(this.vPanel);
 		this.main = main;
-		
-		
-		Label label1 = new Label("Hallo BauteilMain");
+
+		Label label1 = new Label("Hallo BaugruppeMain");
 		this.vPanel.add(label1);
 		
 		Button AnzeigenBtn1 = new Button("Anzeigen");
@@ -38,38 +37,26 @@ public class BauteilMain extends Composite {
 		this.hPanel.add(LoeschenBtn1);
 		
 		this.vPanel.add(hPanel);
-		
+
 	}
 	
+	public void openBearbeitenBaugruppeMain() {
+		vPanel.clear();
+		BearbeitenBaugruppeMain BearbeitenBaugruppeMain = new BearbeitenBaugruppeMain();
+		vPanel.add(BearbeitenBaugruppeMain);
+	}
 	
-		public void openBearbeitenBauteilMain() {
-			vPanel.clear();
-			BearbeitenBauteilMain BearbeitenBauteilMain = new BearbeitenBauteilMain();
-			vPanel.add(BearbeitenBauteilMain);
-		}
-		
-		public void openLoeschenBauteilMain() {
-			vPanel.clear();
-			LoeschenBauteilMain LoeschenBauteilMain = new LoeschenBauteilMain();
-			vPanel.add(LoeschenBauteilMain);
-		}
-
-	
-	
-	private class AnzeigenBtn1ClickHandler implements ClickHandler {
-
-		@Override
-		public void onClick(ClickEvent event) {
-			main.openBauteilMain();
-
-		}
+	public void openLoeschenBaugruppeMain() {
+		vPanel.clear();
+		LoeschenBaugruppeMain LoeschenBaugruppeMain = new LoeschenBaugruppeMain();
+		vPanel.add(LoeschenBaugruppeMain);
 	}
 	
 	private class BearbeitenBtn1ClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			openBearbeitenBauteilMain();
+			openBearbeitenBaugruppeMain();
 
 		}
 	}
@@ -78,11 +65,18 @@ public class BauteilMain extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			openLoeschenBauteilMain();
+			openLoeschenBaugruppeMain();
 
 		}
 	}
 	
-	
+	private class AnzeigenBtn1ClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			main.openBaugruppeMain();
+
+		}
+	}
 	
 }
