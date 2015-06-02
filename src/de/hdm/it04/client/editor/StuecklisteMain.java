@@ -1,5 +1,7 @@
 package de.hdm.it04.client.editor;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -29,14 +31,17 @@ public class StuecklisteMain extends Composite {
 		this.vPanel.add(hPanel);	
 		
 		//Anlegen der Buttons fürs Anzeigen, Editieren und Löschen
-		Button show = new Button("Anzeigen");
-		this.hPanelBtn.add(show);
+		Button AnzeigenBtn1 = new Button("Anzeigen");
+		AnzeigenBtn1.addClickHandler(new AnzeigenBtn1ClickHandler());
+		this.hPanelBtn.add(AnzeigenBtn1);
 		
-		Button edit = new Button("Bearbeiten");
-		this.hPanelBtn.add(edit);
+		Button BearbeitenBtn1 = new Button("Bearbeiten");
+		BearbeitenBtn1.addClickHandler(new BearbeitenBtn1ClickHandler());
+		this.hPanelBtn.add(BearbeitenBtn1);
 		
-		Button delete = new Button("Loeschen");
-		this.hPanelBtn.add(delete);		
+		Button LoeschenBtn1 = new Button("Loeschen");
+		LoeschenBtn1.addClickHandler(new LoeschenBtn1ClickHandler());
+		this.hPanelBtn.add(LoeschenBtn1);		
 		
 		
 		//Linke u. Rechte Spalte anordnen in einem HorizontalPanel
@@ -62,6 +67,41 @@ public class StuecklisteMain extends Composite {
 		this.vPanelLeft.add(label4);
 		this.vPanelLeft.add(label5);
 		this.vPanelLeft.add(label6);
+	}
+	
+	public void openBearbeitenStuecklisteMain() {
+		vPanel.clear();
+		BearbeitenStuecklisteMain BearbeitenStuecklisteMain = new BearbeitenStuecklisteMain();
+		vPanel.add(BearbeitenStuecklisteMain);
+	}
+	
+	public void openLoeschenStuecklisteMain() {
+		vPanel.clear();
+		LoeschenStuecklisteMain LoeschenStuecklisteMain = new LoeschenStuecklisteMain();
+		vPanel.add(LoeschenStuecklisteMain);
+	}
+	
+	public class AnzeigenBtn1ClickHandler implements ClickHandler {
 
+		@Override
+		public void onClick(ClickEvent event) {
+			main.openStuecklisteMain();
+		}	
+	}
+	
+	public class BearbeitenBtn1ClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			openBearbeitenStuecklisteMain();
+			}
+	}
+	
+	public class LoeschenBtn1ClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			openLoeschenStuecklisteMain();
+			}
 	}
 }
