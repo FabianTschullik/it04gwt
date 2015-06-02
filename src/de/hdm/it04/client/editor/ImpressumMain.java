@@ -5,6 +5,8 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.it04.client.report.MainViewReport;
+
 /**
  * Diese Klasse enthält das Impressum.
  * Das Impressum wird zur eindeutigen Identifizierung der Website nach §5 TMG benötigt.
@@ -15,10 +17,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class ImpressumMain extends Composite {
 	private VerticalPanel vPanel = new VerticalPanel();
 	private MainViewEditor main;
+	private MainViewReport main2;
 	
 	public ImpressumMain() {
 		initWidget(this.vPanel);
 		this.main = main;
+		this.main2 = main2;
 
 		HTML html = new HTML(
 				"<h1>Impressum nach §5 TMG</h1>"

@@ -8,18 +8,20 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 
 /**
  * 
- * @author Benjamin, Fabian
+ * @author Schwab, Tschullik
  *
  */
 public class MenuViewReport extends Composite {
 	
 	//Für die horizontale Anorderung der Buttons
 	private HorizontalPanel hPanel = new HorizontalPanel();
+	private MainViewReport main2;
 	
 	//Konstruktor
-	public MenuViewReport() {
+	public MenuViewReport(MainViewReport main2) {
 		
 		initWidget(this.hPanel);
+		this.main2 = main2;
 		
 		//Erzeugung der Buttons
 		Button StrukStueckListBtn = new Button("Strukturstueckliste anzeigen");
@@ -40,7 +42,7 @@ public class MenuViewReport extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			// TODO Auto-generated method stub
+			main2.openStrukturstuecklisteMain();
 			
 		}
 	}
@@ -49,7 +51,7 @@ public class MenuViewReport extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			// TODO Auto-generated method stub
+			main2.openMaterialbedarfMain();
 		}
 	}
 	//ClickHandler Button Impressum
@@ -57,7 +59,7 @@ public class MenuViewReport extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			// TODO Auto-generated method stub
+			main2.openImpressumMain();
 		}
 	}
 }
