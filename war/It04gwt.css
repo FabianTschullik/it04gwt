@@ -10,9 +10,9 @@ h1 {
   text-align: center;
 }
 
-send.Button {
+.sendButton {
   display: block;
-  font-size: 40pt;
+  font-size: 16pt;
 }
 
 /** Most GWT widgets already have a style name defined */
