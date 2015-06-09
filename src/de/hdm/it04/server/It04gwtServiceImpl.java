@@ -32,16 +32,20 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements It04gwtS
 		
 	}
 	
-	public Bauteil create(String name){
+	public Bauteil create(String name, String beschreibung, String materialBezeichnung, Long erstellungsZeit){
 	
 	Bauteil bt = new Bauteil();
 	
 	bt.setName(name);
+	bt.setBeschreibung(beschreibung);
+	bt.setMaterialBezeichnung(materialBezeichnung);
+	bt.setErstellungsZeit(erstellungsZeit);
+	bt.setBeschreibung(beschreibung);
 	bt = BauteilMapper.bauteilMapper().insert(bt);
 	
 	return bt;
-	
 	}
+	
 	
 	
 

@@ -2,9 +2,12 @@ package de.hdm.it04.client.service;
 
 
 
+import java.sql.Timestamp;
+
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+
 
 
 
@@ -47,9 +50,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 	
 	
 	
-	public void create(String name){
+	public void create(String name, String beschreibung, String materialBezeichnung, Long erstellungsZeit){
 		
-		this.service.create(name, new DefaultCallback2());
+		this.service.create(name, beschreibung, materialBezeichnung, erstellungsZeit, new DefaultCallback2());
 	}
 	
 	

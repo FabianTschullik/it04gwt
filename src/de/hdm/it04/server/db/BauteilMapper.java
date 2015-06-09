@@ -40,14 +40,14 @@ public class BauteilMapper {
 	 	  
 	   Statement stmt = con.createStatement();
 	   
-	   // Statement ausfüllen und als Query an die DB schicken
+	   // Statement ausfï¿½llen und als Query an die DB schicken
 	   
 	   
-	   ResultSet rs = stmt.executeQuery("SELECT id, name FROM bauteil "
+	   ResultSet rs = stmt.executeQuery("SELECT id, name, aenderungsZeit, erstellungsZeit, materialBezeichnung, beschreibung FROM bauteil "
 	   + "WHERE id=" + id);
 	   /*
-	   * Da id Primarschlüssel ist, kann max. nur ein Tupel zurückgegeben
-	   * werden. Prüfe, ob ein Ergebnis vorliegt.
+	   * Da id Primarschlï¿½ssel ist, kann max. nur ein Tupel zurï¿½ckgegeben
+	   * werden. Prï¿½fe, ob ein Ergebnis vorliegt.
 	   */
 	   
 	   if (rs.next()) {
@@ -57,6 +57,10 @@ public class BauteilMapper {
 	   Bauteil bt = new Bauteil();
 	   bt.setId(rs.getInt("id"));
 	   bt.setName(rs.getString("name"));
+	   bt.setAenderungsZeit(rs.getTimestamp("aenderungsZeit"));
+	   bt.setErstellungsZeit(rs.getLong("erstellungsZeit"));
+	   bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
+	   bt.setBeschreibung(rs.getString("beschreibung"));
 	   
 	   return bt;
 	   }
@@ -78,28 +82,34 @@ public class BauteilMapper {
 	       Statement stmt = con.createStatement();
 
 	       /*
-	        * Zunächst schauen wir nach, welches der momentan höchste
-	        * Primärschlüsselwert ist.
+	        * Zunï¿½chst schauen wir nach, welches der momentan hï¿½chste
+	        * Primï¿½rschlï¿½sselwert ist.
 	        */
 	       ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
 	           + "FROM bauteil ");
 
-	       // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
+	       // Wenn wir etwas zurï¿½ckerhalten, kann dies nur einzeilig sein
 	       if (rs.next()) {
 	         /*
-	          * bt erhält den bisher maximalen, nun um 1 inkrementierten
-	          * Primärschlüssel.
+	          * bt erhï¿½lt den bisher maximalen, nun um 1 inkrementierten
+	          * Primï¿½rschlï¿½ssel.
 	          */
 	         bt.setId(rs.getInt("maxid") + 1);
 
 	         stmt = con.createStatement();
 
-	         // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-	         stmt.executeUpdate("INSERT INTO bauteil (id, name) "
+	         // Jetzt erst erfolgt die tatsï¿½chliche Einfï¿½geoperation
+	         stmt.executeUpdate("INSERT INTO bauteil (id, name, erstellungsZeit, materialBezeichnung, beschreibung) "
 	             + "VALUES ("
 	         	+ bt.getId()
 	         	+ ",'" 
 	         	+ bt.getName()
+	         	+ ","
+	         	+ bt.getErstellungsZeit()
+	         	+ ","
+	         	+ bt.getMaterialBezeichnung()
+	         	+ ","
+	         	+ bt.getBeschreibung()
 	         	+ "')");
 	       }
 	     }
@@ -108,13 +118,13 @@ public class BauteilMapper {
 	     }
 
 	     /*
-	      * Rückgabe, des evtl. korrigierten Bauteils.
+	      * Rï¿½ckgabe, des evtl. korrigierten Bauteils.
 	      * 
 	      * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-	      * Objekte übergeben werden, wäre die Anpassung des Bauteil-Objekts auch
-	      * ohne diese explizite Rückgabe außerhalb dieser Methode sichtbar. Die
-	      * explizite Rückgabe von be ist eher ein Stilmittel, um zu signalisieren,
-	      * dass sich das Objekt evtl. im Laufe der Methode verändert hat.
+	      * Objekte ï¿½bergeben werden, wï¿½re die Anpassung des Bauteil-Objekts auch
+	      * ohne diese explizite Rï¿½ckgabe auï¿½erhalb dieser Methode sichtbar. Die
+	      * explizite Rï¿½ckgabe von be ist eher ein Stilmittel, um zu signalisieren,
+	      * dass sich das Objekt evtl. im Laufe der Methode verï¿½ndert hat.
 	      */
 	     return bt; }
    

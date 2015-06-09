@@ -3,6 +3,8 @@ package de.hdm.it04.client.gui;
 
 
 
+import java.sql.Timestamp;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
@@ -11,6 +13,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
 
 
 
@@ -29,6 +32,9 @@ private TextBox insertname;
 private Label resultlbl;
 private Label resultid;
 private Label erfolg;
+private TextBox insertbeschreibung;
+private TextBox insertmaterialBezeichnung;
+
 
 
 
@@ -66,6 +72,16 @@ public MainGUI(It04gwtServiceClientImpl serviceImpl) {
 	this.insertname = new TextBox();
 	this.vPanel.add(insertname);
 	
+	this.insertbeschreibung = new TextBox();
+	this.vPanel.add(insertbeschreibung);
+	
+	this.insertmaterialBezeichnung = new TextBox();
+	this.vPanel.add(insertmaterialBezeichnung);
+	
+	
+	
+	
+	
 	Button btn2 = new Button("Speichern");
 	btn2.addClickHandler(new Btn2ClickHandler());
 	this.vPanel.add(btn2);
@@ -79,6 +95,7 @@ public MainGUI(It04gwtServiceClientImpl serviceImpl) {
 
 public void showBauteil(Bauteil bt) {
 	this.resultlbl.setText(bt.getName());
+	
 	int id = bt.getId();
 	
 	this.resultid.setText(new Integer(id).toString());
@@ -134,11 +151,22 @@ private class Btn1ClickHandler implements ClickHandler {
 	
 	
 	private class Btn2ClickHandler implements ClickHandler{
+		
 	
 	public void onClick(ClickEvent event) {
-		String name = insertname.getText();
 		
-		serviceImpl.create(name);
+		Timestamp aktuelleZeit = null;
+		
+		
+		
+		String name = insertname.getText();
+		String beschreibung = insertbeschreibung.getText();
+		String materialBezeichnung = insertmaterialBezeichnung.getText();
+		Long erstellungsZeit = aktuelleZeit.getTime();
+		
+		
+		
+		serviceImpl.create(name, beschreibung, materialBezeichnung, erstellungsZeit);
 		
 	}}
 	
