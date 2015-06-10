@@ -1,8 +1,10 @@
 package de.hdm.it04.client.service;
 
-import java.sql.Timestamp;
+import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+
+import de.hdm.it04.shared.Bauteil;
 
 public interface It04gwtServiceAsync {
 
@@ -12,5 +14,7 @@ public interface It04gwtServiceAsync {
 	
 		void getBauteil(int id, AsyncCallback callback);
 		
-		void create(String name, String beschreibung, String materialBezeichnung, Long erstellungsZeit, AsyncCallback callback);
+		void create(Bauteil bt, AsyncCallback callback);
+		
+		void getAll(AsyncCallback<Vector<Bauteil>> callback);
 }

@@ -1,8 +1,11 @@
 package de.hdm.it04.server.db;
 
 import java.sql.*;
+import java.util.Vector;
 
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.VectorSerializable;
+
 
 
 
@@ -43,7 +46,7 @@ public class BauteilMapper {
 	   // Statement ausf�llen und als Query an die DB schicken
 	   
 	   
-	   ResultSet rs = stmt.executeQuery("SELECT id, name, aenderungsZeit, erstellungsZeit, materialBezeichnung, beschreibung FROM bauteil "
+	   ResultSet rs = stmt.executeQuery("SELECT id, name FROM bauteil "
 	   + "WHERE id=" + id);
 	   /*
 	   * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
@@ -57,10 +60,6 @@ public class BauteilMapper {
 	   Bauteil bt = new Bauteil();
 	   bt.setId(rs.getInt("id"));
 	   bt.setName(rs.getString("name"));
-	   bt.setAenderungsZeit(rs.getTimestamp("aenderungsZeit"));
-	   bt.setErstellungsZeit(rs.getLong("erstellungsZeit"));
-	   bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
-	   bt.setBeschreibung(rs.getString("beschreibung"));
 	   
 	   return bt;
 	   }
@@ -99,17 +98,11 @@ public class BauteilMapper {
 	         stmt = con.createStatement();
 
 	         // Jetzt erst erfolgt die tats�chliche Einf�geoperation
-	         stmt.executeUpdate("INSERT INTO bauteil (id, name, erstellungsZeit, materialBezeichnung, beschreibung) "
+	         stmt.executeUpdate("INSERT INTO bauteil (id, name) "
 	             + "VALUES ("
 	         	+ bt.getId()
 	         	+ ",'" 
 	         	+ bt.getName()
-	         	+ ","
-	         	+ bt.getErstellungsZeit()
-	         	+ ","
-	         	+ bt.getMaterialBezeichnung()
-	         	+ ","
-	         	+ bt.getBeschreibung()
 	         	+ "')");
 	       }
 	     }
@@ -127,6 +120,41 @@ public class BauteilMapper {
 	      * dass sich das Objekt evtl. im Laufe der Methode ver�ndert hat.
 	      */
 	     return bt; }
+   
+   
+   
+   public Vector<Bauteil> findAll() {
+	    Connection con = DbConnection.connection();
+
+	    // Ergebnisvektor vorbereiten
+	    Vector<Bauteil> result = new Vector<Bauteil>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("SELECT id, name FROM bauteil "
+	          + " ORDER BY id");
+
+	      // Für jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt erstellt.
+	      while (rs.next()) {
+	        Bauteil bt = new Bauteil();
+	        bt.setId(rs.getInt("id"));
+	        bt.setName(rs.getString("name"));
+
+	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+	        result.addElement(bt);
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    // Ergebnisvektor zurückgeben
+	    return result;
+	  }
+	  
+	  
+
    
    
    

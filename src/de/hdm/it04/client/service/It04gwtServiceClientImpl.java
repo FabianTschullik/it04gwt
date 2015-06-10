@@ -2,11 +2,14 @@ package de.hdm.it04.client.service;
 
 
 
-import java.sql.Timestamp;
+
+import java.util.Vector;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+
+
 
 
 
@@ -47,12 +50,17 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 		
 	}
 	
-	
-	
-	
-	public void create(String name, String beschreibung, String materialBezeichnung, Long erstellungsZeit){
+	public void getAll(){
 		
-		this.service.create(name, beschreibung, materialBezeichnung, erstellungsZeit, new DefaultCallback2());
+		this.service.getAll(new DefaultCallback());
+	}
+	
+	
+	
+	
+	public void create(Bauteil bt){
+		
+		this.service.create(bt, new DefaultCallback2());
 	}
 	
 	
@@ -123,17 +131,49 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 		}
 		
 		
+		 private class DefaultCallback3 implements AsyncCallback<Vector<Bauteil>> {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				maingui.showError();
+				
+			}
+
+			@Override
+			public void onSuccess(Vector<Bauteil> result) {     ///Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
+				System.out.println("R�ckmeldung vom Server erhalten");
+				if(result instanceof Vector) {
+					
+					Vector<Bauteil> bauteile = new Vector<Bauteil>();
+					
+					bauteile = (Vector<Bauteil>) result;
+					
+					for 
+					( int j=0; j < bauteile.size(); j++ ){
+					      System.out.println( j + ": " + bauteile.elementAt(j) );
+					}
+					
+					
+				}									
+				
+				else {
+					
+					//maingui.showError();
+				}
+				
+			}
+
+			
+			
+		
+		
 		
 	}
 	
 	
 	
 	
-		
-		
-		
-		
-	}
+}}
 
 
 

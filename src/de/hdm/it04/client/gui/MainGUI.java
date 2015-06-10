@@ -3,7 +3,8 @@ package de.hdm.it04.client.gui;
 
 
 
-import java.sql.Timestamp;
+
+import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -13,6 +14,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
 
 
 
@@ -32,8 +34,7 @@ private TextBox insertname;
 private Label resultlbl;
 private Label resultid;
 private Label erfolg;
-private TextBox insertbeschreibung;
-private TextBox insertmaterialBezeichnung;
+
 
 
 
@@ -72,12 +73,6 @@ public MainGUI(It04gwtServiceClientImpl serviceImpl) {
 	this.insertname = new TextBox();
 	this.vPanel.add(insertname);
 	
-	this.insertbeschreibung = new TextBox();
-	this.vPanel.add(insertbeschreibung);
-	
-	this.insertmaterialBezeichnung = new TextBox();
-	this.vPanel.add(insertmaterialBezeichnung);
-	
 	
 	
 	
@@ -85,6 +80,10 @@ public MainGUI(It04gwtServiceClientImpl serviceImpl) {
 	Button btn2 = new Button("Speichern");
 	btn2.addClickHandler(new Btn2ClickHandler());
 	this.vPanel.add(btn2);
+	
+	Button btn3 = new Button("Alle Bauteile anzeigen");
+	btn3.addClickHandler(new Btn3ClickHandler());
+	this.vPanel.add(btn3);
 	
 	
 
@@ -155,20 +154,27 @@ private class Btn1ClickHandler implements ClickHandler {
 	
 	public void onClick(ClickEvent event) {
 		
-		Timestamp aktuelleZeit = null;
 		
 		
+		String name = insertname.getText();	
 		
-		String name = insertname.getText();
-		String beschreibung = insertbeschreibung.getText();
-		String materialBezeichnung = insertmaterialBezeichnung.getText();
-		Long erstellungsZeit = aktuelleZeit.getTime();
-		
+		Bauteil bt = new Bauteil();
+		bt.setName(name);
 		
 		
-		serviceImpl.create(name, beschreibung, materialBezeichnung, erstellungsZeit);
+		serviceImpl.create(bt);
 		
 	}}
+	
+	 private class Btn3ClickHandler implements ClickHandler{
+		
+		
+		public void onClick(ClickEvent event) {
+			
+				serviceImpl.getAll();
+		}}
+	
+	
 	
 	}
 

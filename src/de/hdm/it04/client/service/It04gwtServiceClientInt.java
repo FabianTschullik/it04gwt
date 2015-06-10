@@ -1,11 +1,13 @@
 package de.hdm.it04.client.service;
 
-import java.sql.Timestamp;
+
+import de.hdm.it04.shared.Bauteil;
 
 public interface It04gwtServiceClientInt {
 	
 	void getBauteil(int id);
-	void create(String name, String beschreibung, String materialBezeichnung, Long erstellungsZeit);
+	void create(Bauteil bt);
+	void getAll();
 
 
 

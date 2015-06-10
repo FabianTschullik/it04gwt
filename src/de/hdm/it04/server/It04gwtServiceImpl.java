@@ -7,6 +7,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.server.db.BauteilMapper;
 import de.hdm.it04.shared.Bauteil;
+import java.util.Vector;
 
 
 
@@ -32,19 +33,21 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements It04gwtS
 		
 	}
 	
-	public Bauteil create(String name, String beschreibung, String materialBezeichnung, Long erstellungsZeit){
+	public Bauteil create(Bauteil bt){
 	
-	Bauteil bt = new Bauteil();
-	
-	bt.setName(name);
-	bt.setBeschreibung(beschreibung);
-	bt.setMaterialBezeichnung(materialBezeichnung);
-	bt.setErstellungsZeit(erstellungsZeit);
-	bt.setBeschreibung(beschreibung);
 	bt = BauteilMapper.bauteilMapper().insert(bt);
 	
 	return bt;
 	}
+	
+	
+	public Vector<Bauteil> getAll() {
+			
+	return BauteilMapper.bauteilMapper().findAll();
+	}
+
+
+	
 	
 	
 	
