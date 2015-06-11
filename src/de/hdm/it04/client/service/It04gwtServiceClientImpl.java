@@ -140,17 +140,6 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 							
 							maingui.showAllBauteile(bauteile);
 							
-							/*
-							for(int j=0; j < bauteile.size(); j++ ){
-								
-								maingui.GetAllError();
-								System.out.println( j + ": " + bauteile.elementAt(j) );
-							}	
-						}									
-						else{
-							//maingui.GetAllError();
-						}
-						*/
 				}			
 			}	
 		}

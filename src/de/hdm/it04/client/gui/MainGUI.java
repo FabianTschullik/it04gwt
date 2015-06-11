@@ -198,9 +198,13 @@ private class Btn1ClickHandler implements ClickHandler {
 		
 		
 		String name = insertname.getText();	
+		String beschreibung = insertBeschreibung.getText();
+		String materialBezeichnung = insertMaterialBezeichnung.getText();
 		
 		Bauteil bt = new Bauteil();
 		bt.setName(name);
+		bt.setBeschreibung(beschreibung);
+		bt.setMaterialBezeichnung(materialBezeichnung);
 		
 		
 		serviceImpl.create(bt);
