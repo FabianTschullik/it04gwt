@@ -17,6 +17,7 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 
 
+
 import de.hdm.it04.client.gui.MainGUI;
 import de.hdm.it04.shared.Bauteil;
 
@@ -34,146 +35,118 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 	}
 	
 	
-	
-	
-	
 	//auf diese Methoden greift das gui zu. ClientImpl gibt das weiter an Service und Async
 
-
-	
-	
-	
+	//Hier bekommt man ein Bauteil mit einer bestimmten ID zurück
 	public void getBauteil(int id){
-		
-		this.service.getBauteil(id, new DefaultCallback());
-		
-		
+		this.service.getBauteil(id, new GetBauteilCallback());
 	}
 	
+	
+	//Hier bekommt man alle erzeugten Bauteile als Vektor zurück
 	public void getAll(){
-		
-		this.service.getAll(new DefaultCallback());
+		this.service.getAll(new GetAllCallback());
 	}
 	
 	
-	
-	
+	//Hier kann man ein Bauteil erzeugen
 	public void create(Bauteil bt){
-		
-		this.service.create(bt, new DefaultCallback2());
+		this.service.create(bt, new CreateBauteilCallback());
 	}
 	
 	
 	public MainGUI getMainGUI() {
-		
 		return this.maingui;
 	}
 	
 	
-	//wenn was vom server zur�ck kommt, dann:
 	
-	private class DefaultCallback implements AsyncCallback {
-
+	
+	
+	
+	
+	
+	//Klasse Callback
+		public class GetBauteilCallback implements AsyncCallback {
+				
+		//Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt 
 		@Override
-		public void onFailure(Throwable caught) {
-			maingui.showError();
-			
+		public void onFailure(Throwable caught){
+					maingui.showError();
 		}
 
-		@Override
-		public void onSuccess(Object result) {     ///Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
-			System.out.println("R�ckmeldung vom Server erhalten");
-			if(result instanceof Bauteil) {
-				Bauteil bt = (Bauteil) result;
-				
-				maingui.showBauteil(bt);
-			}
-			
-			else {
-				
-				maingui.showError();
-			}
-			
-		}
-		
-		
-		
-	}
-	
-	
-	
-
-	
-	
-	private class DefaultCallback2 implements AsyncCallback {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			maingui.showError();
-			
-		}
-
-		@Override
-		public void onSuccess(Object result) {     ///Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
-			System.out.println("R�ckmeldung vom Server erhalten");
-			if(result instanceof Bauteil) {
-				Bauteil bt = (Bauteil) result;
-				
-				maingui.showSucess();
-				maingui.showBauteil(bt);
-			}
-			
-			else {
-				
-				maingui.showError();
-			}
-			
-		}
-		
-		
-		 private class DefaultCallback3 implements AsyncCallback<Vector<Bauteil>> {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				maingui.showError();
-				
-			}
-
-			@Override
-			public void onSuccess(Vector<Bauteil> result) {     ///Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
-				System.out.println("R�ckmeldung vom Server erhalten");
-				if(result instanceof Vector) {
+				@Override
+				public void onSuccess(Object result) { 
+					//Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
+					System.out.println("R�ckmeldung vom Server erhalten");
 					
-					Vector<Bauteil> bauteile = new Vector<Bauteil>();
+					if(result instanceof Bauteil){
+						Bauteil bt = (Bauteil) result;
+						maingui.showBauteil(bt);
+					}
+					else{
+						maingui.showError();
+					}	
+				}
+			}
+			
+			
+			private class CreateBauteilCallback implements AsyncCallback {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					maingui.showError();
 					
-					bauteile = (Vector<Bauteil>) result;
-					
-					for 
-					( int j=0; j < bauteile.size(); j++ ){
-					      System.out.println( j + ": " + bauteile.elementAt(j) );
+				}
+
+				@Override
+				public void onSuccess(Object result) {     ///Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
+					System.out.println("R�ckmeldung vom Server erhalten");
+					if(result instanceof Bauteil) {
+						Bauteil bt = (Bauteil) result;
+						
+						maingui.showSucess();
+						maingui.showBauteil(bt);
 					}
 					
+					else {
+						
+						maingui.showError();
+					}
 					
-				}									
-				
-				else {
-					
-					//maingui.showError();
 				}
+			}
 				
+				
+			private class GetAllCallback implements AsyncCallback<Vector<Bauteil>> {
+
+			@Override
+			public void onFailure(Throwable caught){
+				maingui.showError();	
 			}
 
-			
-			
+			@Override
+			public void onSuccess(Vector<Bauteil> result) {
+				
+				//Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
+				System.out.println("R�ckmeldung vom Server erhalten");
+				
+						if(result instanceof Vector) {
+							Vector<Bauteil> bauteile = new Vector<Bauteil>();
+							bauteile = (Vector<Bauteil>) result;
+							
+							for(int j=0; j < bauteile.size(); j++ ){
+							  System.out.println( j + ": " + bauteile.elementAt(j) );
+							}	
+						}									
+						else{
+							//maingui.showError();
+						}
+				}			
+			}
+	
 		
-		
-		
-	}
-	
-	
-	
-	
-}}
+}
 
 
 

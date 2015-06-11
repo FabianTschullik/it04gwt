@@ -1,10 +1,11 @@
 package de.hdm.it04.server.db;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Vector;
-
 import de.hdm.it04.shared.Bauteil;
-import de.hdm.it04.shared.VectorSerializable;
 
 
 
