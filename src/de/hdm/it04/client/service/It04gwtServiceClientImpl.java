@@ -122,30 +122,38 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 
 			@Override
 			public void onFailure(Throwable caught){
-				maingui.showError();	
+				//maingui.GetAllError();	
 			}
 
 			@Override
 			public void onSuccess(Vector<Bauteil> result) {
 				
+				
+				
 				//Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
 				System.out.println("R�ckmeldung vom Server erhalten");
 				
 						if(result instanceof Vector) {
+							
 							Vector<Bauteil> bauteile = new Vector<Bauteil>();
 							bauteile = (Vector<Bauteil>) result;
 							
+							maingui.showAllBauteile(bauteile);
+							
+							/*
 							for(int j=0; j < bauteile.size(); j++ ){
-							  System.out.println( j + ": " + bauteile.elementAt(j) );
+								
+								maingui.GetAllError();
+								System.out.println( j + ": " + bauteile.elementAt(j) );
 							}	
 						}									
 						else{
-							//maingui.showError();
+							//maingui.GetAllError();
 						}
+						*/
 				}			
-			}
-	
-		
+			}	
+		}
 }
 
 

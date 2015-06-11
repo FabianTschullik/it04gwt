@@ -11,9 +11,11 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
 
 
 
@@ -34,6 +36,8 @@ private TextBox insertname;
 private Label resultlbl;
 private Label resultid;
 private Label erfolg;
+private Label getAllError;
+private FlexTable bauteileTable;
 
 
 
@@ -62,6 +66,8 @@ public MainGUI(It04gwtServiceClientImpl serviceImpl) {
 	
 	this.resultid = new Label("Hier wird ID stehen");
 	this.vPanel.add(resultid);
+	
+	
 
 	
 	
@@ -72,6 +78,7 @@ public MainGUI(It04gwtServiceClientImpl serviceImpl) {
 	
 	this.insertname = new TextBox();
 	this.vPanel.add(insertname);
+	
 	
 	
 	
@@ -108,6 +115,14 @@ public void showBauteil(Bauteil bt) {
 
 public void showError() {
 	this.vPanel.add(dBox);
+	
+}
+
+public void GetAllError() {
+	
+	
+	this.getAllError = new Label("Get All hat nicht funktioniert!");
+	this.vPanel.add(getAllError);
 	
 }
 
@@ -173,10 +188,45 @@ private class Btn1ClickHandler implements ClickHandler {
 			
 				serviceImpl.getAll();
 		}}
+
 	
-	
-	
+	 //Methode um alle Bauteile anzeigen zu lassen in einer FlexTable
+	 public void showAllBauteile(Vector<Bauteil> bauteile) {
+		
+		//Objekt der Klasse FlexTable erstellen und mit Spaltenüberschriften belegen
+		this.bauteileTable = new FlexTable();
+		bauteileTable.setText(0,0,"ID");
+		bauteileTable.setText(0,1,"Name");
+		bauteileTable.setText(0,2,"Beschreibung");
+		bauteileTable.setText(0,3,"Bezeichnung");
+		/*
+		bauteileTable.setText(0,4,"Erstellt am");
+		bauteileTable.setText(0,5,"Zuletzt geaendert am");
+		bauteileTable.setText(0,6,"letzter Bearbeiter");
+		bauteileTable.setText(0,7,"Edit");
+		bauteileTable.setText(0,8,"Delete");
+		*/
+		
+		
+		//Für jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
+		for(int j=0; j < bauteile.size(); j++ ){
+			
+			bauteileTable.setText(j+1, 0, Integer.toString(bauteile.elementAt(j).getId()));
+			bauteileTable.setText(j+1, 1, bauteile.elementAt(j).getName());
+			bauteileTable.setText(j+1, 2, bauteile.elementAt(j).getBeschreibung());
+			bauteileTable.setText(j+1, 3, bauteile.elementAt(j).getMaterialBezeichnung());
+			
+			//Verknüpfung zu style.css damit die Tabelle richtig geilo aussieht!
+			bauteileTable.setCellPadding(6);
+			bauteileTable.getCellFormatter().addStyleName(0,1, "watchlistHeader");
+			bauteileTable.getCellFormatter().addStyleName(0,2, "watchlistNumericColumn");
+			bauteileTable.getCellFormatter().addStyleName(0,3, "watchlistNumericColumn");	
+		}	
+		
+		//Bauteil-Tabelle zum Panel hinzugefügt damit das Ganze auch angezeigt wird 
+		this.vPanel.add(bauteileTable);
 	}
+}
 
 
 
