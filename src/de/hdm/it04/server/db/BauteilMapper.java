@@ -8,12 +8,6 @@ import java.util.Vector;
 import de.hdm.it04.shared.Bauteil;
 
 
-
-
-
-
-
-
 public class BauteilMapper {
 
   
@@ -47,7 +41,7 @@ public class BauteilMapper {
 	   // Statement ausf�llen und als Query an die DB schicken
 	   
 	   
-	   ResultSet rs = stmt.executeQuery("SELECT id, name FROM bauteil "
+	   ResultSet rs = stmt.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
 	   + "WHERE id=" + id);
 	   /*
 	   * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
@@ -61,6 +55,10 @@ public class BauteilMapper {
 	   Bauteil bt = new Bauteil();
 	   bt.setId(rs.getInt("id"));
 	   bt.setName(rs.getString("name"));
+	   bt.setBeschreibung(rs.getString("beschreibung"));
+       bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
+       bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+       bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 	   
 	   return bt;
 	   }
@@ -99,11 +97,19 @@ public class BauteilMapper {
 	         stmt = con.createStatement();
 
 	         // Jetzt erst erfolgt die tats�chliche Einf�geoperation
-	         stmt.executeUpdate("INSERT INTO bauteil (id, name) "
+	         stmt.executeUpdate("INSERT INTO bauteil (id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum) "
 	             + "VALUES ("
 	         	+ bt.getId()
 	         	+ ",'" 
 	         	+ bt.getName()
+	         	+ ",'" 
+	         	+ bt.getBeschreibung()
+	         	+ ",'" 
+	         	+ bt.getMaterialBezeichnung()
+	         	+ ",'" 
+	         	+ "CURRENT_TIMESTAMP"
+	         	+ ",'" 
+	         	+ "CURRENT_TIMESTAMP"
 	         	+ "')");
 	       }
 	     }
@@ -133,7 +139,7 @@ public class BauteilMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT id, name FROM bauteil "
+	      ResultSet rs = stmt.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
 	          + " ORDER BY id");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt erstellt.
@@ -141,6 +147,10 @@ public class BauteilMapper {
 	        Bauteil bt = new Bauteil();
 	        bt.setId(rs.getInt("id"));
 	        bt.setName(rs.getString("name"));
+	        bt.setBeschreibung(rs.getString("beschreibung"));
+	        bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
+	        bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+	        bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
 	        result.addElement(bt);

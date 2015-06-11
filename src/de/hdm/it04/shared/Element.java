@@ -2,13 +2,11 @@ package de.hdm.it04.shared;
 
 public class Element extends BusinessObject{
 	
+	//Variablendeklarationen
+	private String name;
+	private String beschreibung;
 
-	
-private String name;
-
-private String beschreibung;
-	
-
+	//getter setter Methoden
 	public String getName() {
 		return name;
 	}

@@ -66,7 +66,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 	
 	
 	
-	//Klasse Callback
+		//Klasse Callback
 		public class GetBauteilCallback implements AsyncCallback {
 				
 		//Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt 

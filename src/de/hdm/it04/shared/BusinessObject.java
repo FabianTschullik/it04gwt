@@ -1,21 +1,17 @@
 package de.hdm.it04.shared;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
-
-import com.google.api.server.spi.types.DateAndTime;
 
 public abstract class  BusinessObject implements Serializable {
 	
-	private Long  erstellungsZeit;
-	private Timestamp aenderungsZeit;
-
-
-private int id;
+	//Variablendeklarationen
+	private int id;
+	private Timestamp erstellungsDatum;
+	private Timestamp aenderungsDatum;
 	
 	
-
+	//getter setter Methoden
 	/**
 	 * @return the id
 	 */
@@ -30,20 +26,21 @@ private int id;
 		this.id = id;
 	}
 
-	public Long getErstellungsZeit() {
-		return erstellungsZeit;
+	public Timestamp getErstellungsDatum() {
+		
+		return erstellungsDatum;
 	}
 
-	public void setErstellungsZeit(Long erstellungsZeit) {
-		this.erstellungsZeit = erstellungsZeit;
+	public void setErstellungsDatum(Timestamp erstellungsDatum) {
+		this.erstellungsDatum = erstellungsDatum;
 	}
 
-	public Timestamp getAenderungsZeit() {
-		return aenderungsZeit;
+	public Timestamp getAenderungsDatum() {
+		return aenderungsDatum;
 	}
 
-	public void setAenderungsZeit(Timestamp aenderungsZeit) {
-		this.aenderungsZeit = aenderungsZeit;
+	public void setAenderungsDatum(Timestamp aenderungsDatum) {
+		this.aenderungsDatum = aenderungsDatum;
 	}
 }
 

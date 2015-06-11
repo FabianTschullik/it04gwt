@@ -33,6 +33,14 @@ public class MainGUI extends Composite {
 private VerticalPanel vPanel = new VerticalPanel();
 private TextBox txt1;
 private TextBox insertname;
+private TextBox insertBeschreibung;
+private TextBox insertMaterialBezeichnung;
+
+private Label lblinsertname;
+private Label lblinsertBeschreibung;
+private Label lblinsertMaterialBezeichnung;
+
+
 private Label resultlbl;
 private Label resultid;
 private Label erfolg;
@@ -76,8 +84,26 @@ public MainGUI(It04gwtServiceClientImpl serviceImpl) {
 	this.dBox.setTitle("Achtung");
 	this.dBox.setText("Bauteil wurde nicht gefunden");
 	
+	
+	
+	
+	
+	
+	this.lblinsertname = new Label("Name");
+	this.vPanel.add(lblinsertname);
 	this.insertname = new TextBox();
 	this.vPanel.add(insertname);
+	
+	
+	this.lblinsertBeschreibung = new Label("Beschreibung");
+	this.vPanel.add(lblinsertBeschreibung);
+	this.insertBeschreibung = new TextBox();
+	this.vPanel.add(insertBeschreibung);
+	
+	this.lblinsertMaterialBezeichnung = new Label("Materialbezeichnung");
+	this.vPanel.add(lblinsertMaterialBezeichnung);
+	this.insertMaterialBezeichnung = new TextBox();
+	this.vPanel.add(insertMaterialBezeichnung);
 	
 	
 	
