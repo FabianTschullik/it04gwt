@@ -164,7 +164,7 @@ public class BauteilMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT id, name, beschreibung, materialBezeichnung FROM bauteil "
+	      ResultSet rs = stmt.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
 	          + " ORDER BY id");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt erstellt.
@@ -174,8 +174,8 @@ public class BauteilMapper {
 	        bt.setName(rs.getString("name"));
 	        bt.setBeschreibung(rs.getString("beschreibung"));
 	        bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
-	       // bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
-	       // bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+	        bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+	        bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
 	        result.addElement(bt);

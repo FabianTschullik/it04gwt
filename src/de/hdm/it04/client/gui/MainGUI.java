@@ -4,10 +4,17 @@ package de.hdm.it04.client.gui;
 
 
 
+import java.util.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
+
+
+
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -15,6 +22,10 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+
+
+
 
 
 
@@ -228,29 +239,47 @@ private class Btn1ClickHandler implements ClickHandler {
 		bauteileTable.setText(0,0,"ID");
 		bauteileTable.setText(0,1,"Name");
 		bauteileTable.setText(0,2,"Beschreibung");
-		bauteileTable.setText(0,3,"Bezeichnung");
-		/*
+		bauteileTable.setText(0,3,"Bezeichnung");	
 		bauteileTable.setText(0,4,"Erstellt am");
 		bauteileTable.setText(0,5,"Zuletzt geaendert am");
 		bauteileTable.setText(0,6,"letzter Bearbeiter");
 		bauteileTable.setText(0,7,"Edit");
 		bauteileTable.setText(0,8,"Delete");
-		*/
+		
 		
 		
 		//Für jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
 		for(int j=0; j < bauteile.size(); j++ ){
 			
+			
+			//Formatiert Timestamp zu String
+			Date d1 = new Date();
+			d1 = bauteile.elementAt(j).getErstellungsDatum();
+			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
+			
+			//Formatiert Timestamp zu String
+			Date d2 = new Date();
+			d2 = bauteile.elementAt(j).getAenderungsDatum();
+			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
+			
+		
+			
+			
 			bauteileTable.setText(j+1, 0, Integer.toString(bauteile.elementAt(j).getId()));
 			bauteileTable.setText(j+1, 1, bauteile.elementAt(j).getName());
 			bauteileTable.setText(j+1, 2, bauteile.elementAt(j).getBeschreibung());
 			bauteileTable.setText(j+1, 3, bauteile.elementAt(j).getMaterialBezeichnung());
+			bauteileTable.setText(j+1, 4, s1);
+			bauteileTable.setText(j+1, 5, s2);
+			
+			
+			
 			
 			//Verknüpfung zu style.css damit die Tabelle richtig geilo aussieht!
 			bauteileTable.setCellPadding(6);
-			bauteileTable.getCellFormatter().addStyleName(0,1, "watchlistHeader");
-			bauteileTable.getCellFormatter().addStyleName(0,2, "watchlistNumericColumn");
-			bauteileTable.getCellFormatter().addStyleName(0,3, "watchlistNumericColumn");	
+			bauteileTable.getRowFormatter().addStyleName(0,  "watchListHeader");
+			bauteileTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+			bauteileTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
 		}	
 		
 		//Bauteil-Tabelle zum Panel hinzugefügt damit das Ganze auch angezeigt wird 
