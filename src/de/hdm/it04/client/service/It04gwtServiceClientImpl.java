@@ -73,6 +73,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 		@Override
 		public void onFailure(Throwable caught){
 					maingui.showError();
+					
 		}
 
 				@Override
