@@ -1,10 +1,24 @@
 package de.hdm.it04.server.db;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+import java.sql.Timestamp;
+
+
+
+
+
+
+
+
+
+
+
+
 import de.hdm.it04.shared.Bauteil;
 
 
@@ -95,9 +109,20 @@ public class BauteilMapper {
 	         bt.setId(rs.getInt("maxid") + 1);
 
 	         stmt = con.createStatement();
-
+	         
+	        
+	         
+	    
+	        
+	        
+	         //Aktuelle Zeit für Timestamp erstellungsDatum, aenderungsDatum holen
+	       
+	        Date date = new Date();     
+	        new Timestamp(date.getTime());
+	         
+	       
 	         // Jetzt erst erfolgt die tatsï¿½chliche Einfï¿½geoperation
-	         stmt.executeUpdate("INSERT INTO bauteil (id, name, beschreibung, materialBezeichnung) "
+	         stmt.executeUpdate("INSERT INTO bauteil (id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum) "
 	             + "VALUES ("
 	         	+ bt.getId()
 	         	+ ",'" 
@@ -105,7 +130,11 @@ public class BauteilMapper {
 	         	+ "','" 
 	         	+ bt.getBeschreibung()
 	         	+ "','" 
-	         	+ bt.getMaterialBezeichnung()         	
+	         	+ bt.getMaterialBezeichnung() 
+	         	+ "','" 
+	         	+new Timestamp(date.getTime())
+	         	+ "','" 
+	         	+new Timestamp(date.getTime())
 	         	+ "')");
 	       }
 	     }
