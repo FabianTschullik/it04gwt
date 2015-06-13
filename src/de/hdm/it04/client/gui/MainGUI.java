@@ -24,6 +24,7 @@ import de.hdm.it04.shared.Bauteil;
 public class MainGUI extends Composite {
 	private VerticalPanel vPanel = new VerticalPanel();
 	private VerticalPanel vPanel2 = new VerticalPanel();
+	private VerticalPanel vPanel3 = new VerticalPanel();
 	private TextBox txt1;
 	private TextBox insertname;
 	private TextBox insertBeschreibung;
@@ -69,26 +70,26 @@ public class MainGUI extends Composite {
 
 		this.dBox = new DialogBox();
 		this.dBox.setTitle("Achtung");
-		this.dBox.setText("Bauteil wurde nicht gefunden");
+		this.dBox.setText("Zu Ihrer Suche wurden keine Daten gefunden.");
 
 		this.lblinsertname = new Label("Name");
-		//this.vPanel.add(lblinsertname);
+		this.vPanel3.add(lblinsertname);
 		this.insertname = new TextBox();
-		//this.vPanel.add(insertname);
+		this.vPanel3.add(insertname);
 
 		this.lblinsertBeschreibung = new Label("Beschreibung");
-		//this.vPanel.add(lblinsertBeschreibung);
+		this.vPanel3.add(lblinsertBeschreibung);
 		this.insertBeschreibung = new TextBox();
-		//this.vPanel.add(insertBeschreibung);
+		this.vPanel3.add(insertBeschreibung);
 
 		this.lblinsertMaterialBezeichnung = new Label("Materialbezeichnung");
-		//this.vPanel.add(lblinsertMaterialBezeichnung);
+		this.vPanel3.add(lblinsertMaterialBezeichnung);
 		this.insertMaterialBezeichnung = new TextBox();
-		//this.vPanel.add(insertMaterialBezeichnung);
+		this.vPanel3.add(insertMaterialBezeichnung);
 
 		Button btn2 = new Button("Speichern");
 		btn2.addClickHandler(new Btn2ClickHandler());
-		//this.vPanel.add(btn2);
+		this.vPanel3.add(btn2);
 
 		
 		
@@ -161,6 +162,7 @@ public class MainGUI extends Composite {
 		this.vPanel2.add(btn3);
 		
 		this.vPanel.add(vPanel2);
+		this.vPanel.add(vPanel3);
 		
 	}
 	
@@ -232,9 +234,11 @@ public class MainGUI extends Composite {
 
 	public void showError() {
 		
-		Window.alert("Zu Ihrer Suche wurden keine Daten gefunden.");
+		
+		this.vPanel2.add(dBox);
+		//Window.alert("Zu Ihrer Suche wurden keine Daten gefunden.");
 		//this.vPanel.clear();
-		serviceImpl.getAll();
+		//serviceImpl.getAll();
 	}
 
 	public void GetAllError() {
