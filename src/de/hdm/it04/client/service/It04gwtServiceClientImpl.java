@@ -42,6 +42,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 		this.service.getBauteil(id, new GetBauteilCallback());
 	}
 	
+	public void findByName(String name){
+		this.service.findByName(name, new GetBauteilCallback());
+	}
+	
 	
 	//Hier bekommt man alle erzeugten Bauteile als Vektor zurück
 	public void getAll(){

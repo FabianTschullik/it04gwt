@@ -8,6 +8,7 @@ public interface It04gwtServiceClientInt {
 	void getBauteil(int id);
 	void create(Bauteil bt);
 	void getAll();
+	void findByName(String name);
 
 
 

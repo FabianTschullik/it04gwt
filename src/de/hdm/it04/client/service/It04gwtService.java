@@ -28,5 +28,7 @@ public interface It04gwtService extends RemoteService {
 	
 	Vector<Bauteil> getAll();
 	
+	Bauteil findByName(String name);
+	
 
 }

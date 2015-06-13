@@ -115,7 +115,7 @@ public class BauteilMapper {
 	    
 	        
 	        
-	         //Aktuelle Zeit für Timestamp erstellungsDatum, aenderungsDatum holen
+	         //Aktuelle Zeit fï¿½r Timestamp erstellungsDatum, aenderungsDatum holen
 	       
 	        Date date = new Date();     
 	        new Timestamp(date.getTime());
@@ -189,6 +189,50 @@ public class BauteilMapper {
 	    return result;
 	  }
 	  
+   public Bauteil findByName(String name) {
+	 	  
+	   // DB-Verbindung holen
+	   Connection con = DbConnection.connection();
+	   
+	   try {
+	 	  
+	   // Leeres SQL-Statement (JDBC) anlegen
+	 	  
+	   Statement stmt = con.createStatement();
+	   
+	   // Statement ausfï¿½llen und als Query an die DB schicken
+	   
+	   
+	   ResultSet rs = stmt.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
+	   + "WHERE name=" + name);
+	   /*
+	   * Da id Primarschlï¿½ssel ist, kann max. nur ein Tupel zurï¿½ckgegeben
+	   * werden. Prï¿½fe, ob ein Ergebnis vorliegt.
+	   */
+	   
+	   if (rs.next()) {
+	 	  
+	   // Ergebnis-Tupel in Objekt umwandeln
+	 	  
+	   Bauteil bt = new Bauteil();
+	   bt.setId(rs.getInt("id"));
+	   bt.setName(rs.getString("name"));
+	   bt.setBeschreibung(rs.getString("beschreibung"));
+       bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
+       bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+       bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+	   
+	   return bt;
+	   }
+	   
+	   }
+	   catch (SQLException e2) {
+	   e2.printStackTrace();
+	   return null;
+	   }
+	   return null;
+	   }
+   
 	  
 
    

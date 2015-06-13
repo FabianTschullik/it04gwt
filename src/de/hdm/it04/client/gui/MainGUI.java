@@ -199,7 +199,6 @@ public class MainGUI extends Composite {
 					String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 					
 				
-					
 					int id = bt.getId();
 					findBauteilTable.setText(1, 0, new Integer(id).toString());
 					findBauteilTable.setText(1, 1, bt.getName());
@@ -261,9 +260,15 @@ public class MainGUI extends Composite {
 		public void onClick(ClickEvent event) {
 			vPanel2.clear();
 			String stringid = txt1.getText();
-			int id;
-			id = Integer.parseInt(stringid);
-			serviceImpl.getBauteil(id);
+			
+			if (stringid.matches(".*[1-9].*")){
+				int id;
+				id = Integer.parseInt(stringid);
+				serviceImpl.getBauteil(id);
+			}
+			else {
+				serviceImpl.findByName(stringid);
+			}
 
 		}
 	}
