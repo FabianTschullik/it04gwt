@@ -24,6 +24,14 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements It04gwtS
 		return bt;
 	}
 	
+	public Bauteil updateBauteil(Bauteil bt){
+		
+		bt = BauteilMapper.bauteilMapper().update(bt);
+		
+		
+		return bt;
+	}
+	
 	public Bauteil findByName(String name){
 		
 		Bauteil bt = new Bauteil();

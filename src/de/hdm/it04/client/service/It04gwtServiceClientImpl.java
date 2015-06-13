@@ -46,6 +46,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 		this.service.findByName(name, new GetBauteilCallback());
 	}
 	
+	public void updateBauteil(Bauteil bt){
+		this.service.updateBauteil(bt, new UpdateBauteilCallback());
+	}
+	
 	
 	//Hier bekommt man alle erzeugten Bauteile als Vektor zurück
 	public void getAll(){
@@ -148,6 +152,33 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 				}			
 			}	
 		}
+			
+			
+			private class UpdateBauteilCallback implements AsyncCallback {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					maingui.showError();
+					
+				}
+
+				@Override
+				public void onSuccess(Object result) {     ///Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
+					System.out.println("R�ckmeldung vom Server erhalten");
+					if(result instanceof Bauteil) {
+						Bauteil bt = (Bauteil) result;
+						
+						maingui.showSucess();
+						maingui.showBauteil(bt);
+					}
+					
+					else {
+						
+						maingui.showError();
+					}
+					
+				}
+			}
 }
 
 

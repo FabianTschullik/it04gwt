@@ -19,7 +19,9 @@ import java.sql.Timestamp;
 
 
 
+
 import de.hdm.it04.shared.Bauteil;
+
 
 
 public class BauteilMapper {
@@ -233,6 +235,30 @@ public class BauteilMapper {
 	   return null;
 	   }
    
+   public Bauteil update(Bauteil bt) {
+	   
+	    Connection con = DbConnection.connection();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      stmt.executeUpdate("UPDATE bauteil " 
+	      + "SET name= '" + bt.getName() + "', "
+	      + "beschreibung = '" + bt.getBeschreibung() + "', "
+	      + "materialBezeichnung" + bt.getMaterialBezeichnung() + "', "
+	      + "erstellungsDatum" + bt.getErstellungsDatum() + "', "
+	      + "aenderungsDatum" + bt.getAenderungsDatum() + "', "
+	          + "WHERE id=" + bt.getId());
+
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    // Um Analogie zu insert(Bauteil bt) zu wahren, geben wir bt zurück
+	    return bt;
+	  }
+
 	  
 
    
