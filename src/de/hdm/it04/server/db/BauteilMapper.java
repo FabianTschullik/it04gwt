@@ -204,7 +204,7 @@ public class BauteilMapper {
 	   
 	   
 	   ResultSet rs = stmt.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
-	   + "WHERE name=" + name);
+	   + "WHERE name=" + "'" + name + "'");
 	   /*
 	   * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
 	   * werden. Pr�fe, ob ein Ergebnis vorliegt.
