@@ -148,10 +148,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 					System.out.println("R�ckmeldung vom Server erhalten");
 					if(result instanceof String) {
 						
-						String delete = result.toString();
-						
-						
-						maingui.showMeldung(delete);
+						//String delete = result.toString();
+					
+						//maingui.showMeldung(delete);
 						
 					}
 					

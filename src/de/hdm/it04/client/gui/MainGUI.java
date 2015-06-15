@@ -123,7 +123,7 @@ public class MainGUI extends Composite {
 		//Für jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
 		for(int j=0; j < bauteile.size(); j++ ){
 			
-			Button deleteBtn = new Button("Loeschen");
+			Button deleteBtn = new Button("X");
 			deleteBtn.addClickHandler(new DeleteBtnClickHandler());
 			this.vPanel3.add(deleteBtn);
 			
@@ -151,9 +151,11 @@ public class MainGUI extends Composite {
 			bauteileTable.setText(j+1, 3, bauteile.elementAt(j).getMaterialBezeichnung());
 			bauteileTable.setText(j+1, 4, s1);
 			bauteileTable.setText(j+1, 5, s2);
-			bauteileTable.setWidget(j+1, 7, deleteBtn);
-			bauteileTable.setWidget(j+1,7, deleteBtn);
+
 			
+
+			bauteileTable.setWidget(j+1, 8, deleteBtn);
+			bauteileTable.setWidget(j+1, 8, editBtn);
 			
 			
 			
