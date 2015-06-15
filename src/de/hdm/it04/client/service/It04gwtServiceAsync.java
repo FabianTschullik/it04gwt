@@ -12,13 +12,13 @@ public interface It04gwtServiceAsync {
 	
 
 	
-		void getBauteil(int id, AsyncCallback callback);
+		void getBauteil(int id, AsyncCallback<Vector<Bauteil>> callback);
 		
 		void create(Bauteil bt, AsyncCallback callback);
 		
 		void getAll(AsyncCallback<Vector<Bauteil>> callback);
 		
-		void findByName(String name, AsyncCallback callback);
+		void findByName(String name, AsyncCallback<Vector<Bauteil>> callback);
 		
 		void updateBauteil(Bauteil bt, AsyncCallback callback);
 }

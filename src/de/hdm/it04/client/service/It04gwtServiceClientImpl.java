@@ -75,28 +75,31 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 	
 	
 		//Klasse Callback
-		public class GetBauteilCallback implements AsyncCallback {
+		public class GetBauteilCallback implements AsyncCallback<Vector<Bauteil>> {
 				
 		//Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt 
-		@Override
-		public void onFailure(Throwable caught){
-					maingui.showError();
-					
-		}
+			@Override
+			public void onFailure(Throwable caught){
+				//maingui.GetAllError();	
+			}
 
-				@Override
-				public void onSuccess(Object result) { 
-					//Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
-					System.out.println("R�ckmeldung vom Server erhalten");
-					
-					if(result instanceof Bauteil){
-						Bauteil bt = (Bauteil) result;
-						maingui.showBauteil(bt);
-					}
-					else{
-						maingui.showError();
-					}	
-				}
+			@Override
+			public void onSuccess(Vector<Bauteil> result) {
+				
+				
+				
+				//Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
+				System.out.println("R�ckmeldung vom Server erhalten");
+				
+						if(result instanceof Vector) {
+							
+							Vector<Bauteil> bauteile = new Vector<Bauteil>();
+							bauteile = (Vector<Bauteil>) result;
+							
+							maingui.showBauteil(bauteile);
+							
+				}			
+			}	
 			}
 			
 			
@@ -112,10 +115,12 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 				public void onSuccess(Object result) {     ///Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
 					System.out.println("R�ckmeldung vom Server erhalten");
 					if(result instanceof Bauteil) {
+						Vector<Bauteil> bauteile = new Vector<Bauteil>();
 						Bauteil bt = (Bauteil) result;
+						bauteile.add(bt);
 						
 						maingui.showSucess();
-						maingui.showBauteil(bt);
+						maingui.showBauteil(bauteile);
 					}
 					
 					else {
@@ -166,10 +171,13 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 				public void onSuccess(Object result) {     ///Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
 					System.out.println("R�ckmeldung vom Server erhalten");
 					if(result instanceof Bauteil) {
+						
+						Vector<Bauteil> bauteile = new Vector<Bauteil>();
 						Bauteil bt = (Bauteil) result;
+						bauteile.add(bt);
 						
 						maingui.showSucess();
-						maingui.showBauteil(bt);
+						maingui.showBauteil(bauteile);
 					}
 					
 					else {

@@ -43,10 +43,13 @@ public class BauteilMapper {
      }
   
  
-   public Bauteil findByKey(int id) {
+   public Vector<Bauteil> findByKey(int id) {
  	  
 	   // DB-Verbindung holen
 	   Connection con = DbConnection.connection();
+	   
+	   // Ergebnisvektor vorbereiten
+	    Vector<Bauteil> result = new Vector<Bauteil>();
 	   
 	   try {
 	 	  
@@ -75,8 +78,10 @@ public class BauteilMapper {
        bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
        bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
        bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+       
+       result.add(bt);
 	   
-	   return bt;
+	   return result;
 	   }
 	   
 	   }
@@ -191,10 +196,12 @@ public class BauteilMapper {
 	    return result;
 	  }
 	  
-   public Bauteil findByName(String name) {
+   public Vector<Bauteil> findByName(String name) {
 	 	  
 	   // DB-Verbindung holen
 	   Connection con = DbConnection.connection();
+	   
+	   Vector<Bauteil> result = new Vector<Bauteil>();
 	   
 	   try {
 	 	  
@@ -212,7 +219,7 @@ public class BauteilMapper {
 	   * werden. Pr�fe, ob ein Ergebnis vorliegt.
 	   */
 	   
-	   if (rs.next()) {
+	   while (rs.next()) {
 	 	  
 	   // Ergebnis-Tupel in Objekt umwandeln
 	 	  
@@ -223,16 +230,15 @@ public class BauteilMapper {
        bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
        bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
        bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
-	   
-	   return bt;
+       
+       result.add(bt);
 	   }
 	   
 	   }
 	   catch (SQLException e2) {
 	   e2.printStackTrace();
-	   return null;
 	   }
-	   return null;
+	   return result;
 	   }
    
    public Bauteil update(Bauteil bt) {

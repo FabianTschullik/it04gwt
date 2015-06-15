@@ -16,12 +16,9 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements It04gwtS
 	
 	private static final long serialVersionUID = 1L;
 
-	public Bauteil getBauteil(int id){
+	public Vector<Bauteil> getBauteil(int id){
 		
-		Bauteil bt = new Bauteil();
-		bt = BauteilMapper.bauteilMapper().findByKey(id);
-	
-		return bt;
+		return BauteilMapper.bauteilMapper().findByKey(id);
 	}
 	
 	public Bauteil updateBauteil(Bauteil bt){
@@ -32,12 +29,12 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements It04gwtS
 		return bt;
 	}
 	
-	public Bauteil findByName(String name){
+	public Vector<Bauteil> findByName(String name){
 		
 		Bauteil bt = new Bauteil();
-		bt = BauteilMapper.bauteilMapper().findByName(name);
-		
-		return bt;
+	
+	
+		return BauteilMapper.bauteilMapper().findByName(name);
 	}
 	
 	public Bauteil create(Bauteil bt){

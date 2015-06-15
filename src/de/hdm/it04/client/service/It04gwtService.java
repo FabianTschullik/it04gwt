@@ -22,7 +22,7 @@ public interface It04gwtService extends RemoteService {
 	
 
 	
-	Bauteil getBauteil(int id);
+	Vector<Bauteil> getBauteil(int id);
 
 	Bauteil create(Bauteil bt);
 	
@@ -30,7 +30,7 @@ public interface It04gwtService extends RemoteService {
 	
 	Vector<Bauteil> getAll();
 	
-	Bauteil findByName(String name);
+	Vector<Bauteil> findByName(String name);
 	
 
 }

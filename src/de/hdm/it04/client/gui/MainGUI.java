@@ -168,7 +168,7 @@ public class MainGUI extends Composite {
 	
 	
 
-	public void showBauteil(Bauteil bt) {
+	public void showBauteil(Vector<Bauteil> bauteile) {
 
 		
 		//Objekt der Klasse FlexTable erstellen und mit Spaltenüberschriften belegen
@@ -186,26 +186,27 @@ public class MainGUI extends Composite {
 				
 				
 				
-					
+				//Für jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
+				for(int j=0; j < bauteile.size(); j++ ){
 					
 					//Formatiert Timestamp zu String
 					Date d1 = new Date();
-					d1 = bt.getErstellungsDatum();
+					d1 = bauteile.elementAt(j).getErstellungsDatum();
 					String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
 					
 					//Formatiert Timestamp zu String
 					Date d2 = new Date();
-					d2 = bt.getAenderungsDatum();
+					d2 = bauteile.elementAt(j).getAenderungsDatum();
 					String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 					
 				
-					int id = bt.getId();
-					findBauteilTable.setText(1, 0, new Integer(id).toString());
-					findBauteilTable.setText(1, 1, bt.getName());
-					findBauteilTable.setText(1, 2, bt.getBeschreibung());
-					findBauteilTable.setText(1, 3, bt.getMaterialBezeichnung());
-					findBauteilTable.setText(1, 4, s1);
-					findBauteilTable.setText(1, 5, s2);
+					int id = bauteile.elementAt(j).getId();
+					findBauteilTable.setText(j+1, 0, new Integer(id).toString());
+					findBauteilTable.setText(j+1, 1, bauteile.elementAt(j).getName());
+					findBauteilTable.setText(j+1, 2, bauteile.elementAt(j).getBeschreibung());
+					findBauteilTable.setText(j+1, 3, bauteile.elementAt(j).getMaterialBezeichnung());
+					findBauteilTable.setText(j+1, 4, s1);
+					findBauteilTable.setText(j+1, 5, s2);
 					
 					
 					
@@ -219,16 +220,9 @@ public class MainGUI extends Composite {
 					
 				
 				//Bauteil-Tabelle zum Panel hinzugefügt damit das Ganze auch angezeigt wird 
-				this.vPanel2.add(findBauteilTable);	
+				this.vPanel2.add(findBauteilTable);
 				//this.vPanel.add(vPanel2);
-		
-		
-
-		
-		
-		
-		
-
+		}
 	}
 
 	public void showError() {
