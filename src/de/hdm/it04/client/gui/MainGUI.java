@@ -127,6 +127,10 @@ public class MainGUI extends Composite {
 			deleteBtn.addClickHandler(new DeleteBtnClickHandler());
 			this.vPanel3.add(deleteBtn);
 			
+			Button editBtn = new Button("Editieren");
+			editBtn.addClickHandler(new EditBtnClickHandler());
+			this.vPanel3.add(deleteBtn);
+			
 			
 			//Formatiert Timestamp zu String
 			Date d1 = new Date();
@@ -148,6 +152,7 @@ public class MainGUI extends Composite {
 			bauteileTable.setText(j+1, 4, s1);
 			bauteileTable.setText(j+1, 5, s2);
 			bauteileTable.setWidget(j+1, 7, deleteBtn);
+			bauteileTable.setWidget(j+1,7, deleteBtn);
 			
 			
 			
@@ -311,6 +316,16 @@ public class MainGUI extends Composite {
 			serviceImpl.delete(id);
 			vPanel2.clear();
 			serviceImpl.getAll();
+
+		}
+	}
+	
+	
+	private class EditBtnClickHandler implements ClickHandler {
+
+		public void onClick(ClickEvent event) {
+
+		
 
 		}
 	}
