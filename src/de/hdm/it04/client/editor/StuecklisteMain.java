@@ -30,7 +30,11 @@ public class StuecklisteMain extends Composite {
 		//vPanel um HPanel ergänzen
 		this.vPanel.add(hPanel);	
 		
-		//Anlegen der Buttons fürs Anzeigen, Editieren und Löschen
+		//Anlegen der Buttons fürs Anlegen, Anzeigen, Editieren und Löschen
+		Button AnlegenBtn1 = new Button("Neu");
+		AnlegenBtn1.addClickHandler(new AnlegenBtn1ClickHandler());
+		this.hPanelBtn.add(AnlegenBtn1);
+		
 		Button AnzeigenBtn1 = new Button("Anzeigen");
 		AnzeigenBtn1.addClickHandler(new AnzeigenBtn1ClickHandler());
 		this.hPanelBtn.add(AnzeigenBtn1);
@@ -69,6 +73,12 @@ public class StuecklisteMain extends Composite {
 		this.vPanelLeft.add(label6);
 	}
 	
+	public void openAnlegenStuecklisteMain() {
+		vPanel.clear();
+		AnlegenStuecklisteMain AnlegenStuecklisteMain = new AnlegenStuecklisteMain();
+		vPanel.add(AnlegenStuecklisteMain);
+	}
+	
 	public void openBearbeitenStuecklisteMain() {
 		vPanel.clear();
 		BearbeitenStuecklisteMain BearbeitenStuecklisteMain = new BearbeitenStuecklisteMain();
@@ -79,6 +89,14 @@ public class StuecklisteMain extends Composite {
 		vPanel.clear();
 		LoeschenStuecklisteMain LoeschenStuecklisteMain = new LoeschenStuecklisteMain();
 		vPanel.add(LoeschenStuecklisteMain);
+	}
+	
+	public class AnlegenBtn1ClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			openAnlegenStuecklisteMain();			
+		}	
 	}
 	
 	public class AnzeigenBtn1ClickHandler implements ClickHandler {
@@ -94,7 +112,7 @@ public class StuecklisteMain extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			openBearbeitenStuecklisteMain();
-			}
+		}
 	}
 	
 	public class LoeschenBtn1ClickHandler implements ClickHandler {
@@ -102,6 +120,6 @@ public class StuecklisteMain extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			openLoeschenStuecklisteMain();
-			}
+		}
 	}
 }
