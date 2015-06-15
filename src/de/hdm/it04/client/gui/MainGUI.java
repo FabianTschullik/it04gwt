@@ -303,6 +303,8 @@ public class MainGUI extends Composite {
 			bt.setMaterialBezeichnung(materialBezeichnung);
 
 			serviceImpl.create(bt);
+			vPanel2.clear();
+			serviceImpl.getAll();
 
 		}
 	}

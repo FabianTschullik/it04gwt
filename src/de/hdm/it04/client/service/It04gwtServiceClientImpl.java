@@ -123,7 +123,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 						Bauteil bt = (Bauteil) result;
 						bauteile.add(bt);
 						
-						maingui.showSucess();
+						//maingui.showSucess();
 						maingui.showBauteil(bauteile);
 					}
 					
@@ -207,7 +207,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 						Bauteil bt = (Bauteil) result;
 						bauteile.add(bt);
 						
-						maingui.showSucess();
+						//maingui.showSucess();
 						maingui.showBauteil(bauteile);
 					}
 					
