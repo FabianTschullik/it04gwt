@@ -155,7 +155,7 @@ public class MainGUI extends Composite {
 			
 
 			bauteileTable.setWidget(j+1, 8, deleteBtn);
-			bauteileTable.setWidget(j+1, 8, editBtn);
+			bauteileTable.setWidget(j+1, 7, editBtn);
 			
 			
 			
