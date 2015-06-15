@@ -16,6 +16,8 @@ public interface It04gwtServiceAsync {
 		
 		void create(Bauteil bt, AsyncCallback callback);
 		
+		void delete(int id, AsyncCallback callback);
+		
 		void getAll(AsyncCallback<Vector<Bauteil>> callback);
 		
 		void findByName(String name, AsyncCallback<Vector<Bauteil>> callback);

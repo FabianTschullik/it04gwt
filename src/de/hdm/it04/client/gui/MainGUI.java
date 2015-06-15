@@ -118,9 +118,14 @@ public class MainGUI extends Composite {
 		bauteileTable.setText(0,8,"Delete");
 		
 		
+
 		
 		//Für jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
 		for(int j=0; j < bauteile.size(); j++ ){
+			
+			Button deleteBtn = new Button("Loeschen");
+			deleteBtn.addClickHandler(new DeleteBtnClickHandler());
+			this.vPanel3.add(deleteBtn);
 			
 			
 			//Formatiert Timestamp zu String
@@ -142,7 +147,7 @@ public class MainGUI extends Composite {
 			bauteileTable.setText(j+1, 3, bauteile.elementAt(j).getMaterialBezeichnung());
 			bauteileTable.setText(j+1, 4, s1);
 			bauteileTable.setText(j+1, 5, s2);
-			//bauteileTable.setWidget(j+1, 7, new Button "X");
+			bauteileTable.setWidget(j+1, 7, deleteBtn);
 			
 			
 			
@@ -165,6 +170,8 @@ public class MainGUI extends Composite {
 		this.vPanel.add(vPanel3);
 		
 	}
+	
+	
 	
 	
 
@@ -247,6 +254,14 @@ public class MainGUI extends Composite {
 		this.vPanel.add(erfolg);
 
 	}
+	
+	public void showMeldung(String meldung) {
+
+		this.erfolg = new Label(meldung);
+		this.vPanel.add(erfolg);
+
+	}
+
 
 	private class Btn1ClickHandler implements ClickHandler {
 
@@ -281,6 +296,21 @@ public class MainGUI extends Composite {
 			bt.setMaterialBezeichnung(materialBezeichnung);
 
 			serviceImpl.create(bt);
+
+		}
+	}
+	
+	
+	private class DeleteBtnClickHandler implements ClickHandler {
+
+		public void onClick(ClickEvent event) {
+
+			int rowIndex = bauteileTable.getCellForEvent(event).getRowIndex();
+			int id = Integer.parseInt(bauteileTable.getText(rowIndex, 0));
+
+			serviceImpl.delete(id);
+			vPanel2.clear();
+			serviceImpl.getAll();
 
 		}
 	}

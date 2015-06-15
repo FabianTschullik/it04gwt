@@ -10,6 +10,7 @@ public interface It04gwtServiceClientInt {
 	void getAll();
 	void findByName(String name);
 	void updateBauteil(Bauteil bt);
+	void delete(int id);
 
 
 

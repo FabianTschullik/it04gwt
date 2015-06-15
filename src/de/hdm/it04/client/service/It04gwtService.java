@@ -26,6 +26,8 @@ public interface It04gwtService extends RemoteService {
 
 	Bauteil create(Bauteil bt);
 	
+	String delete(int id);
+	
 	Bauteil updateBauteil(Bauteil bt);
 	
 	Vector<Bauteil> getAll();

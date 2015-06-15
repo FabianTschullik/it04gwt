@@ -49,6 +49,12 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements It04gwtS
 			
 	return BauteilMapper.bauteilMapper().findAll();
 	}
+	
+	public String delete(int id) {
+		
+	return BauteilMapper.bauteilMapper().delete(id);
+		
+	}
 
 
 	

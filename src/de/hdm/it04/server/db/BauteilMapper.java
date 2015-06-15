@@ -264,6 +264,29 @@ public class BauteilMapper {
 	    // Um Analogie zu insert(Bauteil bt) zu wahren, geben wir bt zurück
 	    return bt;
 	  }
+   
+   
+   
+   public String delete(int id) {
+	   
+	   String ergebnis = "Bauteil wurde erfolgreich geloescht!";
+	   
+	    Connection con = DbConnection.connection();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      stmt.executeUpdate("DELETE FROM bauteil "
+	    		  + "WHERE id = " + id);
+
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+	    
+	    return ergebnis;
+	  }
+
 
 	  
 

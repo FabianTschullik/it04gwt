@@ -56,6 +56,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 		this.service.getAll(new GetAllCallback());
 	}
 	
+	public void delete(int id){
+		this.service.delete(id, new DeleteBauteilCallback());
+	}
+	
 	
 	//Hier kann man ein Bauteil erzeugen
 	public void create(Bauteil bt){
@@ -131,7 +135,35 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt{
 				}
 			}
 				
-				
+			private class DeleteBauteilCallback implements AsyncCallback {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					maingui.showError();
+					
+				}
+
+				@Override
+				public void onSuccess(Object result) {     ///Object result ent�hlt, was vom server zur�ck kommt  clientImpl updatet das GUI anschlie�end
+					System.out.println("R�ckmeldung vom Server erhalten");
+					if(result instanceof String) {
+						
+						String delete = result.toString();
+						
+						
+						maingui.showMeldung(delete);
+						
+					}
+					
+					else {
+						
+						maingui.showError();
+					}
+					
+				}
+			}	
+			
+			
 			private class GetAllCallback implements AsyncCallback<Vector<Bauteil>> {
 
 			@Override
