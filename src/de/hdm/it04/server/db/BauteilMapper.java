@@ -7,23 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 import java.sql.Timestamp;
-
-
-
-
-
-
-
-
-
-
-
-
-
 import de.hdm.it04.shared.Bauteil;
 
-
-
+/**
+ * Mapper-Klasse, die <code>Bauteil</code>-Objekte auf eine relationale
+ * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
+ * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
+ * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
+ * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ */
 public class BauteilMapper {
 
   
