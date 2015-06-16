@@ -328,12 +328,62 @@ public class MainGUI extends Composite {
 	private class EditBtnClickHandler implements ClickHandler {
 
 		public void onClick(ClickEvent event) {
-
+			
+			
+			int rowIndex = bauteileTable.getCellForEvent(event).getRowIndex();
+			int id = Integer.parseInt(bauteileTable.getText(rowIndex, 0));
+			System.out.println("Das ist die ID"+ id);
+			
+			String sinsertname = bauteileTable.getText(rowIndex, 1);
+			String sinsertBeschreibung = bauteileTable.getText(rowIndex, 2);
+			String sinsertMaterialBezeichnung = bauteileTable.getText(rowIndex, 3);
+			
+			TextBox insertname = new TextBox();
+			insertname.setText(sinsertname);
+			bauteileTable.setWidget(rowIndex, 1, insertname);
+			
+			TextBox insertBeschreibung = new TextBox();
+			insertBeschreibung.setText(sinsertBeschreibung);
+			bauteileTable.setWidget(rowIndex, 2, insertBeschreibung);
+			
+			TextBox insertMaterialBezeichnung = new TextBox();
+			insertMaterialBezeichnung.setText(sinsertMaterialBezeichnung);
+			bauteileTable.setWidget(rowIndex, 3, insertMaterialBezeichnung);
+			
+			Button saveEditedBauteil = new Button("Speichern");
+			saveEditedBauteil.addClickHandler(new saveEditedClickHandler());
+			bauteileTable.setWidget(rowIndex, 7, saveEditedBauteil);
+			
+			
+		
+			
+		
 		
 
 		}
 	}
 
+	private class saveEditedClickHandler implements ClickHandler {
+
+		public void onClick(ClickEvent event) {
+			
+			String name = insertname.getText();
+			String beschreibung = insertBeschreibung.getText();
+			String materialBezeichnung = insertMaterialBezeichnung.getText();
+
+			Bauteil bt = new Bauteil();
+			bt.setName(name);
+			bt.setBeschreibung(beschreibung);
+			bt.setMaterialBezeichnung(materialBezeichnung);
+			
+			serviceImpl.updateBauteil(bt);
+			
+			
+		}
+	}
+	
+	
+	
 	private class Btn3ClickHandler implements ClickHandler {
 
 		public void onClick(ClickEvent event) {
