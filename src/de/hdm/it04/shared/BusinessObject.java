@@ -65,10 +65,24 @@ public abstract class BusinessObject implements Serializable {
 		this.erstellungsDatum = erstellungsDatum;
 	}
 
+	/**
+	 * Getter-Methode, welche das Änderungsdatum (bzw. das Änderungsdatum
+	 * der geerbten Klassen) zurückgibt.
+	 * 
+	 * @param void
+	 * @return das Änderungsdatum als Timestamp
+	 */
 	public Timestamp getAenderungsDatum() {
 		return aenderungsDatum;
 	}
 
+	/**
+	 * Setter-Methode, welche das Änderungsdatum eines BusinessObjects (bzw. das 
+	 * Änderungsdatum der geerbten Klassen) setzt.
+	 * 
+	 * @param Änderungsdatum als Timestamp
+	 * @return void
+	 */
 	public void setAenderungsDatum(Timestamp aenderungsDatum) {
 		this.aenderungsDatum = aenderungsDatum;
 	}
