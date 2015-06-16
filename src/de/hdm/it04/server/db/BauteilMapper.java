@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 import java.sql.Timestamp;
+
 import de.hdm.it04.shared.Bauteil;
 
 /**
@@ -30,12 +31,27 @@ public class BauteilMapper {
 
 	   */
   private static BauteilMapper bauteilMapper = null;
-
   
+  /**
+   * Geschützter Konstruktor - verhindert die Möglichkeit, mit <code>new</code>
+   * neue Instanzen dieser Klasse zu erzeugen.
+   */
   protected BauteilMapper() {
   }
-
   
+  /**
+   * Diese statische Methode kann aufgrufen werden durch
+   * <code>BauteilMapper.bauteilMapper()</code>. Sie stellt die
+   * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine einzige
+   * Instanz von <code>BauteilMapper</code> existiert.
+   * <p>
+   * 
+   * <b>Fazit:</b> BauteilMapper sollte nicht mittels <code>new</code>
+   * instantiiert werden, sondern stets durch Aufruf dieser statischen Methode.
+   * 
+   * @return DAS <code>BauteilMapper</code>-Objekt.
+   * @see bauteilMapper
+   */
   public static BauteilMapper bauteilMapper() {
     if (bauteilMapper == null) 
       bauteilMapper = new BauteilMapper();
