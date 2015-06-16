@@ -60,7 +60,20 @@ public class BauteilMapper {
     return bauteilMapper;
      }
   
- 
+  /**
+   * Suchen eines Bauteils mit vorgegebener id. Da diese eindeutig ist,
+   * wird genau ein Vektor-Objekt zurückgegeben.
+   * 
+   * Warum Vektor? Da im späteren Verlauf die Methode findByKey und findByName
+   * zusammen geführt werden. So ist es möglich über das Suchfeld per Name und id
+   * zusuchen. Der Vektor ist notwendig, da der Name nicht als primär Schlüssel
+   * gekennzeichnet ist. Daher können auch mehrere Ergebnise zurück gegeben werden.
+   * Der Vektor ist für die findByKey Methode im prinzip nicht notwendig.
+   * 
+   * @param id Primärschlüsselattribut (->DB)
+   * @return Konto-Objekt-Vektor, das dem übergebenen Schlüssel entspricht, null bei
+   *         nicht vorhandenem DB-Tupel.
+   */
    public Vector<Bauteil> findByKey(int id) {
  	  
 	   // DB-Verbindung holen
@@ -110,8 +123,15 @@ public class BauteilMapper {
 	   return null;
 	   }
    
-   //Bauteil anlegen
-   
+   /**
+    * Einfügen eines <code>Bauteil</code>-Objekts in die Datenbank. Dabei wird
+    * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
+    * berichtigt.
+    * 
+    * @param bt das zu speichernde Objekt
+    * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+    *         <code>id</code>.
+    */
    public Bauteil insert(Bauteil bt) {
 	     Connection con = DbConnection.connection();
 
@@ -178,8 +198,13 @@ public class BauteilMapper {
 	      */
 	     return bt; }
    
-   
-   
+   /**
+    * Auslesen aller Bauteile.
+    * 
+    * @return Ein Vektor mit Bauteil-Objekten, die sämtliche Bauteile
+    *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
+    *         oder ggf. auch leerer Vetor zurückgeliefert.
+    */
    public Vector<Bauteil> findAll() {
 	    Connection con = DbConnection.connection();
 
@@ -214,6 +239,16 @@ public class BauteilMapper {
 	    return result;
 	  }
 	  
+   /**
+    * Suchen eines Bauteils mit vorgegebenen namen. Da dieser nicht eindeutig ist,
+    * wird ein Vektor-Objekt zurückgegeben.
+    * 
+    * Warum Vektor? Da name kein Primörschlüsselattribut ist können Bauteile
+    * mit dem gleiche Namen in diesem Vektor zurück gegeben werden.
+ 
+    * @return Konto-Objekt-Vektor, das dem übergebenen namen entspricht, null bei
+    *         nicht vorhandenem DB-Tupel.
+    */
    public Vector<Bauteil> findByName(String name) {
 	 	  
 	   // DB-Verbindung holen
@@ -259,6 +294,12 @@ public class BauteilMapper {
 	   return result;
 	   }
    
+   /**
+    * Wiederholtes Schreiben eines Objekts in die Datenbank.
+    * 
+    * @param bt das Objekt, das in die DB geschrieben werden soll
+    * @return das als Parameter übergebene Objekt
+    */
    public Bauteil update(Bauteil bt) {
 	   
 	    Connection con = DbConnection.connection();
