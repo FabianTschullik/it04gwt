@@ -13,9 +13,6 @@ import de.hdm.it04.client.service.It04gwtServiceClientImpl;
  * Enthält die onModuleLoad()- Methode
  *
  */
-
-
-
 public class It04gwt implements EntryPoint {
 	
 	

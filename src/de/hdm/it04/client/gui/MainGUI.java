@@ -112,13 +112,6 @@ public class MainGUI extends Composite {
 		Button btnSave = new Button("Speichern");
 		btnSave.addClickHandler(new CreateClickHandler());
 		this.vPanelCreate.add(btnSave);
-
-		/**
-		 * Erzeugen eines Buttons für die Editierfunktion
-		 */
-		Button btnEdit = new Button("Edit");
-		btnEdit.addClickHandler(new Btn1EditBauteilClickHandler());
-		//this.Btn1EditBauteilPanel.add(btn1EditBauteil);
 	}
 	
 	
@@ -151,7 +144,7 @@ public class MainGUI extends Composite {
 			 * Button, um Bauteil innerhalb der Tabelle zu löschen
 			 */
 			Button btnDelete = new Button("X");
-			btnDelete.addClickHandler(new DeleteBtnClickHandler());
+			btnDelete.addClickHandler(new DeleteClickHandler());
 			this.vPanelCreate.add(btnDelete);
 			
 			
@@ -159,7 +152,7 @@ public class MainGUI extends Composite {
 			 * Button, um Editieren des Bauteils innerhalb der Tabelle aufzurufen
 			 */
 			Button editBtn = new Button("Editieren");
-			editBtn.addClickHandler(new EditBtnClickHandler());
+			editBtn.addClickHandler(new EditClickHandler());
 			this.vPanelCreate.add(btnDelete);
 			
 			
@@ -215,7 +208,7 @@ public class MainGUI extends Composite {
 		 * Button, um die Tabelle zu aktualisieren
 		 */
 		Button btnUpdate = new Button("Update Table");
-		btnUpdate.addClickHandler(new Btn3ClickHandler());
+		btnUpdate.addClickHandler(new UpdateClickHandler());
 		this.vPanelFlexTable.add(btnUpdate);
 		
 		this.vPanelMain.add(vPanelFlexTable);
@@ -368,7 +361,7 @@ public class MainGUI extends Composite {
 	/**
 	 * ClickHandler für den Bauteil-Lösch-Button
 	 */
-	private class DeleteBtnClickHandler implements ClickHandler {
+	private class DeleteClickHandler implements ClickHandler {
 
 		public void onClick(ClickEvent event) {
 
@@ -384,7 +377,7 @@ public class MainGUI extends Composite {
 	/**
 	 * ClickHandler für den Editieren-Button
 	 */
-	private class EditBtnClickHandler implements ClickHandler {
+	private class EditClickHandler implements ClickHandler {
 
 		public void onClick(ClickEvent event) {
 			
@@ -431,6 +424,7 @@ public class MainGUI extends Composite {
 		public void onClick(ClickEvent event) {
 			
 			/**
+			 *
 			 * Die eingegeben Daten werden in String-Variablen gespeichert
 			 */
 			int rowIndex = bauteileTable.getCellForEvent(event).getRowIndex();
@@ -459,7 +453,7 @@ public class MainGUI extends Composite {
 	/**
 	 * ClickHandler für den Tabellen-Aktualisierungsbutton
 	 */
-	private class Btn3ClickHandler implements ClickHandler {
+	private class UpdateClickHandler implements ClickHandler {
 		
 		/**
 		 * Panel-Inhalt wird gelöscht, anschließend neu befüllt
@@ -467,16 +461,6 @@ public class MainGUI extends Composite {
 		public void onClick(ClickEvent event) {
 			vPanelFlexTable.clear();
 			serviceImpl.getAll();
-		}
-	}
-
-	/**
-	 * ClickHandler für den Editierungs-Button
-	 */
-	private class Btn1EditBauteilClickHandler implements ClickHandler {
-
-		public void onClick(ClickEvent event) {
-
 		}
 	}
 }
