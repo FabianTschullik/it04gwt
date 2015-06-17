@@ -36,6 +36,10 @@ public class MainGUI extends Composite {
 	private TextBox insertname;
 	private TextBox insertBeschreibung;
 	private TextBox insertMaterialBezeichnung;
+	
+	private TextBox insertNameUpdate = new TextBox();
+	private TextBox insertBeschreibungUpdate = new TextBox();
+	private TextBox insertMaterialBezeichnungUpdate = new TextBox();
 
 	
 	private Label lblinsertname;
@@ -375,8 +379,7 @@ public class MainGUI extends Composite {
 			
 			int rowIndex = bauteileTable.getCellForEvent(event).getRowIndex();
 			int id = Integer.parseInt(bauteileTable.getText(rowIndex, 0));
-			System.out.println("Das ist die ID"+ id);
-			
+		
 			/**
 			 * Daten werden in Strings gespeichert
 			 */
@@ -388,17 +391,17 @@ public class MainGUI extends Composite {
 			 * Erzeugen von Eingabefeldern, in die initial die Strings gesetzt werden und im jeweiligen Eingabefeld
 			 * dann editiert werden können.
 			 */
-			TextBox insertname = new TextBox();
-			insertname.setText(sinsertname);
-			bauteileTable.setWidget(rowIndex, 1, insertname);
+			//TextBox insertNameUpdate = new TextBox();
+			insertNameUpdate.setText(sinsertname);
+			bauteileTable.setWidget(rowIndex, 1, insertNameUpdate);
 			
-			TextBox insertBeschreibung = new TextBox();
-			insertBeschreibung.setText(sinsertBeschreibung);
-			bauteileTable.setWidget(rowIndex, 2, insertBeschreibung);
+			//TextBox insertBeschreibungUpdate = new TextBox();
+			insertBeschreibungUpdate.setText(sinsertBeschreibung);
+			bauteileTable.setWidget(rowIndex, 2, insertBeschreibungUpdate);
 			
-			TextBox insertMaterialBezeichnung = new TextBox();
-			insertMaterialBezeichnung.setText(sinsertMaterialBezeichnung);
-			bauteileTable.setWidget(rowIndex, 3, insertMaterialBezeichnung);
+			//TextBox insertMaterialBezeichnungUpdate = new TextBox();
+			insertMaterialBezeichnungUpdate.setText(sinsertMaterialBezeichnung);
+			bauteileTable.setWidget(rowIndex, 3, insertMaterialBezeichnungUpdate);
 			
 			/**
 			 * Button, um die Änderungen an den Bauteil-Daten zu speichern
@@ -419,19 +422,26 @@ public class MainGUI extends Composite {
 			/**
 			 * Die eingegeben Daten werden in String-Variablen gespeichert
 			 */
-			String name = insertname.getText();
-			String beschreibung = insertBeschreibung.getText();
-			String materialBezeichnung = insertMaterialBezeichnung.getText();
+			int rowIndex = bauteileTable.getCellForEvent(event).getRowIndex();
+			int id = Integer.parseInt(bauteileTable.getText(rowIndex, 0));
+			
+			
+			String name = insertNameUpdate.getText();
+			String beschreibung = insertBeschreibungUpdate.getText();
+			String materialBezeichnung = insertMaterialBezeichnungUpdate.getText();
 
 			/**
 			 * Erzeugen einer Bauteil-Instanz und Ersetzen der bisherigen Daten mit den neuen Daten aus den Strings.
 			 */
 			Bauteil bt = new Bauteil();
+			bt.setId(id);
 			bt.setName(name);
 			bt.setBeschreibung(beschreibung);
 			bt.setMaterialBezeichnung(materialBezeichnung);
 			
 			serviceImpl.updateBauteil(bt);	
+			vPanel2.clear();
+			serviceImpl.getAll();
 		}
 	}
 	

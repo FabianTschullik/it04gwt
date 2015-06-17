@@ -307,13 +307,7 @@ public class BauteilMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      stmt.executeUpdate("UPDATE bauteil " 
-	      + "SET name= '" + bt.getName() + "', "
-	      + "beschreibung = '" + bt.getBeschreibung() + "', "
-	      + "materialBezeichnung" + bt.getMaterialBezeichnung() + "', "
-	      + "erstellungsDatum" + bt.getErstellungsDatum() + "', "
-	      + "aenderungsDatum" + bt.getAenderungsDatum() + "', "
-	          + "WHERE id=" + bt.getId());
+	      stmt.executeUpdate("UPDATE bauteil SET name = '"+bt.getName()+"', "+ "beschreibung = '"+bt.getBeschreibung()+"', "+"materialBezeichnung = '"+bt.getMaterialBezeichnung()+"' WHERE id="+bt.getId());
 
 	    }
 	    catch (SQLException e2) {
