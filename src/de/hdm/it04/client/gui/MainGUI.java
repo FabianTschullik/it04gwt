@@ -82,10 +82,10 @@ public class MainGUI extends Composite {
 		
 
 		this.resultlbl = new Label("Ergebnis wird hier stehen");
-		//this.vPanel.add(resultlbl);
+		
 
 		this.resultid = new Label("Hier wird ID stehen");
-		//this.vPanel.add(resultid);
+		
 
 		this.dBox = new DialogBox();
 		this.dBox.setTitle("Achtung");
@@ -275,7 +275,7 @@ public class MainGUI extends Composite {
 				 * Bauteil-Tabelle zum Panel hinzugefügt damit das Ganze auch angezeigt wird 
 				 */
 				this.vPanelFlexTable.add(findBauteilTable);
-				//this.vPanel.add(vPanel2);
+				
 		}
 	}
 	
@@ -286,9 +286,7 @@ public class MainGUI extends Composite {
 		
 		
 		this.vPanelFlexTable.add(dBox);
-		//Window.alert("Zu Ihrer Suche wurden keine Daten gefunden.");
-		//this.vPanel.clear();
-		//serviceImpl.getAll();
+		
 	}
 
 	public void GetAllError() {
@@ -395,15 +393,14 @@ public class MainGUI extends Composite {
 			 * Erzeugen von Eingabefeldern, in die initial die Strings gesetzt werden und im jeweiligen Eingabefeld
 			 * dann editiert werden können.
 			 */
-			//TextBox insertNameUpdate = new TextBox();
 			insertNameUpdate.setText(sinsertname);
 			bauteileTable.setWidget(rowIndex, 1, insertNameUpdate);
 			
-			//TextBox insertBeschreibungUpdate = new TextBox();
+		
 			insertBeschreibungUpdate.setText(sinsertBeschreibung);
 			bauteileTable.setWidget(rowIndex, 2, insertBeschreibungUpdate);
 			
-			//TextBox insertMaterialBezeichnungUpdate = new TextBox();
+			
 			insertMaterialBezeichnungUpdate.setText(sinsertMaterialBezeichnung);
 			bauteileTable.setWidget(rowIndex, 3, insertMaterialBezeichnungUpdate);
 			
