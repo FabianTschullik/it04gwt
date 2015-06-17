@@ -29,7 +29,7 @@ import de.hdm.it04.shared.Bauteil;
 
 public class MainGUI extends Composite {
 	
-	private VerticalPanel vPanel = new VerticalPanel();
+	private VerticalPanel vPanel1 = new VerticalPanel();
 	private VerticalPanel vPanel2 = new VerticalPanel();
 	private VerticalPanel vPanel3 = new VerticalPanel();
 	private TextBox txt1;
@@ -64,19 +64,19 @@ public class MainGUI extends Composite {
 	 */
 	public MainGUI(It04gwtServiceClientImpl serviceImpl) {
 
-		initWidget(this.vPanel);
+		initWidget(this.vPanel1);
 		this.serviceImpl = serviceImpl;
 
 		this.txt1 = new TextBox();
 		txt1.setText("Bitte hier ID eintragen...");
-		this.vPanel.add(txt1);
+		this.vPanel1.add(txt1);
 		
 		/**
 		 * Erzeugen eines Buttons für die Suchfunktion
 		 */
 		Button btn1 = new Button("Suchen");
-		btn1.addClickHandler(new Btn1ClickHandler());
-		this.vPanel.add(btn1);
+		btn1.addClickHandler(new SearchClickHandler());
+		this.vPanel1.add(btn1);
 		
 		serviceImpl.getAll();
 		
@@ -110,7 +110,7 @@ public class MainGUI extends Composite {
 		 * Erzeugen eines Buttons für die Speichernfunktion
 		 */
 		Button btn2 = new Button("Speichern");
-		btn2.addClickHandler(new Btn2ClickHandler());
+		btn2.addClickHandler(new CreateClickHandler());
 		this.vPanel3.add(btn2);
 
 		/**
@@ -218,8 +218,8 @@ public class MainGUI extends Composite {
 		btn3.addClickHandler(new Btn3ClickHandler());
 		this.vPanel2.add(btn3);
 		
-		this.vPanel.add(vPanel2);
-		this.vPanel.add(vPanel3);	
+		this.vPanel1.add(vPanel2);
+		this.vPanel1.add(vPanel3);	
 	}
 	
 	
@@ -301,28 +301,36 @@ public class MainGUI extends Composite {
 	public void GetAllError() {
 
 		this.getAllError = new Label("Get All hat nicht funktioniert!");
-		this.vPanel.add(getAllError);
+		this.vPanel1.add(getAllError);
 	}
 
 	public void showSucess() {
 
 		this.erfolg = new Label("Erfolg");
-		this.vPanel.add(erfolg);
+		this.vPanel1.add(erfolg);
 	}
 	
 	public void showMeldung(String meldung) {
 
 		this.erfolg = new Label(meldung);
-		this.vPanel.add(erfolg);
+		this.vPanel1.add(erfolg);
 	}
 
-
-	private class Btn1ClickHandler implements ClickHandler {
+	/**
+	 * ClickHandler für den Bauteil-Search-Button
+	 */
+	private class SearchClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanel2.clear();
 			String stringid = txt1.getText();
+			
+			/** 
+			 * Es wird überprüft ob sich in dem Attribut
+			 * <b>stringid<b> eine Zahl befindet.
+			 * Falls nein wird findByName angestoßen
+			 */
 			
 			if (stringid.matches(".*[1-9].*")){
 				int id;
@@ -334,8 +342,11 @@ public class MainGUI extends Composite {
 			}
 		}
 	}
-
-	private class Btn2ClickHandler implements ClickHandler {
+	
+	/**
+	 * ClickHandler für den Bauteil-Create-Button
+	 */
+	private class CreateClickHandler implements ClickHandler {
 
 		public void onClick(ClickEvent event) {
 
