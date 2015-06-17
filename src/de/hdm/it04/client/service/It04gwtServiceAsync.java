@@ -8,9 +8,7 @@ import de.hdm.it04.shared.Bauteil;
 
 public interface It04gwtServiceAsync {
 
-	//Asyn geben niemals einen wert zur�ck, da dieser �ber callback zur�ck kommt.
-	
-
+	//Asyn geben niemals einen wert zurück, da dieser über callback zurück kommt.
 	
 		void getBauteil(int id, AsyncCallback<Vector<Bauteil>> callback);
 		
