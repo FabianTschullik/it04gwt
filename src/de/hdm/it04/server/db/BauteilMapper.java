@@ -302,9 +302,13 @@ public class BauteilMapper {
 
 		try {
 			Statement stmt = con.createStatement();
+			
+			Date date = new Date();
+			new Timestamp(date.getTime());
 
-			stmt.executeUpdate("UPDATE bauteil SET name = '" + bt.getName()
-					+ "', " + "beschreibung = '" + bt.getBeschreibung() + "', "
+			stmt.executeUpdate("UPDATE bauteil SET name = '" + bt.getName()+ "', " 
+					+ "beschreibung = '" + bt.getBeschreibung() + "', "
+					+ "aenderungsDatum = '" + new Timestamp(date.getTime()) + "', "
 					+ "materialBezeichnung = '" + bt.getMaterialBezeichnung()
 					+ "' WHERE id=" + bt.getId());
 
