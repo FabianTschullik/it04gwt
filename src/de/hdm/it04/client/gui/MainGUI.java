@@ -261,6 +261,11 @@ public class MainGUI extends Composite {
 					findBauteilTable.setText(j+1, 4, s1);
 					findBauteilTable.setText(j+1, 5, s2);
 					
+				
+					
+					this.vPanelMain.add(vPanelFlexTable);
+					this.vPanelMain.add(vPanelCreate);	
+					
 					
 					/**
 					 * Verknüpfung zu style.css
@@ -275,6 +280,13 @@ public class MainGUI extends Composite {
 				 * Bauteil-Tabelle zum Panel hinzugefügt damit das Ganze auch angezeigt wird 
 				 */
 				this.vPanelFlexTable.add(findBauteilTable);
+				
+				/**
+				 * Zurück-Button zur Hauptseite Bauteil
+				 */
+				Button btnZurueck = new Button("Zurueck");
+				btnZurueck.addClickHandler(new ZurueckClickHandler());
+				this.vPanelFlexTable.add(btnZurueck);
 				
 		}
 	}
@@ -458,6 +470,18 @@ public class MainGUI extends Composite {
 		public void onClick(ClickEvent event) {
 			vPanelFlexTable.clear();
 			serviceImpl.getAll();
+		}
+	}
+	
+	/**
+	 * ClickHandler um zurück aus der Suche in Bauteil Main zu kommen
+	 */
+	private class ZurueckClickHandler implements ClickHandler {
+		
+		public void onClick(ClickEvent event) {
+			vPanelFlexTable.clear();
+			serviceImpl.getAll();
+			
 		}
 	}
 }
