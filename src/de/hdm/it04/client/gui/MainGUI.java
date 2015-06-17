@@ -153,7 +153,7 @@ public class MainGUI extends Composite {
 			 */
 			Button editBtn = new Button("Editieren");
 			editBtn.addClickHandler(new EditClickHandler());
-			this.vPanelCreate.add(btnDelete);
+			this.vPanelCreate.add(editBtn);
 			
 			
 			/**
