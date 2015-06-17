@@ -8,12 +8,20 @@ import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 
 
 
-
+/**
+ * Implementiert den Entry Point. 
+ * Enthält die onModuleLoad()- Methode
+ *
+ */
 
 
 
 public class It04gwt implements EntryPoint {
 	
+	
+	/**
+	 * EntryPoint
+	 */
 	public void onModuleLoad() {
 		It04gwtServiceClientImpl clientImpl = new It04gwtServiceClientImpl(GWT.getModuleBaseURL()+ "sms");
 		RootPanel.get().add(clientImpl.getMainGUI());
