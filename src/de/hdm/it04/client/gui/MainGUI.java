@@ -29,9 +29,9 @@ import de.hdm.it04.shared.Bauteil;
 
 public class MainGUI extends Composite {
 	
-	private VerticalPanel vPanel1 = new VerticalPanel();
-	private VerticalPanel vPanel2 = new VerticalPanel();
-	private VerticalPanel vPanel3 = new VerticalPanel();
+	private VerticalPanel vPanelMain = new VerticalPanel();
+	private VerticalPanel vPanelFlexTable = new VerticalPanel();
+	private VerticalPanel vPanelCreate = new VerticalPanel();
 	private TextBox txt1;
 	private TextBox insertname;
 	private TextBox insertBeschreibung;
@@ -64,19 +64,19 @@ public class MainGUI extends Composite {
 	 */
 	public MainGUI(It04gwtServiceClientImpl serviceImpl) {
 
-		initWidget(this.vPanel1);
+		initWidget(this.vPanelMain);
 		this.serviceImpl = serviceImpl;
 
 		this.txt1 = new TextBox();
 		txt1.setText("Bitte hier ID eintragen...");
-		this.vPanel1.add(txt1);
+		this.vPanelMain.add(txt1);
 		
 		/**
 		 * Erzeugen eines Buttons für die Suchfunktion
 		 */
-		Button btn1 = new Button("Suchen");
-		btn1.addClickHandler(new SearchClickHandler());
-		this.vPanel1.add(btn1);
+		Button btnSearch = new Button("Suchen");
+		btnSearch.addClickHandler(new SearchClickHandler());
+		this.vPanelMain.add(btnSearch);
 		
 		serviceImpl.getAll();
 		
@@ -92,32 +92,32 @@ public class MainGUI extends Composite {
 		this.dBox.setText("Zu Ihrer Suche wurden keine Daten gefunden.");
 
 		this.lblinsertname = new Label("Name");
-		this.vPanel3.add(lblinsertname);
+		this.vPanelCreate.add(lblinsertname);
 		this.insertname = new TextBox();
-		this.vPanel3.add(insertname);
+		this.vPanelCreate.add(insertname);
 
 		this.lblinsertBeschreibung = new Label("Beschreibung");
-		this.vPanel3.add(lblinsertBeschreibung);
+		this.vPanelCreate.add(lblinsertBeschreibung);
 		this.insertBeschreibung = new TextBox();
-		this.vPanel3.add(insertBeschreibung);
+		this.vPanelCreate.add(insertBeschreibung);
 
 		this.lblinsertMaterialBezeichnung = new Label("Materialbezeichnung");
-		this.vPanel3.add(lblinsertMaterialBezeichnung);
+		this.vPanelCreate.add(lblinsertMaterialBezeichnung);
 		this.insertMaterialBezeichnung = new TextBox();
-		this.vPanel3.add(insertMaterialBezeichnung);
+		this.vPanelCreate.add(insertMaterialBezeichnung);
 
 		/**
 		 * Erzeugen eines Buttons für die Speichernfunktion
 		 */
-		Button btn2 = new Button("Speichern");
-		btn2.addClickHandler(new CreateClickHandler());
-		this.vPanel3.add(btn2);
+		Button btnSave = new Button("Speichern");
+		btnSave.addClickHandler(new CreateClickHandler());
+		this.vPanelCreate.add(btnSave);
 
 		/**
 		 * Erzeugen eines Buttons für die Editierfunktion
 		 */
-		Button btn1EditBauteil = new Button("Edit");
-		btn1EditBauteil.addClickHandler(new Btn1EditBauteilClickHandler());
+		Button btnEdit = new Button("Edit");
+		btnEdit.addClickHandler(new Btn1EditBauteilClickHandler());
 		//this.Btn1EditBauteilPanel.add(btn1EditBauteil);
 	}
 	
@@ -150,9 +150,9 @@ public class MainGUI extends Composite {
 			/**
 			 * Button, um Bauteil innerhalb der Tabelle zu löschen
 			 */
-			Button deleteBtn = new Button("X");
-			deleteBtn.addClickHandler(new DeleteBtnClickHandler());
-			this.vPanel3.add(deleteBtn);
+			Button btnDelete = new Button("X");
+			btnDelete.addClickHandler(new DeleteBtnClickHandler());
+			this.vPanelCreate.add(btnDelete);
 			
 			
 			/**
@@ -160,7 +160,7 @@ public class MainGUI extends Composite {
 			 */
 			Button editBtn = new Button("Editieren");
 			editBtn.addClickHandler(new EditBtnClickHandler());
-			this.vPanel3.add(deleteBtn);
+			this.vPanelCreate.add(btnDelete);
 			
 			
 			/**
@@ -193,7 +193,7 @@ public class MainGUI extends Composite {
 			/**
 			 * Einfügen der Buttons in die Tabelle
 			 */
-			bauteileTable.setWidget(j+1, 8, deleteBtn);
+			bauteileTable.setWidget(j+1, 8, btnDelete);
 			bauteileTable.setWidget(j+1, 7, editBtn);
 			
 			
@@ -209,17 +209,17 @@ public class MainGUI extends Composite {
 		/**
 		 * Bauteil-Tabelle zum Panel hinzugefügt damit das Ganze auch angezeigt wird 
 		 */
-		this.vPanel2.add(bauteileTable);
+		this.vPanelFlexTable.add(bauteileTable);
 		
 		/**
 		 * Button, um die Tabelle zu aktualisieren
 		 */
-		Button btn3 = new Button("Update Table");
-		btn3.addClickHandler(new Btn3ClickHandler());
-		this.vPanel2.add(btn3);
+		Button btnUpdate = new Button("Update Table");
+		btnUpdate.addClickHandler(new Btn3ClickHandler());
+		this.vPanelFlexTable.add(btnUpdate);
 		
-		this.vPanel1.add(vPanel2);
-		this.vPanel1.add(vPanel3);	
+		this.vPanelMain.add(vPanelFlexTable);
+		this.vPanelMain.add(vPanelCreate);	
 	}
 	
 	
@@ -281,7 +281,7 @@ public class MainGUI extends Composite {
 				/**
 				 * Bauteil-Tabelle zum Panel hinzugefügt damit das Ganze auch angezeigt wird 
 				 */
-				this.vPanel2.add(findBauteilTable);
+				this.vPanelFlexTable.add(findBauteilTable);
 				//this.vPanel.add(vPanel2);
 		}
 	}
@@ -292,7 +292,7 @@ public class MainGUI extends Composite {
 	public void showError() {
 		
 		
-		this.vPanel2.add(dBox);
+		this.vPanelFlexTable.add(dBox);
 		//Window.alert("Zu Ihrer Suche wurden keine Daten gefunden.");
 		//this.vPanel.clear();
 		//serviceImpl.getAll();
@@ -301,19 +301,19 @@ public class MainGUI extends Composite {
 	public void GetAllError() {
 
 		this.getAllError = new Label("Get All hat nicht funktioniert!");
-		this.vPanel1.add(getAllError);
+		this.vPanelMain.add(getAllError);
 	}
 
 	public void showSucess() {
 
 		this.erfolg = new Label("Erfolg");
-		this.vPanel1.add(erfolg);
+		this.vPanelMain.add(erfolg);
 	}
 	
 	public void showMeldung(String meldung) {
 
 		this.erfolg = new Label(meldung);
-		this.vPanel1.add(erfolg);
+		this.vPanelMain.add(erfolg);
 	}
 
 	/**
@@ -323,7 +323,7 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			vPanel2.clear();
+			vPanelFlexTable.clear();
 			String stringid = txt1.getText();
 			
 			/** 
@@ -360,7 +360,7 @@ public class MainGUI extends Composite {
 			bt.setMaterialBezeichnung(materialBezeichnung);
 
 			serviceImpl.create(bt);
-			vPanel2.clear();
+			vPanelFlexTable.clear();
 			serviceImpl.getAll();
 		}
 	}
@@ -376,7 +376,7 @@ public class MainGUI extends Composite {
 			int id = Integer.parseInt(bauteileTable.getText(rowIndex, 0));
 
 			serviceImpl.delete(id);
-			vPanel2.clear();
+			vPanelFlexTable.clear();
 			serviceImpl.getAll();
 		}
 	}
@@ -451,7 +451,7 @@ public class MainGUI extends Composite {
 			bt.setMaterialBezeichnung(materialBezeichnung);
 			
 			serviceImpl.updateBauteil(bt);	
-			vPanel2.clear();
+			vPanelFlexTable.clear();
 			serviceImpl.getAll();
 		}
 	}
@@ -465,7 +465,7 @@ public class MainGUI extends Composite {
 		 * Panel-Inhalt wird gelöscht, anschließend neu befüllt
 		 */
 		public void onClick(ClickEvent event) {
-			vPanel2.clear();
+			vPanelFlexTable.clear();
 			serviceImpl.getAll();
 		}
 	}
