@@ -18,8 +18,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * übergeben wird steht in diesem Vektor lediglich ein Objekt vom Typ
 	 * Bauteil.
 	 * 
-	 * @param ID
-	 *            als Integer
+	 * @param ID als Integer
 	 * @return Vektor mit Bauteil-Objekten
 	 */
 	public Vector<Bauteil> getBauteil(int id) {
@@ -30,8 +29,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode aktualisiert ein Bauteil.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Bauteil
+	 * @param Ein Objekt vom Typ Bauteil
 	 * @return Objekt vom Typ Bauteil
 	 */
 	public Bauteil updateBauteil(Bauteil bt) {
@@ -44,8 +42,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * finden. Da mehrere Bauteile mit dem selben Namen exisitieren können, wird
 	 * das Bauteil in einem Vektor gespeichert.
 	 * 
-	 * @param Ein
-	 *            Name eines Bauteils, welches gefunden werden soll
+	 * @param Ein Name eines Bauteils, welches gefunden werden soll
 	 * @return Vektor vom Typ Bauteil, welches alle Bauteile mit dem übergebenen
 	 *         Namen enthält
 	 */
@@ -57,8 +54,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode legt ein Bauteil an.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Bauteil welches gespeichert werden soll
+	 * @param Ein Objekt vom Typ Bauteil welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Bauteil
 	 */
 	public Bauteil create(Bauteil bt) {
@@ -83,14 +79,12 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
 	 * 
-	 * @param ID
-	 *            von einem Bauteil als Integer,
+	 * @param ID von einem Bauteil als Integer,
 	 * @return Ein String mit einer Meldung, ob Bauteil erfolgreich gelöscht
 	 *         wurde
 	 */
 	public String delete(int id) {
 
 		return BauteilMapper.bauteilMapper().delete(id);
-
 	}
 }
