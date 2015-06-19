@@ -74,7 +74,7 @@ public class BaugruppeMain extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			main.openBaugruppeMain();
+			//main.openBaugruppeMain();
 
 		}
 	}

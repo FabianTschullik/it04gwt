@@ -25,17 +25,22 @@ public class StuecklisteMain extends Composite {
 	private HorizontalPanel hPanelDetailsButton = new HorizontalPanel();
 	private HorizontalPanel hPanelDashboard = new HorizontalPanel();
 	
+	/**
+	 * Konstruktor
+	 */
 	public StuecklisteMain() {
 
 		initWidget(this.vPanelDashboard);
 		this.main = main;
 		
-		
-		
-		//vPanel um HPanel ergänzen
+		/**
+		 * vPanel um HPanel ergänzen
+		 */
 		this.vPanelDashboard.add(hPanelDashboard);	
 		
-		//Anlegen der Buttons fürs Anlegen, Anzeigen, Editieren und Löschen
+		/**
+		 * Anlegen der Buttons fürs Anlegen, Anzeigen, Editieren und Löschen
+		 */
 		Button AnlegenBtn1 = new Button("Neu");
 		AnlegenBtn1.addClickHandler(new AnlegenBtn1ClickHandler());
 		this.hPanelDetailsButton.add(AnlegenBtn1);
@@ -51,15 +56,19 @@ public class StuecklisteMain extends Composite {
 		this.hPanelDetailsButton.add(LoeschenBtn1);		
 		
 		
-		//Linke u. Rechte Spalte anordnen in einem HorizontalPanel
+		/**
+		 * Linke u. Rechte Spalte anordnen in einem HorizontalPanel
+		 */
 		this.hPanelDashboard.add(vPanelTree);
 		vPanelTree.setBorderWidth(1);
 		
 		this.hPanelDashboard.add(vPanelDetails);
 		vPanelDetails.setBorderWidth(1);
 		
-		//hPanel mit Buttons der rechten Spalte zufügen
-		this.vPanelDetails.add(hPanelDetailsButton);
+		/**
+		 * hPanel mit Buttons der rechten Spalte zufügen
+		 */
+		this.vPanelDetails.add(hPanelDetailsButton);		
 	}
 	
 	public void openAnlegenStuecklisteMain() {
@@ -88,8 +97,6 @@ public class StuecklisteMain extends Composite {
 					
 		}	
 	}
-	
-
 	
 	public class BearbeitenBtn1ClickHandler implements ClickHandler {
 

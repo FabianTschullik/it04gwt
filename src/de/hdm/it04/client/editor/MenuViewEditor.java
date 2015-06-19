@@ -24,9 +24,9 @@ public class MenuViewEditor extends Composite {
 
 
 
-		Button StuecklisteBtn1 = new Button("Stueckliste");
-		StuecklisteBtn1.addClickHandler(new StuecklisteBtn1ClickHandler());
-		this.hPanel.add(StuecklisteBtn1);
+		Button EditorBtn1 = new Button("Editor");
+		EditorBtn1.addClickHandler(new EditorBtn1ClickHandler());
+		this.hPanel.add(EditorBtn1);
 
 		Button ImpressumBtn1 = new Button("Impressum");
 		ImpressumBtn1.addClickHandler(new ImpressumBtn1ClickHandler());
@@ -35,7 +35,7 @@ public class MenuViewEditor extends Composite {
 	}
 
 
-	private class StuecklisteBtn1ClickHandler implements ClickHandler {
+	private class EditorBtn1ClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {

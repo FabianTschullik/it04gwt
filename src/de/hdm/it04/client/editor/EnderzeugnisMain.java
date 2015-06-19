@@ -58,7 +58,7 @@ public class EnderzeugnisMain extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			main.openEnderzeugnisMain();
+			//main.openEnderzeugnisMain();
 
 		}
 	}

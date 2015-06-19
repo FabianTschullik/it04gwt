@@ -60,7 +60,7 @@ public class BauteilMain extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			main.openBauteilMain();
+			//main.openBauteilMain();
 
 		}
 	}
