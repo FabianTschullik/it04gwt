@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -32,29 +33,51 @@ public class StuecklisteMain extends Composite {
 
 		initWidget(this.vPanelDashboard);
 		this.main = main;
-		
+			
 		/**
-		 * vPanel um HPanel ergänzen
-		 */
-		this.vPanelDashboard.add(hPanelDashboard);	
-		
-		/**
-		 * Anlegen der Buttons fürs Anlegen, Anzeigen, Editieren und Löschen
+		 * Anlegen der Buttons fürs Anlegen, Bearbeiten, Löschen und Abbrechen
 		 */
 		Button AnlegenBtn1 = new Button("Neu");
 		AnlegenBtn1.addClickHandler(new AnlegenBtn1ClickHandler());
 		this.hPanelDetailsButton.add(AnlegenBtn1);
 		
-		
 		Button BearbeitenBtn1 = new Button("Bearbeiten");
 		BearbeitenBtn1.addClickHandler(new BearbeitenBtn1ClickHandler());
 		this.hPanelDetailsButton.add(BearbeitenBtn1);
 	  
-		
 		Button LoeschenBtn1 = new Button("Loeschen");
 		LoeschenBtn1.addClickHandler(new LoeschenBtn1ClickHandler());
-		this.hPanelDetailsButton.add(LoeschenBtn1);		
+		this.hPanelDetailsButton.add(LoeschenBtn1);	
 		
+		Button AbbrechenBtn1 = new Button("Abbrechen");
+		AbbrechenBtn1.addClickHandler(new AbbrechenBtn1ClickHandler());
+		this.hPanelDetailsButton.add(AbbrechenBtn1);
+		
+		Label NameLabel = new Label("Name:");
+		this.vPanelDetails.add(NameLabel);
+		
+		TextBox NameTextBox = new TextBox();
+		this.vPanelDetails.add(NameTextBox);
+		
+		Label BeschreibungLabel = new Label("Beschreibung:");
+		this.vPanelDetails.add(BeschreibungLabel);
+		
+		TextBox BeschreibungTextBox = new TextBox();
+		this.vPanelDetails.add(BeschreibungTextBox);
+		
+		Label BearbeiterLabel = new Label("Letzter Bearbeiter:");
+		this.vPanelDetails.add(BearbeiterLabel);
+		
+		Label DatumLabel = new Label("Letzter Zugriff am:");
+		this.vPanelDetails.add(DatumLabel);
+		
+		Label PlatzhalterLabel = new Label ("Tree Platzhalter");
+		this.vPanelTree.add(PlatzhalterLabel);
+		
+		/**
+		 * vPanel um HPanel ergänzen
+		 */
+		this.vPanelDashboard.add(hPanelDashboard);
 		
 		/**
 		 * Linke u. Rechte Spalte anordnen in einem HorizontalPanel
@@ -71,30 +94,11 @@ public class StuecklisteMain extends Composite {
 		this.vPanelDetails.add(hPanelDetailsButton);		
 	}
 	
-	public void openAnlegenStuecklisteMain() {
-		vPanelDetails.clear();
-		AnlegenStuecklisteMain AnlegenStuecklisteMain = new AnlegenStuecklisteMain();
-		vPanelDetails.add(AnlegenStuecklisteMain);
-	}
-	
-	public void openBearbeitenStuecklisteMain() {
-		vPanelDetails.clear();
-		BearbeitenStuecklisteMain BearbeitenStuecklisteMain = new BearbeitenStuecklisteMain();
-		vPanelDetails.add(BearbeitenStuecklisteMain);
-	}
-	
-	public void openLoeschenStuecklisteMain() {
-		vPanelDetails.clear();
-		LoeschenStuecklisteMain LoeschenStuecklisteMain = new LoeschenStuecklisteMain();
-		vPanelDetails.add(LoeschenStuecklisteMain);
-	}
-	
 	public class AnlegenBtn1ClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			
-					
+						
 		}	
 	}
 	
@@ -110,6 +114,15 @@ public class StuecklisteMain extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
+		
+		}
+	}
+	
+	public class AbbrechenBtn1ClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			
 		
 		}
 	}
