@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -32,6 +33,9 @@ public class MainGUI extends Composite {
 	private VerticalPanel vPanelMain = new VerticalPanel();
 	private VerticalPanel vPanelFlexTable = new VerticalPanel();
 	private VerticalPanel vPanelCreate = new VerticalPanel();
+	private VerticalPanel vPanelTree = new VerticalPanel();
+	private HorizontalPanel hPanelMain = new HorizontalPanel();
+	private HorizontalPanel hPanelButtons = new HorizontalPanel();
 	private TextBox txt1;
 	private TextBox insertname;
 	private TextBox insertBeschreibung;
@@ -54,6 +58,7 @@ public class MainGUI extends Composite {
 	private FlexTable findBauteilTable;
 
 	private DialogBox dBox;
+	private DialogBox dBoxNeu;
 
 	private It04gwtServiceClientImpl serviceImpl;
 
@@ -77,6 +82,13 @@ public class MainGUI extends Composite {
 		Button btnSearch = new Button("Suchen");
 		btnSearch.addClickHandler(new SearchClickHandler());
 		this.vPanelMain.add(btnSearch);
+		
+		this.vPanelMain.add(hPanelMain);
+		this.hPanelMain.add(vPanelTree);
+		Label tree = new Label("TREE-PLATZHALTER");
+		this.vPanelTree.add(tree);
+		this.hPanelMain.setBorderWidth(1);
+	
 		
 		serviceImpl.getAll();
 		
@@ -105,6 +117,7 @@ public class MainGUI extends Composite {
 		this.vPanelCreate.add(lblinsertMaterialBezeichnung);
 		this.insertMaterialBezeichnung = new TextBox();
 		this.vPanelCreate.add(insertMaterialBezeichnung);
+		
 
 		/**
 		 * Erzeugen eines Buttons für die Speichernfunktion
@@ -205,14 +218,31 @@ public class MainGUI extends Composite {
 		this.vPanelFlexTable.add(bauteileTable);
 		
 		/**
-		 * Button, um die Tabelle zu aktualisieren
+		 * Buttons
 		 */
-		Button btnUpdate = new Button("Update Table");
-		btnUpdate.addClickHandler(new UpdateClickHandler());
-		this.vPanelFlexTable.add(btnUpdate);
+		Button btnNeu = new Button("Neu");
+		btnNeu.addClickHandler(new NeuClickHandler());
+		this.hPanelButtons.add(btnNeu);
 		
-		this.vPanelMain.add(vPanelFlexTable);
-		this.vPanelMain.add(vPanelCreate);	
+		Button btnEdit = new Button("Bearbeiten");
+		btnEdit.addClickHandler(new EditClickHandler());
+		this.hPanelButtons.add(btnEdit);
+		
+		Button btnDelete = new Button("Loeschen");
+		btnDelete.addClickHandler(new DeleteClickHandler());
+		this.hPanelButtons.add(btnDelete);
+		
+		Button btnAbbrechen = new Button("Abbrechen");
+		btnAbbrechen.addClickHandler(new AbbrechenClickHandler());
+		this.hPanelButtons.add(btnAbbrechen);
+		
+		Button btnUpdate = new Button("Aktualisieren");
+		btnUpdate.addClickHandler(new UpdateClickHandler());
+		this.hPanelButtons.add(btnUpdate);
+		
+		this.hPanelMain.add(vPanelFlexTable);
+		this.vPanelMain.add(vPanelCreate);
+		this.vPanelFlexTable.add(hPanelButtons);
 	}
 	
 	
@@ -469,6 +499,7 @@ public class MainGUI extends Composite {
 		 */
 		public void onClick(ClickEvent event) {
 			vPanelFlexTable.clear();
+			hPanelButtons.clear();
 			serviceImpl.getAll();
 		}
 	}
@@ -483,5 +514,27 @@ public class MainGUI extends Composite {
 			serviceImpl.getAll();
 			
 		}
+	}
+	/**
+	 * ClickHandler fuer Button Abbrechen
+	 */
+	private class AbbrechenClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	/**
+	 * ClickHandler fuer Neu-Button
+	 */
+	private class NeuClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			
+		}
+		
 	}
 }
