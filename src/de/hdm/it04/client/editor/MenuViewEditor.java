@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
 /**
- * 
+ * Diese Klasse implementiert ein Panel inkl. Buttons, die für den Wechsel zwischen Editor und Impressum benötigt werden.
  * @author Tschullik, Schwab
  *
  */
