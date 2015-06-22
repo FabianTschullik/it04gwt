@@ -18,20 +18,17 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class Details extends Composite {
 
-	private VerticalPanel vPanelDashboard = new VerticalPanel();
-	private VerticalPanel vPanelTree = new VerticalPanel();
 	private VerticalPanel vPanelDetails = new VerticalPanel();
 	private MainViewEditor main;
 	
 	private HorizontalPanel hPanelDetailsButton = new HorizontalPanel();
-	private HorizontalPanel hPanelDashboard = new HorizontalPanel();
 	
 	/**
 	 * Konstruktor
 	 */
 	public Details() {
 
-		initWidget(this.vPanelDashboard);
+		initWidget(this.vPanelDetails);
 		this.main = main;
 			
 		/**
@@ -56,11 +53,6 @@ public class Details extends Composite {
 		
 		this.vPanelDetails.add(hPanelDetailsButton);
 		
-		
-		
-		
-		
-	
 	}
 	
 	public class AnlegenBtn1ClickHandler implements ClickHandler {

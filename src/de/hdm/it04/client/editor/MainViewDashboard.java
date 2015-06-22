@@ -23,6 +23,9 @@ public class MainViewDashboard extends Composite {
 		DataTree DataTree = new DataTree();
 		this.vPanelTree.add(DataTree);
 		
+		Details Details = new Details();
+		this.vPanelDetails.add(Details);
+		
 		
 	}
 
