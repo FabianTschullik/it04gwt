@@ -1,8 +1,11 @@
 package de.hdm.it04.client.editor;
 
+
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.it04.client.report.MainViewReport;
@@ -47,6 +50,38 @@ public class ImpressumMain extends Composite {
 						+ "</table>");
 
 		this.vPanel.add(html);
+		
+		
+		TreeItem root = new TreeItem();
+        root.setText("Baugruppe");
+        
+        	TreeItem sub = new TreeItem();
+        	sub.setText("Unterbaugruppe");
+        
+        		sub.addTextItem("Bauteil 1");
+        		sub.addTextItem("Bauteil 2");
+        root.addItem(sub);
+        root.addTextItem("Bauteil 1");
+        root.addTextItem("Bauteil 2");
+        root.addTextItem("Bauteil 3");
+        
+       
+        
+        sub.addTextItem("untergruppe");
+        
+        
+        
+        Tree t = new Tree();
+        t.addItem(root);
+        
+        
+        this.vPanel.add(t);
+	
+		
+	}
+
+		
+		
+		
 	}
 	 
-}

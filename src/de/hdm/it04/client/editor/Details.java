@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 /**
  * @author Schwab
  */
-public class StuecklisteMain extends Composite {
+public class Details extends Composite {
 
 	private VerticalPanel vPanelDashboard = new VerticalPanel();
 	private VerticalPanel vPanelTree = new VerticalPanel();
@@ -29,7 +29,7 @@ public class StuecklisteMain extends Composite {
 	/**
 	 * Konstruktor
 	 */
-	public StuecklisteMain() {
+	public Details() {
 
 		initWidget(this.vPanelDashboard);
 		this.main = main;
@@ -53,45 +53,14 @@ public class StuecklisteMain extends Composite {
 		AbbrechenBtn1.addClickHandler(new AbbrechenBtn1ClickHandler());
 		this.hPanelDetailsButton.add(AbbrechenBtn1);
 		
-		Label NameLabel = new Label("Name:");
-		this.vPanelDetails.add(NameLabel);
 		
-		TextBox NameTextBox = new TextBox();
-		this.vPanelDetails.add(NameTextBox);
+		this.vPanelDetails.add(hPanelDetailsButton);
 		
-		Label BeschreibungLabel = new Label("Beschreibung:");
-		this.vPanelDetails.add(BeschreibungLabel);
 		
-		TextBox BeschreibungTextBox = new TextBox();
-		this.vPanelDetails.add(BeschreibungTextBox);
 		
-		Label BearbeiterLabel = new Label("Letzter Bearbeiter:");
-		this.vPanelDetails.add(BearbeiterLabel);
 		
-		Label DatumLabel = new Label("Letzter Zugriff am:");
-		this.vPanelDetails.add(DatumLabel);
 		
-		Label PlatzhalterLabel = new Label ("Tree Platzhalter");
-		this.vPanelTree.add(PlatzhalterLabel);
-		
-		/**
-		 * vPanel um HPanel ergänzen
-		 */
-		this.vPanelDashboard.add(hPanelDashboard);
-		
-		/**
-		 * Linke u. Rechte Spalte anordnen in einem HorizontalPanel
-		 */
-		this.hPanelDashboard.add(vPanelTree);
-		vPanelTree.setBorderWidth(1);
-		
-		this.hPanelDashboard.add(vPanelDetails);
-		vPanelDetails.setBorderWidth(1);
-		
-		/**
-		 * hPanel mit Buttons der rechten Spalte zufügen
-		 */
-		this.vPanelDetails.add(hPanelDetailsButton);		
+	
 	}
 	
 	public class AnlegenBtn1ClickHandler implements ClickHandler {

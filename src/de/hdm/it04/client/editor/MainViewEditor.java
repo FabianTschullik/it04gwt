@@ -1,8 +1,11 @@
 package de.hdm.it04.client.editor;
 
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+import de.hdm.it04.client.editor.*;
 
 /**
  * 
@@ -11,39 +14,51 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 
 public class MainViewEditor extends Composite {
-	private VerticalPanel vPanel = new VerticalPanel();
-	private VerticalPanel contentPanel;
+	
+	
+	private VerticalPanel vPanelDashboard = new VerticalPanel();
+	private HorizontalPanel hPanelDashboard = new HorizontalPanel();
+	private VerticalPanel vPanelTree = new VerticalPanel();
+	private VerticalPanel vPanelDetails = new VerticalPanel();
 	
 	/**
 	 * Konstruktor
 	 */
 	public MainViewEditor() {                         
-		initWidget(this.vPanel);
-		//this.vPanel.setBorderWidth(1);
-		
-		MenuViewEditor menu = new MenuViewEditor(this);
-		this.vPanel.add(menu);
-		
-		this.contentPanel = new VerticalPanel();
-		this.vPanel.add(contentPanel);
-		contentPanel.setBorderWidth(1);
+		initWidget(this.vPanelDashboard);
+		this.vPanelDashboard.setBorderWidth(1);
 		
 		Label label1 = new Label("Herzlich willkommen beim Stuecklistenmanagementsystem der IT-Projektgruppe 4.");
-		this.contentPanel.add(label1);	
+		this.vPanelDashboard.add(label1);
+		
+		
+		MenuViewEditor menu = new MenuViewEditor(this);
+		this.vPanelDashboard.add(menu);
+		
+		this.vPanelDashboard.add(hPanelDashboard);
+		this.hPanelDashboard.setBorderWidth(1);
+		
+		this.hPanelDashboard.add(vPanelTree);
+		this.vPanelTree.setBorderWidth(1);
+		
+		this.hPanelDashboard.add(vPanelDetails);
+		this.vPanelDetails.setBorderWidth(1);	
+		
 	}
 	
 	public void openImpressumMain() {
-		this.contentPanel.clear();
+		this.hPanelDashboard.clear();
 		ImpressumMain ImpressumMain = new ImpressumMain();
-		this.contentPanel.add(ImpressumMain);
+		this.hPanelDashboard.add(ImpressumMain);
 	}
 	
-	public void openStuecklisteMain() {
-		this.contentPanel.clear();
-		StuecklisteMain StuecklisteMain = new StuecklisteMain();
-		this.contentPanel.add(StuecklisteMain);
+	public void openDashboard() {
+		this.hPanelDashboard.clear();
+		
+
 	}
 }
+
 	
 
 

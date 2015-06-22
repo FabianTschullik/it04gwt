@@ -39,7 +39,7 @@ public class MenuViewEditor extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			main.openStuecklisteMain();
+			main.openDashboard();
 
 		}
 
