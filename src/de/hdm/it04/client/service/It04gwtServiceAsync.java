@@ -12,7 +12,7 @@ public interface It04gwtServiceAsync {
 	
 		void getBauteil(int id, AsyncCallback<Vector<Bauteil>> callback);
 		
-		void create(Bauteil bt, AsyncCallback callback);
+		void createBauteil(AsyncCallback callback);
 		
 		void delete(int id, AsyncCallback callback);
 		

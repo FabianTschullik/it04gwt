@@ -61,11 +61,9 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * @param Ein Objekt vom Typ Bauteil welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Bauteil
 	 */
-	public Bauteil create(Bauteil bt) {
+	public Bauteil createBauteil() {
 
-		bt = BauteilMapper.bauteilMapper().insert(bt);
-
-		return bt;
+		return BauteilMapper.bauteilMapper().insert();
 	}
 
 	/**

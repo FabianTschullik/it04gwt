@@ -386,13 +386,18 @@ public class MainGUI extends Composite {
 			String name = insertname.getText();
 			String beschreibung = insertBeschreibung.getText();
 			String materialBezeichnung = insertMaterialBezeichnung.getText();
+			
+			
 
 			Bauteil bt = new Bauteil();
 			bt.setName(name);
 			bt.setBeschreibung(beschreibung);
 			bt.setMaterialBezeichnung(materialBezeichnung);
 
-			serviceImpl.create(bt);
+			
+			
+			
+			serviceImpl.createBauteil();
 			vPanelFlexTable.clear();
 			serviceImpl.getAll();
 		}
@@ -533,6 +538,11 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			
+			
+			serviceImpl.createBauteil();
+			vPanelFlexTable.clear();
+			serviceImpl.getAll();
 			
 		}
 		

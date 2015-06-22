@@ -132,8 +132,10 @@ public class BauteilMapper {
 	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>id</code>.
 	 */
-	public Bauteil insert(Bauteil bt) {
+	public Bauteil insert() {
 		Connection con = DbConnection.connection();
+		
+		Bauteil bt = new Bauteil();
 
 		try {
 			Statement stmt = con.createStatement();
@@ -162,16 +164,10 @@ public class BauteilMapper {
 				new Timestamp(date.getTime());
 
 				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
-				stmt.executeUpdate("INSERT INTO bauteil (id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum) "
+				stmt.executeUpdate("INSERT INTO bauteil (id, erstellungsDatum, aenderungsDatum) "
 						+ "VALUES ("
 						+ bt.getId()
 						+ ",'"
-						+ bt.getName()
-						+ "','"
-						+ bt.getBeschreibung()
-						+ "','"
-						+ bt.getMaterialBezeichnung()
-						+ "','"
 						+ new Timestamp(date.getTime())
 						+ "','"
 						+ new Timestamp(date.getTime()) + "')");

@@ -36,7 +36,7 @@ public interface It04gwtService extends RemoteService {
 	 *            Objekt vom Typ Bauteil welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Bauteil
 	 */
-	Bauteil create(Bauteil bt);
+	Bauteil createBauteil();
 	
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.

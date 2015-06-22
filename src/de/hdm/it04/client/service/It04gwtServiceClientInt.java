@@ -25,7 +25,7 @@ public interface It04gwtServiceClientInt {
 	 * @param Ein Objekt vom Typ Bauteil welches gespeichert werden soll
 	 * @return void
 	 */
-	void create(Bauteil bt);
+	void createBauteil();
 	
 	/**
 	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem

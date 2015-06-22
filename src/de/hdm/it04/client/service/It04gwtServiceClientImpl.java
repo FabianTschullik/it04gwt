@@ -99,8 +99,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * @param Ein Objekt vom Typ Bauteil welches gespeichert werden soll
 	 * @return void
 	 */
-	public void create(Bauteil bt) {
-		this.service.create(bt, new CreateBauteilCallback());
+	public void createBauteil() {
+		this.service.createBauteil(new CreateBauteilCallback());
 	}
 
 	/**
