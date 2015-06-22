@@ -22,8 +22,9 @@ public class MenuViewEditor extends Composite {
 		initWidget(this.hPanel);
 		this.main = main;
 
-
-
+		/**
+		 * Buttons, um zwischen Editor und Impressum wechseln zu können
+		 */
 		Button EditorBtn1 = new Button("Editor");
 		EditorBtn1.addClickHandler(new EditorBtn1ClickHandler());
 		this.hPanel.add(EditorBtn1);

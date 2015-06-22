@@ -5,8 +5,9 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.it04.client.editor.*;
+import de.hdm.it04.client.editor.DataTree;
 
+import de.hdm.it04.client.editor.MainViewDashboard;
 /**
  * 
  * @author Schwab, Tschullik
@@ -38,12 +39,8 @@ public class MainViewEditor extends Composite {
 		this.vPanelDashboard.add(hPanelDashboard);
 		this.hPanelDashboard.setBorderWidth(1);
 		
-		this.hPanelDashboard.add(vPanelTree);
-		this.vPanelTree.setBorderWidth(1);
-		
-		this.hPanelDashboard.add(vPanelDetails);
-		this.vPanelDetails.setBorderWidth(1);	
-		
+		MainViewDashboard MainViewDashboard = new MainViewDashboard();
+		this.hPanelDashboard.add(MainViewDashboard);
 	}
 	
 	public void openImpressumMain() {
@@ -54,7 +51,8 @@ public class MainViewEditor extends Composite {
 	
 	public void openDashboard() {
 		this.hPanelDashboard.clear();
-		
+		MainViewDashboard MainViewDashboard = new MainViewDashboard();
+		this.hPanelDashboard.add(MainViewDashboard);
 
 	}
 }
