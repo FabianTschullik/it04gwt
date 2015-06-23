@@ -4,7 +4,7 @@ import java.util.Vector;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
-import de.hdm.it04.client.gui.MainGUI;
+import de.hdm.it04.client.gui.MainGUIEditor;
 import de.hdm.it04.shared.Bauteil;
 
 /**
@@ -14,7 +14,7 @@ import de.hdm.it04.shared.Bauteil;
 public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	private It04gwtServiceAsync service;
-	private MainGUI maingui;
+	private MainGUIEditor maingui;
 
 	/**
 	 * Konstruktor vom Servlet
@@ -27,7 +27,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		ServiceDefTarget endpoint = (ServiceDefTarget) this.service;
 		endpoint.setServiceEntryPoint(url);
 
-		this.maingui = new MainGUI(this);
+		//this.maingui = new MainGUI(this);
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * @param void
 	 * @return MainGUI
 	 */
-	public MainGUI getMainGUI() {
+	public MainGUIEditor getMainGUI() {
 		return this.maingui;
 	}
 
@@ -113,7 +113,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		// Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt
 		@Override
 		public void onFailure(Throwable caught) {
-			maingui.GetAllError();
+			//maingui.GetAllError();
 		}
 
 		@Override
@@ -128,7 +128,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Vector<Bauteil> bauteile = new Vector<Bauteil>();
 				bauteile = (Vector<Bauteil>) result;
 
-				maingui.showBauteil(bauteile);
+				//maingui.showBauteil(bauteile);
 			}
 		}
 	}
@@ -142,7 +142,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			maingui.showError();
+			//maingui.showError();
 		}
 
 		@Override
@@ -157,10 +157,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				bauteile.add(bt);
 
 				// maingui.showSucess();
-				maingui.showBauteil(bauteile);
+				//maingui.showBauteil(bauteile);
 			}
 			else {
-				maingui.showError();
+				//maingui.showError();
 			}
 		}
 	}
@@ -174,7 +174,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			maingui.showError();
+			//maingui.showError();
 		}
 
 		@Override
@@ -188,7 +188,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				// maingui.showMeldung(delete);
 			}
 			else {
-				maingui.showError();
+				//maingui.showError();
 			}
 		}
 	}
@@ -216,7 +216,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Vector<Bauteil> bauteile = new Vector<Bauteil>();
 				bauteile = (Vector<Bauteil>) result;
 
-				maingui.showAllBauteile(bauteile);
+				//maingui.showAllBauteile(bauteile);
 			}
 		}
 	}
@@ -230,7 +230,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			maingui.showError();
+			//maingui.showError();
 
 		}
 
@@ -247,10 +247,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				bauteile.add(bt);
 
 				// maingui.showSucess();
-				maingui.showBauteil(bauteile);
+				//maingui.showBauteil(bauteile);
 			}
 			else {
-				maingui.showError();
+				//maingui.showError();
 			}
 		}
 	}
