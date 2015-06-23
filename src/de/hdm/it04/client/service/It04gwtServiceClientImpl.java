@@ -1,11 +1,14 @@
 package de.hdm.it04.client.service;
 
 import java.util.Vector;
+
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+
 import de.hdm.it04.client.gui.MainGUI;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Element;
 
 /**
  * Klasse wird benötigt, da diese alle Methoden auf Serverseite enthält. Auf
@@ -49,6 +52,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 */
 	public void getBauteil(int id) {
 		this.service.getBauteil(id, new GetBauteilCallback());
+	}
+	
+	public void findConnectedBauteileByKey(int id){
+		this.service.findConnectedBauteileByKey(id, new FindConnectedBauteileByKeyCallback());
 	}
 
 	/**
@@ -164,6 +171,31 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			}
 		}
 	}
+	
+	
+	private class FindConnectedBauteileByKeyCallback implements AsyncCallback<Vector<Element>>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// maingui.GetAllError();
+		}
+
+		@Override
+		public void onSuccess(Vector<Element> result) {
+
+			// Object result entählt, was vom server zurück kommt clientImpl
+			// updatet das GUI anschließend
+			System.out.println("R�ckmeldung vom Server erhalten");
+
+			if (result instanceof Vector) {
+				Vector<Element> bauteile = new Vector<Element>();
+				bauteile = (Vector<Element>) result;
+
+				maingui.showConnectedBauteile(bauteile);
+			}
+		}
+}	
+
 
 	/**
 	 * Diese Klasse wartet auf eine Antwort der Methode deleteBauteil(). Wenn

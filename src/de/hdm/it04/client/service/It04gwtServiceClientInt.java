@@ -53,6 +53,8 @@ public interface It04gwtServiceClientInt {
 	 */
 	void updateBauteil(Bauteil bt);
 	
+	void findConnectedBauteileByKey(int id);
+	
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
 	 * 

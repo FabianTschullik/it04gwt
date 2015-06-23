@@ -5,6 +5,7 @@ import java.util.Vector;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Element;
 
 public interface It04gwtServiceAsync {
 
@@ -13,6 +14,8 @@ public interface It04gwtServiceAsync {
 		void getBauteil(int id, AsyncCallback<Vector<Bauteil>> callback);
 		
 		void createBauteil(AsyncCallback callback);
+		
+		void findConnectedBauteileByKey(int id, AsyncCallback<Vector<Element>> callback);
 		
 		void delete(int id, AsyncCallback callback);
 		

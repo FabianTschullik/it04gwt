@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Element;
 
 /**
  * Mapper-Klasse, die <code>Baugruppe</code>-Objekte auf eine relationale
@@ -75,13 +76,13 @@ public class BaugruppeMapper {
 	 * @return Konto-Objekt-Vektor, das dem übergebenen Schlüssel entspricht,
 	 *         null bei nicht vorhandenem DB-Tupel.
 	 */
-	public Vector<Baugruppe> findByKey(int id) {
+	public Vector<Element> findConnectedBauteileByKey(int id) {
 
 		// DB-Verbindung holen
 		Connection con = DbConnection.connection();
 
 		// Ergebnisvektor vorbereiten
-		Vector<Baugruppe> result = new Vector<Baugruppe>();
+		Vector<Element> result = new Vector<Element>();
 
 		try {
 
@@ -92,8 +93,8 @@ public class BaugruppeMapper {
 			// Statement ausf�llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
-							+ "WHERE id=" + id);
+					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
+							+ "WHERE bauteilBaugruppe.baugruppe=" + id);
 			/*
 			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
 			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
@@ -103,14 +104,15 @@ public class BaugruppeMapper {
 
 				// Ergebnis-Tupel in Objekt umwandeln
 
-				Baugruppe bg = new Baugruppe();
-				bg.setId(rs.getInt("id"));
-				bg.setName(rs.getString("name"));
-				bg.setBeschreibung(rs.getString("beschreibung"));
-				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
-				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+				Bauteil bt = new Bauteil();
+				bt.setId(rs.getInt("id"));
+				bt.setName(rs.getString("name"));
+				bt.setMaterialBezeichnung("materialBezeichnung");
+				bt.setBeschreibung(rs.getString("beschreibung"));
+				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
-				result.add(bg);
+				result.add(bt);
 
 				return result;
 			}
