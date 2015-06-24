@@ -38,13 +38,25 @@ public class MainGUI extends Composite {
 	
 	public void showConnectedBauteil(Vector<Element> elemente){
 		
+
+		
 		this.flex = new FlexTable();
 		flex.setText(0, 0, "Beschreibung");
-		flex.setText(1, 0, elemente.elementAt(1).getBeschreibung());
+		flex.setText(1, 0, elemente.elementAt(0).getBeschreibung());
 		this.vPanel.add(flex);
 		
 		
 	}
+	
+public void error(){
+		
+	
+	//Label lbl2 = new Label("fehler");
+	//this.vPanel.add(lbl2);
+		
+	}
+	
+	
 	
 	
 	private class TestBtnClickHandler implements ClickHandler{
@@ -54,6 +66,7 @@ public class MainGUI extends Composite {
 			
 
 		serviceImpl.findConnectedBauteileByKey(1);
+		
 		
 		
 		}

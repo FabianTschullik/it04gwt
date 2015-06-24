@@ -179,7 +179,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// maingui.GetAllError();
+			
 		}
 
 		@Override
@@ -192,7 +192,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			if (result instanceof Vector) {
 				Vector<Element> bauteile = new Vector<Element>();
 				bauteile = (Vector<Element>) result;
-
+				//maingui.error();
 				maingui.showConnectedBauteil(bauteile);
 			}
 		}
