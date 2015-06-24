@@ -349,7 +349,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				bg = (Baugruppe) result;
 				
 				//maingui.showConnectedBaugruppe(bg);
-				maingui.updateTree(bg);
+				//maingui.updateTree(bg);
 
 				// maingui.showSucess();
 				//maingui.showBauteil(bauteile);
@@ -412,7 +412,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Baugruppe bg = (Baugruppe) result;
 				//maingui.updateTree(bg);
 
-				 maingui.showSucess();
+				 //maingui.showSucess();
 				//maingui.showBauteil(bauteile);
 			}
 			else {

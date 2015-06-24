@@ -29,33 +29,97 @@ import de.hdm.it04.shared.Bauteil;
 public class MainGUI extends Composite {
 	
 	private It04gwtServiceClientImpl serviceImpl;
+	
+	private VerticalPanel vPanel = new VerticalPanel();
+	private HorizontalPanel hPanelButtons = new HorizontalPanel();
 	private HorizontalPanel hPanel = new HorizontalPanel();
 	private VerticalPanel vPanelTree = new VerticalPanel();
 	private VerticalPanel vPanelDetails = new VerticalPanel();
+	private VerticalPanel vPanelDetailsContent = new VerticalPanel();
+	private HorizontalPanel hPanelDetailsButtons = new HorizontalPanel();
 	FlexTable flex = new FlexTable();
 	
 	
 	public MainGUI(It04gwtServiceClientImpl serviceImpl){
-		initWidget(this.hPanel);
+		initWidget(this.vPanel);
 		
+		this.vPanel.add(hPanelButtons);
+		this.vPanel.add(hPanel);
 		this.hPanel.add(vPanelTree);
 		this.hPanel.add(vPanelDetails);
+		this.vPanelDetails.add(hPanelDetailsButtons);
+		this.vPanelDetails.add(vPanelDetailsContent);
+		
+		
 		this.serviceImpl = serviceImpl;
 		
 		this.vPanelDetails.setBorderWidth(1);
 		this.vPanelTree.setBorderWidth(1);
 		this.hPanel.setBorderWidth(1);
+		this.vPanelDetails.add(hPanelDetailsButtons);
+		
+		Button editorBtn = new Button("Editor");
+		editorBtn.addClickHandler(new editorBtnClickHandler());
+		this.hPanelButtons.add(editorBtn);
+		
+		Button impressumBtn = new Button("Impressum");
+		impressumBtn.addClickHandler(new impressumBtnClickHandler());
+		this.hPanelButtons.add(impressumBtn);
+		
 		
 		Button testBtn = new Button("Test");
 		testBtn.addClickHandler(new TestBtnClickHandler());
-		this.vPanelDetails.add(testBtn);
-	
+		this.hPanelButtons.add(testBtn);
 		
 		
+		TreeItem root = new TreeItem();
+	    root.setText("Baugruppe");
+	    
+	    	TreeItem sub = new TreeItem();
+	    	sub.setText("Unterbaugruppe");
+	    
+	    		sub.addTextItem("Bauteil 1");
+	    		sub.addTextItem("Bauteil 2");
+	    root.addItem(sub);
+	    root.addTextItem("Bauteil 1");
+	    root.addTextItem("Bauteil 2");
+	    root.addTextItem("Bauteil 3");
+	    
+	   
+	    
+	    sub.addTextItem("untergruppe");
+	    
+	    
+	    
+	    Tree t = new Tree();
+	    t.addItem(root);
+
+	    
+	    this.vPanelTree.add(t);
+	    
+	    
+		/**
+		 * Anlegen der Buttons fürs Anlegen, Bearbeiten, Löschen und Abbrechen
+		 */
+		Button AnlegenBtn1 = new Button("Neu");
+		AnlegenBtn1.addClickHandler(new AnlegenBtn1ClickHandler());
+		this.hPanelDetailsButtons.add(AnlegenBtn1);
+		
+		Button BearbeitenBtn1 = new Button("Bearbeiten");
+		BearbeitenBtn1.addClickHandler(new BearbeitenBtn1ClickHandler());
+		this.hPanelDetailsButtons.add(BearbeitenBtn1);
+	  
+		Button LoeschenBtn1 = new Button("Loeschen");
+		LoeschenBtn1.addClickHandler(new LoeschenBtn1ClickHandler());
+		this.hPanelDetailsButtons.add(LoeschenBtn1);	
+		
+		Button AbbrechenBtn1 = new Button("Abbrechen");
+		AbbrechenBtn1.addClickHandler(new AbbrechenBtn1ClickHandler());
+		this.hPanelDetailsButtons.add(AbbrechenBtn1);
 		
 		
-		 
-			
+		this.vPanelDetails.add(hPanelDetailsButtons);
+		
 	}
 	
 	
@@ -72,47 +136,27 @@ public class MainGUI extends Composite {
 		flex.setText(0, 4, "geändert am");
 	
 
-		/**
-		* Formatiert Timestamp zu String
-		*/
+			/**
+			 * Formatiert Timestamp zu String
+			 */
+	
+		
 		flex.setText(0, 2, "Materialezeichnung");
 		flex.setText(0, 3, "Beschreibung");
 		flex.setText(0, 4, "erstellt am");
-		flex.setText(0, 5, "geändert am");	
+		flex.setText(0, 5, "geändert am");
+			
 		}
 		
-
-		
-		
-	public void updateTree (Baugruppe bg){
-		vPanelTree.clear();
-		
-		TreeItem enderzeugnis = new TreeItem();
-	    enderzeugnis.setText("Enderzeugnis");
-	    
-	    TreeItem highestBaugruppe = new TreeItem();
-	    highestBaugruppe.setText(bg.getName());
-	    
-	   
-	    enderzeugnis.addItem(highestBaugruppe);
-	  
-	    Tree t = new Tree();
-	    t.addItem(enderzeugnis);
-
-	    this.vPanelTree.add(t);
-		
-		
-	}
-	
 	public void showBaugruppeDetails(Baugruppe bg) {
 		
-		this.vPanelDetails.clear();
+		this.vPanelDetailsContent.clear();
 		this.flex.clear();
 				
 
 		HTML topic = new HTML("<h2>Detailansicht Baugruppe</h2>");
 
-		this.vPanelDetails.add(topic);
+		this.vPanelDetailsContent.add(topic);
 
 				this.flex = new FlexTable();
 				flex.setText(0, 0, "ID");
@@ -149,7 +193,7 @@ public class MainGUI extends Composite {
 					flex.setText(1, 3, s1);
 					flex.setText(1, 4, s2);
 				
-					this.vPanelDetails.add(flex);
+					this.vPanelDetailsContent.add(flex);
 					
 					/**
 					 * Verknüpfung zu style.css
@@ -158,23 +202,17 @@ public class MainGUI extends Composite {
 					flex.getRowFormatter().addStyleName(0,  "watchListHeader");
 					flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 					flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-					this.vPanelDetails.add(flex);
-					
-				
+					this.vPanelDetailsContent.add(flex);	
 			}
 		
-		
-		
-	
-	
 	public void showBauteilDetails(Bauteil bt) {
-this.vPanelDetails.clear();
-this.flex.clear();
+		this.vPanelDetailsContent.clear();
+		this.flex.clear();
 		
 
-HTML topic = new HTML("<h2>Detailansicht Bauteil</h2>");
+		HTML topic = new HTML("<h2>Detailansicht Bauteil</h2>");
 
-this.vPanelDetails.add(topic);
+		this.vPanelDetailsContent.add(topic);
 
 		this.flex = new FlexTable();
 		flex.setText(0, 0, "ID");
@@ -185,8 +223,6 @@ this.vPanelDetails.add(topic);
 		flex.setText(0, 5, "geändert am");
 		
 	
-			
-			
 			/**
 			 * Formatiert Timestamp zu String
 			 */
@@ -213,7 +249,7 @@ this.vPanelDetails.add(topic);
 			flex.setText(1, 4, s1);
 			flex.setText(1, 5, s2);
 		
-			this.vPanelDetails.add(flex);
+			this.vPanelDetailsContent.add(flex);
 			
 			/**
 			 * Verknüpfung zu style.css
@@ -222,29 +258,14 @@ this.vPanelDetails.add(topic);
 			flex.getRowFormatter().addStyleName(0,  "watchListHeader");
 			flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 			flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-			this.vPanelDetails.add(flex);
+			this.vPanelDetailsContent.add(flex);
 			
 		
 	}
 	
-	
-	
-	
-	public void showSucess(){
-		Label lbl = new Label("Erfolg!");
-		this.vPanelDetails.add(lbl);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
 	public void showConnectedBauteil(Vector<Bauteil> elemente){
 				
-this.flex.clear();
+		this.flex.clear();
 		
 		this.flex = new FlexTable();
 		flex.setText(0, 0, "ID");
@@ -295,19 +316,12 @@ this.flex.clear();
 		flex.getRowFormatter().addStyleName(0,  "watchListHeader");
 		flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 		flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-		this.vPanelDetails.add(flex);
-		
-		
-		
-	
-		
+		this.vPanelDetailsContent.add(flex);
 		
 	}
 	
 	
-	
-	
-public void error(){
+	public void error(){
 		
 	
 	//Label lbl2 = new Label("fehler");
@@ -322,56 +336,79 @@ public void error(){
 
 		@Override
 		public void onClick(ClickEvent event) {
-			//serviceImpl.findConnectedBauteileByKey(1);
+			
+
+		//serviceImpl.findConnectedBauteileByKey(1);
+
 			//serviceImpl.findConnectedBaugruppe(2);
+
 			//serviceImpl.getBauteilDetails(2);
-			//serviceImpl.getBaugruppeDetails(1);
-			vPanelDetails.clear();
-			
-			Anlegen neu = new Anlegen(vPanelDetails);
-			
-			vPanelDetails.add((IsWidget)neu);
+			vPanelDetailsContent.clear();
+			serviceImpl.getBaugruppeDetails(1);
+
+		
+		}	
+
+
+		
+		
+		}
+		
+		
+		
+
+	public class AnlegenBtn1ClickHandler implements ClickHandler {
+
+
+
+		@Override
+		public void onClick(ClickEvent event) {
+						vPanelDetailsContent.clear();
+						Anlegen neu = new Anlegen(vPanelDetailsContent);
+						vPanelDetailsContent.add((IsWidget)neu);
+						
+		}	
+	}
+	
+	public class BearbeitenBtn1ClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
 			
 		}
 	}
 	
-	public void showConnectedBaugruppe(Baugruppe bg){
+	public class LoeschenBtn1ClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
 		
-		
-		this.flex.clear();
-				
-				this.flex = new FlexTable();
-				flex.setText(0, 0, "ID");
-				flex.setText(0, 1, "Name");
-				flex.setText(0, 2, "Beschreibung");
-
-				
-				
-				
-					/**
-					 * Konvertieren der Bauteil-Daten und befüllen der Tabelle
-					 */
-					flex.setText(1, 0, Integer.toString(bg.getId()));
-					flex.setText(1, 1, bg.getName());
-					flex.setText(1, 2, bg.getBeschreibung());
-					flex.setText(1, 3, bg.getBeschreibung());
-
-
-					
-				
-
-				/**
-				 * Verknüpfung zu style.css
-				 */
+		}
+	}
 	
-				flex.setCellPadding(6);
-				flex.getRowFormatter().addStyleName(0,  "watchListHeader");
-				flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
-				flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-				this.vPanelDetails.add(flex);
-				
-				
-			}
+	public class AbbrechenBtn1ClickHandler implements ClickHandler {
 
+		@Override
+		public void onClick(ClickEvent event) {
+			
+		
+		}
+	}
+	
+	public class editorBtnClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			
+		
+		}
+	}
+	
+	public class impressumBtnClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			
+		}
+	}
 }
-
