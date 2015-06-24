@@ -111,11 +111,11 @@ public class BaugruppeMapper {
 
 				Bauteil bt = new Bauteil();
 				bt.setId(rs.getInt("id"));
-				bt.setName(rs.getString("name"));
-				bt.setMaterialBezeichnung("materialBezeichnung");
+				//bt.setName(rs.getString("name"));
+				//bt.setMaterialBezeichnung("materialBezeichnung");
 				bt.setBeschreibung(rs.getString("beschreibung"));
-				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
-				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+				//bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+				//bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
 				result.add(bt);
 
