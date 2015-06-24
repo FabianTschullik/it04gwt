@@ -106,6 +106,16 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	public void delete(int id) {
 		this.service.delete(id, new DeleteBauteilCallback());
 	}
+	
+	public void getBauteilDetails(int id) {
+		this.service.getBauteilDetails(id, new GetBauteilDetailsCallback());
+		
+	}
+	
+	public void getBaugruppeDetails(int id) {
+		this.service.getBaugruppeDetails(id, new GetBaugruppeDetailsCallback());
+		
+	}
 
 	/**
 	 * Die Methode legt ein Bauteil an.
@@ -255,6 +265,52 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				bauteile = (Vector<Bauteil>) result;
 
 				//maingui.showAllBauteile(bauteile);
+			}
+		}
+	}
+	
+	private class GetBauteilDetailsCallback implements AsyncCallback<Bauteil> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// maingui.GetAllError();
+		}
+
+		@Override
+		public void onSuccess(Bauteil result) {
+
+			// Object result entählt, was vom server zurück kommt clientImpl
+			// updatet das GUI anschließend
+			System.out.println("R�ckmeldung vom Server erhalten");
+
+			if (result instanceof Bauteil) {
+				Bauteil bt = new Bauteil();
+				bt = result;
+
+				maingui.showBauteilDetails(bt);
+			}
+		}
+	}
+	
+	private class GetBaugruppeDetailsCallback implements AsyncCallback<Baugruppe> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// maingui.GetAllError();
+		}
+
+		@Override
+		public void onSuccess(Baugruppe result) {
+
+			// Object result entählt, was vom server zurück kommt clientImpl
+			// updatet das GUI anschließend
+			System.out.println("R�ckmeldung vom Server erhalten");
+
+			if (result instanceof Baugruppe) {
+				Baugruppe bg = new Baugruppe();
+				bg = result;
+
+				maingui.showBaugruppeDetails(bg);
 			}
 		}
 	}

@@ -11,38 +11,255 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Enderzeugnis;
+
+
 
 public class MainGUI extends Composite {
 	
 	private It04gwtServiceClientImpl serviceImpl;
-	private VerticalPanel vPanel = new VerticalPanel();
+	
+	private HorizontalPanel hPanel = new HorizontalPanel();
+	private VerticalPanel vPanelTree = new VerticalPanel();
+	private VerticalPanel vPanelDetails = new VerticalPanel();
 	FlexTable flex = new FlexTable();
 	
 	
 	public MainGUI(It04gwtServiceClientImpl serviceImpl){
-		initWidget(this.vPanel);
+		initWidget(this.hPanel);
+		
+		this.hPanel.add(vPanelTree);
+		this.hPanel.add(vPanelDetails);
 		this.serviceImpl = serviceImpl;
+		
+		this.vPanelDetails.setBorderWidth(1);
+		this.vPanelTree.setBorderWidth(1);
+		this.hPanel.setBorderWidth(1);
 		
 		Button testBtn = new Button("Test");
 		testBtn.addClickHandler(new TestBtnClickHandler());
-		this.vPanel.add(testBtn);
+		this.vPanelDetails.add(testBtn);
 		
 		Label lbl = new Label("Hallo");
-		this.vPanel.add(lbl);
+		this.vPanelDetails.add(lbl);
+		
+		TreeItem root = new TreeItem();
+	    root.setText("Baugruppe");
+	    
+	    	TreeItem sub = new TreeItem();
+	    	sub.setText("Unterbaugruppe");
+	    
+	    		sub.addTextItem("Bauteil 1");
+	    		sub.addTextItem("Bauteil 2");
+	    root.addItem(sub);
+	    root.addTextItem("Bauteil 1");
+	    root.addTextItem("Bauteil 2");
+	    root.addTextItem("Bauteil 3");
+	    
+	   
+	    
+	    sub.addTextItem("untergruppe");
+	    
+	    
+	    
+	    Tree t = new Tree();
+	    t.addItem(root);
+
+	    
+	    
+	    this.vPanelTree.add(t);
 		
 	}
 	
 	
+
+	public void showEnderzeugnisDetails() {
+
+	
+		
+		
+
+this.flex.clear();
+		
+		this.flex = new FlexTable();
+		flex.setText(0, 0, "ID");
+		flex.setText(0, 1, "Name");
+		flex.setText(0, 2, "Preis");
+		flex.setText(0, 3, "erstellt am");
+		flex.setText(0, 4, "geändert am");
+	
+
+			/**
+			 * Formatiert Timestamp zu String
+			 */
+			
+		
+		
+
+		flex.setText(0, 2, "Materialezeichnung");
+		flex.setText(0, 3, "Beschreibung");
+		flex.setText(0, 4, "erstellt am");
+		flex.setText(0, 5, "geändert am");
+		
+		
+
+
+			
+		}
+		
+
+		
+		
+	
+	
+	public void showBaugruppeDetails(Baugruppe bg) {
+		
+		this.vPanelDetails.clear();
+		this.flex.clear();
+				
+
+		HTML topic = new HTML("<h2>Detailansicht Baugruppe</h2>");
+
+		this.vPanelDetails.add(topic);
+
+				this.flex = new FlexTable();
+				flex.setText(0, 0, "ID");
+				flex.setText(0, 1, "Name");
+				flex.setText(0, 2, "Beschreibung");
+				flex.setText(0, 3, "erstellt am");
+				flex.setText(0, 4, "geändert am");
+				
+			
+					
+					
+					/**
+					 * Formatiert Timestamp zu String
+					 */
+					Date d1 = new Date();
+					d1 = bg.getErstellungsDatum();
+					String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
+					
+					
+					/**
+					 * Formatiert Timestamp zu String
+					 */
+					Date d2 = new Date();
+					d2 = bg.getAenderungsDatum();
+					String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
+					
+				
+					/**
+					 * Konvertieren der Bauteil-Daten und befüllen der Tabelle
+					 */
+					flex.setText(1, 0, Integer.toString(bg.getId()));
+					flex.setText(1, 1, bg.getName());
+					flex.setText(1, 2, bg.getBeschreibung());
+					flex.setText(1, 3, s1);
+					flex.setText(1, 4, s2);
+				
+					this.vPanelDetails.add(flex);
+					
+					/**
+					 * Verknüpfung zu style.css
+					 */
+					flex.setCellPadding(6);
+					flex.getRowFormatter().addStyleName(0,  "watchListHeader");
+					flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+					flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+					this.vPanelDetails.add(flex);
+					
+				
+			}
+		
+		
+		
+	
+	
+	public void showBauteilDetails(Bauteil bt) {
+this.vPanelDetails.clear();
+this.flex.clear();
+		
+
+HTML topic = new HTML("<h2>Detailansicht Bauteil</h2>");
+
+this.vPanelDetails.add(topic);
+
+		this.flex = new FlexTable();
+		flex.setText(0, 0, "ID");
+		flex.setText(0, 1, "Name");
+		flex.setText(0, 2, "Materialezeichnung");
+		flex.setText(0, 3, "Beschreibung");
+		flex.setText(0, 4, "erstellt am");
+		flex.setText(0, 5, "geändert am");
+		
+	
+			
+			
+			/**
+			 * Formatiert Timestamp zu String
+			 */
+			Date d1 = new Date();
+			d1 = bt.getErstellungsDatum();
+			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
+			
+			
+			/**
+			 * Formatiert Timestamp zu String
+			 */
+			Date d2 = new Date();
+			d2 = bt.getAenderungsDatum();
+			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
+			
+		
+			/**
+			 * Konvertieren der Bauteil-Daten und befüllen der Tabelle
+			 */
+			flex.setText(1, 0, Integer.toString(bt.getId()));
+			flex.setText(1, 1, bt.getName());
+			flex.setText(1, 2, bt.getMaterialBezeichnung());
+			flex.setText(1, 3, bt.getBeschreibung());
+			flex.setText(1, 4, s1);
+			flex.setText(1, 5, s2);
+		
+			this.vPanelDetails.add(flex);
+			
+			/**
+			 * Verknüpfung zu style.css
+			 */
+			flex.setCellPadding(6);
+			flex.getRowFormatter().addStyleName(0,  "watchListHeader");
+			flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+			flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+			this.vPanelDetails.add(flex);
+			
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void showConnectedBauteil(Vector<Bauteil> elemente){
-		
-		
+				
 this.flex.clear();
 		
 		this.flex = new FlexTable();
@@ -97,10 +314,17 @@ this.flex.clear();
 		flex.getRowFormatter().addStyleName(0,  "watchListHeader");
 		flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 		flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-		this.vPanel.add(flex);
+		this.vPanelDetails.add(flex);
+		
+		
+		
+	
 		
 		
 	}
+	
+	
+	
 	
 public void error(){
 		
@@ -120,8 +344,12 @@ public void error(){
 			
 
 		//serviceImpl.findConnectedBauteileByKey(1);
-			serviceImpl.findConnectedBaugruppe(2);
-		
+
+			//serviceImpl.findConnectedBaugruppe(2);
+
+			//serviceImpl.getBauteilDetails(2);
+			serviceImpl.getBaugruppeDetails(1);
+
 		
 		
 		}
@@ -163,7 +391,7 @@ public void error(){
 				flex.getRowFormatter().addStyleName(0,  "watchListHeader");
 				flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 				flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-				this.vPanel.add(flex);
+				this.vPanelDetails.add(flex);
 				
 				
 			}

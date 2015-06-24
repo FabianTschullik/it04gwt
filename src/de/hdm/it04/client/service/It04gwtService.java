@@ -84,5 +84,9 @@ public interface It04gwtService extends RemoteService {
 	 */
 	Vector<Bauteil> findByName(String name);
 	
+	
+	Bauteil getBauteilDetails(int id);
+	Baugruppe getBaugruppeDetails(int id);
+	
 
 }

@@ -64,4 +64,7 @@ public interface It04gwtServiceClientInt {
 	 * @return void
 	 */
 	void delete(int id);
+	
+	void getBauteilDetails(int id);
+	void getBaugruppeDetails(int id);
 }
