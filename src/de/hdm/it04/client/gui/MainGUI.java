@@ -39,8 +39,8 @@ public class MainGUI extends Composite {
 	public void showConnectedBauteil(Vector<Element> elemente){
 		
 		this.flex = new FlexTable();
-		flex.setText(0, 0, "name");
-		flex.setText(1, 0, elemente.elementAt(1).getName());
+		flex.setText(0, 0, "Beschreibung");
+		flex.setText(1, 0, elemente.elementAt(1).getBeschreibung());
 		this.vPanel.add(flex);
 		
 		

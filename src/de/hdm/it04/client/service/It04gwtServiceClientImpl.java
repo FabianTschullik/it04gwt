@@ -193,7 +193,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Vector<Element> bauteile = new Vector<Element>();
 				bauteile = (Vector<Element>) result;
 
-				//maingui.showConnectedBauteile(bauteile);
+				maingui.showConnectedBauteil(bauteile);
 			}
 		}
 }	
