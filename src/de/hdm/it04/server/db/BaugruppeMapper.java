@@ -93,8 +93,13 @@ public class BaugruppeMapper {
 			// Statement ausf�llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
-							+ "WHERE bauteilBaugruppe.baugruppe=" + id);
+					.executeQuery("SELECT bauteil.id, bauteil.beschreibung " +
+									"FROM bauteil, baugruppe, bauteilBaugruppe " +
+									"WHERE bauteil.id = bauteilBaugruppe.bauteil " +
+									"AND baugruppe.id = bauteilBaugruppe.baugruppe " +
+									"AND baugruppe.id=" + id);
+							
+							
 			/*
 			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
 			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
