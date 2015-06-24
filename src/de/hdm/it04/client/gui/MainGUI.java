@@ -11,38 +11,117 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
 
 import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Enderzeugnis;
 
 public class MainGUI extends Composite {
 	
 	private It04gwtServiceClientImpl serviceImpl;
-	private VerticalPanel vPanel = new VerticalPanel();
+	
+	private HorizontalPanel hPanel = new HorizontalPanel();
+	private VerticalPanel vPanelTree = new VerticalPanel();
+	private VerticalPanel vPanelDetails = new VerticalPanel();
 	FlexTable flex = new FlexTable();
 	
 	
 	public MainGUI(It04gwtServiceClientImpl serviceImpl){
-		initWidget(this.vPanel);
+		initWidget(this.hPanel);
+		
+		this.hPanel.add(vPanelTree);
+		this.hPanel.add(vPanelDetails);
 		this.serviceImpl = serviceImpl;
+		
+		this.vPanelDetails.setBorderWidth(1);
+		this.vPanelTree.setBorderWidth(1);
+		this.hPanel.setBorderWidth(1);
 		
 		Button testBtn = new Button("Test");
 		testBtn.addClickHandler(new TestBtnClickHandler());
-		this.vPanel.add(testBtn);
+		this.vPanelDetails.add(testBtn);
 		
 		Label lbl = new Label("Hallo");
-		this.vPanel.add(lbl);
+		this.vPanelDetails.add(lbl);
+		
+		TreeItem root = new TreeItem();
+	    root.setText("Baugruppe");
+	    
+	    	TreeItem sub = new TreeItem();
+	    	sub.setText("Unterbaugruppe");
+	    
+	    		sub.addTextItem("Bauteil 1");
+	    		sub.addTextItem("Bauteil 2");
+	    root.addItem(sub);
+	    root.addTextItem("Bauteil 1");
+	    root.addTextItem("Bauteil 2");
+	    root.addTextItem("Bauteil 3");
+	    
+	   
+	    
+	    sub.addTextItem("untergruppe");
+	    
+	    
+	    
+	    Tree t = new Tree();
+	    t.addItem(root);
+
+	    
+	    
+	    this.vPanelTree.add(t);
 		
 	}
 	
 	
+	public void showEnderzeugnisDetails() {
+this.flex.clear();
+		
+		this.flex = new FlexTable();
+		flex.setText(0, 0, "ID");
+		flex.setText(0, 1, "Name");
+		flex.setText(0, 2, "Preis");
+		flex.setText(0, 3, "erstellt am");
+		flex.setText(0, 4, "geändert am");
+	
+
+			/**
+			 * Formatiert Timestamp zu String
+			 */
+			
+		
+		
+		
+		
+	}
+	
+	public void showBaugruppeDetails() {
+		
+	}
+	
+	public void showBauteilDetails() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void showConnectedBauteil(Vector<Bauteil> elemente){
-		
-		
+				
 this.flex.clear();
 		
 		this.flex = new FlexTable();
@@ -97,10 +176,17 @@ this.flex.clear();
 		flex.getRowFormatter().addStyleName(0,  "watchListHeader");
 		flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 		flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-		this.vPanel.add(flex);
+		this.vPanelDetails.add(flex);
+		
+		
+		
+	
 		
 		
 	}
+	
+	
+	
 	
 public void error(){
 		
