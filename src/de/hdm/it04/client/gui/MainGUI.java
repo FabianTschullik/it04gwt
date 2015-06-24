@@ -14,8 +14,8 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-
 import de.hdm.it04.client.service.It04gwtServiceClientImpl;
+import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Bauteil;
 
@@ -119,7 +119,8 @@ public void error(){
 		public void onClick(ClickEvent event) {
 			
 
-		serviceImpl.findConnectedBauteileByKey(1);
+		//serviceImpl.findConnectedBauteileByKey(1);
+			serviceImpl.findConnectedBaugruppe(2);
 		
 		
 		
@@ -129,7 +130,43 @@ public void error(){
 		
 	}
 	
+	public void showConnectedBaugruppe(Baugruppe bg){
+		
+		
+		this.flex.clear();
+				
+				this.flex = new FlexTable();
+				flex.setText(0, 0, "ID");
+				flex.setText(0, 1, "Name");
+				flex.setText(0, 2, "Beschreibung");
+
+				
+				
+				
+					/**
+					 * Konvertieren der Bauteil-Daten und befüllen der Tabelle
+					 */
+					flex.setText(1, 0, Integer.toString(bg.getId()));
+					flex.setText(1, 1, bg.getName());
+					flex.setText(1, 2, bg.getBeschreibung());
+					flex.setText(1, 3, bg.getBeschreibung());
+
+
+					
+				
+
+				/**
+				 * Verknüpfung zu style.css
+				 */
 	
-	
+				flex.setCellPadding(6);
+				flex.getRowFormatter().addStyleName(0,  "watchListHeader");
+				flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+				flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+				this.vPanel.add(flex);
+				
+				
+			}
 
 }
+

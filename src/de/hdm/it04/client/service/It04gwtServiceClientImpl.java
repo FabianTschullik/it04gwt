@@ -9,6 +9,7 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import de.hdm.it04.client.editor.Details;
 import de.hdm.it04.client.gui.MainGUI;
 import de.hdm.it04.client.gui.MainGUIEditor;
+import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
 
@@ -54,6 +55,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 */
 	public void getBauteil(int id) {
 		this.service.getBauteil(id, new GetBauteilCallback());
+	}
+	
+	public void findConnectedBaugruppe(int id){
+		this.service.findConnectedBaugruppe(id, new FindConnectedBaugruppeCallback());
 	}
 	
 	public void findConnectedBauteileByKey(int id){
@@ -259,6 +264,40 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * sie eine Antwort erhält, war die Kommunikation mit der Datenbank
 	 * erfolgreich und kann weiter verarbeitet werden.
 	 */
+	
+	private class FindConnectedBaugruppeCallback implements AsyncCallback{
+		
+
+		@Override
+		public void onFailure(Throwable caught) {
+			//maingui.showError();
+
+		}
+
+		@Override
+		public void onSuccess(Object result) { // /Object result ent�hlt, was
+												// vom server zur�ck kommt
+												// clientImpl updatet das GUI
+												// anschlie�end
+			System.out.println("Rueckmeldung vom Server erhalten");
+			if (result instanceof Baugruppe) {
+
+				Baugruppe bg = new Baugruppe();
+				
+				bg = (Baugruppe) result;
+				
+				maingui.showConnectedBaugruppe(bg);
+
+				// maingui.showSucess();
+				//maingui.showBauteil(bauteile);
+			}
+			else {
+				//maingui.showError();
+			}
+		}
+	}
+		
+		
 	private class UpdateBauteilCallback implements AsyncCallback {
 
 		@Override

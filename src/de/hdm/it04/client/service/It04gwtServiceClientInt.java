@@ -27,6 +27,8 @@ public interface It04gwtServiceClientInt {
 	 */
 	void createBauteil();
 	
+	void findConnectedBaugruppe(int id);
+	
 	/**
 	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem
 	 * Vektor.

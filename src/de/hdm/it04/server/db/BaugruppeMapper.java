@@ -248,6 +248,51 @@ public class BaugruppeMapper {
 	 * @return Konto-Objekt-Vektor, das dem übergebenen namen entspricht, null
 	 *         bei nicht vorhandenem DB-Tupel.
 	 */
+	/*
+	public Vector<Baugruppe> findUnterBaugruppen(Baugruppe bg){
+		
+		// DB-Verbindung holen
+				Connection con = DbConnection.connection();
+
+				Vector<Baugruppe> result = new Vector<Baugruppe>();
+
+				try {
+
+					// Leeres SQL-Statement (JDBC) anlegen
+
+					Statement stmt = con.createStatement();
+
+					// Statement ausf�llen und als Query an die DB schicken
+					
+					
+
+					ResultSet rs = stmt
+							.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM baugruppe "
+									+ "WHERE name=" + "'" + name + "'");
+					
+
+					while (rs.next()) {
+
+						// Ergebnis-Tupel in Objekt umwandeln
+
+						Baugruppe bg = new Baugruppe();
+						bg.setId(rs.getInt("id"));
+						bg.setName(rs.getString("name"));
+						bg.setBeschreibung(rs.getString("beschreibung"));
+						bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+						bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+
+						result.add(bg);
+					}
+
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+				return result;
+			}
+	}
+	
+*/
 	public Vector<Baugruppe> findByName(String name) {
 
 		// DB-Verbindung holen

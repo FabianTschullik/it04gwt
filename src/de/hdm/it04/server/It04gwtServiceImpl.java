@@ -5,6 +5,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.server.db.BaugruppeMapper;
 import de.hdm.it04.server.db.BauteilMapper;
+import de.hdm.it04.server.db.EnderzeugnisMapper;
+import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
 
@@ -37,6 +39,11 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	public Vector<Bauteil> findConnectedBauteileByKey(int id){
 		
 		return BaugruppeMapper.baugruppeMapper().findConnectedBauteileByKey(id);
+	}
+	
+	public Baugruppe findConnectedBaugruppe(int id){
+		
+		return EnderzeugnisMapper.enderzeugnisMapper().findConnectedBaugruppe(id);
 	}
 
 	/**
