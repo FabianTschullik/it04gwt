@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
 
@@ -24,4 +25,6 @@ public interface It04gwtServiceAsync {
 		void findByName(String name, AsyncCallback<Vector<Bauteil>> callback);
 		
 		void updateBauteil(Bauteil bt, AsyncCallback callback);
+		void getBauteilDetails(int id, AsyncCallback<Bauteil> callback);
+		void getBaugruppeDetails(int id, AsyncCallback<Baugruppe> callback);
 }

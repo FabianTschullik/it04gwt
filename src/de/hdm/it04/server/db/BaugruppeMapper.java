@@ -338,6 +338,42 @@ public class BaugruppeMapper {
 
 		return ergebnis;
 	}
+	
+public Baugruppe getBaugruppeDetails(int id) {
+		
+		Connection con = DbConnection.connection();
+
+		// Ergebnisvektor vorbereiten
+		Baugruppe result = new Baugruppe();
+		
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
+							+ " WHERE id = "+id);
+
+			// Für jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt
+			// erstellt.
+			while (rs.next()) {
+				Baugruppe bg = new Baugruppe();
+				bg.setId(rs.getInt("id"));
+				bg.setName(rs.getString("name"));
+				bg.setBeschreibung(rs.getString("beschreibung"));
+				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+				
+				result = bg;
+			}
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
+		
+		return result;
+		
+	}
+
 
 }
 

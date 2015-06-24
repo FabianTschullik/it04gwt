@@ -5,6 +5,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.server.db.BaugruppeMapper;
 import de.hdm.it04.server.db.BauteilMapper;
+import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
 
@@ -98,4 +99,14 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 		return BauteilMapper.bauteilMapper().delete(id);
 	}
+	
+	public Bauteil getBauteilDetails(int id) {
+	
+	return BauteilMapper.bauteilMapper().getBauteilDetails(id);
+	}
+	
+	public Baugruppe getBaugruppeDetails(int id) {
+		
+		return BaugruppeMapper.baugruppeMapper().getBaugruppeDetails(id);
+		}
 }

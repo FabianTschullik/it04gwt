@@ -9,6 +9,7 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import de.hdm.it04.client.editor.Details;
 import de.hdm.it04.client.gui.MainGUI;
 import de.hdm.it04.client.gui.MainGUIEditor;
+import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
 
@@ -100,6 +101,16 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 */
 	public void delete(int id) {
 		this.service.delete(id, new DeleteBauteilCallback());
+	}
+	
+	public void getBauteilDetails(int id) {
+		this.service.getBauteilDetails(id, new GetBauteilDetailsCallback());
+		
+	}
+	
+	public void getBaugruppeDetails(int id) {
+		this.service.getBaugruppeDetails(id, new GetBaugruppeDetailsCallback());
+		
 	}
 
 	/**
@@ -250,6 +261,52 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				bauteile = (Vector<Bauteil>) result;
 
 				//maingui.showAllBauteile(bauteile);
+			}
+		}
+	}
+	
+	private class GetBauteilDetailsCallback implements AsyncCallback<Bauteil> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// maingui.GetAllError();
+		}
+
+		@Override
+		public void onSuccess(Bauteil result) {
+
+			// Object result entählt, was vom server zurück kommt clientImpl
+			// updatet das GUI anschließend
+			System.out.println("R�ckmeldung vom Server erhalten");
+
+			if (result instanceof Bauteil) {
+				Bauteil bt = new Bauteil();
+				bt = result;
+
+				maingui.showBauteilDetails(bt);
+			}
+		}
+	}
+	
+	private class GetBaugruppeDetailsCallback implements AsyncCallback<Baugruppe> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// maingui.GetAllError();
+		}
+
+		@Override
+		public void onSuccess(Baugruppe result) {
+
+			// Object result entählt, was vom server zurück kommt clientImpl
+			// updatet das GUI anschließend
+			System.out.println("R�ckmeldung vom Server erhalten");
+
+			if (result instanceof Baugruppe) {
+				Baugruppe bg = new Baugruppe();
+				bg = result;
+
+				maingui.showBaugruppeDetails(bg);
 			}
 		}
 	}

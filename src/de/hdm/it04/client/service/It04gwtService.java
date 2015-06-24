@@ -5,6 +5,7 @@ import java.util.Vector;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
 
@@ -80,6 +81,10 @@ public interface It04gwtService extends RemoteService {
 	 *         Namen enthält
 	 */
 	Vector<Bauteil> findByName(String name);
+	
+	
+	Bauteil getBauteilDetails(int id);
+	Baugruppe getBaugruppeDetails(int id);
 	
 
 }
