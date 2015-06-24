@@ -5,6 +5,9 @@ import java.util.Vector;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+
+import de.hdm.it04.client.editor.Details;
+import de.hdm.it04.client.gui.MainGUI;
 import de.hdm.it04.client.gui.MainGUIEditor;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
@@ -16,7 +19,7 @@ import de.hdm.it04.shared.Element;
 public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	private It04gwtServiceAsync service;
-	private MainGUIEditor maingui;
+	private MainGUI maingui;
 
 	/**
 	 * Konstruktor vom Servlet
@@ -29,7 +32,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		ServiceDefTarget endpoint = (ServiceDefTarget) this.service;
 		endpoint.setServiceEntryPoint(url);
 
-		//this.maingui = new MainGUI(this);
+		this.maingui = new MainGUI(this);
 	}
 
 	/**
@@ -38,7 +41,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * @param void
 	 * @return MainGUI
 	 */
-	public MainGUIEditor getMainGUI() {
+	public MainGUI getMainGUI() {
 		return this.maingui;
 	}
 
@@ -190,7 +193,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Vector<Element> bauteile = new Vector<Element>();
 				bauteile = (Vector<Element>) result;
 
-				maingui.showConnectedBauteile(bauteile);
+				//maingui.showConnectedBauteile(bauteile);
 			}
 		}
 }	
@@ -209,11 +212,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 
 		@Override
-		public void onSuccess(Object result) { // /Object result ent�hlt, was
-												// vom server zur�ck kommt
-												// clientImpl updatet das GUI
-												// anschlie�end
-			System.out.println("R�ckmeldung vom Server erhalten");
+		public void onSuccess(Object result) { 
+			
+			System.out.println("Rückmeldung vom Server erhalten");
+			
 			if (result instanceof String) {
 				// String delete = result.toString();
 				// maingui.showMeldung(delete);

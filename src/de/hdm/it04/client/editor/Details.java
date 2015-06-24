@@ -1,10 +1,13 @@
 package de.hdm.it04.client.editor;
 
+import java.util.Vector;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -12,6 +15,9 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+import de.hdm.it04.client.service.It04gwtServiceClientImpl;
+import de.hdm.it04.shared.Element;
 
 /**
  * @author Schwab
@@ -23,13 +29,17 @@ public class Details extends Composite {
 	
 	private HorizontalPanel hPanelDetailsButton = new HorizontalPanel();
 	
+	
 	/**
 	 * Konstruktor
 	 */
 	public Details() {
+		
+		
 
 		initWidget(this.vPanelDetails);
 		this.main = main;
+		
 			
 		/**
 		 * Anlegen der Buttons fürs Anlegen, Bearbeiten, Löschen und Abbrechen
@@ -80,12 +90,18 @@ public class Details extends Composite {
 		
 		this.vPanelDetails.add(hPanelDetailsButton);
 		
+		
 	}
 	
 	public class AnlegenBtn1ClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			
+			
+			
+			
+			
 						
 		}	
 	}
@@ -111,7 +127,9 @@ public class Details extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			
-		
 		}
 	}
+	
+	
+	
 }

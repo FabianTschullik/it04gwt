@@ -6,6 +6,8 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
+import de.hdm.it04.client.service.It04gwtServiceClientImpl;
+
 /**
  * 
  * @author Tschullik, Schwab
@@ -32,6 +34,7 @@ public class MenuViewEditor extends Composite {
 		Button ImpressumBtn1 = new Button("Impressum");
 		ImpressumBtn1.addClickHandler(new ImpressumBtn1ClickHandler());
 		this.hPanel.add(ImpressumBtn1);
+		
 
 	}
 
