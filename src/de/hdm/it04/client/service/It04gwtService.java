@@ -87,6 +87,8 @@ public interface It04gwtService extends RemoteService {
 	
 	Bauteil getBauteilDetails(int id);
 	Baugruppe getBaugruppeDetails(int id);
+
+	Baugruppe update(Baugruppe bg, Bauteil bt);
 	
 
 }

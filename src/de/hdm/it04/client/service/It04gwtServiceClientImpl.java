@@ -61,6 +61,12 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		this.service.findConnectedBaugruppe(id, new FindConnectedBaugruppeCallback());
 	}
 	
+	@Override
+	public void update(Baugruppe bg, Bauteil bt) {
+		this.service.update(bg, bt, new UpdateCallback());
+		
+	}
+	
 	public void findConnectedBauteileByKey(int id){
 		this.service.findConnectedBauteileByKey(id, new FindConnectedBauteileByKeyCallback());
 	}
@@ -342,7 +348,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				
 				bg = (Baugruppe) result;
 				
-				maingui.showConnectedBaugruppe(bg);
+				//maingui.showConnectedBaugruppe(bg);
+				maingui.updateTree(bg);
 
 				// maingui.showSucess();
 				//maingui.showBauteil(bauteile);
@@ -382,4 +389,38 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			}
 		}
 	}
+	
+	
+	
+	
+	private class UpdateCallback implements AsyncCallback {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			//maingui.showError();
+
+		}
+
+		@Override
+		public void onSuccess(Object result) { // /Object result ent�hlt, was
+												// vom server zur�ck kommt
+												// clientImpl updatet das GUI
+												// anschlie�end
+			System.out.println("Rückmeldung vom Server erhalten");
+			if (result instanceof Baugruppe) {
+
+				Baugruppe bg = (Baugruppe) result;
+				//maingui.updateTree(bg);
+
+				 maingui.showSucess();
+				//maingui.showBauteil(bauteile);
+			}
+			else {
+				//maingui.showError();
+			}
+		}
+	}
+
+
+	
 }

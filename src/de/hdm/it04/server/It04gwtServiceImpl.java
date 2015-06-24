@@ -116,4 +116,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		
 		return BaugruppeMapper.baugruppeMapper().getBaugruppeDetails(id);
 		}
+	
+	public Baugruppe update (Baugruppe bg, Bauteil bt){
+		return BaugruppeMapper.baugruppeMapper().update(bg, bt);
+	}
 }

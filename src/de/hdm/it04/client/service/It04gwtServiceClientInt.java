@@ -1,6 +1,7 @@
 package de.hdm.it04.client.service;
 
 
+import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 
 
@@ -67,4 +68,5 @@ public interface It04gwtServiceClientInt {
 	
 	void getBauteilDetails(int id);
 	void getBaugruppeDetails(int id);
+	void update (Baugruppe bg, Bauteil bt);
 }

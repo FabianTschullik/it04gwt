@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
@@ -20,16 +21,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 import de.hdm.it04.shared.Baugruppe;
-import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Bauteil;
-import de.hdm.it04.shared.Enderzeugnis;
+
 
 
 
 public class MainGUI extends Composite {
 	
 	private It04gwtServiceClientImpl serviceImpl;
-	
 	private HorizontalPanel hPanel = new HorizontalPanel();
 	private VerticalPanel vPanelTree = new VerticalPanel();
 	private VerticalPanel vPanelDetails = new VerticalPanel();
@@ -50,47 +49,20 @@ public class MainGUI extends Composite {
 		Button testBtn = new Button("Test");
 		testBtn.addClickHandler(new TestBtnClickHandler());
 		this.vPanelDetails.add(testBtn);
+	
 		
-		Label lbl = new Label("Hallo");
-		this.vPanelDetails.add(lbl);
 		
-		TreeItem root = new TreeItem();
-	    root.setText("Baugruppe");
-	    
-	    	TreeItem sub = new TreeItem();
-	    	sub.setText("Unterbaugruppe");
-	    
-	    		sub.addTextItem("Bauteil 1");
-	    		sub.addTextItem("Bauteil 2");
-	    root.addItem(sub);
-	    root.addTextItem("Bauteil 1");
-	    root.addTextItem("Bauteil 2");
-	    root.addTextItem("Bauteil 3");
-	    
-	   
-	    
-	    sub.addTextItem("untergruppe");
-	    
-	    
-	    
-	    Tree t = new Tree();
-	    t.addItem(root);
-
-	    
-	    
-	    this.vPanelTree.add(t);
 		
+		
+		 
+			
 	}
 	
 	
 
 	public void showEnderzeugnisDetails() {
 
-	
-		
-		
-
-this.flex.clear();
+		this.flex.clear();
 		
 		this.flex = new FlexTable();
 		flex.setText(0, 0, "ID");
@@ -100,28 +72,37 @@ this.flex.clear();
 		flex.setText(0, 4, "geändert am");
 	
 
-			/**
-			 * Formatiert Timestamp zu String
-			 */
-			
-		
-		
-
+		/**
+		* Formatiert Timestamp zu String
+		*/
 		flex.setText(0, 2, "Materialezeichnung");
 		flex.setText(0, 3, "Beschreibung");
 		flex.setText(0, 4, "erstellt am");
-		flex.setText(0, 5, "geändert am");
-		
-		
-
-
-			
+		flex.setText(0, 5, "geändert am");	
 		}
 		
 
 		
 		
-	
+	public void updateTree (Baugruppe bg){
+		vPanelTree.clear();
+		
+		TreeItem enderzeugnis = new TreeItem();
+	    enderzeugnis.setText("Enderzeugnis");
+	    
+	    TreeItem highestBaugruppe = new TreeItem();
+	    highestBaugruppe.setText(bg.getName());
+	    
+	   
+	    enderzeugnis.addItem(highestBaugruppe);
+	  
+	    Tree t = new Tree();
+	    t.addItem(enderzeugnis);
+
+	    this.vPanelTree.add(t);
+		
+		
+	}
 	
 	public void showBaugruppeDetails(Baugruppe bg) {
 		
@@ -249,7 +230,10 @@ this.vPanelDetails.add(topic);
 	
 	
 	
-	
+	public void showSucess(){
+		Label lbl = new Label("Erfolg!");
+		this.vPanelDetails.add(lbl);
+	}
 	
 	
 	
@@ -300,10 +284,7 @@ this.flex.clear();
 			flex.setText(j+1, 2, elemente.elementAt(j).getMaterialBezeichnung());
 			flex.setText(j+1, 3, elemente.elementAt(j).getBeschreibung());
 			flex.setText(j+1, 4, s1);
-			flex.setText(j+1, 5, s2);
-
-
-			
+			flex.setText(j+1, 5, s2);	
 		}
 		
 
@@ -341,21 +322,17 @@ public void error(){
 
 		@Override
 		public void onClick(ClickEvent event) {
-			
-
-		//serviceImpl.findConnectedBauteileByKey(1);
-
+			//serviceImpl.findConnectedBauteileByKey(1);
 			//serviceImpl.findConnectedBaugruppe(2);
-
 			//serviceImpl.getBauteilDetails(2);
-			serviceImpl.getBaugruppeDetails(1);
-
-		
-		
+			//serviceImpl.getBaugruppeDetails(1);
+			vPanelDetails.clear();
+			
+			Anlegen neu = new Anlegen(vPanelDetails);
+			
+			vPanelDetails.add((IsWidget)neu);
+			
 		}
-		
-		
-		
 	}
 	
 	public void showConnectedBaugruppe(Baugruppe bg){

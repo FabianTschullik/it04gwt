@@ -366,6 +366,46 @@ public class BaugruppeMapper {
 		return bg;
 	}
 
+	
+	
+	
+	/**
+	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
+	 * 
+	 * @param bg
+	 *            das Objekt, das in die DB geschrieben werden soll
+	 * @return das als Parameter übergebene Objekt
+	 */
+	public Baugruppe update(Baugruppe bg, Bauteil bt) {
+
+		Connection con = DbConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+			
+			Date date = new Date();
+			new Timestamp(date.getTime());
+
+			stmt.executeUpdate("UPDATE baugruppe SET name = '" + bg.getName()+ "', " 
+					+ "beschreibung = '" + bg.getBeschreibung() + "', "
+					+ "aenderungsDatum = '" + new Timestamp(date.getTime())
+					+ "' WHERE id=" + bg.getId());
+			
+			this.insertBauteil(bg, bt);
+			
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
+		
+		
+
+		// Um Analogie zu insert(Baugruppe bg) zu wahren, geben wir bg zurück
+		return bg;
+	}
+
+	
+	
 	public String delete(int id) {
 
 		String ergebnis = "Baugruppe wurde erfolgreich geloescht!";
@@ -418,6 +458,60 @@ public Baugruppe getBaugruppeDetails(int id) {
 		return result;
 		
 	}
+
+
+
+
+
+
+/**
+ * Einfügen eines <code>Baugruppen</code>-Objekts in die Datenbank. Dabei wird
+ * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
+ * berichtigt.
+ * 
+ * @param bt
+ *            das zu speichernde Objekt
+ * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+ *         <code>id</code>.
+ */
+private void insertBauteil(Baugruppe bg, Bauteil bt) {
+	Connection con = DbConnection.connection();
+	
+
+	try {
+		Statement stmt = con.createStatement();
+
+		/*
+		 * Zun�chst schauen wir nach, welches der momentan h�chste
+		 * Prim�rschl�sselwert ist.
+		 */
+		ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+				+ "FROM bauteilBaugruppe ");
+
+		// Wenn wir etwas zur�ckerhalten, kann dies nur einzeilig sein
+		if (rs.next()) {
+			/*
+			 * bt erh�lt den bisher maximalen, nun um 1 inkrementierten
+			 * Prim�rschl�ssel.
+			 */
+			bg.setId(rs.getInt("maxid") + 1);
+
+			stmt = con.createStatement();
+
+
+			// Jetzt erst erfolgt die tats�chliche Einf�geoperation
+			stmt.executeUpdate("INSERT INTO bauteilBaugruppe (bauteil, baugruppe) "
+					+ "VALUES ("
+					+ bt.getId()
+					+ ",'"
+					+ bg.getId() 
+					+ ")");
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+
+}
 
 
 }

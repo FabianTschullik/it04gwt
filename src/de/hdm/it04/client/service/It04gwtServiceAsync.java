@@ -29,4 +29,5 @@ public interface It04gwtServiceAsync {
 		void updateBauteil(Bauteil bt, AsyncCallback callback);
 		void getBauteilDetails(int id, AsyncCallback<Bauteil> callback);
 		void getBaugruppeDetails(int id, AsyncCallback<Baugruppe> callback);
+		void update (Baugruppe bg, Bauteil bt, AsyncCallback callback);
 }
