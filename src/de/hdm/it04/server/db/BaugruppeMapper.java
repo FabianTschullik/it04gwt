@@ -76,13 +76,13 @@ public class BaugruppeMapper {
 	 * @return Konto-Objekt-Vektor, das dem übergebenen Schlüssel entspricht,
 	 *         null bei nicht vorhandenem DB-Tupel.
 	 */
-	public Vector<Element> findConnectedBauteileByKey(int id) {
+	public Vector<Bauteil> findConnectedBauteileByKey(int id) {
 
 		// DB-Verbindung holen
 		Connection con = DbConnection.connection();
 
 		// Ergebnisvektor vorbereiten
-		Vector<Element> result = new Vector<Element>();
+		Vector<Bauteil> result = new Vector<Bauteil>();
 
 		try {
 
@@ -93,7 +93,8 @@ public class BaugruppeMapper {
 			// Statement ausf�llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT bauteil.id, bauteil.beschreibung " +
+					.executeQuery("SELECT bauteil.id, bauteil.name, bauteil.materialBezeichnung,"
+							+ " bauteil.beschreibung, bauteil.materialBezeichnung, bauteil.erstellungsDatum, bauteil.aenderungsDatum " +
 									"FROM bauteil, baugruppe, bauteilBaugruppe " +
 									"WHERE bauteil.id = bauteilBaugruppe.bauteil " +
 									"AND baugruppe.id = bauteilBaugruppe.baugruppe " +
@@ -111,11 +112,11 @@ public class BaugruppeMapper {
 
 				Bauteil bt = new Bauteil();
 				bt.setId(rs.getInt("id"));
-				//bt.setName(rs.getString("name"));
-				//bt.setMaterialBezeichnung("materialBezeichnung");
+				bt.setName(rs.getString("name"));
+				bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
 				bt.setBeschreibung(rs.getString("beschreibung"));
-				//bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
-				//bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
 				result.add(bt);
 

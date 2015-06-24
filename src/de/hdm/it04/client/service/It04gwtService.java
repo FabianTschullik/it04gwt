@@ -39,7 +39,7 @@ public interface It04gwtService extends RemoteService {
 	 */
 	Bauteil createBauteil();
 	
-	Vector<Element> findConnectedBauteileByKey(int id);
+	Vector<Bauteil> findConnectedBauteileByKey(int id);
 	
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
