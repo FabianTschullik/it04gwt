@@ -175,7 +175,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	}
 	
 	
-	private class FindConnectedBauteileByKeyCallback implements AsyncCallback<Vector<Element>>{
+	private class FindConnectedBauteileByKeyCallback implements AsyncCallback<Vector<Bauteil>>{
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -183,15 +183,15 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 
 		@Override
-		public void onSuccess(Vector<Element> result) {
+		public void onSuccess(Vector<Bauteil> result) {
 
 			// Object result entählt, was vom server zurück kommt clientImpl
 			// updatet das GUI anschließend
 			System.out.println("R�ckmeldung vom Server erhalten");
 
 			if (result instanceof Vector) {
-				Vector<Element> bauteile = new Vector<Element>();
-				bauteile = (Vector<Element>) result;
+				Vector<Bauteil> bauteile = new Vector<Bauteil>();
+				bauteile = (Vector<Bauteil>) result;
 				//maingui.error();
 				maingui.showConnectedBauteil(bauteile);
 			}

@@ -15,7 +15,7 @@ public interface It04gwtServiceAsync {
 		
 		void createBauteil(AsyncCallback callback);
 		
-		void findConnectedBauteileByKey(int id, AsyncCallback<Vector<Element>> callback);
+		void findConnectedBauteileByKey(int id, AsyncCallback<Vector<Bauteil>> callback);
 		
 		void delete(int id, AsyncCallback callback);
 		

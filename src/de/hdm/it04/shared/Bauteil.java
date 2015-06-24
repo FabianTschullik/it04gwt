@@ -1,5 +1,7 @@
 package de.hdm.it04.shared;
 
+import de.hdm.it04.client.gui.MainGUI;
+
 
 /**
  * Die Klasse Bauteil repräsentiert ein Bauteil und ist im <code>shared</code> Package.
