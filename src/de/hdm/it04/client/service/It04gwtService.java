@@ -7,7 +7,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
-import de.hdm.it04.shared.Element;
 
 /**
  * Das Interface Service wird von der Klasse Service Impl implementiert.
