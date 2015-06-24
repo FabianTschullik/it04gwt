@@ -17,10 +17,14 @@ import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+
 import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Bauteil;
+
 import de.hdm.it04.shared.Enderzeugnis;
+
+
 
 public class MainGUI extends Composite {
 	
@@ -79,7 +83,13 @@ public class MainGUI extends Composite {
 	}
 	
 	
+
 	public void showEnderzeugnisDetails() {
+
+	
+		
+		
+
 this.flex.clear();
 		
 		this.flex = new FlexTable();
@@ -96,9 +106,22 @@ this.flex.clear();
 			
 		
 		
+
+		flex.setText(0, 2, "Materialezeichnung");
+		flex.setText(0, 3, "Beschreibung");
+		flex.setText(0, 4, "erstellt am");
+		flex.setText(0, 5, "geändert am");
 		
 		
-	}
+
+
+			
+		}
+		
+
+		
+		
+	
 	
 	public void showBaugruppeDetails() {
 		
