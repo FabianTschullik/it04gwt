@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 import de.hdm.it04.client.editor.Details;
+import de.hdm.it04.client.gui.AnlegenBauteil;
 import de.hdm.it04.client.gui.MainGUI;
 import de.hdm.it04.client.gui.MainGUIEditor;
 import de.hdm.it04.shared.Baugruppe;
@@ -21,6 +22,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	private It04gwtServiceAsync service;
 	private MainGUI maingui;
+	private AnlegenBauteil anlegenBauteil;
 
 	/**
 	 * Konstruktor vom Servlet
@@ -34,6 +36,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		endpoint.setServiceEntryPoint(url);
 
 		this.maingui = new MainGUI(this);
+		
 	}
 
 	/**
@@ -168,29 +171,25 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * sie eine Antwort erhält, war die Kommunikation mit der Datenbank
 	 * erfolgreich und kann weiter verarbeitet werden.
 	 */
-	private class CreateBauteilCallback implements AsyncCallback {
+	public class CreateBauteilCallback implements AsyncCallback {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			//maingui.showError();
+				
 		}
 
 		@Override
-		public void onSuccess(Object result) { // Object result ent�hlt, was
-												// vom server zur�ck kommt
-												// clientImpl updatet das GUI
-												// anschlie�end
-			System.out.println("R�ckmeldung vom Server erhalten");
+		public void onSuccess(Object result) { 
+			
+			System.out.println("Rückmeldung vom Server erhalten");
 			if (result instanceof Bauteil) {
-				Vector<Bauteil> bauteile = new Vector<Bauteil>();
+				
+				
 				Bauteil bt = (Bauteil) result;
-				bauteile.add(bt);
-
-				// maingui.showSucess();
-				//maingui.showBauteil(bauteile);
+				anlegenBauteil.showBauteil(bt);
 			}
 			else {
-				//maingui.showError();
+				
 			}
 		}
 	}
@@ -270,7 +269,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Vector<Bauteil> bauteile = new Vector<Bauteil>();
 				bauteile = (Vector<Bauteil>) result;
 
-				//maingui.showAllBauteile(bauteile);
+				maingui.showAllBauteile(bauteile);
 			}
 		}
 	}

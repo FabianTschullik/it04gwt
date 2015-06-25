@@ -10,6 +10,7 @@ import de.hdm.it04.client.gui.MainGUI;
  */
 @SuppressWarnings("serial")
 public class Bauteil extends Element {
+	
 
 	// Variablendeklarationen
 	private String materialBezeichnung;

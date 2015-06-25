@@ -14,7 +14,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.hdm.it04.client.gui.MainGUI.editorBtnClickHandler;
 import de.hdm.it04.shared.Baugruppe;
 
 
@@ -53,15 +52,12 @@ public VerticalPanel vPanelDetails;
 		//testBtn.addClickHandler(new TestBtnClickHandler());
 		//vPanelDetails.add(anlegen());
 		
-	}
-	
-	/*public Widget anlegen(){
 		FlexTable layout = new FlexTable();
 		layout.setCellSpacing(6);
 		FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
 		
-		Button speichernBtn = new Button("Speichern");
-		speichernBtn.addClickHandler(new SpeichernBtnClickHandler());
+		//Button speichernBtn = new Button("Speichern");
+		//speichernBtn.addClickHandler(new SpeichernBtnClickHandler());
 		
 		
 		
@@ -76,8 +72,10 @@ public VerticalPanel vPanelDetails;
 		
 		DecoratorPanel decPanel = new DecoratorPanel();
 		decPanel.setWidget(layout);
-		return decPanel;
-	}*/
+		
+		
+	}
+	
 	
 	
 	public class SpeichernBtnClickHandler implements ClickHandler {
@@ -88,8 +86,9 @@ public VerticalPanel vPanelDetails;
 				//--> Hole Text aus NameTxt und beschreibungTxt und erstelle neues Objekt
 				//danach Clear() des vPanelDetails
 			
+			
 		
-						
+				
 						
 		}	
 	}
