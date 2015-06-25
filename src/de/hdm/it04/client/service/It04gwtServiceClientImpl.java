@@ -379,9 +379,6 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Vector<Bauteil> bauteile = new Vector<Bauteil>();
 				Bauteil bt = (Bauteil) result;
 				bauteile.add(bt);
-
-				// maingui.showSucess();
-				//maingui.showBauteil(bauteile);
 			}
 			else {
 				//maingui.showError();

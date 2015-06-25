@@ -38,6 +38,10 @@ public class MainGUI extends Composite {
 	FlexTable flex = new FlexTable();
 	FlexTable findBauteilTable  = new FlexTable();
 	
+	TextBox name = new TextBox();
+	TextBox materialBezeichnung = new TextBox();
+	TextBox beschreibung = new TextBox();
+	
 	
 	public MainGUI(It04gwtServiceClientImpl serviceImpl){
 		
@@ -220,8 +224,6 @@ public class MainGUI extends Composite {
 	
 	
 
-	
-	
  	/**
  	 * Methode, um alle Bauteile anzeigen zu lassen in einer FlexTable
  	 * @param bauteile
@@ -341,13 +343,6 @@ public class MainGUI extends Composite {
  	}
 
 	
-	
-	
-	
-	
-	
-	
-		
 	public void showBauteilDetails(Bauteil bt) {
 		this.vPanelDetailsContent.clear();
 		this.flex.clear();
@@ -386,10 +381,7 @@ public class MainGUI extends Composite {
 			/**
 			 * Konvertieren der Bauteil-Daten und befüllen der Tabelle
 			 */
-			TextBox name = new TextBox();
-			TextBox materialBezeichnung = new TextBox();
-			TextBox beschreibung = new TextBox();
-		
+
 			Button speichern = new Button("speichern");
 			speichern.addClickHandler(new BtnSpeichernClickHandler());
 			Button loeschen = new Button("X");
@@ -402,11 +394,7 @@ public class MainGUI extends Composite {
 			flex.setWidget(1, 4, speichern);
 			flex.setWidget(1, 5, loeschen);
 			
-			
-			
-			
 		
-			
 			/**
 			 * Verknüpfung zu style.css
 			 */
@@ -417,19 +405,8 @@ public class MainGUI extends Composite {
 			
 			this.vPanelDetailsContent.add(flex);
 			
-			
-			
-		
-			
-			
-			
 	}	
 			
-			
-			
-		
-	
-	
 	public void showConnectedBauteil(Vector<Bauteil> elemente){
 				
 		this.flex.clear();
@@ -483,10 +460,8 @@ public class MainGUI extends Composite {
 		flex.getRowFormatter().addStyleName(0,  "watchListHeader");
 		flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 		flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-		this.vPanelDetailsContent.add(flex);
-		
+		this.vPanelDetailsContent.add(flex);	
 	}
-	
 	
 	public void error(){
 		
@@ -495,9 +470,6 @@ public class MainGUI extends Composite {
 	//this.vPanel.add(lbl2);
 		
 	}
-	
-	
-	
 	
 	private class TestBtnClickHandler implements ClickHandler{
 
@@ -514,17 +486,9 @@ public class MainGUI extends Composite {
 			//serviceImpl.getBaugruppeDetails(1);
 			serviceImpl.getAll();
 
-		
 		}	
-
-
+	}
 		
-		
-		}
-		
-		
-		
-
 	public class AnlegenBtn1ClickHandler implements ClickHandler {
 
 
@@ -559,7 +523,6 @@ public class MainGUI extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			
-		
 		}
 	}
 	
@@ -574,8 +537,7 @@ public class MainGUI extends Composite {
 		public void onClick(ClickEvent event) {
 		
 			serviceImpl.createBauteil();
-			
-			
+				
 		}
 	}
 	
@@ -584,18 +546,15 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			
-		
+				
 		}
 	}
-	
 	
 	public class BtnEnderzeugnisClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
 			
-		
 		}
 	}
 	
@@ -606,8 +565,10 @@ public class MainGUI extends Composite {
 			
 		}
 	}
-	
-	private class BtnSpeichernClickHandler implements ClickHandler() {
+	/**
+	 * ClickHandler um Bauteil zu speichern
+	 */
+	public class BtnSpeichernClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
 			// TODO Auto-generated method stub
@@ -617,12 +578,15 @@ public class MainGUI extends Composite {
 			String beschreibungnew = beschreibung.getText();
 			
 			Bauteil bt = new Bauteil();
+			bt.setName(namenew);
+			bt.setMaterialBezeichnung(materialBezeichnungnew);
+			bt.setBeschreibung(beschreibungnew);
 			
-		}
-		
+			serviceImpl.updateBauteil(bt);	
+			flex.clear();
+			
+		}	
 	}
-	
-	
 	
 	//----------------------------------------------------------------------------
 	//-------------------------- Ende ClickHandler Buttons -----------------------
