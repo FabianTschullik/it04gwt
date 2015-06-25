@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -22,9 +23,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
-
-
-
 
 public class MainGUI extends Composite {
 	
@@ -38,10 +36,13 @@ public class MainGUI extends Composite {
 	private VerticalPanel vPanelDetailsContent = new VerticalPanel();
 	private HorizontalPanel hPanelDetailsButtons = new HorizontalPanel();
 	FlexTable flex = new FlexTable();
+	FlexTable findBauteilTable  = new FlexTable();
 	
 	
 	public MainGUI(It04gwtServiceClientImpl serviceImpl){
+		
 		initWidget(this.vPanel);
+		this.serviceImpl = serviceImpl;
 		
 		this.vPanel.add(hPanelButtons);
 		this.vPanel.add(hPanel);
@@ -132,6 +133,7 @@ public class MainGUI extends Composite {
 		this.vPanelDetails.add(hPanelDetailsButtons);
 		
 	}
+	
 	
 	
 
@@ -349,7 +351,6 @@ public class MainGUI extends Composite {
 	public void showBauteilDetails(Bauteil bt) {
 		this.vPanelDetailsContent.clear();
 		this.flex.clear();
-		
 
 		HTML topic = new HTML("<h2>Detailansicht Bauteil</h2>");
 
@@ -360,37 +361,51 @@ public class MainGUI extends Composite {
 		flex.setText(0, 1, "Name");
 		flex.setText(0, 2, "Materialezeichnung");
 		flex.setText(0, 3, "Beschreibung");
-		flex.setText(0, 4, "erstellt am");
-		flex.setText(0, 5, "geändert am");
+		flex.setText(0, 4, "speichern");
+		flex.setText(0, 5, "X");
+		
+		this.vPanelDetailsContent.add(flex);
 		
 	
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			Date d1 = new Date();
-			d1 = bt.getErstellungsDatum();
-			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
+			//Date d1 = new Date();
+			//d1 = bt.getErstellungsDatum();
+			//String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
 			
 			
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			Date d2 = new Date();
-			d2 = bt.getAenderungsDatum();
-			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
+			//Date d2 = new Date();
+			//d2 = bt.getAenderungsDatum();
+			//String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 			
 		
 			/**
 			 * Konvertieren der Bauteil-Daten und befüllen der Tabelle
 			 */
-			flex.setText(1, 0, Integer.toString(bt.getId()));
-			flex.setText(1, 1, bt.getName());
-			flex.setText(1, 2, bt.getMaterialBezeichnung());
-			flex.setText(1, 3, bt.getBeschreibung());
-			flex.setText(1, 4, s1);
-			flex.setText(1, 5, s2);
+			TextBox name = new TextBox();
+			TextBox materialBezeichnung = new TextBox();
+			TextBox beschreibung = new TextBox();
 		
-			this.vPanelDetailsContent.add(flex);
+			Button speichern = new Button("speichern");
+			speichern.addClickHandler(new BtnSpeichernClickHandler());
+			Button loeschen = new Button("X");
+		
+		
+			flex.setText(1, 0, Integer.toString(bt.getId()));
+			flex.setWidget(1, 1, name);
+			flex.setWidget(1, 2, materialBezeichnung);
+			flex.setWidget(1, 3, beschreibung);
+			flex.setWidget(1, 4, speichern);
+			flex.setWidget(1, 5, loeschen);
+			
+			
+			
+			
+		
 			
 			/**
 			 * Verknüpfung zu style.css
@@ -399,10 +414,21 @@ public class MainGUI extends Composite {
 			flex.getRowFormatter().addStyleName(0,  "watchListHeader");
 			flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 			flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+			
 			this.vPanelDetailsContent.add(flex);
 			
+			
+			
 		
-	}
+			
+			
+			
+	}	
+			
+			
+			
+		
+	
 	
 	public void showConnectedBauteil(Vector<Bauteil> elemente){
 				
@@ -546,13 +572,10 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			vPanelDetailsContent.clear();
-			AnlegenBauteil anlegenBauteil = new AnlegenBauteil();
-			vPanelDetailsContent.add((IsWidget)anlegenBauteil);
+		
+			serviceImpl.createBauteil();
 			
-			Label lbl = new Label("Ich bin im ClickHandler");
 			
-			vPanelDetailsContent.add(lbl);
 		}
 	}
 	
@@ -583,6 +606,23 @@ public class MainGUI extends Composite {
 			
 		}
 	}
+	
+	private class BtnSpeichernClickHandler implements ClickHandler() {
+		@Override
+		public void onClick(ClickEvent event) {
+			// TODO Auto-generated method stub
+			
+			String namenew = name.getText();
+			String materialBezeichnungnew = materialBezeichnung.getText();
+			String beschreibungnew = beschreibung.getText();
+			
+			Bauteil bt = new Bauteil();
+			
+		}
+		
+	}
+	
+	
 	
 	//----------------------------------------------------------------------------
 	//-------------------------- Ende ClickHandler Buttons -----------------------

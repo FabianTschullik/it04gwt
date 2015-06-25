@@ -186,7 +186,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				
 				
 				Bauteil bt = (Bauteil) result;
-				anlegenBauteil.showBauteil(bt);
+				maingui.showBauteilDetails(bt);
 			}
 			else {
 				
