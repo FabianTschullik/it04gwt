@@ -343,6 +343,81 @@ public class MainGUI extends Composite {
  	}
 
 	
+ 	//-------------------------------------------------------
+ 	//----------------Anzeigen des Bauteils(FlexTable)-------
+ 	//-------------------------------------------------------
+ 	
+ 	public void showBauteil(Bauteil bt){
+ 		
+ 		this.vPanelDetailsContent.clear();
+		this.flex.clear();
+
+		HTML topic = new HTML("<h2>Detailansicht Bauteil</h2>");
+
+		this.vPanelDetailsContent.add(topic);
+
+		this.flex = new FlexTable();
+		flex.setText(0, 0, "ID");
+		flex.setText(0, 1, "Name");
+		flex.setText(0, 2, "Materialezeichnung");
+		flex.setText(0, 3, "Beschreibung");
+		flex.setText(0, 4, "Erstellungsdatum");
+		flex.setText(0, 5, "Änderungsdatum");
+		flex.setText(0, 6, "X");
+		
+		this.vPanelDetailsContent.add(flex);
+		
+	
+			/**
+			 * Formatiert Timestamp zu String
+			 */
+			Date d1 = new Date();
+			d1 = bt.getErstellungsDatum();
+			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
+			
+			
+			/**
+			 * Formatiert Timestamp zu String
+			 */
+			Date d2 = new Date();
+			d2 = bt.getAenderungsDatum();
+			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
+			
+		
+			/**
+			 * Konvertieren der Bauteil-Daten und befüllen der Tabelle
+			 */
+
+			Button speichern = new Button("speichern");
+			speichern.addClickHandler(new BtnSpeichernClickHandler());
+			Button loeschen = new Button("X");
+	
+			flex.setText(1, 0, Integer.toString(bt.getId()));
+			flex.setText(1, 1, bt.getName());
+			flex.setText(1, 2, bt.getMaterialBezeichnung());
+			flex.setText(1, 3, bt.getBeschreibung());
+			flex.setText(1, 4, s1);
+			flex.setText(1, 5, s2);
+			
+		
+			/**
+			 * Verknüpfung zu style.css
+			 */
+			flex.setCellPadding(6);
+			flex.getRowFormatter().addStyleName(0,  "watchListHeader");
+			flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+			flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+			
+			this.vPanelDetailsContent.add(flex);
+ 		
+ 		
+ 	}
+ 	
+ 	//-------------------------------------------------------
+ 	 	//----------------Anzeigen des Bauteils(FlexTable)-------
+ 	 	//-------------------------------------------------------
+ 	
+ 	
 	public void showBauteilDetails(Bauteil bt) {
 		this.vPanelDetailsContent.clear();
 		this.flex.clear();
@@ -385,8 +460,7 @@ public class MainGUI extends Composite {
 			Button speichern = new Button("speichern");
 			speichern.addClickHandler(new BtnSpeichernClickHandler());
 			Button loeschen = new Button("X");
-		
-		
+	
 			flex.setText(1, 0, Integer.toString(bt.getId()));
 			flex.setWidget(1, 1, name);
 			flex.setWidget(1, 2, materialBezeichnung);
@@ -573,17 +647,26 @@ public class MainGUI extends Composite {
 		public void onClick(ClickEvent event) {
 			// TODO Auto-generated method stub
 			
+			int idupdate = Integer.parseInt(flex.getText(1, 0));
 			String namenew = name.getText();
 			String materialBezeichnungnew = materialBezeichnung.getText();
 			String beschreibungnew = beschreibung.getText();
 			
 			Bauteil bt = new Bauteil();
+			
+			bt.setId(idupdate);
 			bt.setName(namenew);
 			bt.setMaterialBezeichnung(materialBezeichnungnew);
 			bt.setBeschreibung(beschreibungnew);
 			
-			serviceImpl.updateBauteil(bt);	
+			serviceImpl.updateBauteil(bt);
 			flex.clear();
+			serviceImpl.getBauteil(idupdate);
+			
+			
+			
+			
+			
 			
 		}	
 	}

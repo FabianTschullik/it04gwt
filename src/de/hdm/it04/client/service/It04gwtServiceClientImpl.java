@@ -160,8 +160,12 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 				Vector<Bauteil> bauteile = new Vector<Bauteil>();
 				bauteile = (Vector<Bauteil>) result;
-
-				//maingui.showBauteil(bauteile);
+				Bauteil bt = new Bauteil();
+				bt = bauteile.firstElement();
+				
+				
+				for (int i=1; i < 3; i++){	
+				maingui.showBauteil(bt);}
 			}
 		}
 	}
@@ -292,7 +296,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Bauteil bt = new Bauteil();
 				bt = result;
 
-				maingui.showBauteilDetails(bt);
+				//maingui.showBauteilDetails(bt);
 			}
 		}
 	}
@@ -376,9 +380,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			System.out.println("R�ckmeldung vom Server erhalten");
 			if (result instanceof Bauteil) {
 
-				Vector<Bauteil> bauteile = new Vector<Bauteil>();
 				Bauteil bt = (Bauteil) result;
-				bauteile.add(bt);
+				//maingui.showBauteilDetails(bt);
 			}
 			else {
 				//maingui.showError();
