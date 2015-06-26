@@ -469,9 +469,6 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-						vPanelDetailsContent.clear();
-						Anlegen neu = new Anlegen(vPanelDetailsContent);
-						vPanelDetailsContent.add((IsWidget)neu);
 						
 		}	
 	}
@@ -510,7 +507,8 @@ public class MainGUI extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 		
-			serviceImpl.createBauteil();
+			BauteilGUI bauteilgui = new BauteilGUI();
+			//serviceImpl.createBauteil();
 				
 		}
 	}
