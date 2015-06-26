@@ -1,15 +1,31 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 <!--  Servlets  -->
+<!-- EDITOR -->
 <servlet>
-<servlet-name>exampleServlet</servlet-name>
-<servlet-class>de.hdm.it04.server.It04gwtServiceImpl</servlet-class>
+	<servlet-name>exampleServlet</servlet-name>
+	<servlet-class>de.hdm.it04.server.It04gwtServiceImpl</servlet-class>
 </servlet>
+
 <servlet-mapping>
-<servlet-name>exampleServlet</servlet-name>
-<url-pattern>/it04gwt/sms</url-pattern>
+	<servlet-name>exampleServlet</servlet-name>
+	<url-pattern>/it04gwt/sms</url-pattern>
 </servlet-mapping>
+
+
+<!-- REPORT GENERATOR -->
+<servlet>
+	<servlet-name>ReportServlet</servlet-name>
+	<servlet-class>de.hdm.it04.server.report.It04gwtServiceReportImpl</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>ReportServlet</servlet-name>
+	<url-pattern>/it04gwt/smsReport</url-pattern>
+</servlet-mapping>
+
 <!--  Default page to serve  -->
 <welcome-file-list>
 <welcome-file>It04gwt.html</welcome-file>
+<welcome-file>It04gwt_report.html</welcome-file>
 </welcome-file-list>
 </web-app>
