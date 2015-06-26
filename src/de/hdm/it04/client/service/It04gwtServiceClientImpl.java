@@ -23,6 +23,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	private It04gwtServiceAsync service;
 	private MainGUI maingui;
 	private AnlegenBauteil anlegenBauteil;
+	
 
 	/**
 	 * Konstruktor vom Servlet
@@ -190,7 +191,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				
 				
 				Bauteil bt = (Bauteil) result;
-				maingui.showBauteilDetails(bt);
+				//maingui.openAnlegenBauteil(bt);
+//				maingui.updateBauteil(bt);
+				
+				maingui.updateBauteil(bt);
 			}
 			else {
 				
@@ -413,6 +417,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 				 //maingui.showSucess();
 				//maingui.showBauteil(bauteile);
+			
 			}
 			else {
 				//maingui.showError();
