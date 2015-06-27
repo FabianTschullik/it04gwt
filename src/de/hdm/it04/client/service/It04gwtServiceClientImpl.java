@@ -103,6 +103,14 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	public void updateEnderzeugnis(Enderzeugnis ez) {
 		this.service.updateEnderzeugnis(ez, new UpdateEnderzeugnisCallback());
 	}
+	
+	public void getEnderzeugnisById(int id) {
+		this.service.getEnderzeugnisById(id, new getEnderzeugnisByIdCallback());
+	}
+	
+	
+	
+	
 
 	/**
 	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem
@@ -238,6 +246,29 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			else {
 				
 				Enderzeugnis ez = new Enderzeugnis();
+				
+				
+			}
+		}
+	}
+	
+	public class getEnderzeugnisByIdCallback implements AsyncCallback {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			
+		}
+
+		@Override
+		public void onSuccess(Object result) { 
+			if (result instanceof Enderzeugnis) {
+				
+				Enderzeugnis ez = (Enderzeugnis) result;
+				enderzeugnisgui.showEnderzeugnis(ez);
+				
+			}
+			else {
+				
 				
 				
 			}

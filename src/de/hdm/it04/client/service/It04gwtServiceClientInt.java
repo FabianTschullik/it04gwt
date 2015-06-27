@@ -58,6 +58,7 @@ public interface It04gwtServiceClientInt {
 	void updateBauteil(Bauteil bt);
 	
 	void updateEnderzeugnis(Enderzeugnis ez);
+	void getEnderzeugnisById(int id);
 	
 	void findConnectedBauteileByKey(int id);
 	

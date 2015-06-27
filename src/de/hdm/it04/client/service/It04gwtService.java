@@ -42,9 +42,13 @@ public interface It04gwtService extends RemoteService {
 	
 	Enderzeugnis createEnderzeugnis();
 	
+	Enderzeugnis getEnderzeugnisById(int id);
+	
 	Baugruppe findConnectedBaugruppe(int id);
 	
 	Vector<Bauteil> findConnectedBauteileByKey(int id);
+	
+	
 	
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.

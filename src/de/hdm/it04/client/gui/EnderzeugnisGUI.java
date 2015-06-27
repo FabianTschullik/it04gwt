@@ -112,6 +112,25 @@ public class EnderzeugnisGUI extends Composite {
 
 		Window.alert("Bauteil wurde erfolgreich angelegt");
 	}
+	
+	/**
+	 * Methode um Enderzeugnis anzuzeigen und zu bearbeiten.
+	 */
+	
+	public void showEnderzeugnis(Enderzeugnis ez) {
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * CkickHandler

@@ -19,6 +19,8 @@ public interface It04gwtServiceAsync {
 		
 		void createEnderzeugnis(AsyncCallback<Enderzeugnis> callback);
 		
+		void getEnderzeugnisById(int id, AsyncCallback<Enderzeugnis> callback );
+		
 		void findConnectedBaugruppe(int id, AsyncCallback callback);
 		
 		void findConnectedBauteileByKey(int id, AsyncCallback<Vector<Bauteil>> callback);

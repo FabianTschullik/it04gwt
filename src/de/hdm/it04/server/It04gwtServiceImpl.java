@@ -46,6 +46,11 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		
 		return EnderzeugnisMapper.enderzeugnisMapper().findConnectedBaugruppe(id);
 	}
+	
+public Enderzeugnis getEnderzeugnisById(int id){
+		
+		return EnderzeugnisMapper.enderzeugnisMapper().getEnderzeugnisById(id);
+	}
 
 	/**
 	 * Die Methode aktualisiert ein Bauteil.

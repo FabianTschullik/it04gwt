@@ -213,6 +213,53 @@ public class EnderzeugnisMapper {
 	}
 	
 	
+	public Enderzeugnis getEnderzeugnisById(int id) {
+
+		// DB-Verbindung holen
+				Connection con = DbConnection.connection();
+
+				// Ergebnisvektor vorbereiten
+				Enderzeugnis ez = new Enderzeugnis();
+
+				try {
+
+					// Leeres SQL-Statement (JDBC) anlegen
+
+					Statement stmt = con.createStatement();
+
+					// Statement ausf�llen und als Query an die DB schicken
+
+					ResultSet rs = stmt
+							.executeQuery("SELECT id, name, beschreibung, preis, baugruppe, erstellungsDatum, aenderungsDatum FROM bauteil "
+									+ "WHERE id=" + id);
+					/*
+					 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
+					 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+					 */
+
+				
+
+				
+
+					
+						ez.setId(rs.getInt("id"));
+						ez.setName(rs.getString("name"));
+						ez.setBaugruppe(rs.getInt("baugruppe"));
+						ez.setPreis(rs.getDouble("preis"));
+						ez.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+						ez.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+
+
+	
+
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+					return null;
+				}
+				return ez;
+	}
+	
+	
 }
 
 
