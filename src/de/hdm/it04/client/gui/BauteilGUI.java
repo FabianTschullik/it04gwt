@@ -34,15 +34,15 @@ public class BauteilGUI extends Composite {
 		 * Anlegen der Buttons fürs Anlegen, Bearbeiten, Löschen und Abbrechen
 		 */
 		Button AnlegenBtn1 = new Button("Neu");
-		AnlegenBtn1.addClickHandler(new AnlegenBtn1ClickHandler());
+		//AnlegenBtn1.addClickHandler(new AnlegenBtn1ClickHandler());
 		this.vPanel.add(AnlegenBtn1);
 		
 		Button BearbeitenBtn1 = new Button("Bearbeiten");
-		BearbeitenBtn1.addClickHandler(new BearbeitenBtn1ClickHandler());
+		//BearbeitenBtn1.addClickHandler(new BearbeitenBtn1ClickHandler());
 		this.vPanel.add(BearbeitenBtn1);
 	  
 		Button LoeschenBtn1 = new Button("Loeschen");
-		LoeschenBtn1.addClickHandler(new LoeschenBtn1ClickHandler());
+		//LoeschenBtn1.addClickHandler(new LoeschenBtn1ClickHandler());
 		this.vPanel.add(LoeschenBtn1);	
 		
 	}

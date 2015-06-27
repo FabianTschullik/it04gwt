@@ -10,6 +10,7 @@ import java.util.Vector;
 
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Enderzeugnis;
 
 /**
  * Mapper-Klasse, die <code>Baugruppe</code>-Objekte auf eine relationale
@@ -122,6 +123,96 @@ public class EnderzeugnisMapper {
 		}
 		return null;
 	}
+	
+	
+	
+	public Enderzeugnis insert() {
+		Connection con = DbConnection.connection();
+		
+		Enderzeugnis ez = new Enderzeugnis();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			/*
+			 * Zun�chst schauen wir nach, welches der momentan h�chste
+			 * Prim�rschl�sselwert ist.
+			 */
+			ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+					+ "FROM enderzeugnis ");
+
+			// Wenn wir etwas zur�ckerhalten, kann dies nur einzeilig sein
+			if (rs.next()) {
+				/*
+				 * bt erh�lt den bisher maximalen, nun um 1 inkrementierten
+				 * Prim�rschl�ssel.
+				 */
+				ez.setId(rs.getInt("maxid") + 1);
+
+				stmt = con.createStatement();
+
+				// Aktuelle Zeit f�r Timestamp erstellungsDatum, aenderungsDatum
+				// holen
+
+				Date date = new Date();
+				Timestamp timestamp = new Timestamp(date.getTime());
+				
+				ez.setAenderungsDatum(timestamp);
+				ez.setErstellungsDatum(timestamp);
+				
+
+				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
+				stmt.executeUpdate("INSERT INTO enderzeugnis (id, erstellungsDatum, aenderungsDatum) "
+						+ "VALUES ("
+						+ ez.getId()
+						+ ",'"
+						+ new Timestamp(date.getTime())
+						+ "','"
+						+ new Timestamp(date.getTime()) + "')");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		/*
+		 * R�ckgabe, des evtl. korrigierten Bauteils.
+		 * 
+		 * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
+		 * Objekte �bergeben werden, w�re die Anpassung des Bauteil-Objekts auch
+		 * ohne diese explizite R�ckgabe au�erhalb dieser Methode sichtbar. Die
+		 * explizite R�ckgabe von be ist eher ein Stilmittel, um zu
+		 * signalisieren, dass sich das Objekt evtl. im Laufe der Methode
+		 * ver�ndert hat.
+		 */
+		return ez;
+	}
+	
+	public Enderzeugnis update(Enderzeugnis ez) {
+
+		Connection con = DbConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+			
+			
+			Date date = new Date();
+			new Timestamp(date.getTime());
+			
+			stmt.executeUpdate("UPDATE enderzeugnis SET name = '" + ez.getName()+ "', " 
+					+ "aenderungsDatum = '" + new Timestamp(date.getTime()) + "', "
+					+ "preis = '" + ez.getPreis()
+					+ "' WHERE id=" + ez.getId());
+			
+
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+
+		
+		return ez;
+	}
+	
+	
 }
 
 
