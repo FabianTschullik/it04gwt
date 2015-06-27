@@ -1,29 +1,15 @@
 package de.hdm.it04.client.gui;
 
 
-import java.text.DateFormat;
-import java.util.Date;
-
-import com.google.gwt.core.shared.GWT;
-import com.google.gwt.editor.client.impl.RootEditorContext;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.ibm.icu.text.SimpleDateFormat;
 
-import de.hdm.it04.client.gui.MainGUI.AbbrechenBtn1ClickHandler;
-import de.hdm.it04.client.gui.MainGUI.AnlegenBtn1ClickHandler;
-import de.hdm.it04.client.gui.MainGUI.BearbeitenBtn1ClickHandler;
-import de.hdm.it04.client.gui.MainGUI.LoeschenBtn1ClickHandler;
-import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 import de.hdm.it04.shared.Bauteil;
 
 public class BauteilGUI extends MainGUI {
@@ -35,38 +21,38 @@ public class BauteilGUI extends MainGUI {
 	FlexTable flex = new FlexTable();
 	
 	private VerticalPanel vPanel = new VerticalPanel();
+	private HorizontalPanel hPanel = new HorizontalPanel();
 	
 	
-	public BauteilGUI(VerticalPanel vPanel){
-		
+	public BauteilGUI(VerticalPanel vPanel){	
 		super(serviceImpl);
 		this.vPanel = vPanel;
 	}
 	
 	
 	
-	
-	
-	public void menue (){
+	public void menue(){
 		
-		/**
-		 * Anlegen der Buttons fürs Anlegen, Bearbeiten, Löschen und Abbrechen
-		 */
+		
 		HTML topic = new HTML("<h2>Was wollen Sie mit dem Bauteil tun?</h2>");
 
 		this.vPanel.add(topic);
+		
+		
 
 		Button AnlegenBtn = new Button("Anlegen");
 		AnlegenBtn.addClickHandler(new AnlegenBtnClickHandler());
-		this.vPanel.add(AnlegenBtn);
+		this.hPanel.add(AnlegenBtn);
 
 		Button BearbeitenBtn1 = new Button("Bearbeiten");
 		//BearbeitenBtn1.addClickHandler(new BearbeitenBtn1ClickHandler());
-		this.vPanel.add(BearbeitenBtn1);
+		this.hPanel.add(BearbeitenBtn1);
 	  
 		Button LoeschenBtn1 = new Button("Loeschen");
 		//LoeschenBtn1.addClickHandler(new LoeschenBtn1ClickHandler());
-		this.vPanel.add(LoeschenBtn1);	
+		this.hPanel.add(LoeschenBtn1);	
+		
+		this.vPanel.add(hPanel);
 		
 	}
 	

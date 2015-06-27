@@ -395,7 +395,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Baugruppe bg = new Baugruppe();
 				bg = result;
 
-				maingui.showBaugruppeDetails(bg);
+				//maingui.showBaugruppeDetails(bg);
 			}
 		}
 	}

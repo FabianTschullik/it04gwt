@@ -64,7 +64,7 @@ public class MainGUI extends Composite {
 		this.vPanel.add(hPanel);
 		this.hPanel.add(vPanelTree);
 		this.hPanel.add(vPanelDetails);
-		this.vPanelDetails.add(hPanelDetailsButtons);
+		//this.vPanelDetails.add(hPanelDetailsButtons);
 		this.vPanelDetails.add(vPanelDetailsContent);
 		
 		
@@ -73,7 +73,6 @@ public class MainGUI extends Composite {
 		this.vPanelDetails.setBorderWidth(1);
 		this.vPanelTree.setBorderWidth(1);
 		this.hPanel.setBorderWidth(1);
-		this.vPanelDetails.add(hPanelDetailsButtons);
 		
 		
 		
@@ -110,11 +109,11 @@ public class MainGUI extends Composite {
 		TreeItem root = new TreeItem();
 	    root.setText("Baugruppe");
 	    
-	    	TreeItem sub = new TreeItem();
-	    	sub.setText("Unterbaugruppe");
+	    TreeItem sub = new TreeItem();
+	    sub.setText("Unterbaugruppe");
 	    
-	    		sub.addTextItem("Bauteil 1");
-	    		sub.addTextItem("Bauteil 2");
+	    sub.addTextItem("Bauteil 1");
+	    sub.addTextItem("Bauteil 2");
 	    root.addItem(sub);
 	    root.addTextItem("Bauteil 1");
 	    root.addTextItem("Bauteil 2");
@@ -123,43 +122,13 @@ public class MainGUI extends Composite {
 	   
 	    
 	    sub.addTextItem("untergruppe");
-	    
-	    
-	    
+	    	    
 	    Tree t = new Tree();
 	    t.addItem(root);
-
+ 
+	    this.vPanelTree.add(t);	    
+}	    
 	    
-	    this.vPanelTree.add(t);
-	    
-	   
-	    
-		/**
-		 * Anlegen der Buttons fürs Anlegen, Bearbeiten, Löschen und Abbrechen
-		 */
-		Button AnlegenBtn1 = new Button("Neu");
-		AnlegenBtn1.addClickHandler(new AnlegenBtn1ClickHandler());
-		this.hPanelDetailsButtons.add(AnlegenBtn1);
-		
-		Button BearbeitenBtn1 = new Button("Bearbeiten");
-		BearbeitenBtn1.addClickHandler(new BearbeitenBtn1ClickHandler());
-		this.hPanelDetailsButtons.add(BearbeitenBtn1);
-	  
-		Button LoeschenBtn1 = new Button("Loeschen");
-		LoeschenBtn1.addClickHandler(new LoeschenBtn1ClickHandler());
-		this.hPanelDetailsButtons.add(LoeschenBtn1);	
-		
-		Button AbbrechenBtn1 = new Button("Abbrechen");
-		AbbrechenBtn1.addClickHandler(new AbbrechenBtn1ClickHandler());
-		this.hPanelDetailsButtons.add(AbbrechenBtn1);
-		
-		
-		this.vPanelDetails.add(hPanelDetailsButtons);
-		
-	}
-	
-	
-	
 
 	public void showEnderzeugnisDetails() {
 
@@ -185,63 +154,6 @@ public class MainGUI extends Composite {
 			
 		}
 		
-	public void showBaugruppeDetails(Baugruppe bg) {
-		
-		this.vPanelDetailsContent.clear();
-		this.flex.clear();
-				
-
-		HTML topic = new HTML("<h2>Detailansicht Baugruppe</h2>");
-
-		this.vPanelDetailsContent.add(topic);
-
-				this.flex = new FlexTable();
-				flex.setText(0, 0, "ID");
-				flex.setText(0, 1, "Name");
-				flex.setText(0, 2, "Beschreibung");
-				flex.setText(0, 3, "erstellt am");
-				flex.setText(0, 4, "geändert am");
-				
-			
-					
-					
-					/**
-					 * Formatiert Timestamp zu String
-					 */
-					Date d1 = new Date();
-					d1 = bg.getErstellungsDatum();
-					String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
-					
-					
-					/**
-					 * Formatiert Timestamp zu String
-					 */
-					Date d2 = new Date();
-					d2 = bg.getAenderungsDatum();
-					String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
-					
-				
-					/**
-					 * Konvertieren der Bauteil-Daten und befüllen der Tabelle
-					 */
-					flex.setText(1, 0, Integer.toString(bg.getId()));
-					flex.setText(1, 1, bg.getName());
-					flex.setText(1, 2, bg.getBeschreibung());
-					flex.setText(1, 3, s1);
-					flex.setText(1, 4, s2);
-				
-					this.vPanelDetailsContent.add(flex);
-					
-					/**
-					 * Verknüpfung zu style.css
-					 */
-					flex.setCellPadding(6);
-					flex.getRowFormatter().addStyleName(0,  "watchListHeader");
-					flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
-					flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-					this.vPanelDetailsContent.add(flex);	
-			}
-	
 	
 
  	/**
@@ -446,48 +358,9 @@ public class MainGUI extends Composite {
 		this.vPanelDetailsContent.add(flex);	
 	}
 	
-	public void error(){
-		
-	
-	//Label lbl2 = new Label("fehler");
-	//this.vPanel.add(lbl2);
-		
-	}
+
 	
 	
-	public class AnlegenBtn1ClickHandler implements ClickHandler {
-
-
-
-		@Override
-		public void onClick(ClickEvent event) {
-						
-		}	
-	}
-	
-	public class BearbeitenBtn1ClickHandler implements ClickHandler {
-
-		@Override
-		public void onClick(ClickEvent event) {
-			
-		}
-	}
-	
-	public class LoeschenBtn1ClickHandler implements ClickHandler {
-
-		@Override
-		public void onClick(ClickEvent event) {
-		
-		}
-	}
-	
-	public class AbbrechenBtn1ClickHandler implements ClickHandler {
-
-		@Override
-		public void onClick(ClickEvent event) {
-			
-		}
-	}
 	
 	
 	//-------------------------------------------------------------------------
@@ -501,6 +374,7 @@ public class MainGUI extends Composite {
 			
 			vPanelDetailsContent.clear();
 			BauteilGUI bauteilgui = new BauteilGUI(vPanelDetailsContent);
+			
 			bauteilgui.menue();
 		}
 	}
@@ -536,14 +410,4 @@ public class MainGUI extends Composite {
 	//----------------------------------------------------------------------------
 	//-------------------------- Ende ClickHandler Buttons -----------------------
 	//----------------------------------------------------------------------------
-	
-	
-	public void showError(){
-		//Label lbl = new Label();
-		//lbl.setText("Fehler");
-		//vPanelDetailsContent.clear();
-		//vPanelDetailsContent.add(lbl);
-		
-		vPanel.clear();
-	}
 }
