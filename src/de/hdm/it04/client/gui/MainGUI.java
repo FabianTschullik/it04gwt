@@ -26,7 +26,7 @@ import de.hdm.it04.shared.Bauteil;
 
 public class MainGUI extends Composite {
 	
-	private It04gwtServiceClientImpl serviceImpl;
+	static It04gwtServiceClientImpl serviceImpl;
 	
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel hPanelButtons = new HorizontalPanel();
@@ -34,6 +34,20 @@ public class MainGUI extends Composite {
 	private VerticalPanel vPanelTree = new VerticalPanel();
 	private VerticalPanel vPanelDetails = new VerticalPanel();
 	private VerticalPanel vPanelDetailsContent = new VerticalPanel();
+	public VerticalPanel getvPanelDetailsContent() {
+		return vPanelDetailsContent;
+	}
+
+
+
+
+
+	public void setvPanelDetailsContent(VerticalPanel vPanelDetailsContent) {
+		this.vPanelDetailsContent = vPanelDetailsContent;
+	}
+
+
+
 	private HorizontalPanel hPanelDetailsButtons = new HorizontalPanel();
 	private AnlegenBauteil anlegenBauteil;
 	FlexTable flex = new FlexTable();
@@ -445,24 +459,7 @@ public class MainGUI extends Composite {
 		
 	}
 	
-	private class TestBtnClickHandler implements ClickHandler{
-
-		@Override
-		public void onClick(ClickEvent event) {
-			
-
-		//serviceImpl.findConnectedBauteileByKey(1);
-
-			//serviceImpl.findConnectedBaugruppe(2);
-
-			//serviceImpl.getBauteilDetails(2);
-			vPanelDetailsContent.clear();
-			//serviceImpl.getBaugruppeDetails(1);
-			serviceImpl.getAll();
-
-		}	
-	}
-		
+	
 	public class AnlegenBtn1ClickHandler implements ClickHandler {
 
 
@@ -506,10 +503,10 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-		
-			BauteilGUI bauteilgui = new BauteilGUI();
-			//serviceImpl.createBauteil();
-				
+			
+			vPanelDetailsContent.clear();
+			BauteilGUI bauteilgui = new BauteilGUI(vPanelDetailsContent);
+			bauteilgui.menue();
 		}
 	}
 	

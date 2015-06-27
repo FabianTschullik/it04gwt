@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 import de.hdm.it04.client.editor.Details;
 import de.hdm.it04.client.gui.AnlegenBauteil;
+import de.hdm.it04.client.gui.BauteilGUI;
 import de.hdm.it04.client.gui.MainGUI;
 import de.hdm.it04.client.gui.MainGUIEditor;
 import de.hdm.it04.shared.Baugruppe;
@@ -22,7 +23,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	private It04gwtServiceAsync service;
 	private MainGUI maingui;
-	private AnlegenBauteil anlegenBauteil;
+	private BauteilGUI bauteilgui;
 	
 
 	/**
@@ -37,7 +38,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		endpoint.setServiceEntryPoint(url);
 
 		this.maingui = new MainGUI(this);
-		
+		this.bauteilgui = new BauteilGUI(this.maingui.getvPanelDetailsContent());
 	}
 
 	/**
@@ -192,9 +193,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				
 				Bauteil bt = (Bauteil) result;
 				//maingui.openAnlegenBauteil(bt);
-//				maingui.updateBauteil(bt);
+				//maingui.updateBauteil(bt);
 				
-				maingui.updateBauteil(bt);
+				bauteilgui.updateBauteil(bt);
 			}
 			else {
 				
