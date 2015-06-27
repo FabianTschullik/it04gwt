@@ -51,26 +51,8 @@ public class MainGUI extends Composite {
 
 
 	private HorizontalPanel hPanelDetailsButtons = new HorizontalPanel();
-	private AnlegenBauteil anlegenBauteil;
 	FlexTable flex = new FlexTable();
 	FlexTable findBauteilTable  = new FlexTable();
-	
-	
-	public void updateBauteil(Bauteil bt){
-		
-		
-		AnlegenBauteil anlegenBauteil = new AnlegenBauteil(bt);
-		this.vPanel.add(anlegenBauteil);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	public MainGUI(It04gwtServiceClientImpl serviceImpl){

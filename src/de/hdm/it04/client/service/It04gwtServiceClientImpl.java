@@ -1,23 +1,14 @@
 package de.hdm.it04.client.service;
 
 import java.util.Vector;
-
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
-
-import de.hdm.it04.client.editor.Details;
-import de.hdm.it04.client.gui.AnlegenBauteil;
-
 import de.hdm.it04.client.gui.BauteilGUI;
-
 import de.hdm.it04.client.gui.EnderzeugnisGUI;
-
 import de.hdm.it04.client.gui.MainGUI;
-import de.hdm.it04.client.gui.MainGUIEditor;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
-import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Enderzeugnis;
 
 /**
@@ -28,9 +19,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	private It04gwtServiceAsync service;
 	private MainGUI maingui;
-
 	private BauteilGUI bauteilgui;
-
 	private EnderzeugnisGUI enderzeugnisgui;
 
 
@@ -48,9 +37,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		endpoint.setServiceEntryPoint(url);
 
 		this.maingui = new MainGUI(this);
-
 		this.bauteilgui = new BauteilGUI(this.maingui.getvPanelDetailsContent());
-
 		this.enderzeugnisgui = new EnderzeugnisGUI(this);
 		
 
