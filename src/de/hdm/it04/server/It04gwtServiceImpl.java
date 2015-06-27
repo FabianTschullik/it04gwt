@@ -5,11 +5,11 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.server.db.BaugruppeMapper;
 import de.hdm.it04.server.db.BauteilMapper;
-
 import de.hdm.it04.server.db.EnderzeugnisMapper;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
+import de.hdm.it04.shared.Enderzeugnis;
 
 import java.util.Vector;
 
@@ -46,6 +46,11 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		
 		return EnderzeugnisMapper.enderzeugnisMapper().findConnectedBaugruppe(id);
 	}
+	
+public Enderzeugnis getEnderzeugnisById(int id){
+		
+		return EnderzeugnisMapper.enderzeugnisMapper().getEnderzeugnisById(id);
+	}
 
 	/**
 	 * Die Methode aktualisiert ein Bauteil.
@@ -57,6 +62,9 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 		return BauteilMapper.bauteilMapper().update(bt);
 	}
+	
+	
+
 
 	/**
 	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
@@ -81,6 +89,11 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	public Bauteil createBauteil() {
 
 		return BauteilMapper.bauteilMapper().insert();
+	}
+	
+	public Enderzeugnis createEnderzeugnis() {
+
+		return EnderzeugnisMapper.enderzeugnisMapper().insert();
 	}
 
 	/**
@@ -120,4 +133,18 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	public Baugruppe update (Baugruppe bg, Bauteil bt){
 		return BaugruppeMapper.baugruppeMapper().update(bg, bt);
 	}
+
+	
+	public Enderzeugnis updateEnderzeugnis(Enderzeugnis ez) {
+		
+		return EnderzeugnisMapper.enderzeugnisMapper().update(ez);
+	}
+
+
+
+	
+
+
+
+
 }

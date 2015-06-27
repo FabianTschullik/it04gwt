@@ -48,9 +48,15 @@ public class BauteilGUI extends MainGUI {
 		/**
 		 * Anlegen der Buttons fürs Anlegen, Bearbeiten, Löschen und Abbrechen
 		 */
+
 		Button AnlegenBtn = new Button("Neu");
 		AnlegenBtn.addClickHandler(new AnlegenBtnClickHandler());
 		this.vPanel.add(AnlegenBtn);
+
+		Button AnlegenBtn1 = new Button("Neu");
+		//AnlegenBtn1.addClickHandler(new AnlegenBtn1ClickHandler());
+		this.vPanel.add(AnlegenBtn1);
+
 		
 		Button BearbeitenBtn1 = new Button("Bearbeiten");
 		//BearbeitenBtn1.addClickHandler(new BearbeitenBtn1ClickHandler());

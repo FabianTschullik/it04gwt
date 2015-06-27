@@ -8,6 +8,7 @@ import java.util.Vector;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -23,6 +24,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Enderzeugnis;
 
 public class MainGUI extends Composite {
 	
@@ -54,13 +56,18 @@ public class MainGUI extends Composite {
 	FlexTable findBauteilTable  = new FlexTable();
 	
 	
-	
 	public void updateBauteil(Bauteil bt){
 		
 		
 		AnlegenBauteil anlegenBauteil = new AnlegenBauteil(bt);
 		this.vPanel.add(anlegenBauteil);
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -85,6 +92,12 @@ public class MainGUI extends Composite {
 		this.vPanelTree.setBorderWidth(1);
 		this.hPanel.setBorderWidth(1);
 		this.vPanelDetails.add(hPanelDetailsButtons);
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -523,6 +536,7 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			serviceImpl.createEnderzeugnis();
 			
 		}
 	}

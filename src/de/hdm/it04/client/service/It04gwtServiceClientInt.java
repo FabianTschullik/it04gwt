@@ -3,6 +3,7 @@ package de.hdm.it04.client.service;
 
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Enderzeugnis;
 
 
 /**
@@ -55,6 +56,9 @@ public interface It04gwtServiceClientInt {
 	 * @return void
 	 */
 	void updateBauteil(Bauteil bt);
+	
+	void updateEnderzeugnis(Enderzeugnis ez);
+	void getEnderzeugnisById(int id);
 	
 	void findConnectedBauteileByKey(int id);
 	

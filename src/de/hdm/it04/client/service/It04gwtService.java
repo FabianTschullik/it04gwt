@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Enderzeugnis;
 
 /**
  * Das Interface Service wird von der Klasse Service Impl implementiert.
@@ -39,9 +40,15 @@ public interface It04gwtService extends RemoteService {
 	 */
 	Bauteil createBauteil();
 	
+	Enderzeugnis createEnderzeugnis();
+	
+	Enderzeugnis getEnderzeugnisById(int id);
+	
 	Baugruppe findConnectedBaugruppe(int id);
 	
 	Vector<Bauteil> findConnectedBauteileByKey(int id);
+	
+	
 	
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
@@ -61,6 +68,12 @@ public interface It04gwtService extends RemoteService {
 	 * @return Objekt vom Typ Bauteil
 	 */
 	Bauteil updateBauteil(Bauteil bt);
+	
+	Enderzeugnis updateEnderzeugnis(Enderzeugnis ez);
+	
+	
+	
+	
 	
 	/**
 	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem

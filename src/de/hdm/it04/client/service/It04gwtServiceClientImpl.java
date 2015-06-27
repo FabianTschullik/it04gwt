@@ -8,12 +8,17 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 import de.hdm.it04.client.editor.Details;
 import de.hdm.it04.client.gui.AnlegenBauteil;
+
 import de.hdm.it04.client.gui.BauteilGUI;
+
+import de.hdm.it04.client.gui.EnderzeugnisGUI;
+
 import de.hdm.it04.client.gui.MainGUI;
 import de.hdm.it04.client.gui.MainGUIEditor;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
+import de.hdm.it04.shared.Enderzeugnis;
 
 /**
  * Klasse wird benötigt, da diese alle Methoden auf Serverseite enthält. Auf
@@ -23,7 +28,12 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	private It04gwtServiceAsync service;
 	private MainGUI maingui;
+
 	private BauteilGUI bauteilgui;
+
+	private EnderzeugnisGUI enderzeugnisgui;
+
+
 	
 
 	/**
@@ -38,7 +48,12 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		endpoint.setServiceEntryPoint(url);
 
 		this.maingui = new MainGUI(this);
+
 		this.bauteilgui = new BauteilGUI(this.maingui.getvPanelDetailsContent());
+
+		this.enderzeugnisgui = new EnderzeugnisGUI(this);
+		
+
 	}
 
 	/**
@@ -96,6 +111,18 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	public void updateBauteil(Bauteil bt) {
 		this.service.updateBauteil(bt, new UpdateBauteilCallback());
 	}
+	
+	public void updateEnderzeugnis(Enderzeugnis ez) {
+		this.service.updateEnderzeugnis(ez, new UpdateEnderzeugnisCallback());
+	}
+	
+	public void getEnderzeugnisById(int id) {
+		this.service.getEnderzeugnisById(id, new getEnderzeugnisByIdCallback());
+	}
+	
+	
+	
+	
 
 	/**
 	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem
@@ -136,6 +163,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 */
 	public void createBauteil() {
 		this.service.createBauteil(new CreateBauteilCallback());
+	}
+	
+	public void createEnderzeugnis() {
+		this.service.createEnderzeugnis(new CreateEnderzeugnisCallback());
 	}
 
 	/**
@@ -198,6 +229,59 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				bauteilgui.updateBauteil(bt);
 			}
 			else {
+				
+			}
+		}
+	}
+	
+	
+	
+	public class CreateEnderzeugnisCallback implements AsyncCallback {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			
+			Enderzeugnis ez = new Enderzeugnis();
+			
+				
+		}
+
+		@Override
+		public void onSuccess(Object result) { 
+			if (result instanceof Enderzeugnis) {
+				
+				
+				Enderzeugnis ez = (Enderzeugnis) result;
+				
+				enderzeugnisgui.showInsertForm(ez);
+			}
+			else {
+				
+				Enderzeugnis ez = new Enderzeugnis();
+				
+				
+			}
+		}
+	}
+	
+	public class getEnderzeugnisByIdCallback implements AsyncCallback {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			
+		}
+
+		@Override
+		public void onSuccess(Object result) { 
+			if (result instanceof Enderzeugnis) {
+				
+				Enderzeugnis ez = (Enderzeugnis) result;
+				enderzeugnisgui.showEnderzeugnis(ez);
+				
+			}
+			else {
+				
+				
 				
 			}
 		}
@@ -394,6 +478,29 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 	}
 	
+	private class UpdateEnderzeugnisCallback implements AsyncCallback {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			enderzeugnisgui.showSuccess();
+			
+		}
+
+		@Override
+		public void onSuccess(Object result) {
+			
+			enderzeugnisgui.showSuccess();
+		
+			
+		}
+		}
+
+	
+	
+			
+		
+	
+	
 	
 	
 	
@@ -425,7 +532,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			}
 		}
 	}
+}
 
 
 	
-}
+
