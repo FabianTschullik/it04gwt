@@ -574,7 +574,6 @@ public void showMeldung(String meldung){
 			int id = btt.getId();
 			serviceImpl.getBauteil2(id);
 			
-			;
 			
 			
 		}
