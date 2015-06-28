@@ -410,6 +410,23 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 	}
 	
+	private class UpdateEnderzeugnisCallback implements AsyncCallback {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			enderzeugnisgui.showSuccess();
+			
+		}
+
+		@Override
+		public void onSuccess(Object result) {
+			
+			enderzeugnisgui.showSuccess();
+		
+			
+		}
+	}
+	
 	/*------------------------------------------Baugruppe Callbacks--------------------------------*/
 	private class FindConnectedBauteileByKeyCallback implements AsyncCallback<Vector<Bauteil>>{
 
@@ -549,6 +566,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			}
 		}
 	}
+	
+	/**
+	 * wird nicht benötigt weil gemeinsame Update Methode
+	 */
 		
 		
 	private class UpdateBauteilCallback implements AsyncCallback {
@@ -576,22 +597,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 	}
 	
-	private class UpdateEnderzeugnisCallback implements AsyncCallback {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			enderzeugnisgui.showSuccess();
-			
-		}
-
-		@Override
-		public void onSuccess(Object result) {
-			
-			enderzeugnisgui.showSuccess();
-		
-			
-		}
-	}
+	
 	
 	
 			
