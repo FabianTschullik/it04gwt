@@ -49,38 +49,6 @@ public class ImpressumMain extends Composite {
 						+ "</table>");
 
 		this.vPanel.add(html);
-		
-		
-		TreeItem root = new TreeItem();
-        root.setText("Baugruppe");
-        
-        	TreeItem sub = new TreeItem();
-        	sub.setText("Unterbaugruppe");
-        
-        		sub.addTextItem("Bauteil 1");
-        		sub.addTextItem("Bauteil 2");
-        root.addItem(sub);
-        root.addTextItem("Bauteil 1");
-        root.addTextItem("Bauteil 2");
-        root.addTextItem("Bauteil 3");
-        
-       
-        
-        sub.addTextItem("untergruppe");
-        
-        
-        
-        Tree t = new Tree();
-        t.addItem(root);
-        
-        
-        this.vPanel.add(t);
-	
-		
-	}
-
-		
-		
-		
-	}
+	}	
+}
 	 
