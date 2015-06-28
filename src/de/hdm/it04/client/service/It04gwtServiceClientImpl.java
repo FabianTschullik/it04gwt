@@ -66,6 +66,18 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		this.service.getBauteil(id, new GetBauteilCallback());
 	}
 	
+	public void getBauteil2(int id){
+		this.service.getBauteil(id, new GetBauteil2Callback());
+	}
+	
+	public void deleteBauteil(int id){
+		this.service.deleteBauteil(id, new DeleteBauteilCallback());
+	}
+	
+	public void showAllBauteile() {
+		this.service.showAllBauteile(new GetAllBauteileCallback());
+	}
+
 	public void findConnectedBaugruppe(int id){
 		this.service.findConnectedBaugruppe(id, new FindConnectedBaugruppeCallback());
 	}
@@ -181,6 +193,30 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			if (result instanceof Bauteil) {
 				Bauteil bt = (Bauteil) result;
 				bauteilgui.getBauteil(bt);
+				
+
+		
+			}
+		}
+	}
+	public class GetBauteil2Callback implements AsyncCallback {
+
+		// Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt
+		@Override
+		public void onFailure(Throwable caught) {
+			//maingui.GetAllError();
+		}
+
+		@Override
+		public void onSuccess(Object result) {
+
+			// Object result entählt, was vom server zurück kommt clientImpl
+			// updatet das GUI anschlie�end
+			System.out.println("R�ckmeldung vom Server erhalten");
+
+			if (result instanceof Bauteil) {
+				Bauteil bt = (Bauteil) result;
+				bauteilgui.updateBauteil2(bt);
 				
 
 		
@@ -315,8 +351,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			System.out.println("Rückmeldung vom Server erhalten");
 			
 			if (result instanceof String) {
-				// String delete = result.toString();
-				// maingui.showMeldung(delete);
+				 String delete = result.toString();
+				bauteilgui.showMeldung(delete);
 			}
 			else {
 				//maingui.showError();
@@ -341,13 +377,35 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 			// Object result entählt, was vom server zurück kommt clientImpl
 			// updatet das GUI anschließend
-			System.out.println("R�ckmeldung vom Server erhalten");
 
 			if (result instanceof Vector) {
 				Vector<Bauteil> bauteile = new Vector<Bauteil>();
 				bauteile = (Vector<Bauteil>) result;
 
 				maingui.showAllBauteile(bauteile);
+			}
+		}
+	}
+	
+	
+	private class GetAllBauteileCallback implements AsyncCallback<Vector<Bauteil>> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// maingui.GetAllError();
+		}
+
+		@Override
+		public void onSuccess(Vector<Bauteil> result) {
+
+			// Object result entählt, was vom server zurück kommt clientImpl
+			// updatet das GUI anschließend
+
+			if (result instanceof Vector) {
+				Vector<Bauteil> bauteile = new Vector<Bauteil>();
+				bauteile = (Vector<Bauteil>) result;
+
+				bauteilgui.showAllBauteile(bauteile);
 			}
 		}
 	}
@@ -478,8 +536,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		
 			
 		}
-		}
-
+	}
 	
 	
 			

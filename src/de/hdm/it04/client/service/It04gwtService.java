@@ -30,6 +30,7 @@ public interface It04gwtService extends RemoteService {
 	 * @return Vektor mit Bauteil-Objekten
 	 */
 	Bauteil getBauteil(int id);
+	Bauteil getBauteil2(int id);
 	
 	/**
 	 * Die Methode legt ein Bauteil an.
@@ -39,6 +40,10 @@ public interface It04gwtService extends RemoteService {
 	 * @return Ein Objekt vom Typ Bauteil
 	 */
 	Bauteil createBauteil();
+	
+	String deleteBauteil(int id);
+	
+	Vector<Bauteil> showAllBauteile();
 	
 	Enderzeugnis createEnderzeugnis();
 	

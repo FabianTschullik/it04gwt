@@ -14,8 +14,14 @@ public interface It04gwtServiceAsync {
 	//Asyn geben niemals einen wert zurück, da dieser über callback zurück kommt.
 	
 		void getBauteil(int id, AsyncCallback callback);
+		void getBauteil2(int id, AsyncCallback callback);
+		
 		
 		void createBauteil(AsyncCallback callback);
+		
+		void deleteBauteil(int id,AsyncCallback callback);
+		
+		void showAllBauteile(AsyncCallback callback);
 		
 		void createEnderzeugnis(AsyncCallback<Enderzeugnis> callback);
 		

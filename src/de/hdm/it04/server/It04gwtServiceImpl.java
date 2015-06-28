@@ -36,6 +36,18 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 		return BauteilMapper.bauteilMapper().findByKey(id);
 	}
+	public Bauteil getBauteil2(int id) {
+
+		return BauteilMapper.bauteilMapper().findByKey(id);
+	}
+	
+	public String deleteBauteil(int id){
+		return BauteilMapper.bauteilMapper().delete(id);
+	}
+	
+	public Vector<Bauteil> showAllBauteile(){
+		return BauteilMapper.bauteilMapper().findAll();
+	}
 	
 	public Vector<Bauteil> findConnectedBauteileByKey(int id){
 		
