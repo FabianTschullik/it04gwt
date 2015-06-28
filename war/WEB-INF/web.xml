@@ -11,6 +11,9 @@
 	<url-pattern>/it04gwt/sms</url-pattern>
 </servlet-mapping>
 
+<welcome-file-list>
+	<welcome-file>It04gwt.html</welcome-file>
+</welcome-file-list>
 
 <!-- REPORT GENERATOR -->
 <servlet>
@@ -25,7 +28,7 @@
 
 <!--  Default page to serve  -->
 <welcome-file-list>
-<welcome-file>It04gwt.html</welcome-file>
-<welcome-file>It04gwt_report.html</welcome-file>
+	<welcome-file>It04gwt_report.html</welcome-file>
 </welcome-file-list>
+
 </web-app>
