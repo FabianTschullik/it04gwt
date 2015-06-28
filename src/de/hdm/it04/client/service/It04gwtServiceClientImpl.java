@@ -66,6 +66,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		this.service.getBauteil(id, new GetBauteilCallback());
 	}
 	
+	public void findBauteilByName(String name) {
+		this.service.findBauteilByName(name, new GetBauteilByNameCallback());
+	}
+	
 	public void getBauteil2(int id){
 		this.service.getBauteil(id, new GetBauteil2Callback());
 	}
@@ -99,9 +103,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * @param Ein Name eines Bauteils als String, welches gefunden werden soll
 	 * @return void
 	 */
-	public void findByName(String name) {
-		this.service.findByName(name, new GetBauteilCallback());
-	}
+	
 
 	/**
 	 * Die Methode aktualisiert ein Bauteil.
@@ -186,17 +188,14 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		@Override
 		public void onSuccess(Object result) {
 
-			// Object result entählt, was vom server zurück kommt clientImpl
-			// updatet das GUI anschlie�end
-			System.out.println("R�ckmeldung vom Server erhalten");
+			
 
 			if (result instanceof Bauteil) {
 				Bauteil bt = (Bauteil) result;
 				bauteilgui.getBauteil(bt);
 				
-
-		
 			}
+		
 		}
 	}
 	public class GetBauteil2Callback implements AsyncCallback {
@@ -224,6 +223,26 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 	}
 
+	public class GetBauteilByNameCallback implements AsyncCallback<Vector<Bauteil>> {
+
+		// Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt
+		@Override
+		public void onFailure(Throwable caught) {
+			//maingui.GetAllError();
+		}
+		public void onSuccess(Vector<Bauteil> result) {
+
+			if (result instanceof Vector) {
+				Vector<Bauteil> bauteile = new Vector<Bauteil>();
+				bauteile = (Vector<Bauteil>) result;
+				
+				bauteilgui.showAllBauteile(bauteile);
+			}
+		}
+
+		
+	}
+	
 	/**
 	 * Diese Klasse wartet auf eine Antwort der Methode createBauteil(). Wenn
 	 * sie eine Antwort erhält, war die Kommunikation mit der Datenbank

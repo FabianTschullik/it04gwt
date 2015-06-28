@@ -87,7 +87,7 @@ public Enderzeugnis getEnderzeugnisById(int id){
 	 * @return Vektor vom Typ Bauteil, welches alle Bauteile mit dem übergebenen
 	 *         Namen enthält
 	 */
-	public Vector<Bauteil> findByName(String name) {
+	public Vector<Bauteil> findBauteilByName(String name) {
 
 		return BauteilMapper.bauteilMapper().findByName(name);
 	}

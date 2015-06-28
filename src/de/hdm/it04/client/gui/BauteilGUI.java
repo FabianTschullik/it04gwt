@@ -97,7 +97,7 @@ public class BauteilGUI extends MainGUI {
 		this.hPanel.add(LoeschenBtn1);	
 		
 		
-		suchen.setText("id");
+		suchen.setText("id oder Name");
 		this.hPanel.add(suchen);
 		
 		Button SuchenBtn = new Button("Bauteil suchen");
@@ -625,8 +625,8 @@ public void showMeldung(String meldung){
 	
 	/**
 	 * Über den Suchenbutton kann man Bauteile suchen
-	 * indem man die ID eingibt.
-	 *Dann wird die Methode getBauteile in der Klasse ClientImpl aufgerufen
+	 * indem man die ID oder ein Name eingibt.
+	 *Dann wird die Methode getBauteile oder findBauteilByName in der Klasse ClientImpl aufgerufen
 	 */
 	
 	public class SuchenBtnClickHandler implements ClickHandler {
@@ -635,9 +635,16 @@ public void showMeldung(String meldung){
 		public void onClick(ClickEvent event) {
 			
 			vPanel.clear();
-			String id1 = suchen.getText();
-			int id = Integer.parseInt(id1);
-			serviceImpl.getBauteil(id);
+			String searchFor = suchen.getText();
+			
+			if (searchFor.matches("[0-9]+")){
+				int id = Integer.parseInt(searchFor);
+				serviceImpl.getBauteil(id);
+			}
+			
+			else 
+			
+			serviceImpl.findBauteilByName(searchFor);
 
 		
 		}

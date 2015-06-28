@@ -35,7 +35,7 @@ public interface It04gwtServiceAsync {
 		
 		void getAll(AsyncCallback<Vector<Bauteil>> callback);
 		
-		void findByName(String name, AsyncCallback<Vector<Bauteil>> callback);
+		void findBauteilByName(String name, AsyncCallback <Vector<Bauteil>> callback);
 		
 		void updateBauteil(Bauteil bt, AsyncCallback callback);
 		void updateEnderzeugnis(Enderzeugnis ez, AsyncCallback<Enderzeugnis> callback);

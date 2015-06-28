@@ -99,7 +99,7 @@ public interface It04gwtService extends RemoteService {
 	 * @return Vektor vom Typ Bauteil, welches alle Bauteile mit dem übergebenen
 	 *         Namen enthält
 	 */
-	Vector<Bauteil> findByName(String name);
+	Vector<Bauteil> findBauteilByName(String name);
 	
 	
 	Bauteil getBauteilDetails(int id);

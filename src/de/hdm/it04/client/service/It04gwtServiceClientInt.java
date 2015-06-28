@@ -49,7 +49,7 @@ public interface It04gwtServiceClientInt {
 	 * @param Ein Name eines Bauteils als String, welches gefunden werden soll
 	 * @return void
 	 */
-	void findByName(String name);
+	void findBauteilByName(String name);
 	
 	/**
 	 * Die Methode aktualisiert ein Bauteil.
