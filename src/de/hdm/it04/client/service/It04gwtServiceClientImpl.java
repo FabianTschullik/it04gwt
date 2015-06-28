@@ -1,9 +1,11 @@
 package de.hdm.it04.client.service;
 
 import java.util.Vector;
+
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+
 import de.hdm.it04.client.gui.BauteilGUI;
 import de.hdm.it04.client.gui.EnderzeugnisGUI;
 import de.hdm.it04.client.gui.MainGUI;
@@ -96,7 +98,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * @return void
 	 */
 	public void updateBauteil(Bauteil bt) {
-		this.service.updateBauteil(bt, new UpdateBauteilCallback());
+		this.service.updateBauteil(bt, new UpdateCallback());
 	}
 	
 	public void updateEnderzeugnis(Enderzeugnis ez) {
@@ -161,7 +163,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * eine Antwort erhält, war die Kommunikation mit der Datenbank erfolgreich
 	 * und kann weiter verarbeitet werden.
 	 */
-	public class GetBauteilCallback implements AsyncCallback<Vector<Bauteil>> {
+	public class GetBauteilCallback implements AsyncCallback {
 
 		// Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt
 		@Override
@@ -170,22 +172,18 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 
 		@Override
-		public void onSuccess(Vector<Bauteil> result) {
+		public void onSuccess(Object result) {
 
 			// Object result entählt, was vom server zurück kommt clientImpl
 			// updatet das GUI anschlie�end
 			System.out.println("R�ckmeldung vom Server erhalten");
 
-			if (result instanceof Vector) {
+			if (result instanceof Bauteil) {
+				Bauteil bt = (Bauteil) result;
+				bauteilgui.getBauteil(bt);
+				
 
-				Vector<Bauteil> bauteile = new Vector<Bauteil>();
-				bauteile = (Vector<Bauteil>) result;
-				Bauteil bt = new Bauteil();
-				bt = bauteile.firstElement();
-				
-				
-				for (int i=1; i < 3; i++){	
-				maingui.showBauteil(bt);}
+		
 			}
 		}
 	}
@@ -509,10 +507,15 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 				Baugruppe bg = (Baugruppe) result;
 				//maingui.updateTree(bg);
-
+				
 				 //maingui.showSucess();
 				//maingui.showBauteil(bauteile);
 			
+			}
+			
+			if (result instanceof Bauteil){
+				Bauteil bt = (Bauteil) result;
+				bauteilgui.getBauteil(bt);
 			}
 			else {
 				//maingui.showError();

@@ -29,7 +29,7 @@ public interface It04gwtService extends RemoteService {
 	 *            als Integer
 	 * @return Vektor mit Bauteil-Objekten
 	 */
-	Vector<Bauteil> getBauteil(int id);
+	Bauteil getBauteil(int id);
 	
 	/**
 	 * Die Methode legt ein Bauteil an.

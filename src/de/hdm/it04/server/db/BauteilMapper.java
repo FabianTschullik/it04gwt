@@ -74,7 +74,7 @@ public class BauteilMapper {
 	 * @return Konto-Objekt-Vektor, das dem übergebenen Schlüssel entspricht,
 	 *         null bei nicht vorhandenem DB-Tupel.
 	 */
-	public Vector<Bauteil> findByKey(int id) {
+	public Bauteil findByKey(int id) {
 
 		// DB-Verbindung holen
 		Connection con = DbConnection.connection();
@@ -110,9 +110,9 @@ public class BauteilMapper {
 				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
-				result.add(bt);
+				
 
-				return result;
+				return bt;
 			}
 
 		} catch (SQLException e2) {
