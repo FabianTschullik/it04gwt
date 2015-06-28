@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.it04.client.editor.ImpressumMain;
-import de.hdm.it04.shared.Materialbedarf;
+import de.hdm.it04.client.report.MaterialbedarfGUI;
 import de.hdm.it04.shared.Strukturstueckliste;
 
 
@@ -49,8 +49,8 @@ public class ReportGUI extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanelContent.clear();	
-			Strukturstueckliste strukturstueckliste = new Strukturstueckliste();
-			//vPanelContent.add(strukturstueckliste);
+			StrukturstuecklisteGUI strukturstuecklistegui = new StrukturstuecklisteGUI();
+			vPanelContent.add(strukturstuecklistegui);
 		}	
 	}
 	
@@ -59,8 +59,8 @@ public class ReportGUI extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanelContent.clear();
-			Materialbedarf materialbedarf = new Materialbedarf();
-			//vPanelContent.add(materialbedarf);
+			MaterialbedarfGUI materialbedarfgui = new MaterialbedarfGUI();
+			vPanelContent.add(materialbedarfgui);
 			
 		}	
 	}
