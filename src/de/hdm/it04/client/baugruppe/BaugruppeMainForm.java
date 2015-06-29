@@ -4,8 +4,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.it04.client.Alert;
 import de.hdm.it04.client.ClientsideSettings;
@@ -43,7 +45,10 @@ public class BaugruppeMainForm extends ShowCase {
 	
 	protected void run() {
 		
-		Button btnCreate = new Button("Neue Baugruppe anlegen");
+		VerticalPanel vPanel = new VerticalPanel();
+		HorizontalPanel hPanelSearch = new HorizontalPanel();
+		
+		Button btnCreate = new Button("Baugruppe anlegen");
 		btnCreate.addClickHandler(new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
@@ -52,9 +57,11 @@ public class BaugruppeMainForm extends ShowCase {
 						RootPanel.get("content").add(new BaugruppeUpdateForm());
 					}
 				});
+		vPanel.add(btnCreate);
 		
 		TextBox suchen = new TextBox();
 		suchen.setText("ID oder Name eingeben");
+		hPanelSearch.add(suchen);
 		
 		Button btnsuchen = new Button("Baugruppe suchen");
 		btnsuchen.addClickHandler(new ClickHandler() {
@@ -64,7 +71,10 @@ public class BaugruppeMainForm extends ShowCase {
 						//RootPanel.get("main").add(new EnderzeugnisForm(new Element(),1));
 					}
 				});
+		hPanelSearch.add(btnsuchen);
+		hPanelSearch.addStyleName("paddedHorizontalPanel");
 		
+		vPanel.add(hPanelSearch);
 		Button btnAlleBaugruppen = new Button("Alle Baugruppen anzeigen");
 		btnAlleBaugruppen.addClickHandler(new ClickHandler() {
 					@Override
@@ -73,16 +83,15 @@ public class BaugruppeMainForm extends ShowCase {
 						//RootPanel.get("main").add(new EnderzeugnisForm(new Element(),1));
 					}
 				});
+		vPanel.add(btnAlleBaugruppen);
 		
 		
 		
 	
 		
 		
-		this.add(btnCreate);
-		this.add(suchen);
-		this.add(btnsuchen);
-		this.add(btnAlleBaugruppen);
+		this.add(vPanel);
+		
 	}
 	
 	

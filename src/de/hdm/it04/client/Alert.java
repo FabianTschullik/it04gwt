@@ -50,7 +50,10 @@ public class Alert {
 				RootPanel.get("alert").clear();
 			}
 		});
+		
+		btnClose.addStyleName("AlertCloseButton");
 		hPanel.add(btnClose);
+		hPanel.addStyleName("paddedHorizontalPanel");
 		
 		RootPanel.get("alert").clear();
 		RootPanel.get("alert").add(hPanel);

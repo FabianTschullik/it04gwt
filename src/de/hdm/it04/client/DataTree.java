@@ -53,8 +53,7 @@ public class DataTree extends Composite{
 
 	   vPanel.add(t);
 	   
-	   Label lbl = new Label("hallo");
-	   vPanel.add(lbl);
+	  
 	   RootPanel.get("tree").add(vPanel);
 	     
 return vPanel;

@@ -72,8 +72,8 @@ AdministrationCommon {
 	
 	@Override
 	public Vector<Bauteil> getBauteil(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.bauteilMapper.findByName(name);
 	}
 	
 	@Override
@@ -102,7 +102,7 @@ AdministrationCommon {
 	@Override
 	public Baugruppe createBaugruppe() {
 		
-		return this.baugruppeMapper.getBaugruppeMapper().insert();
+		return this.baugruppeMapper.insert();
 	}
 	
 
@@ -112,7 +112,7 @@ AdministrationCommon {
 	@Override
 	public Enderzeugnis createEnderzeugnis() throws IllegalArgumentException {
 		
-		return this.enderzeugnisMapper.getEnderzeugnisMapper().createEnderzeugnis();
+		return this.enderzeugnisMapper.createEnderzeugnis();
 	}
 
 

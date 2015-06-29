@@ -68,18 +68,6 @@ h1 {
   width: 50px;
 }
 
-/* Dynamic color changes for the Change field */
-.noChange {
-  color: black;
-}
-
-.positiveChange {
-  color: green;
-}
-
-.negativeChange {
-  color: red;
-}
 
 
 /* stock list header row */
@@ -131,6 +119,7 @@ float : left;
 position : relative;
 width : 200px;
 height : 600px;
+color: white;
 }
 #topmenu{
 clear : none;
@@ -152,6 +141,7 @@ float : left;
 position : relative;
 width : 824px;
 height : 500px;
+color: white;
 }
 #botmenu{
 clear : none;
@@ -176,7 +166,8 @@ h3 {color: white;}
 }
 
 .paddedHorizontalPanel .gwt-Button {
-    margin-left: 3px;
+    margin-left: 8px;
+    margin-bottom: 10px;
     
 }
 
@@ -184,15 +175,12 @@ h3 {color: white;}
 	color: black;
 	background-color: grey;
   	opacity: 0.5;
-  	  margin: 0;
-  padding: 8px 8px;
+  	  margin-bottom: 10 !important;
   text-decoration: none;
   cursor: pointer;
   cursor: hand;
   font-size: small;
-  /* border: 1px solid; */
-  /* border-bottom: 1px solid #120B0B; */
-  /* border-radius: 3px; */
+  
 	
 	
 }
@@ -202,20 +190,27 @@ h3 {color: white;}
 color: white;	
 }
 
-.successLabel{
-	color: white;
-}
 
-.successPanel{
-	color: green;
-	background-color: green;
-}
 
 .impressum{
 	color: white;
 }
 
-.alertRed{color: red;}
-.alertGreen{color: green;}
+.alertRed {color: red;
+font-size: 150%;
 
-.formTitle{color: white}
+}
+.alertGreen {color: green;
+font-size: 150%;}
+
+.formTitle{color: white;}
+
+.checkbox{color: white;}
+
+.paddedVerticalPanel .gwt Button {
+	
+	 margin-left: 8px;
+    margin-bottom: 10px;
+}
+
+

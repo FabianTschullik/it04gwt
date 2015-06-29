@@ -57,6 +57,7 @@ public class EnderzeugnisUpdateForm extends ShowCase {
 		@Override
 		public void onSuccess(Object result) {
 			Enderzeugnis ez = new Enderzeugnis();
+			ez = (Enderzeugnis) result;
 			Alert.load("Leeres Enderzeugnis wurde angelegt", "green");
 			RootPanel.get("content").add(EnderzeugnisUpdateForm.showInsertForm(ez));
 		}
