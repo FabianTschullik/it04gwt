@@ -2,18 +2,8 @@ package de.hdm.it04.client.enderzeugnis;
 
 
 
-import java.sql.Timestamp;
-import java.util.Date;
-
-import com.google.gwt.i18n.client.DateTimeFormat;
-
-import de.hdm.it04.shared.AdministrationCommonAsync;
-import de.hdm.it04.shared.Enderzeugnis;
-
-import com.google.appengine.repackaged.com.google.api.client.util.DateTime;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -24,6 +14,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import de.hdm.it04.client.Alert;
 import de.hdm.it04.client.ClientsideSettings;
 import de.hdm.it04.client.ShowCase;
+import de.hdm.it04.shared.AdministrationCommonAsync;
+import de.hdm.it04.shared.Enderzeugnis;
 
 
 public class EnderzeugnisUpdateForm extends ShowCase {
