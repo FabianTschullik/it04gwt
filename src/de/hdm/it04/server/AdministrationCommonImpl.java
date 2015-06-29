@@ -51,7 +51,7 @@ AdministrationCommon {
 		 */
 		this.baugruppeMapper = BaugruppeMapper.baugruppeMapper();
 		this.enderzeugnisMapper = EnderzeugnisMapper.getEnderzeugnisMapper();
-		this.bauteilMapper = BauteilMapper.bauteilMapper();
+		this.bauteilMapper = BauteilMapper.getBauteilMapper();
 		
 		;
 	

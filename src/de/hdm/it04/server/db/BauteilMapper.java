@@ -51,7 +51,7 @@ public class BauteilMapper {
 	 * @return DAS <code>BauteilMapper</code>-Objekt.
 	 * @see bauteilMapper
 	 */
-	public static BauteilMapper bauteilMapper() {
+	public static BauteilMapper getBauteilMapper() {
 		if (bauteilMapper == null)
 			bauteilMapper = new BauteilMapper();
 
@@ -88,14 +88,14 @@ public class BauteilMapper {
 
 			Statement stmt = con.createStatement();
 
-			// Statement ausf�llen und als Query an die DB schicken
+			// Statement ausfuellen und als Query an die DB schicken
 
 			ResultSet rs = stmt
 					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
 							+ "WHERE id=" + id);
 			/*
-			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
-			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+			 * Da id Primarschluessel ist, kann max. nur ein Tupel zurueckgegeben
+			 * werden. Pruefe, ob ein Ergebnis vorliegt.
 			 */
 
 			if (rs.next()) {
@@ -141,29 +141,29 @@ public class BauteilMapper {
 			Statement stmt = con.createStatement();
 
 			/*
-			 * Zun�chst schauen wir nach, welches der momentan h�chste
-			 * Prim�rschl�sselwert ist.
+			 * Zunaechst schauen wir nach, welches der momentan hoechste
+			 * Primaerschluesselwert ist.
 			 */
 			ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
 					+ "FROM bauteil ");
 
-			// Wenn wir etwas zur�ckerhalten, kann dies nur einzeilig sein
+			// Wenn wir etwas zurueckerhalten, kann dies nur einzeilig sein
 			if (rs.next()) {
 				/*
-				 * bt erh�lt den bisher maximalen, nun um 1 inkrementierten
-				 * Prim�rschl�ssel.
+				 * bt erhaelt den bisher maximalen, nun um 1 inkrementierten
+				 * Primaerschluessel.
 				 */
 				bt.setId(rs.getInt("maxid") + 1);
 
 				stmt = con.createStatement();
 
-				// Aktuelle Zeit f�r Timestamp erstellungsDatum, aenderungsDatum
+				// Aktuelle Zeit fuer Timestamp erstellungsDatum, aenderungsDatum
 				// holen
 
 				Date date = new Date();
 				new Timestamp(date.getTime());
 
-				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
+				// Jetzt erst erfolgt die tatsaechliche Einfuegeoperation
 				stmt.executeUpdate("INSERT INTO bauteil (id, erstellungsDatum, aenderungsDatum) "
 						+ "VALUES ("
 						+ bt.getId()
@@ -177,14 +177,14 @@ public class BauteilMapper {
 		}
 
 		/*
-		 * R�ckgabe, des evtl. korrigierten Bauteils.
+		 * Rueckgabe, des evtl. korrigierten Bauteils.
 		 * 
 		 * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-		 * Objekte �bergeben werden, w�re die Anpassung des Bauteil-Objekts auch
-		 * ohne diese explizite R�ckgabe au�erhalb dieser Methode sichtbar. Die
-		 * explizite R�ckgabe von be ist eher ein Stilmittel, um zu
+		 * Objekte uebergeben werden, waere die Anpassung des Bauteil-Objekts auch
+		 * ohne diese explizite Rueckgabe ausserhalb dieser Methode sichtbar. Die
+		 * explizite Rueckgabe von be ist eher ein Stilmittel, um zu
 		 * signalisieren, dass sich das Objekt evtl. im Laufe der Methode
-		 * ver�ndert hat.
+		 * veraendert hat.
 		 */
 		return bt;
 	}
@@ -299,8 +299,8 @@ public class BauteilMapper {
 					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
 							+ "WHERE name=" + "'" + name + "'");
 			/*
-			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
-			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+			 * Da id Primarschluessel ist, kann max. nur ein Tupel zurueckgegeben
+			 * werden. Pruefe, ob ein Ergebnis vorliegt.
 			 */
 
 			while (rs.next()) {
