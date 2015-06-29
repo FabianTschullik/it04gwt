@@ -39,8 +39,7 @@ public class DbConnection {
 	 * mitgegeben, um bei einer Veränderung dieser URL nicht die gesamte
 	 * Software neu komilieren zu müssen.
 	 */
-	// private static String googleUrl =
-	// "jdbc:google:mysql://it04sms:it04:3306/sms?user=root&password=root";
+	//private static String googleUrl = "jdbc:mysql://173.194.80.74:3306/sms?user=root&password=root";
 	private static String localUrl = "jdbc:mysql://127.0.0.1:3306/sms?user=root&password=root";
 
 	/**
