@@ -27,6 +27,9 @@ public interface AdministrationCommonAsync {
 //-------------------------- Ende Bauteil -------------------------------------------
 //------------------------------------------------------------------------------
 	
+	public void createBaugruppe (AsyncCallback callback);
+	
+	
 	
 	public void createEnderzeugnis(AsyncCallback callback);
 	public void getEnderzeugnisById(int id, AsyncCallback<Enderzeugnis> callback );

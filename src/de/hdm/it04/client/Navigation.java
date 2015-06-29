@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.hdm.it04.client.baugruppe.BaugruppeMainForm;
 import de.hdm.it04.client.bauteil.BauteilMainForm;
 import de.hdm.it04.client.enderzeugnis.EnderzeugnisMainForm;
 
@@ -39,7 +40,8 @@ public class Navigation  {
 		Button btnBaugruppe = new Button("Baugruppe");
 		btnBaugruppe.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				
+				RootPanel.get("content").clear();
+				RootPanel.get("content").add(new BaugruppeMainForm());
 			}
 		});
 		hPanel.add(btnBaugruppe);

@@ -45,9 +45,6 @@ public class EnderzeugnisUpdateForm extends ShowCase {
 				.getAdministration();
 
 		administration.createEnderzeugnis(new CreateEnderzeugnisCallback());
-		
-		
-
 	}
 
 	class CreateEnderzeugnisCallback implements AsyncCallback {
@@ -62,10 +59,7 @@ public class EnderzeugnisUpdateForm extends ShowCase {
 			Enderzeugnis ez = new Enderzeugnis();
 			Alert.load("Leeres Enderzeugnis wurde angelegt", "green");
 			RootPanel.get("content").add(EnderzeugnisUpdateForm.showInsertForm(ez));
-			
-
 		}
-
 	}
 	
 	private static FlexTable showInsertForm(Enderzeugnis ez) {
