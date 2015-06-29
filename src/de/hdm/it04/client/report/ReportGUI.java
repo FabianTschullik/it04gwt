@@ -9,7 +9,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.it04.client.editor.ImpressumMain;
 import de.hdm.it04.client.report.MaterialbedarfGUI;
-import de.hdm.it04.shared.Strukturstueckliste;
 
 
 public class ReportGUI extends Composite {

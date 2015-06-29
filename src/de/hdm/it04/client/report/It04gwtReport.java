@@ -19,10 +19,10 @@ import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 public class It04gwtReport implements EntryPoint {
 		
 		public void onModuleLoad() {
-			//muss noch auf die ReportClientImpl umgestellt werden
-			It04gwtServiceClientImpl clientImpl = new It04gwtServiceClientImpl(GWT.getModuleBaseURL()+"sms");
-			//RootPanel.get().add(clientImpl.getMainGUI());
 			ReportGUI reportgui = new ReportGUI();
 			RootPanel.get().add(reportgui);
+			
+			//It04gwtServiceClientImpl clientImpl = new It04gwtServiceClientImpl(GWT.getModuleBaseURL()+"sms");
+			//RootPanel.get().add(clientImpl.getMainGUI());
 		}	
 }
