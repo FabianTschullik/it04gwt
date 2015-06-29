@@ -541,7 +541,6 @@ public void showMeldung(String meldung){
 			/**
 			 * Das Objekt wird an die ClientImpl weiter gegeben
 			 */
-			
 			serviceImpl.update(btt);
 			
 			/**
