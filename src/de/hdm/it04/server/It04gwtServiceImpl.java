@@ -23,6 +23,20 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 	private static final long serialVersionUID = 1L;
 
+//--------------------------------------------------------------------------
+//------------------------- Bauteil ----------------------------------------
+//--------------------------------------------------------------------------
+	/**
+	 * Die Methode legt ein Bauteil an.
+	 * 
+	 * @param Ein Objekt vom Typ Bauteil welches gespeichert werden soll
+	 * @return Ein Objekt vom Typ Bauteil
+	 */
+	public Bauteil createBauteil() {
+
+		return BauteilMapper.bauteilMapper().insert();
+	}
+
 	/**
 	 * Diese Methode wird benötigt, um ein Bauteil mit einer bestimmten ID zu
 	 * finden. Die Methode gibt ein Bauteil als Vektor zurück. Da die ID
@@ -36,18 +50,58 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 		return BauteilMapper.bauteilMapper().findByKey(id);
 	}
+	
 	public Bauteil getBauteil2(int id) {
 
 		return BauteilMapper.bauteilMapper().findByKey(id);
 	}
 	
+	/**
+	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
+	 * finden. Da mehrere Bauteile mit dem selben Namen exisitieren können, wird
+	 * das Bauteil in einem Vektor gespeichert.
+	 * 
+	 * @param Ein Name eines Bauteils, welches gefunden werden soll
+	 * @return Vektor vom Typ Bauteil, welches alle Bauteile mit dem übergebenen
+	 *         Namen enthält
+	 */
+	public Vector<Bauteil> getBauteil(String name) {
+
+		return BauteilMapper.bauteilMapper().findByName(name);
+	}
+	
+	/**
+	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem
+	 * Vektor.
+	 * 
+	 * @param void
+	 * @return Ein Vektor vom Typ Bauteil, welcher alle Bauteile enthält
+	 */
+	public Vector<Bauteil> getAll() {
+
+		return BauteilMapper.bauteilMapper().findAll();
+	}
+
+	/**
+	 * Die Methode aktualisiert ein Bauteil.
+	 * 
+	 * @param Ein Objekt vom Typ Bauteil
+	 * @return Objekt vom Typ Bauteil
+	 */
+	public Bauteil update(Bauteil bt) {
+
+		return BauteilMapper.bauteilMapper().update(bt);
+	}
+	
 	public String deleteBauteil(int id){
 		return BauteilMapper.bauteilMapper().delete(id);
 	}
+//-----------------------------------------------------------------------------
+//--------------------------- Ende Bauteil ------------------------------------
+//-----------------------------------------------------------------------------
 	
-	public Vector<Bauteil> showAllBauteile(){
-		return BauteilMapper.bauteilMapper().findAll();
-	}
+	
+	
 	
 	public Vector<Bauteil> findConnectedBauteileByKey(int id){
 		
@@ -64,61 +118,12 @@ public Enderzeugnis getEnderzeugnisById(int id){
 		return EnderzeugnisMapper.enderzeugnisMapper().getEnderzeugnisById(id);
 	}
 
-	/**
-	 * Die Methode aktualisiert ein Bauteil.
-	 * 
-	 * @param Ein Objekt vom Typ Bauteil
-	 * @return Objekt vom Typ Bauteil
-	 */
-	public Bauteil updateBauteil(Bauteil bt) {
-
-		return BauteilMapper.bauteilMapper().update(bt);
-	}
-	
-	
-
-
-	/**
-	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
-	 * finden. Da mehrere Bauteile mit dem selben Namen exisitieren können, wird
-	 * das Bauteil in einem Vektor gespeichert.
-	 * 
-	 * @param Ein Name eines Bauteils, welches gefunden werden soll
-	 * @return Vektor vom Typ Bauteil, welches alle Bauteile mit dem übergebenen
-	 *         Namen enthält
-	 */
-	public Vector<Bauteil> findBauteilByName(String name) {
-
-		return BauteilMapper.bauteilMapper().findByName(name);
-	}
-
-	/**
-	 * Die Methode legt ein Bauteil an.
-	 * 
-	 * @param Ein Objekt vom Typ Bauteil welches gespeichert werden soll
-	 * @return Ein Objekt vom Typ Bauteil
-	 */
-	public Bauteil createBauteil() {
-
-		return BauteilMapper.bauteilMapper().insert();
-	}
-	
 	public Enderzeugnis createEnderzeugnis() {
 
 		return EnderzeugnisMapper.enderzeugnisMapper().insert();
 	}
 
-	/**
-	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem
-	 * Vektor.
-	 * 
-	 * @param void
-	 * @return Ein Vektor vom Typ Bauteil, welcher alle Bauteile enthält
-	 */
-	public Vector<Bauteil> getAll() {
-
-		return BauteilMapper.bauteilMapper().findAll();
-	}
+	
 
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
@@ -132,10 +137,7 @@ public Enderzeugnis getEnderzeugnisById(int id){
 		return BauteilMapper.bauteilMapper().delete(id);
 	}
 	
-	public Bauteil getBauteilDetails(int id) {
 	
-	return BauteilMapper.bauteilMapper().getBauteilDetails(id);
-	}
 	
 	public Baugruppe getBaugruppeDetails(int id) {
 		

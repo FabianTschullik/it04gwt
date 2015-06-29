@@ -41,8 +41,6 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		this.maingui = new MainGUI(this);
 		this.bauteilgui = new BauteilGUI(this.maingui.getvPanelDetailsContent());
 		this.enderzeugnisgui = new EnderzeugnisGUI(this);
-		
-
 	}
 
 	/**
@@ -55,14 +53,25 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		return this.maingui;
 	}
 	
-	/*----------------------------------Bauteil Methoden----------------------------------*/
-
+//------------------------------------------------------------------------------------
+//----------------------------------Bauteil Methoden----------------------------------
+//------------------------------------------------------------------------------------
 	/**
-	 * Diese Methode wird ben�tigt um ein leeres Objekt aus der DB zu holen
+	 * Diese Methode wird ben�tigt um ein leeres Objekt aus der DB zu holen
 	 */
 	public void createBauteil() {
 		this.service.createBauteil(new CreateBauteilCallback());
 	}
+	
+	/**
+	 * Diese Methode wird ben�tigt um ein Bauteil zu aktualisieren
+	 * @param Bauteil, welches ge�ndert wird
+	 * @return void
+	 */	
+	public void update(Bauteil bt) {
+		this.service.update(bt, new UpdateCallback());
+	}
+	
 	/**
 	 * Diese Methode wird benoetigt, um ein Bauteil mit einer bestimmten ID zu
 	 * finden und anzeigen zu lassen
@@ -85,46 +94,36 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		this.service.getBauteil(id, new GetBauteil2Callback());
 	}
 	
-	
-	
 	/**
 	 * Die Methode wird benoetigt, um ein Bauteil mit einem bestimmten Namen zu
 	 * finden.
 	 * @param Ein Name eines Bauteils als String, welches gefunden werden soll
 	 * @return void
 	 */
-	public void findBauteilByName(String name) {
-		this.service.findBauteilByName(name, new GetBauteilByNameCallback());
+	public void getBauteil(String name) {
+		this.service.getBauteil(name, new GetBauteilCallback());
 	}
 	
 	/**
-	 * Diese Methode wird ben�tigt um ein Bauteil zu aktualisieren
-	 * @param Bauteil, welches ge�ndert wird
+	 * Die Methode wird benoetigt, alle angelegten Bauteile zu finden.
+	 * @param void
 	 * @return void
 	 */
-	
-	public void updateBauteil(Bauteil bt) {
-		this.service.updateBauteil(bt, new UpdateCallback());
+	public void getAll() {
+		this.service.getAll(new GetAllCallback());
 	}
 	
 	/**
-	 * Diese Methode wird ben�tigt um ein Bauteil zu l�schen
+	 * Diese Methode wird benötigt um ein Bauteil zu löschen
 	 * @param id 
 	 * @return void
 	 */
-	
 	public void deleteBauteil(int id){
 		this.service.deleteBauteil(id, new DeleteBauteilCallback());
 	}
-	
-	/**
-	 * Diese Methode wird ben�tigt um alle Bauteile anzeigen zu lassen
-	 */
-	
-	public void showAllBauteile() {
-		this.service.showAllBauteile(new GetAllBauteileCallback());
-	}
-	
+//------------------------------------------------------------------------------------
+//----------------------------------Ende Bauteil----------------------------------
+//------------------------------------------------------------------------------------
 	
 	
 	
@@ -175,24 +174,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 /*--------------------------------Nicht verwendete Methoden/ nicht zuordbar------------*/
 
 	
-	public void getAll() {
-		this.service.getAll(new GetAllCallback());
-	}
-
-	/**
-	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
-	 * 
-	 * @param ID von einem Bauteil als Integer,
-	 * @return void
-	 */
-	public void delete(int id) {
-		this.service.delete(id, new DeleteBauteilCallback());
-	}
 	
-	public void getBauteilDetails(int id) {
-		this.service.getBauteilDetails(id, new GetBauteilDetailsCallback());
-		
-	}
+
+	
 	
 
 	
@@ -200,81 +184,13 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	
 	
 	
-	
+/*-----------------------------------------------------------------------------------*/
 /*------------------------------------------Callbacks--------------------------------*/
-	
-	/*------------------------------------------Bauteil Callbacks--------------------------------*/
-	/**
-	 * Diese Klasse wartet auf eine Antwort der Methode getBauteil(). Wenn sie
-	 * eine Antwort erhält, war die Kommunikation mit der Datenbank erfolgreich
-	 * und kann weiter verarbeitet werden.
-	 */
-	public class GetBauteilCallback implements AsyncCallback {
+/*-----------------------------------------------------------------------------------*/
 
-		// Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt
-		@Override
-		public void onFailure(Throwable caught) {
-			//maingui.GetAllError();
-		}
-
-		@Override
-		public void onSuccess(Object result) {
-
-			
-
-			if (result instanceof Bauteil) {
-				Bauteil bt = (Bauteil) result;
-				bauteilgui.getBauteil(bt);
-				
-			}
-		
-		}
-	}
-	public class GetBauteil2Callback implements AsyncCallback {
-
-		// Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt
-		@Override
-		public void onFailure(Throwable caught) {
-			//maingui.GetAllError();
-		}
-
-		@Override
-		public void onSuccess(Object result) {
-
-			// Object result entählt, was vom server zurück kommt clientImpl
-			// updatet das GUI anschlie�end
-			System.out.println("R�ckmeldung vom Server erhalten");
-
-			if (result instanceof Bauteil) {
-				Bauteil bt = (Bauteil) result;
-				bauteilgui.updateBauteil2(bt);
-				
-
-		
-			}
-		}
-	}
-
-	public class GetBauteilByNameCallback implements AsyncCallback<Vector<Bauteil>> {
-
-		// Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt
-		@Override
-		public void onFailure(Throwable caught) {
-			//maingui.GetAllError();
-		}
-		public void onSuccess(Vector<Bauteil> result) {
-
-			if (result instanceof Vector) {
-				Vector<Bauteil> bauteile = new Vector<Bauteil>();
-				bauteile = (Vector<Bauteil>) result;
-				
-				bauteilgui.showAllBauteile(bauteile);
-			}
-		}
-
-		
-	}
-	
+/*-------------------------------------------------------------------------------------------*/
+/*------------------------------------------Bauteil Callbacks--------------------------------*/
+/*-------------------------------------------------------------------------------------------*/
 	/**
 	 * Diese Klasse wartet auf eine Antwort der Methode createBauteil(). Wenn
 	 * sie eine Antwort erhält, war die Kommunikation mit der Datenbank
@@ -307,6 +223,94 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	}
 	
 	/**
+	 * Diese Klasse wartet auf eine Antwort der Methode getBauteil(). Wenn sie
+	 * eine Antwort erhält, war die Kommunikation mit der Datenbank erfolgreich
+	 * und kann weiter verarbeitet werden.
+	 */
+	public class GetBauteilCallback implements AsyncCallback {
+
+		// Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt
+		@Override
+		public void onFailure(Throwable caught) {
+			//maingui.GetAllError();
+		}
+
+		@Override
+		public void onSuccess(Object result) {
+
+			if (result instanceof Bauteil) {
+				Bauteil bt = (Bauteil) result;
+				bauteilgui.getBauteil(bt);				
+			}
+			
+			if (result instanceof Vector) {
+				Vector<Bauteil> bauteile = new Vector<Bauteil>();
+				bauteile = (Vector<Bauteil>) result;
+				
+				bauteilgui.showAllBauteile(bauteile);
+			}
+		}
+	}
+	
+	public class GetBauteil2Callback implements AsyncCallback {
+
+		// Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt
+		@Override
+		public void onFailure(Throwable caught) {
+			//maingui.GetAllError();
+		}
+
+		@Override
+		public void onSuccess(Object result) {
+
+			// Object result entählt, was vom server zurück kommt clientImpl
+			// updatet das GUI anschlie�end
+			System.out.println("R�ckmeldung vom Server erhalten");
+
+			if (result instanceof Bauteil) {
+				Bauteil bt = (Bauteil) result;
+				bauteilgui.updateBauteil2(bt);
+			}
+			
+			if (result instanceof Vector) {
+				Vector<Bauteil> bauteile = new Vector<Bauteil>();
+				bauteile = (Vector<Bauteil>) result;
+				
+				bauteilgui.showAllBauteile(bauteile);
+			}
+		}
+	}
+	
+	/**
+	 * Diese Klasse wartet auf eine Antwort der Methode getAll(). Wenn sie eine
+	 * Antwort erhält, war die Kommunikation mit der Datenbank erfolgreich und
+	 * kann weiter verarbeitet werden.
+	 */
+	private class GetAllCallback implements AsyncCallback<Vector<Bauteil>> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// maingui.GetAllError();
+		}
+
+		@Override
+		public void onSuccess(Vector<Bauteil> result) {
+
+			// Object result entählt, was vom server zurück kommt clientImpl
+			// updatet das GUI anschließend
+
+			if (result instanceof Vector) {
+				Vector<Bauteil> bauteile = new Vector<Bauteil>();
+				bauteile = (Vector<Bauteil>) result;
+
+				maingui.showAllBauteile(bauteile);
+			}
+		}
+	}
+	
+
+	
+	/**
 	 * Diese Klasse wartet auf eine Antwort der Methode deleteBauteil(). Wenn
 	 * sie eine Antwort erhält, war die Kommunikation mit der Datenbank
 	 * erfolgreich und kann weiter verarbeitet werden.
@@ -332,30 +336,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			}
 		}
 	}
-	
-	private class GetAllBauteileCallback implements AsyncCallback<Vector<Bauteil>> {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			// maingui.GetAllError();
-		}
-
-		@Override
-		public void onSuccess(Vector<Bauteil> result) {
-
-			// Object result entählt, was vom server zurück kommt clientImpl
-			// updatet das GUI anschließend
-
-			if (result instanceof Vector) {
-				Vector<Bauteil> bauteile = new Vector<Bauteil>();
-				bauteile = (Vector<Bauteil>) result;
-
-				bauteilgui.showAllBauteile(bauteile);
-			}
-		}
-	}
-	
-
+/*-------------------------------------------------------------------------------------------*/
+/*------------------------------------------Ende Bauteil Callbacks--------------------------------*/
+/*-------------------------------------------------------------------------------------------*/	
 	
 	/*------------------------------------------Enderzeugnis Callbacks--------------------------------*/
 	
@@ -453,57 +436,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 
 	
-	/**
-	 * Diese Klasse wartet auf eine Antwort der Methode getAll(). Wenn sie eine
-	 * Antwort erhält, war die Kommunikation mit der Datenbank erfolgreich und
-	 * kann weiter verarbeitet werden.
-	 */
-	private class GetAllCallback implements AsyncCallback<Vector<Bauteil>> {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			// maingui.GetAllError();
-		}
-
-		@Override
-		public void onSuccess(Vector<Bauteil> result) {
-
-			// Object result entählt, was vom server zurück kommt clientImpl
-			// updatet das GUI anschließend
-
-			if (result instanceof Vector) {
-				Vector<Bauteil> bauteile = new Vector<Bauteil>();
-				bauteile = (Vector<Bauteil>) result;
-
-				maingui.showAllBauteile(bauteile);
-			}
-		}
-	}
 	
 	
 	
-	private class GetBauteilDetailsCallback implements AsyncCallback<Bauteil> {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			// maingui.GetAllError();
-		}
-
-		@Override
-		public void onSuccess(Bauteil result) {
-
-			// Object result entählt, was vom server zurück kommt clientImpl
-			// updatet das GUI anschließend
-			System.out.println("R�ckmeldung vom Server erhalten");
-
-			if (result instanceof Bauteil) {
-				Bauteil bt = new Bauteil();
-				bt = result;
-
-				//maingui.showBauteilDetails(bt);
-			}
-		}
-	}
 	
 	private class GetBaugruppeDetailsCallback implements AsyncCallback<Baugruppe> {
 
@@ -560,36 +495,6 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 				// maingui.showSucess();
 				//maingui.showBauteil(bauteile);
-			}
-			else {
-				//maingui.showError();
-			}
-		}
-	}
-	
-	/**
-	 * wird nicht ben�tigt weil gemeinsame Update Methode
-	 */
-		
-		
-	private class UpdateBauteilCallback implements AsyncCallback {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			//maingui.showError();
-
-		}
-
-		@Override
-		public void onSuccess(Object result) { // /Object result ent�hlt, was
-												// vom server zur�ck kommt
-												// clientImpl updatet das GUI
-												// anschlie�end
-			System.out.println("R�ckmeldung vom Server erhalten");
-			if (result instanceof Bauteil) {
-
-				Bauteil bt = (Bauteil) result;
-				//maingui.showBauteilDetails(bt);
 			}
 			else {
 				//maingui.showError();

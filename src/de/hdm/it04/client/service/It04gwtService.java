@@ -15,9 +15,20 @@ import de.hdm.it04.shared.Enderzeugnis;
  * Das Interface wird für die RPCs benötigt.
  *
  */
-
 @RemoteServiceRelativePath("exampleservice")
 public interface It04gwtService extends RemoteService {
+
+//---------------------------------------------------------------------------
+//--------------------------- Bauteil ---------------------------------------
+//---------------------------------------------------------------------------
+	/**
+	 * Die Methode legt ein Bauteil an.
+	 * 
+	 * @param Ein
+	 *            Objekt vom Typ Bauteil welches gespeichert werden soll
+	 * @return Ein Objekt vom Typ Bauteil
+	 */
+	Bauteil createBauteil();
 	
 	/**
 	 * Diese Methode wird benötigt, um ein Bauteil mit einer bestimmten ID zu
@@ -33,52 +44,16 @@ public interface It04gwtService extends RemoteService {
 	Bauteil getBauteil2(int id);
 	
 	/**
-	 * Die Methode legt ein Bauteil an.
+	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
+	 * finden. Da mehrere Bauteile mit dem selben Namen exisitieren können, wird
+	 * das Bauteil in einem Vektor gespeichert.
 	 * 
 	 * @param Ein
-	 *            Objekt vom Typ Bauteil welches gespeichert werden soll
-	 * @return Ein Objekt vom Typ Bauteil
+	 *            Name eines Bauteils, welches gefunden werden soll
+	 * @return Vektor vom Typ Bauteil, welches alle Bauteile mit dem übergebenen
+	 *         Namen enthält
 	 */
-	Bauteil createBauteil();
-	
-	String deleteBauteil(int id);
-	
-	Vector<Bauteil> showAllBauteile();
-	
-	Enderzeugnis createEnderzeugnis();
-	
-	Enderzeugnis getEnderzeugnisById(int id);
-	
-	Baugruppe findConnectedBaugruppe(int id);
-	
-	Vector<Bauteil> findConnectedBauteileByKey(int id);
-	
-	
-	
-	/**
-	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
-	 * 
-	 * @param ID
-	 *            von einem Bauteil als Integer,
-	 * @return Ein String mit einer Meldung, ob Bauteil erfolgreich gelöscht
-	 *         wurde
-	 */
-	String delete(int id);
-	
-	/**
-	 * Die Methode aktualisiert ein Bauteil.
-	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Bauteil
-	 * @return Objekt vom Typ Bauteil
-	 */
-	Bauteil updateBauteil(Bauteil bt);
-	
-	Enderzeugnis updateEnderzeugnis(Enderzeugnis ez);
-	
-	
-	
-	
+	Vector<Bauteil> getBauteil(String name);
 	
 	/**
 	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem
@@ -90,22 +65,34 @@ public interface It04gwtService extends RemoteService {
 	Vector<Bauteil> getAll();
 	
 	/**
-	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
-	 * finden. Da mehrere Bauteile mit dem selben Namen exisitieren können, wird
-	 * das Bauteil in einem Vektor gespeichert.
+	 * Die Methode aktualisiert ein Bauteil.
 	 * 
 	 * @param Ein
-	 *            Name eines Bauteils, welches gefunden werden soll
-	 * @return Vektor vom Typ Bauteil, welches alle Bauteile mit dem übergebenen
-	 *         Namen enthält
+	 *            Objekt vom Typ Bauteil
+	 * @return Objekt vom Typ Bauteil
 	 */
-	Vector<Bauteil> findBauteilByName(String name);
+	Bauteil update(Bauteil bt);
+	
+	/**
+	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
+	 * 
+	 * @param ID
+	 *            von einem Bauteil als Integer,
+	 * @return Ein String mit einer Meldung, ob Bauteil erfolgreich gelöscht
+	 *         wurde
+	 */
+	String deleteBauteil(int id);
+	
+//---------------------------------------------------------------------------
+//--------------------------- Bauteil ---------------------------------------
+//---------------------------------------------------------------------------	
 	
 	
-	Bauteil getBauteilDetails(int id);
+	Enderzeugnis createEnderzeugnis();
+	Enderzeugnis getEnderzeugnisById(int id);
+	Baugruppe findConnectedBaugruppe(int id);
+	Vector<Bauteil> findConnectedBauteileByKey(int id);	
+	Enderzeugnis updateEnderzeugnis(Enderzeugnis ez);
 	Baugruppe getBaugruppeDetails(int id);
-
 	Baugruppe update(Baugruppe bg, Bauteil bt);
-	
-
 }

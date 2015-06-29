@@ -39,7 +39,7 @@ public class BauteilGUI extends MainGUI {
 	
 	/**
 	 * TextBoxe, in denen Name, Materialbezeichnung und Beschreibung
-	 * hinzugefügt und geändert werden können
+	 * hinzugefï¿½gt und geï¿½ndert werden kï¿½nnen
 	 */
 	
 	
@@ -63,8 +63,8 @@ public class BauteilGUI extends MainGUI {
 	}
 	
 	/**
-	 * Bauteil Menü
-	 * @return gibt nichts zurück, da alles gleich dem vPanel hinzugefügt wird
+	 * Bauteil Menï¿½
+	 * @return gibt nichts zurï¿½ck, da alles gleich dem vPanel hinzugefï¿½gt wird
 	 */
 	
 	public void menue(){
@@ -81,7 +81,7 @@ public class BauteilGUI extends MainGUI {
 		this.vPanel.add(topic);
 		
 		/**
-		 * Menü Buttons um weiter Aktivitäten für Bauteil zu wählen
+		 * Menï¿½ Buttons um weiter Aktivitï¿½ten fï¿½r Bauteil zu wï¿½hlen
 		 */
 		
 		Button AnlegenBtn = new Button("Anlegen");
@@ -114,7 +114,7 @@ public class BauteilGUI extends MainGUI {
 	
 	
 	/**
-	 * Anlegen eines Bauteils bzw. Füllung des Leeren Bauteils 
+	 * Anlegen eines Bauteils bzw. Fï¿½llung des Leeren Bauteils 
 	 * Spalten Name, Beschreibung und Materialbezeichnung sind leer
 	 * @param bt (leeres Objekt bzw. ohne Name, Beschreibung und Materialbezeichnung)
 	 */
@@ -122,9 +122,9 @@ public class BauteilGUI extends MainGUI {
 	public void updateBauteil(Bauteil bt){
 		
 		/**
-		 * Parameter des leeren Objekts werden für kurze Zeit 
+		 * Parameter des leeren Objekts werden fï¿½r kurze Zeit 
 		 * in ein lokales Objekt gespeichert, welches dann
-		 * den eingegebenen Parametern gefüllt wird
+		 * den eingegebenen Parametern gefï¿½llt wird
 		 * 
 		 */
 		btt.setId(bt.getId());
@@ -132,7 +132,7 @@ public class BauteilGUI extends MainGUI {
 		btt.setAenderungsDatum(bt.getAenderungsDatum());
 		
 		/**
-		 * Überschriften der Tabelle
+		 * ï¿½berschriften der Tabelle
 		 */
 		
 		flex.setText(0, 0, "ID");
@@ -203,25 +203,25 @@ public class BauteilGUI extends MainGUI {
 	}
 			
 /**
- * Verändern eines schon vorhanden Objekts		
- * @param bt Vollständiges Bauteil wird Übergeben
- * Daten werden in die jeweiligen Felder eingefüllt. 
- * Name, Beschreibung und Materialbezeichnung werden in TextBoxen eingefügt,
- * damit sie veränderbar sind.
+ * Verï¿½ndern eines schon vorhanden Objekts		
+ * @param bt Vollstï¿½ndiges Bauteil wird ï¿½bergeben
+ * Daten werden in die jeweiligen Felder eingefï¿½llt. 
+ * Name, Beschreibung und Materialbezeichnung werden in TextBoxen eingefï¿½gt,
+ * damit sie verï¿½nderbar sind.
  */
 	
 public void updateBauteil2(Bauteil bt){
 	
 	/**
 	 * Nur Id und Erstellungdatum werden lokal gespeichert,
-	 * da diese unverändert an die DB zurück gehen
+	 * da diese unverï¿½ndert an die DB zurï¿½ck gehen
 	 */
 		
 		btt.setId(bt.getId());
 		btt.setErstellungsDatum(bt.getErstellungsDatum());
 
 		/**
-		 *Überschriften der Tabelle 
+		 *ï¿½berschriften der Tabelle 
 		 */
 		flex.setText(0, 0, "ID");
 		flex.setText(0, 1, "Name");
@@ -300,13 +300,13 @@ public void getBauteil(Bauteil bt){
 	
 	/**
 	 * ID wird lokal gepseichert, 
-	 * falls das Objekt geändert werden soll
+	 * falls das Objekt geï¿½ndert werden soll
 	 */
 			
 		btt.setId(bt.getId());	
 		
 		/**
-		 * Überschriften der Spaten
+		 * ï¿½berschriften der Spaten
 		 */
 		
 		
@@ -316,7 +316,7 @@ public void getBauteil(Bauteil bt){
 				flex.setText(0, 3, "Materialbezeichnung");
 				flex.setText(0, 4, "erstellt am");
 				flex.setText(0, 5, "geÃ¤ndert am");
-				flex.setText(0, 6, "Ändern");
+				flex.setText(0, 6, "ï¿½ndern");
 				
 				
 				
@@ -379,7 +379,7 @@ public void getBauteil(Bauteil bt){
 
 /**
  * Anzeigen von allen Bauteilen, die in der DB enthalten sind
- * @param Vektor mit Bauteilen gefüllt
+ * @param Vektor mit Bauteilen gefï¿½llt
  */
 
 public void showAllBauteile(Vector<Bauteil> bauteile) {
@@ -470,9 +470,9 @@ public void showAllBauteile(Vector<Bauteil> bauteile) {
 }
 
 /**
- * Anzeigen einer Meldung, wenn das Bauteil gelöscht wurde
+ * Anzeigen einer Meldung, wenn das Bauteil gelï¿½scht wurde
  * @param meldung 
- * "Das Bauteil wurde erfolgreich gelöscht"
+ * "Das Bauteil wurde erfolgreich gelï¿½scht"
  */
 public void showMeldung(String meldung){
 	/**
@@ -493,9 +493,9 @@ public void showMeldung(String meldung){
  */
 
 /**
- * ClickHandler zum MenüButton Anlegen
- * Es wird über createBauteil() ein leeres Bauteil erstellt
- * und an die GUI zurück gesendet an die Methode
+ * ClickHandler zum Menï¿½Button Anlegen
+ * Es wird ï¿½ber createBauteil() ein leeres Bauteil erstellt
+ * und an die GUI zurï¿½ck gesendet an die Methode
  * Update(Bauteil bt)
  *
  */
@@ -513,11 +513,11 @@ public void showMeldung(String meldung){
 	}
 	
 	/**
-	 * ClickHandler zum Menübutton Speichern
-	 * Wenn ein Bauteil angelegt oder verändert wurde, 
-	 * wird das Bauteil in der DB aktualisiert über die Methode
+	 * ClickHandler zum Menï¿½button Speichern
+	 * Wenn ein Bauteil angelegt oder verï¿½ndert wurde, 
+	 * wird das Bauteil in der DB aktualisiert ï¿½ber die Methode
 	 *  updateBauteil() (Client Impl)
-	 * Danach wird das Objekt, welches verändert wurde durch die Methode
+	 * Danach wird das Objekt, welches verï¿½ndert wurde durch die Methode
 	 * getBauteil(Bauteil bt) (BauteilGUI) auf der GUI sichtbar gemacht
 	 *
 	 */
@@ -529,7 +529,7 @@ public void showMeldung(String meldung){
 			vPanel.clear();
 			
 			/**
-			 * Es werden die veränderbaren Parameter 
+			 * Es werden die verï¿½nderbaren Parameter 
 			 * aus den TextBoxen geholt
 			 */
 			
@@ -542,7 +542,7 @@ public void showMeldung(String meldung){
 			 * Das Objekt wird an die ClientImpl weiter gegeben
 			 */
 			
-			serviceImpl.updateBauteil(btt);
+			serviceImpl.update(btt);
 			
 			/**
 			 * Danach werden die TextBoxen wieder geleert
@@ -559,9 +559,9 @@ public void showMeldung(String meldung){
 	
 	/**
 	 * Wird ein Objekt auf der Bauteilgui angezeigt, 
-	 * kann es über den Aendern Button verändert werden.
-	 * Hierzu wird das Bauteil über getBauteil2(int id) (Client Impl) aus der DB geholt
-	 * und über die Methode UpdateBauteil2(Bauteil bt)(BauteilGUI) 
+	 * kann es ï¿½ber den Aendern Button verï¿½ndert werden.
+	 * Hierzu wird das Bauteil ï¿½ber getBauteil2(int id) (Client Impl) aus der DB geholt
+	 * und ï¿½ber die Methode UpdateBauteil2(Bauteil bt)(BauteilGUI) 
 	 * auf der Bauteilgui sichtbar gemacht
 	 */
 	
@@ -581,10 +581,10 @@ public void showMeldung(String meldung){
 	
 	/**
 	 * Wenn ein Bauteil angezeigt wird,
-	 * wird es über den Löschen Button entfernt
+	 * wird es ï¿½ber den Lï¿½schen Button entfernt
 	 * dazu wird die ClientImpl Methode delte Bauteil(int id) aufgerufen
-	 * Auf der Bauteil GUI kann man bei erfolgreichem Löschen den Satz
-	 * "Bauteil wurde erfolgreich gelöscht" 
+	 * Auf der Bauteil GUI kann man bei erfolgreichem Lï¿½schen den Satz
+	 * "Bauteil wurde erfolgreich gelï¿½scht" 
 	 * (Methode showMeldung(String meldung) (Bauteil Gui) lesen
 	 * lesen
 	 */
@@ -603,9 +603,9 @@ public void showMeldung(String meldung){
 	}
 	
 	/**
-	 * Der ShowAll Button holt über die ShowAllBauteile Methode
+	 * Der ShowAll Button holt ï¿½ber die ShowAllBauteile Methode
 	 * alle Bauteile in einem Vektor aus der DB 
-	 * Über die ShowAllBauteile( Vektor<Bauteile> bauteil) Methode
+	 * ï¿½ber die ShowAllBauteile( Vektor<Bauteile> bauteil) Methode
 	 * auf der BauteilGUI werden die Bauteile sichtbar gemacht
 	 */
 	public class ShowAllBtn1ClickHandler implements ClickHandler {
@@ -615,7 +615,7 @@ public void showMeldung(String meldung){
 			
 			vPanel.clear();
 			
-			serviceImpl.showAllBauteile();
+			serviceImpl.getAll();
 			
 			
 				
@@ -623,7 +623,7 @@ public void showMeldung(String meldung){
 	}
 	
 	/**
-	 * Über den Suchenbutton kann man Bauteile suchen
+	 * ï¿½ber den Suchenbutton kann man Bauteile suchen
 	 * indem man die ID oder ein Name eingibt.
 	 *Dann wird die Methode getBauteile oder findBauteilByName in der Klasse ClientImpl aufgerufen
 	 */
@@ -643,7 +643,7 @@ public void showMeldung(String meldung){
 			
 			else 
 			
-			serviceImpl.findBauteilByName(searchFor);
+			serviceImpl.getBauteil(searchFor);
 
 		
 		}

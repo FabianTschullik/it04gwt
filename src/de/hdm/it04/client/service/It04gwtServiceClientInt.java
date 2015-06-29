@@ -11,7 +11,10 @@ import de.hdm.it04.shared.Enderzeugnis;
  * müssen hier gelistet werden, damit RPC funktioniert.
  */
 public interface It04gwtServiceClientInt {
-	
+
+//------------------------------------------------------------------------------------
+//----------------------------------Bauteil Methoden----------------------------------
+//------------------------------------------------------------------------------------
 	/**
 	 * Diese Methode wird benötigt, um ein Bauteil mit einer bestimmten ID zu
 	 * finden. 
@@ -20,7 +23,6 @@ public interface It04gwtServiceClientInt {
 	 * @return void
 	 */
 	void getBauteil(int id);
-	
 	void getBauteil2(int id);
 	
 	/**
@@ -30,8 +32,6 @@ public interface It04gwtServiceClientInt {
 	 * @return void
 	 */
 	void createBauteil();
-	
-	void findConnectedBaugruppe(int id);
 	
 	/**
 	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem
@@ -49,7 +49,7 @@ public interface It04gwtServiceClientInt {
 	 * @param Ein Name eines Bauteils als String, welches gefunden werden soll
 	 * @return void
 	 */
-	void findBauteilByName(String name);
+	void getBauteil(String name);
 	
 	/**
 	 * Die Methode aktualisiert ein Bauteil.
@@ -57,12 +57,8 @@ public interface It04gwtServiceClientInt {
 	 * @param Ein Objekt vom Typ Bauteil
 	 * @return void
 	 */
-	void updateBauteil(Bauteil bt);
+	void update(Bauteil bt);
 	
-	void updateEnderzeugnis(Enderzeugnis ez);
-	void getEnderzeugnisById(int id);
-	
-	void findConnectedBauteileByKey(int id);
 	
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
@@ -70,9 +66,18 @@ public interface It04gwtServiceClientInt {
 	 * @param ID von einem Bauteil als Integer,
 	 * @return void
 	 */
-	void delete(int id);
+	void deleteBauteil(int id);
+
+//------------------------------------------------------------------------------------
+//----------------------------------Bauteil Methoden----------------------------------
+//------------------------------------------------------------------------------------
 	
-	void getBauteilDetails(int id);
+	
+	
+	void findConnectedBaugruppe(int id);
+	void updateEnderzeugnis(Enderzeugnis ez);
+	void getEnderzeugnisById(int id);
+	void findConnectedBauteileByKey(int id);
 	void getBaugruppeDetails(int id);
 	void update (Baugruppe bg, Bauteil bt);
 }

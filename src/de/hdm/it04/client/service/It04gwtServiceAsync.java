@@ -11,35 +11,29 @@ import de.hdm.it04.shared.Enderzeugnis;
 
 public interface It04gwtServiceAsync {
 
-	//Asyn geben niemals einen wert zurück, da dieser über callback zurück kommt.
-	
+	//Asyncs geben niemals einen wert zurück, da dieser über callback zurück kommt.
+		
+		//------------------------------------------------------
+		//-------------Bauteil----------------------------------
+		//------------------------------------------------------
+		void createBauteil(AsyncCallback callback);
 		void getBauteil(int id, AsyncCallback callback);
 		void getBauteil2(int id, AsyncCallback callback);
-		
-		
-		void createBauteil(AsyncCallback callback);
-		
+		void getBauteil (String name, AsyncCallback<Vector<Bauteil>> callback);
+		void getAll(AsyncCallback<Vector<Bauteil>> callback);
+		void update(Bauteil bt, AsyncCallback callback);
 		void deleteBauteil(int id,AsyncCallback callback);
+		//------------------------------------------------------
+		//-------------Ende Bauteil-----------------------------
+		//------------------------------------------------------
 		
-		void showAllBauteile(AsyncCallback callback);
+		
 		
 		void createEnderzeugnis(AsyncCallback<Enderzeugnis> callback);
-		
 		void getEnderzeugnisById(int id, AsyncCallback<Enderzeugnis> callback );
-		
 		void findConnectedBaugruppe(int id, AsyncCallback callback);
-		
-		void findConnectedBauteileByKey(int id, AsyncCallback<Vector<Bauteil>> callback);
-		
-		void delete(int id, AsyncCallback callback);
-		
-		void getAll(AsyncCallback<Vector<Bauteil>> callback);
-		
-		void findBauteilByName(String name, AsyncCallback <Vector<Bauteil>> callback);
-		
-		void updateBauteil(Bauteil bt, AsyncCallback callback);
+		void findConnectedBauteileByKey(int id, AsyncCallback<Vector<Bauteil>> callback);		
 		void updateEnderzeugnis(Enderzeugnis ez, AsyncCallback<Enderzeugnis> callback);
-		void getBauteilDetails(int id, AsyncCallback<Bauteil> callback);
 		void getBaugruppeDetails(int id, AsyncCallback<Baugruppe> callback);
 		void update (Baugruppe bg, Bauteil bt, AsyncCallback callback);
 }
