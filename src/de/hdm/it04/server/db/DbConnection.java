@@ -39,7 +39,7 @@ public class DbConnection {
 	 * mitgegeben, um bei einer Veränderung dieser URL nicht die gesamte
 	 * Software neu komilieren zu müssen.
 	 */
-	//private static String googleUrl = "jdbc:mysql://173.194.80.74:3306/sms?user=root&password=root";
+	private static String googleUrl = "jdbc:mysql://173.194.80.74:3306/sms?user=root&password=root";
 	private static String localUrl = "jdbc:mysql://127.0.0.1:3306/sms?user=root&password=root";
 
 	/**
@@ -77,6 +77,7 @@ public class DbConnection {
 														// or
 														// "com.mysql.jdbc.GoogleDriver"
 														// for cloud sql
+				//url = googleUrl;
 				url = localUrl;
 
 				con = DriverManager.getConnection(url);

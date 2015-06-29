@@ -53,9 +53,9 @@ public class BaugruppeMapper {
 	 * @return DAS <code>BaugruppeMapper</code>-Objekt.
 	 * @see baugruppeMapper
 	 */
-	public static BaugruppeMapper baugruppeMapper() {
-		if (baugruppeMapper == null)
-			baugruppeMapper = new BaugruppeMapper();
+	public static BaugruppeMapper getBaugruppeMapper() {
+		if (baugruppeMapper == null) {
+			baugruppeMapper = new BaugruppeMapper();}
 
 		return baugruppeMapper;
 	}
@@ -180,6 +180,8 @@ public class BaugruppeMapper {
 						+ "','"
 						+ new Timestamp(date.getTime()) + "')");
 			}
+			
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

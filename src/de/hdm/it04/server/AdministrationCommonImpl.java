@@ -49,7 +49,7 @@ AdministrationCommon {
 		 * Satz von Mappern besitzt, mit deren Hilfe sie dann mit der Datenbank
 		 * kommunizieren kann.
 		 */
-		this.baugruppeMapper = BaugruppeMapper.baugruppeMapper();
+		this.baugruppeMapper = BaugruppeMapper.getBaugruppeMapper();
 		this.enderzeugnisMapper = EnderzeugnisMapper.getEnderzeugnisMapper();
 		this.bauteilMapper = BauteilMapper.getBauteilMapper();
 	}
@@ -99,7 +99,12 @@ AdministrationCommon {
 //-------------------------- Ende Bauteil -------------------------------------------
 //------------------------------------------------------------------------------
 
-
+	@Override
+	public Baugruppe createBaugruppe() {
+		
+		return this.baugruppeMapper.getBaugruppeMapper().insert();
+	}
+	
 
 	
 

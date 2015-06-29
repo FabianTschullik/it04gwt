@@ -82,6 +82,7 @@ public interface AdministrationCommon extends RemoteService {
 //------------------------------------------------------------------------------
 	
 	
+	public Baugruppe createBaugruppe();
 	
 	
 	public Enderzeugnis createEnderzeugnis() throws IllegalArgumentException;
