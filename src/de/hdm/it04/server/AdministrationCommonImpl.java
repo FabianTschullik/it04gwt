@@ -57,29 +57,31 @@ AdministrationCommon {
 //------------------------------------------------------------------------------
 //-------------------------- Bauteil -------------------------------------------
 //------------------------------------------------------------------------------
+	
 	@Override
 	public Bauteil createBauteil() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.bauteilMapper.getBauteilMapper().insert();
+		
 	}
 
 
 	@Override
 	public Vector<Bauteil> getBauteil(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.bauteilMapper.getBauteilMapper().findByKey(id);
 	}
 	
 	@Override
-	public Vector<Bauteil> getBauteil(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public Vector<Bauteil> getBauteilByName(String name) {
+		return this.bauteilMapper.getBauteilMapper().findByName(name);
+		
 	}
+		
+	
+	
 	
 	@Override
 	public Vector<Bauteil> getAllBauteile() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.bauteilMapper.getBauteilMapper().findAll();
 	}
 
 		
@@ -169,6 +171,10 @@ AdministrationCommon {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	
 	
 	
 }
