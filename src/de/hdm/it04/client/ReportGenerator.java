@@ -1,4 +1,4 @@
-package de.hdm.it04.client.report;
+package de.hdm.it04.client;
 
 import com.google.gwt.core.client.EntryPoint;
 //import com.google.gwt.core.client.GWT;
@@ -11,7 +11,7 @@ import com.google.gwt.core.client.EntryPoint;
 	/**
 	 * Entry point classes define <code>onModuleLoad()</code>.
 	 */
-public class It04gwtReport implements EntryPoint {
+public class ReportGenerator implements EntryPoint {
 
 		@Override
 		public void onModuleLoad() {

@@ -1,6 +1,6 @@
 package de.hdm.it04.shared;
 
-import de.hdm.it04.client.gui.MainGUI;
+
 
 
 /**

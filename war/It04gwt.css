@@ -84,7 +84,7 @@ h1 {
 
 /* stock list header row */
 .EnderzeugnisHeader {
-  background-color: #e9ce16;
+  background-color: #70eb14;
   color: white;
   font-style: italic;
 }
@@ -106,3 +106,116 @@ h1 {
 .EnderzeugnisRemoveColumn {
   text-align: center;
 }
+
+
+
+#body{
+background-image : url('background.jpg');
+background-attachment : fixed;
+background-size : 100% auto;
+}
+*{
+padding : 0;
+margin : 0;
+border : 0;
+}
+#grid{
+display : block;
+width : 1024px;
+overflow : auto;
+margin : 20px auto 0 auto;
+}
+#tree{
+clear : none;
+float : left;
+position : relative;
+width : 200px;
+height : 600px;
+}
+#topmenu{
+clear : none;
+float : left;
+position : relative;
+width : 824px;
+height : 50px;
+}
+
+#alert{
+	
+width : 1024px;
+height : 50px;
+position : relative;
+}
+#content{
+clear : none;
+float : left;
+position : relative;
+width : 824px;
+height : 500px;
+}
+#botmenu{
+clear : none;
+float : left;
+position : relative;
+width : 824px;
+height : 50px;
+}
+
+h3 {color: white;}
+
+.Row1 {
+	color: white;
+	text-align: center;
+
+}
+
+.Row2 {
+	color: white;
+	text-align: center;
+
+}
+
+.paddedHorizontalPanel .gwt-Button {
+    margin-left: 3px;
+    
+}
+
+.gwt-Button{
+	color: black;
+	background-color: grey;
+  	opacity: 0.5;
+  	  margin: 0;
+  padding: 8px 8px;
+  text-decoration: none;
+  cursor: pointer;
+  cursor: hand;
+  font-size: small;
+  /* border: 1px solid; */
+  /* border-bottom: 1px solid #120B0B; */
+  /* border-radius: 3px; */
+	
+	
+}
+
+.gwt-Tree {
+	
+color: white;	
+}
+
+.successLabel{
+	color: white;
+}
+
+.successPanel{
+	color: green;
+	background-color: green;
+}
+
+.impressum{
+	color: white;
+}
+
+.alertRed{color: red;}
+.alertGreen{color: green;}
+
+.formTitle{color: white}

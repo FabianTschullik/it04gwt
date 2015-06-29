@@ -53,9 +53,9 @@ public class EnderzeugnisMapper {
 	 * @return DAS <code>BaugruppeMapper</code>-Objekt.
 	 * @see baugruppeMapper
 	 */
-	public static EnderzeugnisMapper enderzeugnisMapper() {
-		if (enderzeugnisMapper == null)
-			enderzeugnisMapper = new EnderzeugnisMapper();
+	public static EnderzeugnisMapper getEnderzeugnisMapper() {
+		if (enderzeugnisMapper == null) {
+			enderzeugnisMapper = new EnderzeugnisMapper();}
 
 		return enderzeugnisMapper;
 	}
@@ -126,7 +126,7 @@ public class EnderzeugnisMapper {
 	
 	
 	
-	public Enderzeugnis insert() {
+	public Enderzeugnis createEnderzeugnis() {
 		Connection con = DbConnection.connection();
 		
 		Enderzeugnis ez = new Enderzeugnis();

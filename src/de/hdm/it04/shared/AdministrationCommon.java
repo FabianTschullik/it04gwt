@@ -1,23 +1,18 @@
-package de.hdm.it04.client.service;
+package de.hdm.it04.shared;
 
 import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import de.hdm.it04.shared.Baugruppe;
-import de.hdm.it04.shared.Bauteil;
-import de.hdm.it04.shared.Enderzeugnis;
 
-/**
- * Das Interface Service wird von der Klasse Service Impl implementiert.
- * Es entählt alle Methoden, die auf der Serverseite vorhanden sein müssen. 
- * Das Interface wird für die RPCs benötigt.
- *
- */
-
-@RemoteServiceRelativePath("exampleservice")
-public interface It04gwtService extends RemoteService {
+@RemoteServiceRelativePath("administration")
+public interface AdministrationCommon extends RemoteService {
+	
+	
+	
+	public void init() throws IllegalArgumentException;
+	
 	
 	/**
 	 * Diese Methode wird benötigt, um ein Bauteil mit einer bestimmten ID zu
@@ -29,7 +24,7 @@ public interface It04gwtService extends RemoteService {
 	 *            als Integer
 	 * @return Vektor mit Bauteil-Objekten
 	 */
-	Vector<Bauteil> getBauteil(int id);
+	public Vector<Bauteil> getBauteil(int id);
 	
 	/**
 	 * Die Methode legt ein Bauteil an.
@@ -38,15 +33,15 @@ public interface It04gwtService extends RemoteService {
 	 *            Objekt vom Typ Bauteil welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Bauteil
 	 */
-	Bauteil createBauteil();
+	public Bauteil createBauteil();
 	
-	Enderzeugnis createEnderzeugnis();
+	public Enderzeugnis createEnderzeugnis() throws IllegalArgumentException;
 	
-	Enderzeugnis getEnderzeugnisById(int id);
+	public Enderzeugnis getEnderzeugnisById(int id);
 	
-	Baugruppe findConnectedBaugruppe(int id);
+	public Baugruppe findConnectedBaugruppe(int id);
 	
-	Vector<Bauteil> findConnectedBauteileByKey(int id);
+	public Vector<Bauteil> findConnectedBauteileByKey(int id);
 	
 	
 	
@@ -58,7 +53,7 @@ public interface It04gwtService extends RemoteService {
 	 * @return Ein String mit einer Meldung, ob Bauteil erfolgreich gelöscht
 	 *         wurde
 	 */
-	String delete(int id);
+	public String delete(int id);
 	
 	/**
 	 * Die Methode aktualisiert ein Bauteil.
@@ -67,9 +62,9 @@ public interface It04gwtService extends RemoteService {
 	 *            Objekt vom Typ Bauteil
 	 * @return Objekt vom Typ Bauteil
 	 */
-	Bauteil updateBauteil(Bauteil bt);
+	public Bauteil updateBauteil(Bauteil bt);
 	
-	Enderzeugnis updateEnderzeugnis(Enderzeugnis ez);
+	public Enderzeugnis updateEnderzeugnis(Enderzeugnis ez);
 	
 	
 	
@@ -82,7 +77,7 @@ public interface It04gwtService extends RemoteService {
 	 * @param void
 	 * @return Ein Vektor vom Typ Bauteil, welcher alle Bauteile enthält
 	 */
-	Vector<Bauteil> getAll();
+	public Vector<Bauteil> getAll();
 	
 	/**
 	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
@@ -94,13 +89,11 @@ public interface It04gwtService extends RemoteService {
 	 * @return Vektor vom Typ Bauteil, welches alle Bauteile mit dem übergebenen
 	 *         Namen enthält
 	 */
-	Vector<Bauteil> findByName(String name);
+	public Vector<Bauteil> findByName(String name);
 	
 	
-	Bauteil getBauteilDetails(int id);
-	Baugruppe getBaugruppeDetails(int id);
+	public Bauteil getBauteilDetails(int id);
+	public Baugruppe getBaugruppeDetails(int id);
 
-	Baugruppe update(Baugruppe bg, Bauteil bt);
-	
-
+	public Baugruppe update(Baugruppe bg, Bauteil bt);
 }
