@@ -12,7 +12,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.baugruppe.BaugruppeMainForm;
 import de.hdm.it04.client.bauteil.BauteilMainForm;
+import de.hdm.it04.client.enderzeugnis.EnderzeugnisAnlegenForm;
 import de.hdm.it04.client.enderzeugnis.EnderzeugnisMainForm;
+import de.hdm.it04.client.enderzeugnis.EnderzeugnisSuchenForm;
 
 
 public class Navigation  {
@@ -35,9 +37,41 @@ public class Navigation  {
 		
 		Command cmd = new Command() {
 			 public void execute() {
-			        Window.alert("You selected a menu item!");
+				 Impressum.load();
+				
+			       
 			      }
 		};
+		
+		
+		Command openImpressum = new Command() {
+			 public void execute() {
+				
+			        Impressum.load();
+			        Alert.load("asdad", "red");
+			       
+		      
+		      }
+			      
+		};
+		
+		
+		Command openSucheEnderzeugnis = new Command() {
+			 public void execute() {
+				
+			       EnderzeugnisSuchenForm.load();
+			       
+		      
+		      }
+			      
+		};
+		
+		Command newEnderzeugnis = new Command() {
+			 public void execute() {
+				 EnderzeugnisAnlegenForm.load();
+			      }
+		};
+		
 		
 
 		HorizontalPanel hPanel = new HorizontalPanel();
@@ -55,8 +89,8 @@ public class Navigation  {
 	    baugruppeMenu.addItem("anzeigen", cmd);
 
 	    MenuBar enderzeugnisMenu = new MenuBar(true);
-	    enderzeugnisMenu.addItem("anlegen", cmd);
-	    enderzeugnisMenu.addItem("suchen", cmd);
+	    enderzeugnisMenu.addItem("anlegen", newEnderzeugnis);
+	    enderzeugnisMenu.addItem("suchen", openSucheEnderzeugnis);
 	    enderzeugnisMenu.addItem("anzeigen", cmd);
 	    
 	    MenuBar impressumMenu = new MenuBar(true);
@@ -67,7 +101,7 @@ public class Navigation  {
 	    menu.addItem("Bauteil", bauteilMenu);
 	    menu.addItem("Baugruppe", baugruppeMenu);
 	    menu.addItem("Enderzeugnis", enderzeugnisMenu);
-	    menu.addItem("Impressum", cmd);
+	    menu.addItem("Impressum", openImpressum);
 	    
 	    hPanel.add(menu);
 		
@@ -94,8 +128,7 @@ public class Navigation  {
 		Button btnEnderzeugnis = new Button("Enderzeugnis");
 		btnEnderzeugnis.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				RootPanel.get("content").clear();
-				RootPanel.get("content").add(new EnderzeugnisMainForm());
+				
 				
 			}
 		});

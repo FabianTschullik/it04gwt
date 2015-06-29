@@ -19,7 +19,7 @@ public interface AdministrationCommonAsync {
 //------------------------------------------------------------------------------
 	public void createBauteil(AsyncCallback callback);
 	public void getBauteil(int id, AsyncCallback<Vector<Bauteil>> callback);
-	public void getBauteil(String name, AsyncCallback<Vector<Bauteil>> callback);
+	public void getBauteilByName(String name, AsyncCallback<Vector<Bauteil>> callback);
 	public void getAllBauteile(AsyncCallback<Vector<Bauteil>> callback);
 	public void updateBauteil(Bauteil bt, AsyncCallback callback);
 	public void deleteBauteil(int id, AsyncCallback callback);

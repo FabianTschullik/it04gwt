@@ -47,7 +47,7 @@ public interface AdministrationCommon extends RemoteService {
 	 *            als Integer
 	 * @return Vektor mit Bauteil-Objekten
 	 */
-	public Vector<Bauteil> getBauteil(String name);
+	public Vector<Bauteil> getBauteilByName(String name);
 	
 	/**
 	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem
@@ -92,4 +92,6 @@ public interface AdministrationCommon extends RemoteService {
 	public Enderzeugnis updateEnderzeugnis(Enderzeugnis ez);
 	public Baugruppe getBaugruppeDetails(int id);
 	public Baugruppe update(Baugruppe bg, Bauteil bt);
+
+	
 }

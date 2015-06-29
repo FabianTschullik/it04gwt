@@ -98,7 +98,7 @@ public class BauteilMapper {
 			 * werden. Pruefe, ob ein Ergebnis vorliegt.
 			 */
 
-			if (rs.next()) {
+			while (rs.next()) {
 
 				// Ergebnis-Tupel in Objekt umwandeln
 
