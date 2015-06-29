@@ -14,32 +14,26 @@ public interface AdministrationCommonAsync {
 	
 	public void init(AsyncCallback<Void> callback);
 	
-	public void getBauteil(int id, AsyncCallback<Vector<Bauteil>> callback);
-	
+//------------------------------------------------------------------------------
+//-------------------------- Bauteil -------------------------------------------
+//------------------------------------------------------------------------------
 	public void createBauteil(AsyncCallback callback);
+	public void getBauteil(int id, AsyncCallback<Vector<Bauteil>> callback);
+	public void getBauteil(String name, AsyncCallback<Vector<Bauteil>> callback);
+	public void getAllBauteile(AsyncCallback<Vector<Bauteil>> callback);
+	public void updateBauteil(Bauteil bt, AsyncCallback callback);
+	public void deleteBauteil(int id, AsyncCallback callback);
+//------------------------------------------------------------------------------
+//-------------------------- Ende Bauteil -------------------------------------------
+//------------------------------------------------------------------------------
+	
 	
 	public void createEnderzeugnis(AsyncCallback callback);
-	
 	public void getEnderzeugnisById(int id, AsyncCallback<Enderzeugnis> callback );
-	
 	public void findConnectedBaugruppe(int id, AsyncCallback callback);
-	
 	public void findConnectedBauteileByKey(int id, AsyncCallback<Vector<Bauteil>> callback);
-	
-	public void delete(int id, AsyncCallback callback);
-	
-	public void getAll(AsyncCallback<Vector<Bauteil>> callback);
-	
-	public void findByName(String name, AsyncCallback<Vector<Bauteil>> callback);
-	
-	public void updateBauteil(Bauteil bt, AsyncCallback callback);
-	
 	public void updateEnderzeugnis(Enderzeugnis ez, AsyncCallback<Enderzeugnis> callback);
-	
-	public void getBauteilDetails(int id, AsyncCallback<Bauteil> callback);
-	
 	public void getBaugruppeDetails(int id, AsyncCallback<Baugruppe> callback);
-	
 	public void update (Baugruppe bg, Bauteil bt, AsyncCallback callback);
 
 }

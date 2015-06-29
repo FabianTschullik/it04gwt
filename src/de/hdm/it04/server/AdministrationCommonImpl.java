@@ -52,11 +52,16 @@ AdministrationCommon {
 		this.baugruppeMapper = BaugruppeMapper.baugruppeMapper();
 		this.enderzeugnisMapper = EnderzeugnisMapper.getEnderzeugnisMapper();
 		this.bauteilMapper = BauteilMapper.getBauteilMapper();
-		
-		;
-	
 	}
 
+//------------------------------------------------------------------------------
+//-------------------------- Bauteil -------------------------------------------
+//------------------------------------------------------------------------------
+	@Override
+	public Bauteil createBauteil() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 	@Override
@@ -64,15 +69,39 @@ AdministrationCommon {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
+	
 	@Override
-	public Bauteil createBauteil() {
+	public Vector<Bauteil> getBauteil(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Vector<Bauteil> getAllBauteile() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+		
+	@Override
+	public Bauteil updateBauteil(Bauteil bt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	@Override
+	public String deleteBauteil(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+//------------------------------------------------------------------------------
+//-------------------------- Ende Bauteil -------------------------------------------
+//------------------------------------------------------------------------------
+
+
+
+	
 
 
 	@Override
@@ -115,20 +144,11 @@ AdministrationCommon {
 
 
 
-	@Override
-	public String delete(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 
-	@Override
-	public Bauteil updateBauteil(Bauteil bt) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 
 
 	@Override
@@ -137,47 +157,15 @@ AdministrationCommon {
 		return null;
 	}
 
-
-
 	@Override
-	public Vector<Bauteil> getAll() {
+	public Baugruppe update(Baugruppe bg, Bauteil bt) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-	@Override
-	public Vector<Bauteil> findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
-	public Bauteil getBauteilDetails(int id) {
-		
-		
-		return null;
-	}
-
-
-
-
-
 
 
 	@Override
 	public Baugruppe getBaugruppeDetails(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
-	public Baugruppe update(Baugruppe bg, Bauteil bt) {
 		// TODO Auto-generated method stub
 		return null;
 	}

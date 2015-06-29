@@ -18,6 +18,8 @@ import de.hdm.it04.shared.AdministrationCommonAsync;
 		
 		public void onModuleLoad() {
 			
+			
+			
 			Navigation.load();
 			DataTree.load();
 			

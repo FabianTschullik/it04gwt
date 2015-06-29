@@ -190,43 +190,7 @@ public class BauteilMapper {
 	}
 	
 	
-	public Bauteil getBauteilDetails(int id) {
-		
-		Connection con = DbConnection.connection();
-
-		// Ergebnisvektor vorbereiten
-		Bauteil result = new Bauteil();
-		
-		try {
-			Statement stmt = con.createStatement();
-
-			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
-							+ " WHERE id = "+id);
-
-			// Für jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt
-			// erstellt.
-			while (rs.next()) {
-				Bauteil bt = new Bauteil();
-				bt.setId(rs.getInt("id"));
-				bt.setName(rs.getString("name"));
-				bt.setBeschreibung(rs.getString("beschreibung"));
-				bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
-				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
-				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
-				
-				result = bt;
-			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-
-		// Ergebnisvektor zurückgeben
-		
-		
-		return result;
-		
-	}
+	
 
 	/**
 	 * Auslesen aller Bauteile.
