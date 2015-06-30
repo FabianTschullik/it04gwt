@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import de.hdm.it04.client.Alert;
 import de.hdm.it04.client.ClientsideSettings;
 import de.hdm.it04.client.ShowCase;
+import de.hdm.it04.client.enderzeugnis.EnderzeugnisZuordnenForm.getBaugruppeDetailsCallback;
 import de.hdm.it04.shared.AdministrationCommonAsync;
 import de.hdm.it04.shared.Enderzeugnis;
 
@@ -89,6 +90,10 @@ public class EnderzeugnisUpdateForm extends ShowCase {
 		btnSpeichern.addClickHandler(new ClickHandler() {
 					@Override
 					public void onClick(ClickEvent event) {
+						
+					
+						
+						
 						
 			
 					}

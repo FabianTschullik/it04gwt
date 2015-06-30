@@ -9,13 +9,12 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.Alert;
 import de.hdm.it04.client.ClientsideSettings;
 import de.hdm.it04.client.ShowCase;
-import de.hdm.it04.client.enderzeugnis.EnderzeugnisZuordnenForm.getBaugruppeDetailsCallback;
 import de.hdm.it04.shared.AdministrationCommonAsync;
-import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Enderzeugnis;
 
 
@@ -48,9 +47,20 @@ public class EnderzeugnisAnlegenForm extends ShowCase {
 	
 
 	protected void run() {
+		AdministrationCommonAsync administration = ClientsideSettings
+				.getAdministration();	
+		
+		administration.createEnderzeugnis(new createEnderzeugnisCallBack());
+		
+	}
+		
+		private static Widget createAnlegenForm(Enderzeugnis ez){
+		
+
 		VerticalPanel vPanel = new VerticalPanel();
 		HorizontalPanel hPanel1 = new HorizontalPanel();
 		HorizontalPanel hPanel2 = new HorizontalPanel();
+		
 		  
 		
 		Label lbl1 = new Label("Name: ");
@@ -71,24 +81,33 @@ public class EnderzeugnisAnlegenForm extends ShowCase {
 		btnAnlegen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
+				ez.setName(txtBox1.getText());
+				
+				double preis = Double.parseDouble(txtBox2.getText());
+				ez.setPreis(preis);
+				
 				AdministrationCommonAsync administration = ClientsideSettings
 						.getAdministration();
 				
+				//administration.updateEnderzeugnis(ez, new updateEnderzeugnisCallBack());
 				
-				//administration.createEnderzeugnis(new createEnderzeugnisCallBack);
 				
 				
-			RootPanel.get("content").add(new EnderzeugnisZuordnenForm());
 				
 			}
 		});
 		vPanel.add(btnAnlegen);	
-		this.add(vPanel);
 		
-	}
+		RootPanel.get("content").add(vPanel);
+		
+		return vPanel;
+		}
+		
 	
 	
-	class createEnderzeugnisCallBack implements AsyncCallback<Enderzeugnis> {
+	
+	
+	private class createEnderzeugnisCallBack implements AsyncCallback<Enderzeugnis> {
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -102,11 +121,29 @@ public class EnderzeugnisAnlegenForm extends ShowCase {
 			Enderzeugnis ez = new Enderzeugnis();
 			ez = result;
 			
-			
+			EnderzeugnisAnlegenForm.createAnlegenForm(ez);
 			
 		}
 	}
 	
+	
+	private class updateEnderzeugnisCallBack implements AsyncCallback<Enderzeugnis> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Alert.load("Fehler bei der Erstellung", "red");
+		}
+
+		
+		@Override
+		public void onSuccess(Enderzeugnis result) {
+			Alert.load("Enderzeugnis wurde erfolgreich in der DB gespeichert", "green");
+			Enderzeugnis ez = new Enderzeugnis();
+			ez = result;
+			
+			
+		}
+	}
 	
 	}
 	

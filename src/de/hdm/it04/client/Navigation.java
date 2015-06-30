@@ -1,6 +1,7 @@
 package de.hdm.it04.client;
 
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -12,6 +13,8 @@ import de.hdm.it04.client.bauteil.BauteilAnlegenForm;
 import de.hdm.it04.client.bauteil.BauteilSuchenForm;
 import de.hdm.it04.client.enderzeugnis.EnderzeugnisAnlegenForm;
 import de.hdm.it04.client.enderzeugnis.EnderzeugnisSuchenForm;
+import de.hdm.it04.shared.AdministrationCommonAsync;
+import de.hdm.it04.shared.Enderzeugnis;
 
 public class Navigation {
 
@@ -70,6 +73,8 @@ public class Navigation {
 		Command newEnderzeugnis = new Command() {
 			public void execute() {
 				RootPanel.get("content").add(new EnderzeugnisAnlegenForm());
+
+				
 			}
 		};
 
@@ -120,5 +125,8 @@ public class Navigation {
 		return hPanel;
 
 	}
+	
+	
+	
 
 }

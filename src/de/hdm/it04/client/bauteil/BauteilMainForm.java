@@ -69,7 +69,7 @@ public class BauteilMainForm extends ShowCase {
 							int id = Integer.parseInt(name);
 							AdministrationCommonAsync administration = ClientsideSettings
 									.getAdministration();
-
+							
 							administration.getBauteil(id, new GetBauteilCallback());
 							
 							
