@@ -329,7 +329,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			
 			if (result instanceof String) {
 				 String delete = result.toString();
-				bauteilgui.showMeldung(delete);
+			
 			}
 			else {
 				//maingui.showError();

@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -21,6 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
 import java.util.Date;
 import java.util.Vector;
 
+import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 
 public class BauteilGUI extends MainGUI {
@@ -184,6 +186,41 @@ public class BauteilGUI extends MainGUI {
 		Speichernbtn.addClickHandler(new SpeichernBtnClickHandler());
 		
 		this.vPanel.add(Speichernbtn);
+		
+		
+		HTML topic = new HTML("<h3>Suchen Sie nach einem Bauteil, um es einer Baugruppe zuzuordnen.</h3> <br>");
+		
+		vPanel.add(topic);
+		
+		TextBox textBoxSuchen = new TextBox();
+		HorizontalPanel hPanelSuche = new HorizontalPanel();
+		hPanelSuche.add(textBoxSuchen);
+		
+		Button btnSuchen = new Button("Suchen");
+		btnSuchen.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				vPanel.clear();
+				String bgSuche = textBoxSuchen.getText();
+				
+				if (bgSuche.matches("[0-9]+")){
+					int id = Integer.parseInt(bgSuche);
+					//serviceImpl.get(id);
+				}
+				
+				else 
+				
+				serviceImpl.getBauteil(bgSuche);
+				
+			}
+		});
+		
+		hPanelSuche.add(btnSuchen);
+		
+		vPanel.add(hPanelSuche);
+		
+		
 				
 				
 
@@ -394,18 +431,71 @@ public void showAllBauteile(Vector<Bauteil> bauteile) {
 	
 }
 
-/**
- * Anzeigen einer Meldung, wenn das Bauteil gel�scht wurde
- * @param meldung 
- * "Das Bauteil wurde erfolgreich gel�scht"
- */
-public void showMeldung(String meldung){
-	/**
-	 * Erstellen eines Labels, damit die Meldung angezeigt werden kann
-	 */
-	Label meldung1= new Label(meldung);
+public void showSearchResult(Vector<Baugruppe> bg){
 	
-	this.vPanel.add(meldung1);
+	VerticalPanel vPanel = new VerticalPanel();
+	FlexTable flex = new FlexTable();
+
+	HTML topic = new HTML("<h3>Wählen Siedie Baugruppe zu, welcher Sie das Bauteil zuordnen möchten.</h3> <br>");
+	
+
+	flex.setText(0, 0, "ID");
+	flex.setText(0, 1, "Name");
+	flex.setText(0, 2, "Beschreibung");
+	flex.setText(0, 3, "erstellt am");
+	flex.setText(0, 4, "geändert am");
+	flex.setText(0, 5, "zu EZ zuordnen");
+	
+	
+
+	/**
+	 * Konvertieren der Bauteil-Daten und befüllen der Tabelle
+	 */
+	
+	CheckBox checkBox = new CheckBox();
+	
+	//flex.setText(1, 0, Integer.toString(bg.getId()));
+	//flex.setText(1, 1, bg.getName());
+	//flex.setText(1, 3, bg.getBeschreibung());
+	//flex.setText(1, 3, ); 
+	//flex.setText(1, 4, );
+	flex.setWidget(1, 5, checkBox);
+	
+	
+	
+	
+	
+	
+	/**
+	 * Verknüpfung zu style.css
+	 */
+	flex.getRowFormatter().addStyleName(0, "EnderzeugnisHeader");
+	flex.getRowFormatter().addStyleName(0, "Row1");
+	flex.getRowFormatter().addStyleName(1, "Row2");
+
+	flex.getCellFormatter().addStyleName(0, 2, "EnderzeugnisNumericColumn");
+	flex.getCellFormatter()
+			.addStyleName(0, 3, "EnderzeugnistNumericColumn");
+
+	
+	
+	
+	
+	
+	vPanel.add(flex);
+	
+	Button btnSpeichern = new Button("Speichern");
+	btnSpeichern.addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					
+		
+				}
+			});
+	
+	vPanel.add(btnSpeichern);
+	
+	
 }
 
 
