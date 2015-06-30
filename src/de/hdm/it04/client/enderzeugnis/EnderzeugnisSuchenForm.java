@@ -9,7 +9,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.hdm.it04.client.ClientsideSettings;
 import de.hdm.it04.client.baugruppe.BaugruppeMainForm;
+import de.hdm.it04.shared.AdministrationCommonAsync;
 
 public class EnderzeugnisSuchenForm {
 	
@@ -35,7 +37,14 @@ public class EnderzeugnisSuchenForm {
 		Button btnSearch = new Button("Suchen");
 		btnSearch.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				RootPanel.get("content").add(new BaugruppeMainForm());
+				AdministrationCommonAsync administration = ClientsideSettings
+						.getAdministration();
+				
+			
+				
+				
+				//administration.
+				
 			}
 		});
 
@@ -44,7 +53,7 @@ public class EnderzeugnisSuchenForm {
 		
 		
 		
-		//RootPanel.get("content").clear();
+		RootPanel.get("content").clear();
 		RootPanel.get("content").add(hPanelSearch);
 
 		return hPanelSearch;

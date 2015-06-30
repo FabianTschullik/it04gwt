@@ -11,10 +11,13 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.baugruppe.BaugruppeMainForm;
+import de.hdm.it04.client.baugruppe.BaugruppeSuchenForm;
 import de.hdm.it04.client.bauteil.BauteilMainForm;
+import de.hdm.it04.client.bauteil.BauteilSuchenForm;
 import de.hdm.it04.client.enderzeugnis.EnderzeugnisAnlegenForm;
 import de.hdm.it04.client.enderzeugnis.EnderzeugnisMainForm;
 import de.hdm.it04.client.enderzeugnis.EnderzeugnisSuchenForm;
+
 
 
 public class Navigation  {
@@ -66,6 +69,27 @@ public class Navigation  {
 			      
 		};
 		
+		Command openSucheBaugruppe = new Command() {
+			 public void execute() {
+				
+			       BaugruppeSuchenForm.load();
+			       
+		      
+		      }
+			      
+		};
+		
+		
+		Command openSucheBauteil = new Command() {
+			 public void execute() {
+				
+			       BauteilSuchenForm.load();
+			       
+		      
+		      }
+			      
+		};
+		
 		Command newEnderzeugnis = new Command() {
 			 public void execute() {
 				 EnderzeugnisAnlegenForm.load();
@@ -80,12 +104,12 @@ public class Navigation  {
 		  MenuBar bauteilMenu = new MenuBar(true);
 		
 		bauteilMenu.addItem("anlegen", cmd);
-	    bauteilMenu.addItem("suchen", cmd);
+	    bauteilMenu.addItem("suchen", openSucheBaugruppe);
 	    bauteilMenu.addItem("anzeigen", cmd);
 
 	    MenuBar baugruppeMenu = new MenuBar(true);
 	    baugruppeMenu.addItem("anlegen", cmd);
-	    baugruppeMenu.addItem("suchen", cmd);
+	    baugruppeMenu.addItem("suchen", openSucheBaugruppe);
 	    baugruppeMenu.addItem("anzeigen", cmd);
 
 	    MenuBar enderzeugnisMenu = new MenuBar(true);
