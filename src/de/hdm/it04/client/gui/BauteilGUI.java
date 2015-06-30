@@ -241,15 +241,15 @@ public void getBauteil(Vector<Bauteil> bauteile){
 			 * Button, um Bauteil innerhalb der Tabelle zu löschen
 			 */
 			Button loeschenbtn = new Button("X");
-			//btnDelete.addClickHandler(new DeleteClickHandler());
+			loeschenbtn.addClickHandler(new LoeschenBtnClickHandler());
 			//this.vPanelCreate.add(btnDelete);
 			
 			
 			/**
 			 * Button, um Editieren des Bauteils innerhalb der Tabelle aufzurufen
 			 */
-			//Button editBtn = new Button("Editieren");
-			//editBtn.addClickHandler(new EditClickHandler());
+			Button aendernBtn = new Button("Editieren");
+			aendernBtn.addClickHandler(new AendernBtnClickHandler());
 			//this.vPanelCreate.add(editBtn);
 			
 			
