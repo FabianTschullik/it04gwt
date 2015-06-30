@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.baugruppe.BaugruppeMainForm;
+import de.hdm.it04.client.enderzeugnis.EnderzeugnisAnlegenForm;
 
 public class Search {
 	
@@ -52,7 +53,6 @@ hPanelSearch.add(txt);
 Button btnSearch = new Button("Suchen");
 btnSearch.addClickHandler(new ClickHandler() {
 	public void onClick(ClickEvent event) {
-		RootPanel.get("content").add(new BaugruppeMainForm());
 	}
 });
 

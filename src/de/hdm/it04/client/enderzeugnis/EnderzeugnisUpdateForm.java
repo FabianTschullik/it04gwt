@@ -24,7 +24,7 @@ public class EnderzeugnisUpdateForm extends ShowCase {
 	private String headlineTextStyle;
 	
 	public EnderzeugnisUpdateForm() {
-		this.headlineText = "Bitte Daten eintratgen.";
+		this.headlineText = "Bitte Daten eintragen.";
 		this.headlineTextStyle = "formTitle";
 	}
 

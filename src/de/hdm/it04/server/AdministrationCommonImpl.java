@@ -176,8 +176,8 @@ AdministrationCommon {
 
 	@Override
 	public Baugruppe getBaugruppeDetails(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return this.baugruppeMapper.getBaugruppeMapper().getBaugruppeDetails(id);
 	}
 
 

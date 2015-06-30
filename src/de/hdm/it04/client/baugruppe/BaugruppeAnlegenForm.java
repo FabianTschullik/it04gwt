@@ -12,9 +12,10 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.ClientsideSettings;
+import de.hdm.it04.client.ShowCase;
 import de.hdm.it04.shared.AdministrationCommonAsync;
 
-public class BaugruppeAnlegenFrom {
+public class BaugruppeAnlegenForm {
 
 		private static Widget anlegen;
 
