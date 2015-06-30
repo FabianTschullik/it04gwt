@@ -27,13 +27,34 @@ public interface It04gwtServiceAsync {
 		//-------------Ende Bauteil-----------------------------
 		//------------------------------------------------------
 		
+		//------------------------------------------------------
+		//------------Baugruppe---------------------------------
+		//------------------------------------------------------
+		void createBaugruppe(AsyncCallback<Baugruppe> callback);
+		void updateBaugruppe(Baugruppe bg, AsyncCallback<Vector<Baugruppe>> callback);
+		void deleteBaugruppe(int id, AsyncCallback callback);
+		void getBaugruppe(int id, AsyncCallback<Vector<Baugruppe>> callback);
+		void getBaugruppe(String name, AsyncCallback<Vector<Baugruppe>> callback);
+		void getBaugruppeForUpdate(int id, AsyncCallback<Vector<Baugruppe>> callback);
+		void getAllBaugruppen(AsyncCallback<Vector<Baugruppe>> callback);
+		//------------------------------------------------------
+		//------------Ende Baugruppe---------------------------------
+		//------------------------------------------------------
 		
 		
+		
+		//------------------------------------------------------
+		//------------Enderzeugnis---------------------------------
+		//------------------------------------------------------
 		void createEnderzeugnis(AsyncCallback<Enderzeugnis> callback);
-		void getEnderzeugnisById(int id, AsyncCallback<Enderzeugnis> callback );
-		void findConnectedBaugruppe(int id, AsyncCallback callback);
-		void findConnectedBauteileByKey(int id, AsyncCallback<Vector<Bauteil>> callback);		
-		void updateEnderzeugnis(Enderzeugnis ez, AsyncCallback<Enderzeugnis> callback);
-		void getBaugruppeDetails(int id, AsyncCallback<Baugruppe> callback);
-		void update (Baugruppe bg, Bauteil bt, AsyncCallback callback);
+		void getEnderzeugnis(int id, AsyncCallback<Vector<Enderzeugnis>> callback );	
+		void getEnderzeugnisForUpdate(int id, AsyncCallback<Vector<Enderzeugnis>> callback );	
+		//void getEnderzeugnis(String name, AsyncCallback<Vector<Enderzeugnis>> callback );
+		void getAllEnderzeugnisse(AsyncCallback<Vector<Enderzeugnis>> callback );	
+		void deleteEnderzeugnis(int id, AsyncCallback callback);
+		void updateEnderzeugnis(Enderzeugnis ez, AsyncCallback<Vector<Enderzeugnis>> callback);
+		//------------------------------------------------------
+		//------------Ende Enderzeugnis---------------------------------
+		//------------------------------------------------------
+		
 }

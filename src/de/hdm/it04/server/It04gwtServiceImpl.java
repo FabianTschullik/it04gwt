@@ -100,20 +100,74 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 //--------------------------- Ende Bauteil ------------------------------------
 //-----------------------------------------------------------------------------
 	
+//-----------------------------------------------------------------------------
+//----------------------------Baugruppe----------------------------------------
+//-----------------------------------------------------------------------------
 	
-	
-	
-	public Vector<Bauteil> findConnectedBauteileByKey(int id){
+	public Baugruppe createBaugruppe(){
 		
-		return BaugruppeMapper.baugruppeMapper().findConnectedBauteileByKey(id);
+		return BaugruppeMapper.baugruppeMapper().insert();
 	}
 	
-	public Baugruppe findConnectedBaugruppe(int id){
+	public Vector<Baugruppe> updateBaugruppe(Baugruppe bg){
 		
-		return EnderzeugnisMapper.enderzeugnisMapper().findConnectedBaugruppe(id);
+		return BaugruppeMapper.baugruppeMapper().updateBaugruppe(bg);
 	}
 	
-public Enderzeugnis getEnderzeugnisById(int id){
+	public String deleteBaugruppe(int id){
+		
+		return BaugruppeMapper.baugruppeMapper().deleteBaugruppe(id);
+	}
+	
+	public Vector<Baugruppe> getBaugruppe(int id){
+		
+		return BaugruppeMapper.baugruppeMapper().findByKey(id);
+	}
+	
+	public Vector<Baugruppe> getBaugruppe(String name){
+		
+		return BaugruppeMapper.baugruppeMapper().findByName(name);
+	}
+	
+	public Vector<Baugruppe> getAllBaugruppen(){
+		
+		return BaugruppeMapper.baugruppeMapper().findAll();
+	}
+	
+	@Override
+	public Vector<Baugruppe> getBaugruppeForUpdate(int id) {
+		
+		return BaugruppeMapper.baugruppeMapper().findByKey(id);
+	}
+//-----------------------------------------------------------------------------
+//----------------------------Ende Baugruppe----------------------------------------
+//-----------------------------------------------------------------------------
+
+	
+//-----------------------------------------------------------------------------
+//----------------------------Enderzeugnis----------------------------------------
+//-----------------------------------------------------------------------------
+	@Override
+	public String deleteEnderzeugnis(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vector<Enderzeugnis> getAllEnderzeugnisse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Vector<Enderzeugnis> getEnderzeugnisForUpdate(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+public Vector<Enderzeugnis> getEnderzeugnis(int id){
 		
 		return EnderzeugnisMapper.enderzeugnisMapper().getEnderzeugnisById(id);
 	}
@@ -122,8 +176,15 @@ public Enderzeugnis getEnderzeugnisById(int id){
 
 		return EnderzeugnisMapper.enderzeugnisMapper().insert();
 	}
-
 	
+	
+public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {
+		
+		return EnderzeugnisMapper.enderzeugnisMapper().update(ez);
+	}
+//-----------------------------------------------------------------------------
+//----------------------------Ende Enderzeugnis----------------------------------------
+//-----------------------------------------------------------------------------	
 
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
@@ -139,22 +200,12 @@ public Enderzeugnis getEnderzeugnisById(int id){
 	
 	
 	
-	public Baugruppe getBaugruppeDetails(int id) {
-		
-		return BaugruppeMapper.baugruppeMapper().getBaugruppeDetails(id);
-		}
 	
-	public Baugruppe update (Baugruppe bg, Bauteil bt){
-		return BaugruppeMapper.baugruppeMapper().update(bg, bt);
-	}
 
 	
-	public Enderzeugnis updateEnderzeugnis(Enderzeugnis ez) {
-		
-		return EnderzeugnisMapper.enderzeugnisMapper().update(ez);
-	}
+	
 
-
+	
 
 	
 
