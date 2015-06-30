@@ -23,6 +23,7 @@ import de.hdm.it04.shared.AdministrationCommonAsync;
 			Navigation.load();
 			Search.load();
 			DataTree.load();
+			DialogBoxEntree.load();
 			
 			
 			
