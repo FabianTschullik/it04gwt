@@ -10,8 +10,10 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.hdm.it04.client.baugruppe.BaugruppeAnlegenFrom;
 import de.hdm.it04.client.baugruppe.BaugruppeMainForm;
 import de.hdm.it04.client.baugruppe.BaugruppeSuchenForm;
+import de.hdm.it04.client.bauteil.BauteilAnlegenForm;
 import de.hdm.it04.client.bauteil.BauteilMainForm;
 import de.hdm.it04.client.bauteil.BauteilSuchenForm;
 import de.hdm.it04.client.enderzeugnis.EnderzeugnisAnlegenForm;
@@ -96,6 +98,18 @@ public class Navigation  {
 			      }
 		};
 		
+		Command newBauteil = new Command() {
+			 public void execute() {
+				 BauteilAnlegenForm.load();
+			      }
+		};
+		
+		Command newBaugruppe = new Command() {
+			 public void execute() {
+				BaugruppeAnlegenFrom.load();
+			      }
+		};
+		
 		
 
 		HorizontalPanel hPanel = new HorizontalPanel();
@@ -103,12 +117,12 @@ public class Navigation  {
 		
 		  MenuBar bauteilMenu = new MenuBar(true);
 		
-		bauteilMenu.addItem("anlegen", cmd);
+		bauteilMenu.addItem("anlegen", newBauteil);
 	    bauteilMenu.addItem("suchen", openSucheBaugruppe);
 	    bauteilMenu.addItem("anzeigen", cmd);
 
 	    MenuBar baugruppeMenu = new MenuBar(true);
-	    baugruppeMenu.addItem("anlegen", cmd);
+	    baugruppeMenu.addItem("anlegen", newBaugruppe);
 	    baugruppeMenu.addItem("suchen", openSucheBaugruppe);
 	    baugruppeMenu.addItem("anzeigen", cmd);
 
