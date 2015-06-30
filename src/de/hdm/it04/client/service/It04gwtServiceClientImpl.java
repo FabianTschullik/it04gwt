@@ -6,6 +6,7 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
+import de.hdm.it04.client.gui.BaugruppeGUI;
 import de.hdm.it04.client.gui.BauteilGUI;
 import de.hdm.it04.client.gui.EnderzeugnisGUI;
 import de.hdm.it04.client.gui.MainGUI;
@@ -23,7 +24,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	private MainGUI maingui;
 	private BauteilGUI bauteilgui;
 	private EnderzeugnisGUI enderzeugnisgui;
-
+	private BaugruppeGUI baugruppegui;
 
 	
 
@@ -41,6 +42,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		this.maingui = new MainGUI(this);
 		this.bauteilgui = new BauteilGUI(this.maingui.getvPanelDetailsContent());
 		this.enderzeugnisgui = new EnderzeugnisGUI(this);
+		this.baugruppegui = new BaugruppeGUI(this.maingui.getvPanelDetailsContent());
 	}
 
 	/**
@@ -68,9 +70,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * @param Bauteil, welches ge�ndert wird
 	 * @return void
 	 */	
-	public void update(Bauteil bt) {
-		this.service.update(bt, new UpdateCallback());
-	}
+	//public void update(Bauteil bt) {
+		//this.service.update(bt, new UpdateCallback());
+	//}
 	
 	/**
 	 * Diese Methode wird benoetigt, um ein Bauteil mit einer bestimmten ID zu
@@ -125,53 +127,86 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 //----------------------------------Ende Bauteil----------------------------------
 //------------------------------------------------------------------------------------
 	
-	
-	
-	
-	/**nicht verwendete Methode*/
-	public void findConnectedBauteileByKey(int id){
-		this.service.findConnectedBauteileByKey(id, new FindConnectedBauteileByKeyCallback());
-	}
 
+//------------------------------------------------------------------------------------
+//----------------------------------Baugruppe----------------------------------
+//------------------------------------------------------------------------------------
 	
-	/*-------------------------------------------Baugruppen Methoden--------------------------*/
-	
-	public void findConnectedBaugruppe(int id){
-		this.service.findConnectedBaugruppe(id, new FindConnectedBaugruppeCallback());
+	public void createBaugruppe(){
+		this.service.createBaugruppe(new CreateBaugruppeCallback());
 	}
 	
-	@Override
-	public void update(Baugruppe bg, Bauteil bt) {
-		this.service.update(bg, bt, new UpdateCallback());
+	public void updateBaugruppe(Baugruppe bg){
+		this.service.updateBaugruppe(bg, new UpdateBaugruppeCallback());
 	}
 	
-	public void getBaugruppeDetails(int id) {
-		this.service.getBaugruppeDetails(id, new GetBaugruppeDetailsCallback());
+	public void deleteBaugruppe(int id){
+		this.service.deleteBaugruppe(id, new DeleteBaugruppeCallback());
+	}
+	
+	
+	public void getBaugruppe(int id) {
+		this.service.getBaugruppe(id, new GetBaugruppeCallback());
 		
 	}
+	public void getBaugruppe(String name){
+		this.service.getBaugruppe(name, new GetBaugruppeCallback());
+	}
+	
+	public void getBaugruppeForUpdate(int id){
+		this.service.getBaugruppe(id, new GetBaugruppeForUpdateCallback());
+	}
+	
+	public void getAllBaugruppen(){
+		this.service.getAllBaugruppen(new GetAllBaugruppenCallback());	
+	}
 
 	
-	/*-------------------------------------------Enderzeugnis Methoden--------------------------*/
 	
+	
+	
+//------------------------------------------------------------------------------------
+//----------------------------------Ende Baugruppe----------------------------------
+//------------------------------------------------------------------------------------
+	
+
+	
+	
+//------------------------------------------------------------------------------------
+//----------------------------------Enderzeugnis----------------------------------
+//------------------------------------------------------------------------------------
 	public void updateEnderzeugnis(Enderzeugnis ez) {
 		this.service.updateEnderzeugnis(ez, new UpdateEnderzeugnisCallback());
 	}
 	
-	public void getEnderzeugnisById(int id) {
-		this.service.getEnderzeugnisById(id, new getEnderzeugnisByIdCallback());
+	public void getEnderzeugnis(int id) {
+		this.service.getEnderzeugnis(id, new getEnderzeugnisCallback());
+	}
+	/*
+	public void getEnderzeugnis(String name) {
+		this.service.getEnderzeugnis(name, new GetEnderzeugnisCallback());
+	}
+	*/
+	
+	public void getEnderzeugnisForUpdate(int id) {
+		this.service.getEnderzeugnis(id, new GetEnderzeugnisForUpdateCallback());
 	}
 	
-	/**
-	 * Die Methode legt ein Enderzeugnis an.
-	 */
+	public void getAllEnderzeugnisse(){
+		this.service.getAllEnderzeugnisse(new GetAllEnderzeugnisseCallback());
+	}
 	
 	
 	public void createEnderzeugnis() {
 		this.service.createEnderzeugnis(new CreateEnderzeugnisCallback());
 	}
-
 	
-/*--------------------------------Nicht verwendete Methoden/ nicht zuordbar------------*/
+	public void deleteEnderzeugnis(int id){
+		this.service.deleteEnderzeugnis(id, new DeleteEnderzeugnisCallback());
+	}
+//------------------------------------------------------------------------------------
+//----------------------------------Ende Enderzeugnis----------------------------------
+//------------------------------------------------------------------------------------
 
 	
 	
@@ -339,78 +374,49 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 /*-------------------------------------------------------------------------------------------*/
 /*------------------------------------------Ende Bauteil Callbacks--------------------------------*/
 /*-------------------------------------------------------------------------------------------*/	
+
 	
-	/*------------------------------------------Enderzeugnis Callbacks--------------------------------*/
 	
-	public class CreateEnderzeugnisCallback implements AsyncCallback {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			
-			Enderzeugnis ez = new Enderzeugnis();
-			
-				
-		}
-
-		@Override
-		public void onSuccess(Object result) { 
-			if (result instanceof Enderzeugnis) {
-				
-				
-				Enderzeugnis ez = (Enderzeugnis) result;
-				
-				enderzeugnisgui.showInsertForm(ez);
-			}
-			else {
-				
-				Enderzeugnis ez = new Enderzeugnis();
-				
-				
-			}
-		}
-	}
 	
-	public class getEnderzeugnisByIdCallback implements AsyncCallback {
+/*-------------------------------------------------------------------------------------------*/
+/*------------------------------------------Baugruppe Callbacks--------------------------------*/
+/*-------------------------------------------------------------------------------------------*/	
+	private class GetBaugruppeForUpdateCallback implements AsyncCallback<Vector<Baugruppe>>{
 
-		@Override
-		public void onFailure(Throwable caught) {
-			
-		}
-
-		@Override
-		public void onSuccess(Object result) { 
-			if (result instanceof Enderzeugnis) {
-				
-				Enderzeugnis ez = (Enderzeugnis) result;
-				enderzeugnisgui.showEnderzeugnis(ez);
-				
-			}
-			else {
-				
-				
-				
-			}
-		}
-	}
-	
-	private class UpdateEnderzeugnisCallback implements AsyncCallback {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			enderzeugnisgui.showSuccess();
-			
-		}
-
-		@Override
-		public void onSuccess(Object result) {
-			
-			enderzeugnisgui.showSuccess();
+	@Override
+	public void onFailure(Throwable caught) {
+		// TODO Auto-generated method stub
 		
-			
-		}
+	}
+
+	@Override
+	public void onSuccess(Vector<Baugruppe> result) {
+		// TODO Auto-generated method stub
+		
+	}
+		
+   }
+	
+		
+	private class GetBaugruppeCallback implements AsyncCallback<Vector<Baugruppe>>{
+
+	@Override
+	public void onFailure(Throwable caught) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onSuccess(Vector<Baugruppe> result) {
+		// TODO Auto-generated method stub
+		
+	}
+		
 	}
 	
-	/*------------------------------------------Baugruppe Callbacks--------------------------------*/
+	
+	
+	
 	private class FindConnectedBauteileByKeyCallback implements AsyncCallback<Vector<Bauteil>>{
 
 		@Override
@@ -433,14 +439,61 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			}
 		}
 }	
+	
+	
+	private class CreateBaugruppeCallback implements AsyncCallback{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			
+		}
+
+		@Override
+		public void onSuccess(Object result) {
+
+			System.out.println("Rueckmeldung vom Server erhalten");
+			if (result instanceof Baugruppe){
+				
+			Baugruppe bg = new Baugruppe();
+			
+			bg = (Baugruppe) result;
+			
+			baugruppegui.updateBaugruppe(bg);	
+		}
+		else {
+			//maingui.showError();
+		}				
+	}
+}	
 
 
 	
+	private class UpdateBaugruppeCallback implements AsyncCallback{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			
+		}
+
+		@Override
+		public void onSuccess(Object result) {
+
+			System.out.println("Rueckmeldung vom Server erhalten");
+			if (result instanceof Baugruppe){
+				
+			Baugruppe bg = new Baugruppe();
+			
+			bg = (Baugruppe) result;
+			
+			baugruppegui.updateBaugruppe(bg);	
+		}
+		else {
+			//maingui.showError();
+		}		
+	}
+}	
 	
-	
-	
-	
-	private class GetBaugruppeDetailsCallback implements AsyncCallback<Baugruppe> {
+	private class GetAllBaugruppenCallback implements AsyncCallback<Vector<Baugruppe>> {
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -448,20 +501,44 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 
 		@Override
-		public void onSuccess(Baugruppe result) {
+		public void onSuccess(Vector<Baugruppe> result) {
 
 			// Object result entählt, was vom server zurück kommt clientImpl
 			// updatet das GUI anschließend
-			System.out.println("R�ckmeldung vom Server erhalten");
 
-			if (result instanceof Baugruppe) {
-				Baugruppe bg = new Baugruppe();
-				bg = result;
+			if (result instanceof Vector) {
+				Vector<Baugruppe> baugruppe = new Vector<Baugruppe>();
+				baugruppe = (Vector<Baugruppe>) result;
 
-				//maingui.showBaugruppeDetails(bg);
+				
+				baugruppegui.showAllBaugruppen(baugruppe);
 			}
 		}
 	}
+	
+
+	private class DeleteBaugruppeCallback implements AsyncCallback{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			
+		}
+
+		@Override
+		public void onSuccess(Object result) {
+
+			System.out.println("Rueckmeldung vom Server erhalten");
+			if (result instanceof String){
+				
+			String meldung = (String) result;
+		}
+		else {
+			//maingui.showError();
+		}			
+	}
+}	
+
+
 
 	/**
 	 * Diese Klasse wartet auf eine Antwort der Methode updateBauteil(). Wenn
@@ -505,46 +582,145 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	
 	
 	
+	
+/*-------------------------------------------------------------------------------------------*/
+/*------------------------------------------Baugruppe Callbacks--------------------------------*/
+/*-------------------------------------------------------------------------------------------*/		
+	
+	
 			
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/*-------------------------------------------------------------------------------------------*/
+/*------------------------------------------Enderzeugnis Callbacks--------------------------------*/
+/*-------------------------------------------------------------------------------------------*/		
+	
+	private class DeleteEnderzeugnisCallback implements AsyncCallback{
+
+	@Override
+	public void onFailure(Throwable caught) {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void onSuccess(Object result) {
+		// TODO Auto-generated method stub
+		
+	}
+		
+	}
 	
-	/*------------------------------------------gemeinsam Verwendbare Callbacks--------------------------------*/
 	
 	
-	
-	private class UpdateCallback implements AsyncCallback {
+	private class GetEnderzeugnisForUpdateCallback implements AsyncCallback<Vector<Enderzeugnis>>{
 
 		@Override
 		public void onFailure(Throwable caught) {
-			//maingui.showError();
-
+			// TODO Auto-generated method stub
+			
 		}
 
 		@Override
-		public void onSuccess(Object result) { // /Object result ent�hlt, was
-												// vom server zur�ck kommt
-												// clientImpl updatet das GUI
-												// anschlie�end
-			System.out.println("Rückmeldung vom Server erhalten");
-			if (result instanceof Baugruppe) {
+		public void onSuccess(Vector<Enderzeugnis> result) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	private class GetAllEnderzeugnisseCallback implements AsyncCallback<Vector<Enderzeugnis>>{
 
-				Baugruppe bg = (Baugruppe) result;
-				//maingui.updateTree(bg);
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onSuccess(Vector<Enderzeugnis> result) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	
+	private class CreateEnderzeugnisCallback implements AsyncCallback {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			
+			Enderzeugnis ez = new Enderzeugnis();
+			
 				
-				 //maingui.showSucess();
-				//maingui.showBauteil(bauteile);
-			
-			}
-			
-			if (result instanceof Bauteil){
-				Bauteil bt = (Bauteil) result;
-				bauteilgui.getBauteil(bt);
+		}
+
+		@Override
+		public void onSuccess(Object result) { 
+			if (result instanceof Enderzeugnis) {
+				
+				
+				Enderzeugnis ez = (Enderzeugnis) result;
+				
+				enderzeugnisgui.showInsertForm(ez);
 			}
 			else {
-				//maingui.showError();
+				
+				Enderzeugnis ez = new Enderzeugnis();
 			}
 		}
 	}
+	
+	public class getEnderzeugnisCallback implements AsyncCallback<Vector<Enderzeugnis>> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			
+		}
+
+		@Override
+		public void onSuccess(Vector<Enderzeugnis> result) { 
+			if (result instanceof Vector) {
+				
+				
+			}
+		}
+	}
+	
+	private class UpdateEnderzeugnisCallback implements AsyncCallback<Vector<Enderzeugnis>> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			enderzeugnisgui.showSuccess();
+			
+		}
+
+		@Override
+		public void onSuccess(Vector<Enderzeugnis> result) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+
+	@Override
+	public void update(Bauteil bt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	
 }
 
 

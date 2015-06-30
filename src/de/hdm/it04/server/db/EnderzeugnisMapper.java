@@ -187,9 +187,11 @@ public class EnderzeugnisMapper {
 		return ez;
 	}
 	
-	public Enderzeugnis update(Enderzeugnis ez) {
+	public Vector<Enderzeugnis> update(Enderzeugnis ez) {
 
 		Connection con = DbConnection.connection();
+		
+		Vector <Enderzeugnis> result = new Vector<Enderzeugnis>();
 
 		try {
 			Statement stmt = con.createStatement();
@@ -203,20 +205,24 @@ public class EnderzeugnisMapper {
 					+ "preis = '" + ez.getPreis()
 					+ "' WHERE id=" + ez.getId());
 			
+			result.add(ez);
+			
 
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
 		
-		return ez;
+		return result;
 	}
 	
 	
-	public Enderzeugnis getEnderzeugnisById(int id) {
+	public Vector<Enderzeugnis> getEnderzeugnisById(int id) {
 
 		// DB-Verbindung holen
 				Connection con = DbConnection.connection();
+				
+				Vector<Enderzeugnis> result = new Vector<Enderzeugnis>();
 
 				// Ergebnisvektor vorbereiten
 				Enderzeugnis ez = new Enderzeugnis();
@@ -232,16 +238,12 @@ public class EnderzeugnisMapper {
 					ResultSet rs = stmt
 							.executeQuery("SELECT id, name, beschreibung, preis, baugruppe, erstellungsDatum, aenderungsDatum FROM bauteil "
 									+ "WHERE id=" + id);
+					
+					
 					/*
 					 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
 					 * werden. Pr�fe, ob ein Ergebnis vorliegt.
-					 */
-
-				
-
-				
-
-					
+					*/
 						ez.setId(rs.getInt("id"));
 						ez.setName(rs.getString("name"));
 						ez.setBaugruppe(rs.getInt("baugruppe"));
@@ -249,14 +251,14 @@ public class EnderzeugnisMapper {
 						ez.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 						ez.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
-
+						result.add(ez);
 	
 
 				} catch (SQLException e2) {
 					e2.printStackTrace();
 					return null;
 				}
-				return ez;
+				return result;
 	}
 	
 	

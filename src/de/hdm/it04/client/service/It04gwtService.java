@@ -87,12 +87,31 @@ public interface It04gwtService extends RemoteService {
 //--------------------------- Bauteil ---------------------------------------
 //---------------------------------------------------------------------------	
 	
+//---------------------------------------------------------------------------
+//---------------------------Baugruppe---------------------------------------
+//----------------------------------------------------------------------------
+	Baugruppe createBaugruppe();
+	Vector <Baugruppe> updateBaugruppe(Baugruppe bg);
+	String deleteBaugruppe(int id);
+	Vector <Baugruppe> getBaugruppe(int id);
+	Vector <Baugruppe> getBaugruppe(String name);
+	Vector <Baugruppe> getBaugruppeForUpdate(int id);
+	Vector <Baugruppe> getAllBaugruppen();
+//---------------------------------------------------------------------------
+//---------------------------Ende Baugruppe---------------------------------------
+//----------------------------------------------------------------------------
+
+	
+//---------------------------------------------------------------------------
+//---------------------------Enderzeugnis---------------------------------------
+//----------------------------------------------------------------------------	
 	
 	Enderzeugnis createEnderzeugnis();
-	Enderzeugnis getEnderzeugnisById(int id);
-	Baugruppe findConnectedBaugruppe(int id);
-	Vector<Bauteil> findConnectedBauteileByKey(int id);	
-	Enderzeugnis updateEnderzeugnis(Enderzeugnis ez);
-	Baugruppe getBaugruppeDetails(int id);
-	Baugruppe update(Baugruppe bg, Bauteil bt);
+	String deleteEnderzeugnis(int id);
+	Vector <Enderzeugnis> getAllEnderzeugnisse();
+	Vector <Enderzeugnis> getEnderzeugnis(int id);
+	//Vector <Enderzeugnis> getEnderzeugnis(String name);
+	Vector <Enderzeugnis> getEnderzeugnisForUpdate(int id);
+	Vector <Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez);
+	
 }

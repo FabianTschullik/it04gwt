@@ -384,6 +384,11 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			
+			vPanelDetailsContent.clear();
+			BaugruppeGUI baugruppegui = new BaugruppeGUI(vPanelDetailsContent);
+			
+			baugruppegui.menue();
 				
 		}
 	}

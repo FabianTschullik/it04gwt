@@ -69,15 +69,38 @@ public interface It04gwtServiceClientInt {
 	void deleteBauteil(int id);
 
 //------------------------------------------------------------------------------------
-//----------------------------------Bauteil Methoden----------------------------------
+//------------------------------ENDE-Bauteil Methoden----------------------------------
+//------------------------------------------------------------------------------------
+
+	
+//------------------------------------------------------------------------------------
+//------------------------------Baugruppe----------------------------------
+//------------------------------------------------------------------------------------
+	void createBaugruppe();
+	void updateBaugruppe(Baugruppe bg);
+	void deleteBaugruppe(int id);
+	void getBaugruppe(int id);
+	void getBaugruppe(String name);
+	void getBaugruppeForUpdate (int id);
+	void getAllBaugruppen();
+//------------------------------------------------------------------------------------
+//------------------------------ENDE Baugruppe----------------------------------
 //------------------------------------------------------------------------------------
 	
 	
-	
-	void findConnectedBaugruppe(int id);
+//------------------------------------------------------------------------------------
+//------------------------------Enderzeugnis----------------------------------
+//------------------------------------------------------------------------------------	
+	void createEnderzeugnis();
 	void updateEnderzeugnis(Enderzeugnis ez);
-	void getEnderzeugnisById(int id);
-	void findConnectedBauteileByKey(int id);
-	void getBaugruppeDetails(int id);
-	void update (Baugruppe bg, Bauteil bt);
+	void deleteEnderzeugnis(int id);
+	void getEnderzeugnis(int id);
+	//void getEnderzeugnis(String name);
+	void getEnderzeugnisForUpdate (int id);
+	void getAllEnderzeugnisse();
+//------------------------------------------------------------------------------------
+//------------------------------Ende Enderzeugnis----------------------------------
+//------------------------------------------------------------------------------------	
+	
+	
 }

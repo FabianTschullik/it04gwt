@@ -76,6 +76,60 @@ public class BaugruppeMapper {
 	 * @return Konto-Objekt-Vektor, das dem übergebenen Schlüssel entspricht,
 	 *         null bei nicht vorhandenem DB-Tupel.
 	 */
+	
+	public Vector<Baugruppe> findByKey(int id) {
+
+		// DB-Verbindung holen
+		Connection con = DbConnection.connection();
+
+		// Ergebnisvektor vorbereiten
+		Vector<Baugruppe> result = new Vector<Baugruppe>();
+
+		try {
+
+			// Leeres SQL-Statement (JDBC) anlegen
+
+			Statement stmt = con.createStatement();
+
+			// Statement ausf�llen und als Query an die DB schicken
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
+							+ "WHERE id=" + id);
+			/*
+			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
+			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+			 */
+
+			if (rs.next()) {
+
+				// Ergebnis-Tupel in Objekt umwandeln
+
+				Baugruppe bg = new Baugruppe();
+				bg.setId(rs.getInt("id"));
+				bg.setName(rs.getString("name"));
+				bg.setBeschreibung(rs.getString("beschreibung"));
+				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+
+				result.add(bg);
+
+				return result;
+			}
+
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
 	public Vector<Bauteil> findConnectedBauteileByKey(int id) {
 
 		// DB-Verbindung holen
@@ -343,8 +397,9 @@ public class BaugruppeMapper {
 	 *            das Objekt, das in die DB geschrieben werden soll
 	 * @return das als Parameter übergebene Objekt
 	 */
-	public Baugruppe update(Baugruppe bg) {
+	public Vector<Baugruppe> updateBaugruppe(Baugruppe bg) {
 
+		Vector<Baugruppe> result = new Vector<Baugruppe>();
 		Connection con = DbConnection.connection();
 
 		try {
@@ -357,13 +412,15 @@ public class BaugruppeMapper {
 					+ "beschreibung = '" + bg.getBeschreibung() + "', "
 					+ "aenderungsDatum = '" + new Timestamp(date.getTime())
 					+ "' WHERE id=" + bg.getId());
+			
+			result.add(bg);
 
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
 		// Um Analogie zu insert(Baugruppe bg) zu wahren, geben wir bg zurück
-		return bg;
+		return result;
 	}
 
 	
@@ -406,10 +463,10 @@ public class BaugruppeMapper {
 
 	
 	
-	public String delete(int id) {
+	public String deleteBaugruppe(int id) {
 
 		String ergebnis = "Baugruppe wurde erfolgreich geloescht!";
-
+		
 		Connection con = DbConnection.connection();
 
 		try {
