@@ -384,6 +384,7 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			
 				
 		}
 	}
@@ -404,6 +405,11 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			
+			vPanelDetailsContent.clear();
+			AlertGUI alertgui = new AlertGUI(vPanelDetailsContent);
+			
+			alertgui.load("Fehler", "red");
 			
 		}
 	}

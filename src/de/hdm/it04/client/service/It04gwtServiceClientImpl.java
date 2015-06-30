@@ -6,6 +6,7 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
+import de.hdm.it04.client.gui.AlertGUI;
 import de.hdm.it04.client.gui.BauteilGUI;
 import de.hdm.it04.client.gui.EnderzeugnisGUI;
 import de.hdm.it04.client.gui.MainGUI;
@@ -23,6 +24,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	private MainGUI maingui;
 	private BauteilGUI bauteilgui;
 	private EnderzeugnisGUI enderzeugnisgui;
+	private AlertGUI alertgui;
 
 
 	
@@ -41,6 +43,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		this.maingui = new MainGUI(this);
 		this.bauteilgui = new BauteilGUI(this.maingui.getvPanelDetailsContent());
 		this.enderzeugnisgui = new EnderzeugnisGUI(this.maingui.getvPanelDetailsContent());
+		this.alertgui = new AlertGUI(this.maingui.getvPanelDetailsContent());
 	}
 
 	/**

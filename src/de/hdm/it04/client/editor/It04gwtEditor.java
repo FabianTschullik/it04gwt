@@ -23,7 +23,7 @@ import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 			
 			
 			It04gwtServiceClientImpl clientImpl = new It04gwtServiceClientImpl(GWT.getModuleBaseURL()+"sms");
-			RootPanel.get().add(clientImpl.getMainGUI());
+			RootPanel.get("page").add(clientImpl.getMainGUI());
 		}
 	}
 	

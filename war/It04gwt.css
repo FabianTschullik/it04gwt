@@ -106,3 +106,35 @@ h1 {
 .EnderzeugnisRemoveColumn {
   text-align: center;
 }
+
+.alertRed {
+color: red; 
+font-size: 150%;}
+
+.alertGreen {
+color: green; 
+font-size: 150%}
+
+.back{
+background-image : url('background.jpg');
+background-attachment : fixed;
+background-size : 100% auto;
+}
+
+.gwt-Button{
+	color: black;
+	background-color: grey;
+  	opacity: 0.5;
+  	  margin-bottom: 10 !important;
+  text-decoration: none;
+  cursor: pointer;
+  cursor: hand;
+  font-size: small;
+}
+
+
+#body{
+background-image : url('background.jpg');
+background-attachment : fixed;
+background-size : 100% auto;
+}

@@ -78,6 +78,8 @@ public void menue(){
 		
 		this.vPanel.add(hPanel);
 		
+		RootPanel.get("content").add(this.vPanel);
+		
 	}
 
 
@@ -213,7 +215,7 @@ public void updateEnderzeugnis(Enderzeugnis ez){
 			@Override
 			public void onClick(ClickEvent event) {
 				
-		
+				
 				
 				
 					
