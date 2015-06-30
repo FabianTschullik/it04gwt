@@ -51,7 +51,7 @@ public class EnderzeugnisAnlegenForm extends ShowCase {
 		VerticalPanel vPanel = new VerticalPanel();
 		HorizontalPanel hPanel1 = new HorizontalPanel();
 		HorizontalPanel hPanel2 = new HorizontalPanel();
-		
+		  
 		
 		Label lbl1 = new Label("Name: ");
 		hPanel1.add(lbl1);
