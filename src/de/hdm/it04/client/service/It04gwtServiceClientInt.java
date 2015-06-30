@@ -23,7 +23,7 @@ public interface It04gwtServiceClientInt {
 	 * @return void
 	 */
 	void getBauteil(int id);
-	void getBauteil2(int id);
+	void getBauteilForUpdate(int id);
 	
 	/**
 	 * Die Methode legt ein Bauteil an.
