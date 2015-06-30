@@ -63,6 +63,8 @@ public class EnderzeugnisAnlegenForm extends ShowCase {
 		
 		  
 		
+		Label test = new Label(Integer.toString(ez.getId()));
+		hPanel1.add(test);
 		Label lbl1 = new Label("Name: ");
 		hPanel1.add(lbl1);
 		TextBox txtBox1 = new TextBox();
@@ -81,10 +83,10 @@ public class EnderzeugnisAnlegenForm extends ShowCase {
 		btnAnlegen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
-				ez.setName(txtBox1.getText());
+				//ez.setName(txtBox1.getText());
 				
-				double preis = Double.parseDouble(txtBox2.getText());
-				ez.setPreis(preis);
+				//double preis = Double.parseDouble(txtBox2.getText());
+				//ez.setPreis(preis);
 				
 				AdministrationCommonAsync administration = ClientsideSettings
 						.getAdministration();
