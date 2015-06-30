@@ -11,11 +11,20 @@
 	<url-pattern>/it04gwt/administration</url-pattern>
 </servlet-mapping>
 
+<!-- REPORT GENERATOR -->
+<servlet>
+	<servlet-name>reportServlet</servlet-name>
+	<servlet-class>de.hdm.it04.server.report.AdministrationCommonReportImpl</servlet-class>
+</servlet>
 
-
+<servlet-mapping>
+	<servlet-name>reportServlet</servlet-name>
+	<url-pattern>/de.hdm.it04/it04gwt</url-pattern>
+</servlet-mapping>
 
 <!--  Default page to serve  -->
 <welcome-file-list>
 <welcome-file>It04gwt.html</welcome-file>
+<welcome-file>It04gwt_report.html</welcome-file>
 </welcome-file-list>
 </web-app>
