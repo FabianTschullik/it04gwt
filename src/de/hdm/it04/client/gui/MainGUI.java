@@ -392,7 +392,10 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			serviceImpl.createEnderzeugnis();
+			vPanelDetailsContent.clear();
+			EnderzeugnisGUI enderzeugnisgui = new EnderzeugnisGUI(vPanelDetailsContent);
+			
+			enderzeugnisgui.menue();
 			
 		}
 	}
