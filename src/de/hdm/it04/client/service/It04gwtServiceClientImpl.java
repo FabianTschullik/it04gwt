@@ -40,7 +40,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		this.maingui = new MainGUI(this);
 		this.bauteilgui = new BauteilGUI(this.maingui.getvPanelDetailsContent());
-		this.enderzeugnisgui = new EnderzeugnisGUI(this);
+		this.enderzeugnisgui = new EnderzeugnisGUI(this.maingui.getvPanelDetailsContent());
 	}
 
 	/**
@@ -347,7 +347,6 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		@Override
 		public void onFailure(Throwable caught) {
 			
-			Enderzeugnis ez = new Enderzeugnis();
 			
 				
 		}
@@ -359,7 +358,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				
 				Enderzeugnis ez = (Enderzeugnis) result;
 				
-				enderzeugnisgui.showInsertForm(ez);
+				enderzeugnisgui.updateEnderzeugnis(ez);
 			}
 			else {
 				

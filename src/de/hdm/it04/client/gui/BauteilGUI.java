@@ -20,7 +20,6 @@ import com.google.gwt.user.client.ui.Widget;
 import java.util.Date;
 import java.util.Vector;
 
-import de.hdm.it04.client.gui.EnderzeugnisGUI.BtnSpeichernClickHandler;
 import de.hdm.it04.shared.Bauteil;
 
 public class BauteilGUI extends MainGUI {
