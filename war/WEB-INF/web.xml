@@ -2,12 +2,12 @@
 <!--  Servlets  -->
 <!-- EDITOR -->
 <servlet>
-	<servlet-name>administrationServlet</servlet-name>
+	<servlet-name>editorServlet</servlet-name>
 	<servlet-class>de.hdm.it04.server.AdministrationCommonImpl</servlet-class>
 </servlet>
 
 <servlet-mapping>
-	<servlet-name>administrationServlet</servlet-name>
+	<servlet-name>editorServlet</servlet-name>
 	<url-pattern>/it04gwt/administration</url-pattern>
 </servlet-mapping>
 
@@ -19,7 +19,7 @@
 
 <servlet-mapping>
 	<servlet-name>reportServlet</servlet-name>
-	<url-pattern>/de.hdm.it04/it04gwt</url-pattern>
+	<url-pattern>/it04gwtReport/AdministrationCommonReport</url-pattern>
 </servlet-mapping>
 
 <!--  Default page to serve  -->
