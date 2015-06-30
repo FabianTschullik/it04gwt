@@ -2,6 +2,7 @@ package de.hdm.it04.client.bauteil;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -11,28 +12,72 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.hdm.it04.client.Alert;
 import de.hdm.it04.client.ClientsideSettings;
+import de.hdm.it04.client.ShowCase;
 import de.hdm.it04.shared.AdministrationCommonAsync;
+import de.hdm.it04.shared.Bauteil;
 
 
 
-public class BauteilAnlegenForm {
+public class BauteilAnlegenForm extends ShowCase {
 	
 	
-	private static Widget anlegen;
+	private String headlineText;
+	private String headlineTextStyle;
+	public Bauteil btl;
+	
+	public BauteilAnlegenForm() {
+		this.headlineText = "Welche Aktion wollen Sie durchfuehren?";
+		this.headlineTextStyle = "formTitle";
+	}
+	
 
-	public static void load() {
-
-		anlegen = createAnlegenForm();
+	@Override
+	protected String getHeadlineText() {
+		
+		return this.headlineText;
 	}
 
-	private static Widget createAnlegenForm() {
+
+
+
+	@Override
+	protected String getHeadlineTextStyle() {
+		
+		return this.headlineTextStyle;
+	}
+	
+	
+	
+	
+	protected void run() {
+		AdministrationCommonAsync administration = ClientsideSettings
+				.getAdministration();	
+		
+		administration.createBauteil(new createBauteilCallBack());
+		
+	}
+
+	
+	
+
+	private static Widget createAnlegenForm(Bauteil bt) {
+		
+
 		
 		VerticalPanel vPanel = new VerticalPanel();
+		HorizontalPanel hPanel4= new HorizontalPanel();
 		HorizontalPanel hPanel1 = new HorizontalPanel();
 		HorizontalPanel hPanel2 = new HorizontalPanel();
 		HorizontalPanel hPanel3 = new HorizontalPanel();
 		
+		Label lblid1 = new Label("ID: ");
+		Label lblID2 = new Label();
+		lblID2.setText(Integer.toString(bt.getId()));
+		hPanel4.add(lblid1);
+		hPanel4.add(lblID2);
+		vPanel.add(hPanel4);
 		
 		Label lblname = new Label("Name: ");
 		hPanel1.add(lblname);
@@ -60,9 +105,9 @@ public class BauteilAnlegenForm {
 				
 				AdministrationCommonAsync administration = ClientsideSettings
 						.getAdministration();
-				
+				//bt.setName(txtname.getText());
 	
-				//administration.
+				//administration.updateBauteil(bt, updateBauteilCallback);
 			}
 		});
 		vPanel.add(btnAnlegen);
@@ -73,4 +118,25 @@ public class BauteilAnlegenForm {
 		return vPanel;
 
 	}
+	
+	private class createBauteilCallBack implements AsyncCallback<Bauteil> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Alert.load("Fehler bei der Erstellung", "red");
+		}
+
+		
+		@Override
+		public void onSuccess(Bauteil result) {
+			Alert.load("Enderzeugnis wurde erfolgreich angelegt", "green");
+			Bauteil bt = new Bauteil();
+			bt = result;
+			
+			BauteilAnlegenForm.createAnlegenForm(bt);
+			
+		}
+	}
+
+
 }
