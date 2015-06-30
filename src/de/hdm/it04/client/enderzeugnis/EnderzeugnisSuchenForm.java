@@ -44,7 +44,7 @@ public class EnderzeugnisSuchenForm {
 		
 		
 		
-		RootPanel.get("content").clear();
+		//RootPanel.get("content").clear();
 		RootPanel.get("content").add(hPanelSearch);
 
 		return hPanelSearch;
