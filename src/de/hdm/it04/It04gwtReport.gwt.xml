@@ -4,7 +4,7 @@
 <module rename-to='it04gwt'>
   <inherits name='com.google.gwt.user.User'/>
   <inherits name='com.google.gwt.user.theme.clean.Clean'/>
-  <entry-point class='de.hdm.it04.client.ReportGenerator'/>
+  <entry-point class='de.hdm.it04.client.report.ReportGenerator'/>
   <source path='client'/>
   <source path='shared'/>
   <add-linker name="xsiframe"/>
