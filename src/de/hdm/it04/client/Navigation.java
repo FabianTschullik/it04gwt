@@ -13,6 +13,7 @@ import de.hdm.it04.client.bauteil.BauteilAnlegenForm;
 import de.hdm.it04.client.bauteil.BauteilSuchenForm;
 import de.hdm.it04.client.enderzeugnis.EnderzeugnisAnlegenForm;
 import de.hdm.it04.client.enderzeugnis.EnderzeugnisSuchenForm;
+import de.hdm.it04.client.bauteil.BauteilMainForm;
 import de.hdm.it04.shared.AdministrationCommonAsync;
 import de.hdm.it04.shared.Enderzeugnis;
 
@@ -63,8 +64,9 @@ public class Navigation {
 
 		Command openSucheBauteil = new Command() {
 			public void execute() {
+				//RootPanel.get("content").;
 
-				BauteilSuchenForm.load();
+				
 
 			}
 
@@ -80,7 +82,7 @@ public class Navigation {
 
 		Command newBauteil = new Command() {
 			public void execute() {
-				BauteilAnlegenForm.load();
+				RootPanel.get("content").add(new BauteilAnlegenForm());
 			}
 		};
 
