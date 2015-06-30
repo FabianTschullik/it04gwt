@@ -3,10 +3,12 @@ package de.hdm.it04.client;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.LocaleInfo;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -27,12 +29,17 @@ public class DialogBoxEntree {
 		dialogBox.setGlassEnabled(true);
 		dialogBox.setAnimationEnabled(true);
 		
+		int left = Window.getClientWidth()/2;
+		int top = Window.getClientHeight()/2;
+		dialogBox.setPopupPosition(left, top);
+		
 		Button closeButton = new Button("Close");
 		closeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				dialogBox.hide();
 			}
 		});
+		
 		
 dialogBox.add(closeButton);
 		
@@ -42,9 +49,8 @@ dialogBox.add(closeButton);
 		
 		dialogContents.add(dialogBox);
 		
-		
 		// Kommentare Deaktivieren und mehr Inhalt einfügen über HTML
-		//dialogBox.show();
+		dialogBox.show();
 		
 		return dialogContents;
 	
