@@ -41,8 +41,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		this.maingui = new MainGUI(this);
 		this.bauteilgui = new BauteilGUI(this.maingui.getvPanelDetailsContent());
-		this.enderzeugnisgui = new EnderzeugnisGUI(this);
 		this.baugruppegui = new BaugruppeGUI(this.maingui.getvPanelDetailsContent());
+		this.enderzeugnisgui = new EnderzeugnisGUI(this.maingui.getvPanelDetailsContent());
 	}
 
 	/**
@@ -92,8 +92,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * @param ID als Integer
 	 * @return void
 	 */
-	public void getBauteil2(int id){
-		this.service.getBauteil(id, new GetBauteil2Callback());
+	public void getBauteilForUpdate(int id){
+		this.service.getBauteil(id, new GetBauteilForUpdateCallback());
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * @return void
 	 */
 	public void getAll() {
-		this.service.getAll(new GetAllCallback());
+		this.service.getAll(new GetBauteilCallback());
 	}
 	
 	/**
@@ -262,7 +262,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * eine Antwort erhält, war die Kommunikation mit der Datenbank erfolgreich
 	 * und kann weiter verarbeitet werden.
 	 */
-	public class GetBauteilCallback implements AsyncCallback {
+	public class GetBauteilCallback implements AsyncCallback<Vector<Bauteil>> {
 
 		// Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt
 		@Override
@@ -271,23 +271,20 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 
 		@Override
-		public void onSuccess(Object result) {
+		public void onSuccess(Vector result) {
 
-			if (result instanceof Bauteil) {
-				Bauteil bt = (Bauteil) result;
-				bauteilgui.getBauteil(bt);				
-			}
-			
 			if (result instanceof Vector) {
 				Vector<Bauteil> bauteile = new Vector<Bauteil>();
 				bauteile = (Vector<Bauteil>) result;
 				
-				bauteilgui.showAllBauteile(bauteile);
+				bauteilgui.getBauteil(bauteile);				
 			}
+			
+			
 		}
 	}
 	
-	public class GetBauteil2Callback implements AsyncCallback {
+	public class GetBauteilForUpdateCallback implements AsyncCallback<Vector<Bauteil>> {
 
 		// Fehlermeldung ausgeben, wenn keine RÜckmeldung kommt
 		@Override
@@ -296,23 +293,23 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 
 		@Override
-		public void onSuccess(Object result) {
+		public void onSuccess(Vector result) {
 
 			// Object result entählt, was vom server zurück kommt clientImpl
 			// updatet das GUI anschlie�end
 			System.out.println("R�ckmeldung vom Server erhalten");
 
-			if (result instanceof Bauteil) {
-				Bauteil bt = (Bauteil) result;
-				bauteilgui.updateBauteil2(bt);
-			}
-			
 			if (result instanceof Vector) {
 				Vector<Bauteil> bauteile = new Vector<Bauteil>();
 				bauteile = (Vector<Bauteil>) result;
+				Bauteil bt = new Bauteil();
+				bt = bauteile.elementAt(0);
+				bauteilgui.updateBauteil(bt);
 				
-				bauteilgui.showAllBauteile(bauteile);
+				
 			}
+			
+			
 		}
 	}
 	
@@ -377,6 +374,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	
 	
+
+	
+
 	
 /*-------------------------------------------------------------------------------------------*/
 /*------------------------------------------Baugruppe Callbacks--------------------------------*/
@@ -663,6 +663,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			Enderzeugnis ez = new Enderzeugnis();
 			
 				
+
 		}
 
 		@Override
@@ -672,7 +673,18 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				
 				Enderzeugnis ez = (Enderzeugnis) result;
 				
-				enderzeugnisgui.showInsertForm(ez);
+				//enderzeugnisgui.showInsertForm(ez);
+
+				 //maingui.showSucess();
+				//maingui.showBauteil(bauteile);
+			
+			}
+			
+			if (result instanceof Bauteil){
+				Bauteil bt = (Bauteil) result;
+				Vector<Bauteil> bauteile = new Vector<Bauteil>();
+				bauteile.addElement(bt);
+				bauteilgui.getBauteil(bauteile);
 			}
 			else {
 				

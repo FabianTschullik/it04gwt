@@ -46,12 +46,12 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * @param ID als Integer
 	 * @return Vektor mit Bauteil-Objekten
 	 */
-	public Bauteil getBauteil(int id) {
+	public Vector<Bauteil> getBauteil(int id) {
 
 		return BauteilMapper.bauteilMapper().findByKey(id);
 	}
 	
-	public Bauteil getBauteil2(int id) {
+	public Vector<Bauteil> getBauteilForUpdate(int id) {
 
 		return BauteilMapper.bauteilMapper().findByKey(id);
 	}
