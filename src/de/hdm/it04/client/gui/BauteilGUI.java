@@ -39,6 +39,7 @@ public class BauteilGUI extends MainGUI {
 	 */
 	
 	TextBox suchen = new TextBox();
+	TextBox textBoxSuchen = new TextBox();
 	
 	/**
 	 * TextBoxe, in denen Name, Materialbezeichnung und Beschreibung
@@ -192,29 +193,13 @@ public class BauteilGUI extends MainGUI {
 		
 		vPanel.add(topic);
 		
-		TextBox textBoxSuchen = new TextBox();
+		
 		HorizontalPanel hPanelSuche = new HorizontalPanel();
 		hPanelSuche.add(textBoxSuchen);
 		
 		Button btnSuchen = new Button("Suchen");
-		btnSuchen.addClickHandler(new ClickHandler() {
+		btnSuchen.addClickHandler(new BtnSuchenClickHandler()); 
 			
-			@Override
-			public void onClick(ClickEvent event) {
-				vPanel.clear();
-				String bgSuche = textBoxSuchen.getText();
-				
-				if (bgSuche.matches("[0-9]+")){
-					int id = Integer.parseInt(bgSuche);
-					//serviceImpl.get(id);
-				}
-				
-				else 
-				
-				serviceImpl.getBauteil(bgSuche);
-				
-			}
-		});
 		
 		hPanelSuche.add(btnSuchen);
 		
@@ -664,5 +649,27 @@ public void showSearchResult(Vector<Baugruppe> bg){
 		
 		}
 	}
-}
+	
+	
+	
+	public class BtnSuchenClickHandler implements ClickHandler {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				vPanel.clear();
+				String bgSuche = textBoxSuchen.getText();
+				
+				if (bgSuche.matches("[0-9]+")){
+					int id = Integer.parseInt(bgSuche);
+					//serviceImpl.get(id);
+				}
+				else 
+				serviceImpl.getBauteil(bgSuche);				
+			}
+	}
+
+				
+  }
+
+
 
