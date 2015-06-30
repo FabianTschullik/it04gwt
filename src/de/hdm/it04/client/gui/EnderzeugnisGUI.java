@@ -2,6 +2,7 @@ package de.hdm.it04.client.gui;
 
 import java.security.Timestamp;
 import java.util.Date;
+import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -10,15 +11,20 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ButtonBase;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.it04.client.gui.BauteilGUI.AnlegenBtnClickHandler;
+import de.hdm.it04.client.gui.BauteilGUI.BtnSuchenClickHandler;
 import de.hdm.it04.client.gui.BauteilGUI.ShowAllBtn1ClickHandler;
 import de.hdm.it04.client.gui.BauteilGUI.SpeichernBtnClickHandler;
 import de.hdm.it04.client.gui.BauteilGUI.SuchenBtnClickHandler;
@@ -30,8 +36,13 @@ public class EnderzeugnisGUI extends MainGUI{
 
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel hPanel = new HorizontalPanel();
+	Enderzeugnis ez = new Enderzeugnis();
+	//Vector<Bauteil> btV = new Vector<Bauteil>();
+	TextBox suchen = new TextBox();
+	TextBox name = new TextBox();
+	TextBox materialBezeichnung = new TextBox();
+	TextArea beschreibung = new TextArea();
 
-	
 	
 
 	public EnderzeugnisGUI(VerticalPanel vPanel){	
@@ -44,7 +55,7 @@ public void menue(){
 		/**
 		 * neuer HTML Bereich
 		 */
-		HTML topic = new HTML("<h2>Was wollen Sie mit dem Bauteil tun?</h2>");
+		HTML topic = new HTML("<h2>Was wollen Sie mit dem Enderzeugnis tun?</h2>");
 		
 		/**
 		 * vPanel wird dem HTML Bereich zugeordnet
@@ -55,7 +66,7 @@ public void menue(){
 		this.vPanel.add(topic);
 		
 		/**
-		 * Men� Buttons um weiter Aktivit�ten f�r Bauteil zu w�hlen
+		 * Men� Buttons um weiter Aktivitäten f�r Bauteil zu w�hlen
 		 */
 		
 		Button AnlegenBtn = new Button("Anlegen");
@@ -69,7 +80,7 @@ public void menue(){
 		this.hPanel.add(suchen);
 		
 		Button SuchenBtn = new Button("Bauteil suchen");
-		SuchenBtn.addClickHandler(new SuchenBtnClickHandler());
+		SuchenBtn.addClickHandler(new BtnSuchenClickHandler());
 		this.hPanel.add(SuchenBtn);	
 		
 		Button ShowAllBtn1 = new Button("Alle Bauteile anzeigen");
@@ -81,6 +92,50 @@ public void menue(){
 		RootPanel.get("content").add(this.vPanel);
 		
 	}
+
+
+public void showAnlegenForm(Enderzeugnis enderzeugnis){
+	
+	this.ez = enderzeugnis;
+	
+	
+	// Create a table to layout the form options
+    FlexTable layout = new FlexTable();
+    layout.setCellSpacing(6);
+    FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
+
+    // Add a title to the form
+    layout.setHTML(0, 0, "Enderzeugnis anlegen");
+    cellFormatter.setColSpan(0, 0, 2);
+    cellFormatter.setHorizontalAlignment(
+        0, 0, HasHorizontalAlignment.ALIGN_CENTER);
+
+    Button btnSuchen = new Button("Suchen");
+	btnSuchen.addClickHandler(new BtnSuchenClickHandler());
+	
+	Button Speichernbtn = new Button("speichern");
+	Speichernbtn.addClickHandler(new SpeichernBtnClickHandler());
+    
+	
+    // Add some standard form options
+    layout.setHTML(1, 0, "ID");
+    layout.setText(1, 1, Integer.toString(ez.getId()));
+    layout.setHTML(2, 0, "Name");
+    layout.setWidget(2, 1, name);
+    layout.setHTML(3, 0, "Beschreibung");
+    layout.setWidget(3, 1, beschreibung);
+    layout.setHTML(4, 0, "Baugruppe zuordnen");
+    layout.setWidget(4, 1, suchen);
+    layout.setWidget(4, 2, btnSuchen);
+    layout.setWidget(5, 0, Speichernbtn);
+    
+
+    // Wrap the content in a DecoratorPanel
+    DecoratorPanel decPanel = new DecoratorPanel();
+    decPanel.setWidget(layout);
+    
+    this.vPanel.add(decPanel);
+}
 
 
 public void updateEnderzeugnis(Enderzeugnis ez){
@@ -144,8 +199,6 @@ public void updateEnderzeugnis(Enderzeugnis ez){
 			public void onClick(ClickEvent event) {
 				vPanel.clear();
 				serviceImpl.createEnderzeugnis();
-			
-					
 			}
 		}
 		
@@ -228,7 +281,7 @@ public void updateEnderzeugnis(Enderzeugnis ez){
 		 *Dann wird die Methode getBauteile oder findBauteilByName in der Klasse ClientImpl aufgerufen
 		 */
 		
-		public class SuchenBtnClickHandler implements ClickHandler {
+		public class BtnSuchenClickHandler implements ClickHandler {
 
 			@Override
 			public void onClick(ClickEvent event) {

@@ -664,24 +664,15 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		@Override
 		public void onFailure(Throwable caught) {
 			
-			Enderzeugnis ez = new Enderzeugnis();
-			
-				
-
 		}
 
 		@Override
 		public void onSuccess(Object result) { 
 			if (result instanceof Enderzeugnis) {
 				
-				
 				Enderzeugnis ez = (Enderzeugnis) result;
 				
-				//enderzeugnisgui.showInsertForm(ez);
-
-				 //maingui.showSucess();
-				//maingui.showBauteil(bauteile);
-			
+				enderzeugnisgui.showAnlegenForm(ez);			
 			}
 			
 			if (result instanceof Bauteil){
