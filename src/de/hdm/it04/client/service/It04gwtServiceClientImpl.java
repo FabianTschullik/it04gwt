@@ -339,7 +339,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Vector<Bauteil> bauteile = new Vector<Bauteil>();
 				bauteile = (Vector<Bauteil>) result;
 
-				maingui.showAllBauteile(bauteile);
+				bauteilgui.showAllBauteile(bauteile);
 			}
 		}
 	}
@@ -620,6 +620,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	@Override
 	public void onSuccess(Object result) {
+		
+		enderzeugnisgui.menue();
+		//alertgui.load(text, color);
 
 	}
 		
@@ -647,13 +650,20 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
+			alertgui.load("Fehler", "red");
 			
 		}
 
 		@Override
 		public void onSuccess(Vector<Enderzeugnis> result) {
-			// TODO Auto-generated method stub
+			
+				// Object result entählt, was vom server zurück kommt clientImpl
+				// updatet das GUI anschließend
+				Vector<Enderzeugnis> enderzeugnisse = new Vector<Enderzeugnis>();
+				enderzeugnisse = (Vector<Enderzeugnis>) result;
+
+				enderzeugnisgui.showAllEnderzeugnisse(enderzeugnisse);
+						
 			
 		}
 		
@@ -696,6 +706,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 	}
 	
+	
+	
+	
 	private class UpdateEnderzeugnisCallback implements AsyncCallback<Vector<Enderzeugnis>> {
 
 		@Override
@@ -715,8 +728,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	}
 
 
-	
-	
+
 
 	
 }

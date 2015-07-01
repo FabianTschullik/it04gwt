@@ -155,8 +155,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Vector<Enderzeugnis> getAllEnderzeugnisse() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return EnderzeugnisMapper.enderzeugnisMapper().findAll();	
 	}
 
 

@@ -187,6 +187,43 @@ public class EnderzeugnisMapper {
 		return ez;
 	}
 	
+	
+	public Vector<Enderzeugnis> findAll(){
+		Connection con = DbConnection.connection();
+
+		// Ergebnisvektor vorbereiten
+		Vector<Enderzeugnis> result = new Vector<Enderzeugnis>();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT id, name, preis, baugruppe, erstellungsDatum, aenderungsDatum, beschreibung FROM enderzeugnis "
+							+ " ORDER BY id");
+
+			// Für jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt
+			// erstellt.
+			while (rs.next()) {
+				Enderzeugnis ez = new Enderzeugnis();
+				ez.setId(rs.getInt("id"));
+				ez.setName(rs.getString("name"));
+				ez.setPreis(Double.parseDouble(rs.getString("preis")));
+				ez.setBaugruppe(rs.getInt("baugruppe"));
+				ez.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+				ez.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+				ez.setBeschreibung(rs.getString("beschreibung"));
+
+				// Hinzufügen des neuen Objekts zum Ergebnisvektor
+				result.addElement(ez);
+			}
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+
+		// Ergebnisvektor zurückgeben
+		return result;
+	}
+	
 	public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {
 
 		Connection con = DbConnection.connection();

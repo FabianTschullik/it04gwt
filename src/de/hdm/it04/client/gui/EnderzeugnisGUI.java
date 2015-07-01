@@ -43,6 +43,8 @@ public class EnderzeugnisGUI extends MainGUI{
 	}
 	
 public void menue(){
+	
+		this.hPanel.clear();
 		
 		/**
 		 * neuer HTML Bereich
@@ -64,11 +66,11 @@ public void menue(){
 		txtSuchen.setText("id oder Name");
 		this.hPanel.add(txtSuchen);
 		
-		Button btnSuchen = new Button("Bauteil suchen");
+		Button btnSuchen = new Button("Enderzeugnis suchen");
 		btnSuchen.addClickHandler(new BtnSuchenClickHandler());
 		this.hPanel.add(btnSuchen);	
 		
-		Button btnShowAll = new Button("Alle Bauteile anzeigen");
+		Button btnShowAll = new Button("Alle Enderzeugnisse anzeigen");
 		btnShowAll.addClickHandler(new BtnShowAllClickHandler());
 		this.hPanel.add(btnShowAll);	
 		
@@ -209,7 +211,92 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 
 
 
+public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
+	
+	/**
+	 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
+	 */
+	FlexTable bauteileTable = new FlexTable();
+	bauteileTable.setText(0,0,"ID");
+	bauteileTable.setText(0,1,"Name");
+	bauteileTable.setText(0,2,"Beschreibung");
+	bauteileTable.setText(0,3,"Preis");	
+	bauteileTable.setText(0,4,"Erstellt am");
+	bauteileTable.setText(0,5,"Zuletzt geaendert am");
+	bauteileTable.setText(0,6,"letzter Bearbeiter");
+	//bauteileTable.setText(0,7,"Edit");
+	//bauteileTable.setText(0,8,"Delete");
+	
+	/**
+	 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
+	 */
+	for(int j=0; j < enderzeugnisse.size(); j++ ){
+		
+		/**
+		 * Button, um Bauteil innerhalb der Tabelle zu löschen
+		 */
+		//Button btnDelete = new Button("X");
+		//btnDelete.addClickHandler(new DeleteClickHandler());
+		//this.vPanelCreate.add(btnDelete);
+		
+		
+		/**
+		 * Button, um Editieren des Bauteils innerhalb der Tabelle aufzurufen
+		 */
+		//Button editBtn = new Button("Editieren");
+		//editBtn.addClickHandler(new EditClickHandler());
+		//this.vPanelCreate.add(editBtn);
+		
+		
+		/**
+		 * Formatiert Timestamp zu String
+		 */
+		/*Date d1 = new Date();
+		d1 = bauteile.elementAt(j).getErstellungsDatum();
+		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
+		
+		
+		/**
+		 * Formatiert Timestamp zu String
+		 */
+		/*Date d2 = new Date();
+		d2 = bauteile.elementAt(j).getAenderungsDatum();
+		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
+		
+	
+		/**
+		 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
+		 */
+		bauteileTable.setText(j+1, 0, Integer.toString(enderzeugnisse.elementAt(j).getId()));
+		bauteileTable.setText(j+1, 1, enderzeugnisse.elementAt(j).getName());
+		bauteileTable.setText(j+1, 2, enderzeugnisse.elementAt(j).getBeschreibung());
+		bauteileTable.setText(j+1, 3, Double.toString(enderzeugnisse.elementAt(j).getPreis()));
+		//bauteileTable.setText(j+1, 4, s1);
+		//bauteileTable.setText(j+1, 5, s2);
 
+		
+		/**
+		 * Einfuegen der Buttons in die Tabelle
+		 */
+		//bauteileTable.setWidget(j+1, 8, btnDelete);
+		//bauteileTable.setWidget(j+1, 7, editBtn);
+		
+		
+		/**
+		 * Verknuepfung zu style.css
+		 */
+		bauteileTable.setCellPadding(6);
+		bauteileTable.getRowFormatter().addStyleName(0,  "watchListHeader");
+		bauteileTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+		bauteileTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+	}	
+	
+	/**
+	 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
+	 */
+	this.vPanel.add(bauteileTable);
+	
+}
 	
 	
 	public void showSuccess(Enderzeugnis ez) {
@@ -313,11 +400,8 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 
 			@Override
 			public void onClick(ClickEvent event) {
-				
-				
-				
-				
-					
+				vPanel.clear();
+				serviceImpl.getAllEnderzeugnisse();	
 			}
 		}
 		
