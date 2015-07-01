@@ -146,7 +146,7 @@ public void showAnlegenForm(Enderzeugnis enderzeugnis){
 public ListBox createMultiBox(){
 	
 	
-	// Add a drop box with the list types
+	// Add a drop box with the list types jip
     final ListBox dropBox = new ListBox(false);
     
     Vector<String> test = new Vector<String>();
