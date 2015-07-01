@@ -504,8 +504,20 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			// updatet das GUI anschließend
 			Vector<Baugruppe> baugruppe = new Vector<Baugruppe>();
 			baugruppe = (Vector<Baugruppe>) result;
+			
+			 enderzeugnisgui.baugruppen = baugruppe;
 
-			baugruppegui.showAllBaugruppen(baugruppe);
+			if(enderzeugnisgui.status == 0){
+				baugruppegui.showAllBaugruppen(baugruppe);
+			}
+			
+			
+			if(enderzeugnisgui.status == 1){
+				enderzeugnisgui.status = 0;
+				enderzeugnisgui.showAnlegenForm(enderzeugnisgui.ez);
+			}
+			
+			
 					
 		
 	}
@@ -714,7 +726,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				//EZ im Vektor befinden. Das Element wird gespeichert.
 				Enderzeugnis ez = result.firstElement();
 				
-				enderzeugnisgui.showEnderzeugnisForm(ez);
+				
+				
+				enderzeugnisgui.zwischenmethodeZuordnung(ez);
+				//enderzeugnisgui.showEnderzeugnisForm(ez);
 		}
 	}
 

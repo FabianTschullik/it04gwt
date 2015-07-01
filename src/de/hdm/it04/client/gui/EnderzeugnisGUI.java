@@ -6,9 +6,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
+import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -30,10 +32,10 @@ public class EnderzeugnisGUI extends MainGUI{
 	private TextArea txtBeschreibung = new TextArea();
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel hPanel = new HorizontalPanel();
+	public Vector <Baugruppe> baugruppen = new Vector<Baugruppe>();
 	public Enderzeugnis ez;
-	
-	
-
+	public int status = 1;
+	FlexTable baugruppeTable = new FlexTable();
 	
 
 
@@ -81,12 +83,20 @@ public void menue(){
 
 
 
+
 //----------------------------------------------------------------------------
 //----------------------- Form zum Anlegen eines EZ --------------------------
 //----------------------------------------------------------------------------
 public void showAnlegenForm(Enderzeugnis enderzeugnis){
 	
+
 	
+	if(this.status == 1){
+		serviceImpl.getAllBaugruppen();
+	}
+	
+	
+	this.vPanel.clear();
 	this.ez = enderzeugnis;
 	txtName.setText(ez.getName());
 	txtBeschreibung.setText(ez.getBeschreibung());
@@ -127,7 +137,7 @@ public void showAnlegenForm(Enderzeugnis enderzeugnis){
     layout.setHTML(4, 0, "Preis");
     layout.setWidget(4, 1, txtPreis);
     layout.setHTML(5, 0, "Baugruppe zuordnen");
-    //layout.setWidget(5, 1, createMultiBox());
+    layout.setWidget(5, 1, createMultiBox());
     //layout.setWidget(5, 2, btnSuchen);
     layout.setWidget(6, 0, btnSpeichern);
     layout.setWidget(6, 1, btnAbbrechen);
@@ -144,27 +154,114 @@ public void showAnlegenForm(Enderzeugnis enderzeugnis){
 //----------------------------------------------------------------------------
 
 
-
 public ListBox createMultiBox(){
 	
 	
 	// Add a drop box with the list types jip
     final ListBox dropBox = new ListBox(false);
     
-    Vector<String> test = new Vector<String>();
-    test.addElement("Bla");
-    test.addElement("Blubb");
     
-    
-    for (int i = 0; i < test.size(); i++) {
-      dropBox.addItem(test.elementAt(i));
+    for (int i = 0; i < baugruppen.size(); i++) {
+      dropBox.addItem(baugruppen.elementAt(i).getName());
     }
     
     dropBox.ensureDebugId("cwListBox-dropBox");
     
+    this.status = 1;
     
     return dropBox;
 }
+
+
+
+
+public void zwischenmethodeZuordnung (Enderzeugnis enderzeugnis){
+	
+	this.ez = enderzeugnis;
+	this.status = 1;
+	
+	serviceImpl.getAllBaugruppen();
+	
+	
+}
+
+
+public void showZuordnungsForm (Vector <Baugruppe> baugruppe){
+	
+	
+	this.status = 0;
+	/**
+	 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
+	 */
+	
+	
+	
+	baugruppeTable.setText(0,0,"ID");
+	baugruppeTable.setText(0,1,"Name");
+	baugruppeTable.setText(0,2,"Beschreibung");
+	baugruppeTable.setText(0,3,"Erstellt am");
+	baugruppeTable.setText(0,4,"Zuletzt geaendert am");
+	baugruppeTable.setText(0,5,"letzter Bearbeiter");
+	baugruppeTable.setText(0,6,"Zuordnen");
+	//bauteileTable.setText(0,7,"Delete");
+	
+	/**
+	 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
+	 */
+	for(int j=0; j < baugruppe.size(); j++ ){
+		
+		Button btnZuordnen = new Button("Zuordnen");
+		btnZuordnen.addClickHandler(new BtnZuordnenClickHandler());
+		
+
+		
+		
+		/**
+		 * Formatiert Timestamp zu String
+		 */
+		/*Date d1 = new Date();
+		d1 = bauteile.elementAt(j).getErstellungsDatum();
+		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
+		
+		
+		/**
+		 * Formatiert Timestamp zu String
+		 */
+		/*Date d2 = new Date();
+		d2 = bauteile.elementAt(j).getAenderungsDatum();
+		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
+		
+	
+		/**
+		 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
+		 */
+		baugruppeTable.setText(j+1, 0, Integer.toString(baugruppe.elementAt(j).getId()));
+		baugruppeTable.setText(j+1, 1, baugruppe.elementAt(j).getName());
+		baugruppeTable.setText(j+1, 2, baugruppe.elementAt(j).getBeschreibung());
+		//bauteileTable.setText(j+1, 3, s1);
+		//bauteileTable.setText(j+1, 4, s2);
+
+		baugruppeTable.setWidget(j+1, 6, btnZuordnen);
+		
+		
+		/**
+		 * Verknuepfung zu style.css
+		 */
+		baugruppeTable.setCellPadding(6);
+		baugruppeTable.getRowFormatter().addStyleName(0,  "watchListHeader");
+		baugruppeTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+		baugruppeTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+	}	
+	
+	/**
+	 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
+	 */
+	this.vPanel.add(baugruppeTable);
+	
+	
+}
+
+
 
 public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 	
@@ -208,6 +305,9 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 		flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
 		this.vPanel.add(flex);
 }
+
+
+
 
 
 
@@ -340,7 +440,24 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 		}
 		
 		
-		
+		public class BtnZuordnenClickHandler implements ClickHandler {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				vPanel.clear();
+				
+				Cell cell = baugruppeTable.getCellForEvent(event);
+				
+				int rowIndex = cell.getRowIndex();
+				String id1 = baugruppeTable.getText(rowIndex, 0);
+				int id = Integer.parseInt(id1);
+				ez.setBaugruppe(id);
+				serviceImpl.updateEnderzeugnis(ez);
+				serviceImpl.deleteBauteil(id);
+				
+			}
+		}
 		
 		
 		public class BtnAbbrechenClickHandler implements ClickHandler {
