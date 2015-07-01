@@ -499,18 +499,18 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onSuccess(Vector<Baugruppe> result) {
+			
+			// Object result entählt, was vom server zurück kommt clientImpl
+			// updatet das GUI anschließend
+			Vector<Baugruppe> baugruppe = new Vector<Baugruppe>();
+			baugruppe = (Vector<Baugruppe>) result;
 
-			if (result instanceof Vector) {
-				Vector<Baugruppe> baugruppe = new Vector<Baugruppe>();
-				baugruppe = (Vector<Baugruppe>) result;
-				maingui.listeBaugruppen = baugruppe;
-				
-				
-				
-				
-			}
-		}
+			baugruppegui.showAllBaugruppen(baugruppe);
+					
+		
 	}
+		}
+	
 	
 
 	private class DeleteBaugruppeCallback implements AsyncCallback{
