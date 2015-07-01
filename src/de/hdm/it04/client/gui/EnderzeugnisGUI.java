@@ -57,7 +57,7 @@ public void menue(){
 		this.vPanel.add(topic);
 		
 		/**
-		 * Men� Buttons um weiter Aktivitäten f�r Bauteil zu w�hlen
+		 * Menü Buttons um weiter Aktivitäten für Bauteil zu wählen
 		 */
 		
 		Button btnAnlegen = new Button("Anlegen");
