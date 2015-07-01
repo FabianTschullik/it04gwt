@@ -74,9 +74,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	 * @param Bauteil, welches ge�ndert wird
 	 * @return void
 	 */	
-	//public void update(Bauteil bt) {
-		//this.service.update(bt, new UpdateCallback());
-	//}
+	public void updateBauteil(Bauteil bt) {
+		this.service.updateBauteil(bt, new GetBauteilCallback());
+	}
 	
 	/**
 	 * Diese Methode wird benoetigt, um ein Bauteil mit einer bestimmten ID zu
@@ -355,7 +355,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			//maingui.showError();
+			bauteilgui.menue();
 		}
 
 		@Override
@@ -364,11 +364,12 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			System.out.println("Rückmeldung vom Server erhalten");
 			
 			if (result instanceof String) {
-				 String delete = result.toString();
+				String meldung = (String) result;
+				 bauteilgui.showMeldung(meldung);
 			
 			}
 			else {
-				//maingui.showError();
+				bauteilgui.menue();
 			}
 		}
 	}
@@ -719,12 +720,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 	}
 
-	@Override
-	public void update(Bauteil bt) {
-		// TODO Auto-generated method stub
-		
-	}
 
+	
 	
 
 	

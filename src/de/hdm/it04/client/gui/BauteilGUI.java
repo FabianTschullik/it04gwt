@@ -5,6 +5,7 @@ package de.hdm.it04.client.gui;
 
 
 
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -12,6 +13,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
@@ -33,6 +35,7 @@ public class BauteilGUI extends MainGUI {
 	
 	Bauteil bt = new Bauteil();
 	Vector<Bauteil> btV = new Vector<Bauteil>();
+	FlexTable bauteileTable = new FlexTable();
 	
 	/**
 	 * TextBox zum Suchen von Bauteilen
@@ -72,6 +75,11 @@ public class BauteilGUI extends MainGUI {
 	 */
 	
 	public void menue(){
+		
+		btV = null;
+		bt= null;
+		bauteileTable.removeAllRows();
+		
 		
 		/**
 		 * neuer HTML Bereich
@@ -240,10 +248,9 @@ public void getBauteil(Vector<Bauteil> bauteile){
 	 * ID wird lokal gepseichert, 
 	 * falls das Objekt ge�ndert werden soll
 	 */
-			
+		bauteileTable.removeAllRows();
 		this.btV= bauteile;	
 		
-		FlexTable bauteileTable = new FlexTable();
 		bauteileTable.setText(0,0,"ID");
 		bauteileTable.setText(0,1,"Name");
 		bauteileTable.setText(0,2,"Beschreibung");
@@ -262,8 +269,8 @@ public void getBauteil(Vector<Bauteil> bauteile){
 			/**
 			 * Button, um Bauteil innerhalb der Tabelle zu löschen
 			 */
-			Button loeschenbtn = new Button("X");
-			loeschenbtn.addClickHandler(new LoeschenBtnClickHandler());
+			Button loeschenBtn = new Button("X");
+			loeschenBtn.addClickHandler(new LoeschenBtnClickHandler());
 			//this.vPanelCreate.add(btnDelete);
 			
 			
@@ -305,8 +312,8 @@ public void getBauteil(Vector<Bauteil> bauteile){
 			/**
 			 * Einfuegen der Buttons in die Tabelle
 			 */
-			//bauteileTable.setWidget(j+1, 8, btnDelete);
-			//bauteileTable.setWidget(j+1, 7, editBtn);
+			bauteileTable.setWidget(j+1, 8, loeschenBtn );
+			bauteileTable.setWidget(j+1, 7, aendernBtn);
 			
 			
 			/**
@@ -483,6 +490,12 @@ public void showSearchResult(Vector<Baugruppe> bg){
 	
 }
 
+public void showMeldung (String meldung){
+	
+	Label lbl1 = new Label(meldung);
+	vPanel.add(lbl1);
+}
+
 
 
 
@@ -547,7 +560,7 @@ public void showSearchResult(Vector<Baugruppe> bg){
 			/**
 			 * Das Objekt wird an die ClientImpl weiter gegeben
 			 */
-			serviceImpl.update(bt);
+			serviceImpl.updateBauteil(bt);
 			
 			bt = null;
 			
@@ -567,8 +580,13 @@ public void showSearchResult(Vector<Baugruppe> bg){
 		@Override
 		public void onClick(ClickEvent event) {
 			
-			vPanel.clear();
-			int id = bt.getId();
+vPanel.clear();
+			
+			Cell cell = bauteileTable.getCellForEvent(event);
+			
+			int rowIndex = cell.getRowIndex();
+			String id1 = bauteileTable.getText(rowIndex, 0);
+			int id = Integer.parseInt(id1);
 			serviceImpl.getBauteilForUpdate(id);
 			
 			
@@ -593,9 +611,11 @@ public void showSearchResult(Vector<Baugruppe> bg){
 			
 			vPanel.clear();
 			
-			Bauteil bt = new Bauteil();
+			Cell cell = bauteileTable.getCellForEvent(event);
 			
-			int id = bt.getId();
+			int rowIndex = cell.getRowIndex();
+			String id1 = bauteileTable.getText(rowIndex, 0);
+			int id = Integer.parseInt(id1);
 			serviceImpl.deleteBauteil(id);
 			
 			

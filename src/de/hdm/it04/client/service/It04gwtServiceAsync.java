@@ -21,7 +21,7 @@ public interface It04gwtServiceAsync {
 		void getBauteilForUpdate(int id, AsyncCallback<Vector<Bauteil>> callback);
 		void getBauteil (String name, AsyncCallback<Vector<Bauteil>> callback);
 		void getAll(AsyncCallback<Vector<Bauteil>> callback);
-		void update(Bauteil bt, AsyncCallback callback);
+		void updateBauteil(Bauteil bt, AsyncCallback<Vector<Bauteil>> callback);
 		void deleteBauteil(int id,AsyncCallback callback);
 		//------------------------------------------------------
 		//-------------Ende Bauteil-----------------------------

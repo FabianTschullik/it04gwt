@@ -88,7 +88,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * @param Ein Objekt vom Typ Bauteil
 	 * @return Objekt vom Typ Bauteil
 	 */
-	public Bauteil update(Bauteil bt) {
+	public Vector<Bauteil> updateBauteil(Bauteil bt) {
 
 		return BauteilMapper.bauteilMapper().update(bt);
 	}
