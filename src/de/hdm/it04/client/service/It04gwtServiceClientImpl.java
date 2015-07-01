@@ -457,17 +457,13 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 
 		@Override
-		public void onSuccess(Object result) {
-
-			System.out.println("Rueckmeldung vom Server erhalten");
-			if (result instanceof Baugruppe){
+		public void onSuccess(Object result) { 
+			if (result instanceof Baugruppe) {
 				
-			Baugruppe bg = new Baugruppe();
-			
-			bg = (Baugruppe) result;
-			
-			baugruppegui.updateBaugruppe(bg);	
-		}
+				Baugruppe bg = (Baugruppe) result;
+				
+				baugruppegui.showAnlegenForm(bg);			
+			}
 		else {
 			//maingui.showError();
 		}				
@@ -493,7 +489,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			
 			bg = (Baugruppe) result;
 			
-			baugruppegui.updateBaugruppe(bg);	
+			//baugruppegui.updateBaugruppe(bg);	
 		}
 		else {
 			//maingui.showError();
@@ -538,6 +534,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			if (result instanceof String){
 				
 			String meldung = (String) result;
+			baugruppegui.menue();
+			alertgui.load(meldung, "green");
 		}
 		else {
 			//maingui.showError();

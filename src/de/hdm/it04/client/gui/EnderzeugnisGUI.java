@@ -125,7 +125,7 @@ public void showAnlegenForm(Enderzeugnis enderzeugnis){
     layout.setHTML(4, 0, "Preis");
     layout.setWidget(4, 1, txtPreis);
     layout.setHTML(5, 0, "Baugruppe zuordnen");
-    layout.setWidget(5, 1, createMultiBox());
+    //layout.setWidget(5, 1, createMultiBox());
     //layout.setWidget(5, 2, btnSuchen);
     layout.setWidget(6, 0, btnSpeichern);
     layout.setWidget(6, 1, btnAbbrechen);
@@ -190,7 +190,7 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 		flex.setText(1, 0, Integer.toString(ez.getId()));
 		flex.setText(1, 1, ez.getName());
 		flex.setText(1, 2, ez.getBeschreibung());
-		flex.setText(1, 3, Double.toString(ez.getPreis()));
+		//flex.setText(1, 3, Double.toString(ez.getPreis()));
 		flex.setText(1, 4, "erstellt am");
 		flex.setText(1, 5, "geändert am");
 		flex.setWidget(1, 6, btnBearbeiten);
