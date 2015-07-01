@@ -13,7 +13,10 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HTMLTable.Cell;
+import com.google.gwt.user.client.ui.DecoratorPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
@@ -24,6 +27,9 @@ import com.google.gwt.user.client.ui.Widget;
 import java.util.Date;
 import java.util.Vector;
 
+import de.hdm.it04.client.gui.BaugruppeGUI.BtnAbbrechenClickHandler;
+import de.hdm.it04.client.gui.BaugruppeGUI.BtnSpeichernClickHandler;
+import de.hdm.it04.client.gui.BaugruppeGUI.BtnSuchenClickHandler;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 
@@ -126,96 +132,79 @@ public class BauteilGUI extends MainGUI {
 	public void updateBauteil(Bauteil bauteil){
 		
 		this.bt = bauteil;
+			
 		
+		// Create a table to layout the form options
+	  FlexTable layout = new FlexTable();
+	  layout.setCellSpacing(6);
+	  FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
+	  
+	  Button btnSpeichern = new Button("Speichern");
+		btnSpeichern.addClickHandler(new SpeichernBtnClickHandler());
 		
+		//Button btnAbbrechen = new Button("Abbrechen");
+		//btnAbbrechen.addClickHandler(new BtnAbbrechenClickHandler());
+		
+	  
+	  if (bauteil.getName() == null){
 
-		HorizontalPanel hPanel4= new HorizontalPanel();
-		HorizontalPanel hPanel1 = new HorizontalPanel();
-		HorizontalPanel hPanel2 = new HorizontalPanel();
-		HorizontalPanel hPanel3 = new HorizontalPanel();
-		
-		Label lblid1 = new Label("ID: ");
-		Label lblID2 = new Label();
-		lblID2.setText(Integer.toString(bt.getId()));
-		hPanel4.add(lblid1);
-		hPanel4.add(lblID2);
-		this.vPanel.add(hPanel4);
-		
-		if (bauteil.getName() == null){
-		
-		
-		
-		Label lblname = new Label("Name: ");
-		hPanel1.add(lblname);
-		
-		hPanel1.add(name);
-		this.vPanel.add(hPanel1);
-		
-		
-		Label lblMaterialBezeichnung = new Label("Materialbezeichnung: ");
-		hPanel2.add(lblMaterialBezeichnung);
-		
-		hPanel2.add(materialBezeichnung);;
-		this.vPanel.add(hPanel2);
-		
-		
-		Label lblBeschreibung = new Label("Beschreibung: ");
-		hPanel3.add(lblBeschreibung);
-		
-		hPanel3.add(beschreibung);
-		this.vPanel.add(hPanel3);
-		
-		}
-		
-		else{
-			
-			Label lblname = new Label("Name: ");
-			hPanel1.add(lblname);
-			name.setText(bt.getName());
-			hPanel1.add(name);
-			this.vPanel.add(hPanel1);
-			
-			
-			Label lblMaterialBezeichnung = new Label("Materialbezeichnung: ");
-			hPanel2.add(lblMaterialBezeichnung);
-			materialBezeichnung.setText(bt.getMaterialBezeichnung());
-			hPanel2.add(materialBezeichnung);
-			this.vPanel.add(hPanel2);
-			
-			
-			Label lblBeschreibung = new Label("Beschreibung: ");
-			hPanel3.add(lblBeschreibung);
-			beschreibung.setText(bt.getBeschreibung());
-			hPanel3.add(beschreibung);
-			this.vPanel.add(hPanel3);
-			
-		}
-		
-		Button Speichernbtn = new Button("speichern");
-		Speichernbtn.addClickHandler(new SpeichernBtnClickHandler());
-		
-		this.vPanel.add(Speichernbtn);
-		
-		
-		HTML topic = new HTML("<h3>Suchen Sie nach einem Bauteil, um es einer Baugruppe zuzuordnen.</h3> <br>");
-		
-		vPanel.add(topic);
-		
-		
-		HorizontalPanel hPanelSuche = new HorizontalPanel();
-		hPanelSuche.add(textBoxSuchen);
-		
-		Button btnSuchen = new Button("Suchen");
-		btnSuchen.addClickHandler(new BtnSuchenClickHandler()); 
+	  // Add a title to the form
+	  layout.setHTML(0, 0, "<h3>Bauteil anlegen<h3>");
+	  cellFormatter.setColSpan(0, 0, 2);
+	  cellFormatter.setHorizontalAlignment(
+	      0, 0, HasHorizontalAlignment.ALIGN_CENTER);
 			
 		
-		hPanelSuche.add(btnSuchen);
-		
-		vPanel.add(hPanelSuche);
-		
-		
-				
-				
+	  // Add some standard form options
+	  layout.setHTML(1, 0, "ID");
+	  layout.setText(1, 1, Integer.toString(bt.getId()));
+	  layout.setHTML(2, 0, "Name");
+	  layout.setWidget(2, 1, name);
+	  layout.setHTML(3, 0, "Beschreibung");
+	  layout.setWidget(3, 1, beschreibung);
+	  layout.setHTML(4, 0, "Materialbezeichnung");
+	  layout.setWidget(4, 1, materialBezeichnung);
+	  //layout.setWidget(4, 2, btnSuchen);
+	  layout.setWidget(5, 0, btnSpeichern);
+	 // layout.setWidget(5, 1, btnAbbrechen);
+	  
+	  
+	  }
+	  else{
+		  // Add a title to the form
+		  layout.setHTML(0, 0, "<h3>Bauteil ändern<h3>");
+		  cellFormatter.setColSpan(0, 0, 2);
+		  cellFormatter.setHorizontalAlignment(
+		      0, 0, HasHorizontalAlignment.ALIGN_CENTER);
+		  name.setText(bt.getName());
+		  beschreibung.setText(bt.getBeschreibung());
+		  materialBezeichnung.setText(bt.getMaterialBezeichnung());
+			
+		  // Add some standard form options
+		  layout.setHTML(1, 0, "ID");
+		  layout.setText(1, 1, Integer.toString(bt.getId()));
+		  layout.setHTML(2, 0, "Name");
+		  layout.setWidget(2, 1, name);
+		  layout.setHTML(3, 0, "Beschreibung");
+		  layout.setWidget(3, 1, beschreibung);
+		  layout.setHTML(4, 0, "MaterialBezeichnung");
+		  layout.setWidget(4, 1, materialBezeichnung);
+		  //layout.setWidget(4, 2, btnSuchen);
+		  layout.setWidget(5, 0, btnSpeichern);
+		 // layout.setWidget(5, 1, btnAbbrechen);
+		  
+	  }
+	  
+	  
+	  
+	  
+	  
+
+	  // Wrap the content in a DecoratorPanel
+	  DecoratorPanel decPanel = new DecoratorPanel();
+	  decPanel.setWidget(layout);
+	  
+	  this.vPanel.add(decPanel);
 
 			}
 		
