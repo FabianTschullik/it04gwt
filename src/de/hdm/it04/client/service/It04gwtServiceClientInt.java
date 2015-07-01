@@ -57,7 +57,7 @@ public interface It04gwtServiceClientInt {
 	 * @param Ein Objekt vom Typ Bauteil
 	 * @return void
 	 */
-	void update(Bauteil bt);
+	void updateBauteil(Bauteil bt);
 	
 	
 	/**

@@ -295,9 +295,10 @@ public class BauteilMapper {
 	 *            das Objekt, das in die DB geschrieben werden soll
 	 * @return das als Parameter übergebene Objekt
 	 */
-	public Bauteil update(Bauteil bt) {
+	public Vector<Bauteil> update(Bauteil bt) {
 
 		Connection con = DbConnection.connection();
+		Vector<Bauteil> result = new Vector<Bauteil>();
 
 		try {
 			Statement stmt = con.createStatement();
@@ -316,7 +317,8 @@ public class BauteilMapper {
 		}
 
 		// Um Analogie zu insert(Bauteil bt) zu wahren, geben wir bt zurück
-		return bt;
+		result.add(bt);
+		return result;
 	}
 
 	public String delete(int id) {

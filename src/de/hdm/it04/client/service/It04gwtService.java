@@ -71,7 +71,7 @@ public interface It04gwtService extends RemoteService {
 	 *            Objekt vom Typ Bauteil
 	 * @return Objekt vom Typ Bauteil
 	 */
-	Bauteil update(Bauteil bt);
+	Vector<Bauteil> updateBauteil(Bauteil bt);
 	
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
