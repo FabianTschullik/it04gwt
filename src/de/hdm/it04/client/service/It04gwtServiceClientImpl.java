@@ -472,7 +472,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 
 	
-	private class UpdateBaugruppeCallback implements AsyncCallback{
+	private class UpdateBaugruppeCallback implements AsyncCallback<Vector<Baugruppe>>{
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -480,22 +480,15 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 
 		@Override
-		public void onSuccess(Object result) {
-
-			System.out.println("Rueckmeldung vom Server erhalten");
-			if (result instanceof Baugruppe){
-				
-			Baugruppe bg = new Baugruppe();
+		public void onSuccess(Vector<Baugruppe> result) {
 			
-			bg = (Baugruppe) result;
+			//Da nur ein Enderzeugnis geupdatet wird, kann sich nur ein
+			//EZ im Vektor befinden. Das Element wird gespeichert.
+			Baugruppe bg = result.firstElement();
 			
-			//baugruppegui.updateBaugruppe(bg);	
-		}
-		else {
-			//maingui.showError();
-		}		
+			baugruppegui.showBaugruppeForm(bg);
+	}		
 	}
-}	
 	
 	private class GetAllBaugruppenCallback implements AsyncCallback<Vector<Baugruppe>> {
 

@@ -24,6 +24,7 @@ import de.hdm.it04.client.gui.BauteilGUI.ShowAllBtn1ClickHandler;
 import de.hdm.it04.client.gui.BauteilGUI.SpeichernBtnClickHandler;
 import de.hdm.it04.client.gui.BauteilGUI.SuchenBtnClickHandler;
 import de.hdm.it04.client.gui.EnderzeugnisGUI.BtnAbbrechenClickHandler;
+import de.hdm.it04.client.gui.EnderzeugnisGUI.BtnBearbeitenClickHandler;
 import de.hdm.it04.client.gui.EnderzeugnisGUI.BtnSpeichernClickHandler;
 import de.hdm.it04.client.gui.EnderzeugnisGUI.BtnSuchenClickHandler;
 import de.hdm.it04.shared.Baugruppe;
@@ -146,6 +147,46 @@ public void showAnlegenForm(Baugruppe bg){
 //----------------------------------------------------------------------------
 
 
+public void showBaugruppeForm(Baugruppe bg){
+	
+	this.bg = bg;
+	//this.vPanel.clear();
+	
+	/**
+	 *�berschriften der Tabelle 
+	 */
+	flex.setText(0, 0, "ID");
+	flex.setText(0, 1, "Name");
+	flex.setText(0, 2, "Beschreibung");
+	flex.setText(0, 3, "erstellt am");
+	flex.setText(0, 4, "geändert am");
+	flex.setText(0, 5, "Bearbeiten");
+	flex.setText(0, 6, "Löschen");
+	
+	Button btnBearbeiten = new Button("Bearbeiten");
+	btnBearbeiten.addClickHandler(new BtnBearbeitenClickHandler());
+	
+	Button btnLoeschen = new Button("Loeschen");
+	//btnLoeschen.addClickHandler(new BtnLoeschenClickHandler());
+	
+	flex.setText(1, 0, Integer.toString(bg.getId()));
+	flex.setText(1, 1, bg.getName());
+	flex.setText(1, 2, bg.getBeschreibung());
+	flex.setText(1, 3, "erstellt am");
+	flex.setText(1, 4, "geändert am");
+	flex.setWidget(1, 5, btnBearbeiten);
+	flex.setWidget(1, 6, btnLoeschen);
+	
+	/**
+	 * Verknüpfung zu style.css
+	 */
+
+	flex.setCellPadding(6);
+	flex.getRowFormatter().addStyleName(0,  "watchListHeader");
+	flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+	flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+	this.vPanel.add(flex);
+}
 
 
 
@@ -185,15 +226,15 @@ public class BtnSpeichernClickHandler implements ClickHandler {
 	@Override
 	public void onClick(ClickEvent event) {
 		
-		//vPanel.clear();
+		vPanel.clear();
 		/**
 		 * Es werden die ver�nderbaren Parameter 
 		 * aus den TextBoxen geholt
 		 */
-		//bg.setName(txtName.getText());
-		//bg.setBeschreibung(txtBeschreibung.getText());
+		bg.setName(txtName.getText());
+		bg.setBeschreibung(txtBeschreibung.getText());
 		
-		//serviceImpl.updateBaugeuppe(bg);
+		serviceImpl.updateBaugruppe(bg);
 	}
 }
 
@@ -206,6 +247,13 @@ public class BtnAbbrechenClickHandler implements ClickHandler {
 	}
 }
 
+public class BtnBearbeitenClickHandler implements ClickHandler {
+
+	@Override
+	public void onClick(ClickEvent event) {
+		//serviceImpl.getEnderzeugnis(ez.getId());
+	}
+}
 
 	
 
