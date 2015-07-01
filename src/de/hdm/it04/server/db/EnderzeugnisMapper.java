@@ -267,11 +267,10 @@ public class EnderzeugnisMapper {
 
 				try {
 
-					// Leeres SQL-Statement (JDBC) anlegen
-
+					
 					Statement stmt = con.createStatement();
 
-					// Statement ausf�llen und als Query an die DB schicken
+					// Statement ausf�llen und als Querysdds an die DB schicken
 
 					ResultSet rs = stmt
 							.executeQuery("SELECT id, name, beschreibung, preis, baugruppe, erstellungsDatum, aenderungsDatum FROM enderzeugnis "
