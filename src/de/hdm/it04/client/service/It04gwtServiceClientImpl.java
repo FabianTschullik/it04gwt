@@ -613,7 +613,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	public void onSuccess(Object result) {
 		
 		enderzeugnisgui.menue();
-		//alertgui.load(text, color);
+		alertgui.load((String)result, "green");
 
 	}
 		

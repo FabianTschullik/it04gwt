@@ -308,32 +308,19 @@ public class EnderzeugnisMapper {
 	
 	public String deleteEnderzeugnis(int id) {
 
-		// DB-Verbindung holen
-				Connection con = DbConnection.connection();
-				
-				
+		String ergebnis = "Enderzeugnis wurde erfolgreich geloescht!";
+		
+		Connection con = DbConnection.connection();
 
-				// Ergebnisstring vorbereiten
-				String result;
+		try {
+			Statement stmt = con.createStatement();
 
-				try {
+			stmt.executeUpdate("DELETE FROM enderzeugnis " + "WHERE id = " + id);
 
-					// Leeres SQL-Statement (JDBC) anlegen
-
-					Statement stmt = con.createStatement();
-
-					// Statement ausf�llen und als Query an die DB schicken
-
-					stmt.executeQuery("DELETE FROM enderzeugnis WHERE id =" + id);
-					
-					result = "Enderzeugnis wurde gelöscht!";
-	
-
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-					return null;
-				}
-				return result;
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		return ergebnis;
 	}
 	
 }

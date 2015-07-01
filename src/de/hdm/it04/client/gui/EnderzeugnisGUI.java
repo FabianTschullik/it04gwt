@@ -192,7 +192,7 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 		flex.setText(1, 0, Integer.toString(ez.getId()));
 		flex.setText(1, 1, ez.getName());
 		flex.setText(1, 2, ez.getBeschreibung());
-		//flex.setText(1, 3, Double.toString(ez.getPreis()));
+		flex.setText(1, 3, Double.toString(ez.getPreis()));
 		flex.setText(1, 4, "erstellt am");
 		flex.setText(1, 5, "geändert am");
 		flex.setWidget(1, 6, btnBearbeiten);
