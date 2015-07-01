@@ -142,8 +142,8 @@ public class BauteilGUI extends MainGUI {
 	  Button btnSpeichern = new Button("Speichern");
 		btnSpeichern.addClickHandler(new SpeichernBtnClickHandler());
 		
-		//Button btnAbbrechen = new Button("Abbrechen");
-		//btnAbbrechen.addClickHandler(new BtnAbbrechenClickHandler());
+		Button btnAbbrechen = new Button("Abbrechen");
+		btnAbbrechen.addClickHandler(new BtnAbbrechenClickHandler());
 		
 	  
 	  if (bauteil.getName() == null){
@@ -166,7 +166,7 @@ public class BauteilGUI extends MainGUI {
 	  layout.setWidget(4, 1, materialBezeichnung);
 	  //layout.setWidget(4, 2, btnSuchen);
 	  layout.setWidget(5, 0, btnSpeichern);
-	 // layout.setWidget(5, 1, btnAbbrechen);
+	  layout.setWidget(5, 1, btnAbbrechen);
 	  
 	  
 	  }
@@ -191,7 +191,7 @@ public class BauteilGUI extends MainGUI {
 		  layout.setWidget(4, 1, materialBezeichnung);
 		  //layout.setWidget(4, 2, btnSuchen);
 		  layout.setWidget(5, 0, btnSpeichern);
-		 // layout.setWidget(5, 1, btnAbbrechen);
+		 
 		  
 	  }
 	  
@@ -661,24 +661,19 @@ vPanel.clear();
 	
 	
 	
-	public class BtnSuchenClickHandler implements ClickHandler {
+	public class BtnAbbrechenClickHandler implements ClickHandler {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				vPanel.clear();
-				String bgSuche = textBoxSuchen.getText();
 				
-				if (bgSuche.matches("[0-9]+")){
-					int id = Integer.parseInt(bgSuche);
-					//serviceImpl.get(id);
-				}
-				else 
-				serviceImpl.getBauteil(bgSuche);				
+				int id= bt.getId();
+				serviceImpl.deleteBauteil(id);
+				
 			}
-	}
 
-				
-  }
+	}
+}
 
 
 

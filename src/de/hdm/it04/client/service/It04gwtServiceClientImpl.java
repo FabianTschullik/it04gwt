@@ -355,7 +355,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			bauteilgui.menue();
+			alertgui.load("Bauteil konnte nicht gelöscht werden", "red");
 		}
 
 		@Override
@@ -364,12 +364,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			System.out.println("RÃ¼ckmeldung vom Server erhalten");
 			
 			if (result instanceof String) {
-				String meldung = (String) result;
-				 bauteilgui.showMeldung(meldung);
-			
-			}
-			else {
 				bauteilgui.menue();
+				 
+			
 			}
 		}
 	}
