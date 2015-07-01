@@ -36,6 +36,8 @@ public class MainGUI extends Composite {
 	private VerticalPanel vPanelTree = new VerticalPanel();
 	private VerticalPanel vPanelDetails = new VerticalPanel();
 	private VerticalPanel vPanelDetailsContent = new VerticalPanel();
+	public Vector<Baugruppe> listeBaugruppen;
+	
 	public VerticalPanel getvPanelDetailsContent() {
 		return vPanelDetailsContent;
 	}
@@ -59,7 +61,7 @@ public class MainGUI extends Composite {
 		
 		initWidget(this.vPanel);
 		this.serviceImpl = serviceImpl;
-		
+	
 		this.vPanel.add(hPanelButtons);
 		this.vPanel.add(hPanel);
 		this.hPanel.add(vPanelTree);
@@ -67,8 +69,6 @@ public class MainGUI extends Composite {
 		//this.vPanelDetails.add(hPanelDetailsButtons);
 		this.vPanelDetails.add(vPanelDetailsContent);
 		
-		
-		this.serviceImpl = serviceImpl;
 		
 		this.vPanelDetails.setBorderWidth(1);
 		this.vPanelTree.setBorderWidth(1);
@@ -129,32 +129,6 @@ public class MainGUI extends Composite {
 	    this.vPanelTree.add(t);	    
 }	    
 	    
-
-	public void showEnderzeugnisDetails() {
-
-		this.flex.clear();
-		
-		this.flex = new FlexTable();
-		flex.setText(0, 0, "ID");
-		flex.setText(0, 1, "Name");
-		flex.setText(0, 2, "Preis");
-		flex.setText(0, 3, "erstellt am");
-		flex.setText(0, 4, "geändert am");
-	
-
-			/**
-			 * Formatiert Timestamp zu String
-			 */
-	
-		
-		flex.setText(0, 2, "Materialezeichnung");
-		flex.setText(0, 3, "Beschreibung");
-		flex.setText(0, 4, "erstellt am");
-		flex.setText(0, 5, "geändert am");
-			
-		}
-		
-	
 
  	/**
  	 * Methode, um alle Bauteile anzeigen zu lassen in einer FlexTable

@@ -1,16 +1,11 @@
 package de.hdm.it04.client.gui;
 
-import java.security.Timestamp;
-import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ButtonBase;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
@@ -18,32 +13,29 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.it04.client.gui.BauteilGUI.AnlegenBtnClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.BtnSuchenClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.ShowAllBtn1ClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.SpeichernBtnClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.SuchenBtnClickHandler;
-import de.hdm.it04.client.service.It04gwtServiceClientImpl;
-import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Enderzeugnis;
 
 public class EnderzeugnisGUI extends MainGUI{
-
+	
+	private TextBox txtSuchen = new TextBox();
+	private TextBox txtName = new TextBox();
+	private TextBox txtPreis = new TextBox();
+	private TextArea txtBeschreibung = new TextArea();
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel hPanel = new HorizontalPanel();
-	Enderzeugnis ez = new Enderzeugnis();
-	//Vector<Bauteil> btV = new Vector<Bauteil>();
-	TextBox suchen = new TextBox();
-	TextBox name = new TextBox();
-	TextBox materialBezeichnung = new TextBox();
-	TextArea beschreibung = new TextArea();
+	public Enderzeugnis ez;
+	
+	
 
 	
+
 
 	public EnderzeugnisGUI(VerticalPanel vPanel){	
 		super(serviceImpl);
@@ -57,11 +49,6 @@ public void menue(){
 		 */
 		HTML topic = new HTML("<h2>Was wollen Sie mit dem Enderzeugnis tun?</h2>");
 		
-		/**
-		 * vPanel wird dem HTML Bereich zugeordnet
-		 */
-		
-		TextBox suchen = new TextBox();
 
 		this.vPanel.add(topic);
 		
@@ -69,34 +56,40 @@ public void menue(){
 		 * Men� Buttons um weiter Aktivitäten f�r Bauteil zu w�hlen
 		 */
 		
-		Button AnlegenBtn = new Button("Anlegen");
-		AnlegenBtn.addClickHandler(new AnlegenBtnClickHandler());
-		this.hPanel.add(AnlegenBtn);
+		Button btnAnlegen = new Button("Anlegen");
+		btnAnlegen.addClickHandler(new BtnAnlegenClickHandler());
+		this.hPanel.add(btnAnlegen);
 
 			
+		txtSuchen.setText("id oder Name");
+		this.hPanel.add(txtSuchen);
 		
+		Button btnSuchen = new Button("Bauteil suchen");
+		btnSuchen.addClickHandler(new BtnSuchenClickHandler());
+		this.hPanel.add(btnSuchen);	
 		
-		suchen.setText("id oder Name");
-		this.hPanel.add(suchen);
-		
-		Button SuchenBtn = new Button("Bauteil suchen");
-		SuchenBtn.addClickHandler(new BtnSuchenClickHandler());
-		this.hPanel.add(SuchenBtn);	
-		
-		Button ShowAllBtn1 = new Button("Alle Bauteile anzeigen");
-		ShowAllBtn1.addClickHandler(new ShowAllBtn1ClickHandler());
-		this.hPanel.add(ShowAllBtn1);	
+		Button btnShowAll = new Button("Alle Bauteile anzeigen");
+		btnShowAll.addClickHandler(new BtnShowAllClickHandler());
+		this.hPanel.add(btnShowAll);	
 		
 		this.vPanel.add(hPanel);
 		
-		RootPanel.get("content").add(this.vPanel);
-		
+		RootPanel.get("content").add(this.vPanel);	
 	}
 
 
+
+//----------------------------------------------------------------------------
+//----------------------- Form zum Anlegen eines EZ --------------------------
+//----------------------------------------------------------------------------
 public void showAnlegenForm(Enderzeugnis enderzeugnis){
 	
+	
 	this.ez = enderzeugnis;
+	txtName.setText(ez.getName());
+	txtBeschreibung.setText(ez.getBeschreibung());
+	txtPreis.setText(Double.toString(ez.getPreis()));
+	
 	
 	
 	// Create a table to layout the form options
@@ -105,7 +98,7 @@ public void showAnlegenForm(Enderzeugnis enderzeugnis){
     FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
 
     // Add a title to the form
-    layout.setHTML(0, 0, "Enderzeugnis anlegen");
+    layout.setHTML(0, 0, "<h3>Enderzeugnis anlegen<h3>");
     cellFormatter.setColSpan(0, 0, 2);
     cellFormatter.setHorizontalAlignment(
         0, 0, HasHorizontalAlignment.ALIGN_CENTER);
@@ -113,21 +106,29 @@ public void showAnlegenForm(Enderzeugnis enderzeugnis){
     Button btnSuchen = new Button("Suchen");
 	btnSuchen.addClickHandler(new BtnSuchenClickHandler());
 	
-	Button Speichernbtn = new Button("speichern");
-	Speichernbtn.addClickHandler(new SpeichernBtnClickHandler());
-    
+	Button btnSpeichern = new Button("Speichern");
+	btnSpeichern.addClickHandler(new BtnSpeichernClickHandler());
+	
+	Button btnAbbrechen = new Button("Abbrechen");
+	btnAbbrechen.addClickHandler(new BtnAbbrechenClickHandler());
+	
+	
+	
 	
     // Add some standard form options
     layout.setHTML(1, 0, "ID");
     layout.setText(1, 1, Integer.toString(ez.getId()));
     layout.setHTML(2, 0, "Name");
-    layout.setWidget(2, 1, name);
+    layout.setWidget(2, 1, txtName);
     layout.setHTML(3, 0, "Beschreibung");
-    layout.setWidget(3, 1, beschreibung);
-    layout.setHTML(4, 0, "Baugruppe zuordnen");
-    layout.setWidget(4, 1, suchen);
-    layout.setWidget(4, 2, btnSuchen);
-    layout.setWidget(5, 0, Speichernbtn);
+    layout.setWidget(3, 1, txtBeschreibung);
+    layout.setHTML(4, 0, "Preis");
+    layout.setWidget(4, 1, txtPreis);
+    layout.setHTML(5, 0, "Baugruppe zuordnen");
+    layout.setWidget(5, 1, createMultiBox());
+    //layout.setWidget(5, 2, btnSuchen);
+    layout.setWidget(6, 0, btnSpeichern);
+    layout.setWidget(6, 1, btnAbbrechen);
     
 
     // Wrap the content in a DecoratorPanel
@@ -136,31 +137,64 @@ public void showAnlegenForm(Enderzeugnis enderzeugnis){
     
     this.vPanel.add(decPanel);
 }
+//----------------------------------------------------------------------------
+//----------------------- Ende Form zum Anlegen eines EZ --------------------------
+//----------------------------------------------------------------------------
 
 
-public void updateEnderzeugnis(Enderzeugnis ez){
+
+public ListBox createMultiBox(){
 	
-	/**
-	 * Nur Id und Erstellungdatum werden lokal gespeichert,
-	 * da diese unver�ndert an die DB zur�ck gehen
-	 */
+	
+	// Add a drop box with the list types
+    final ListBox dropBox = new ListBox(false);
+    
+    Vector<String> test = new Vector<String>();
+    test.addElement("Bla");
+    test.addElement("Blubb");
+    
+    
+    for (int i = 0; i < test.size(); i++) {
+      dropBox.addItem(test.elementAt(i));
+    }
+    
+    dropBox.ensureDebugId("cwListBox-dropBox");
+    
+    
+    return dropBox;
+}
+
+public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
+	
+		this.ez = enderzeugnis;
+		//this.vPanel.clear();
 		
 		/**
 		 *�berschriften der Tabelle 
 		 */
 		flex.setText(0, 0, "ID");
 		flex.setText(0, 1, "Name");
-		flex.setText(0, 2, "Preis");
-		flex.setText(0, 3, "erstellt am");
-		flex.setText(0, 4, "geändert am");
-		flex.setText(0, 5, "Speichern");
-		flex.setText(0, 5, "Abbrechen");
+		flex.setText(0, 2, "Beschreibung");
+		flex.setText(0, 3, "Preis");
+		flex.setText(0, 4, "erstellt am");
+		flex.setText(0, 5, "geändert am");
+		flex.setText(0, 6, "Bearbeiten");
+		flex.setText(0, 7, "Löschen");
 		
-		Button Speichernbtn = new Button("speichern");
-		Speichernbtn.addClickHandler(new SpeichernBtnClickHandler());
+		Button btnBearbeiten = new Button("Bearbeiten");
+		btnBearbeiten.addClickHandler(new BtnBearbeitenClickHandler());
 		
-		/**
-	
+		Button btnLoeschen = new Button("Loeschen");
+		//btnLoeschen.addClickHandler(new BtnLoeschenClickHandler());
+		
+		flex.setText(1, 0, Integer.toString(ez.getId()));
+		flex.setText(1, 1, ez.getName());
+		flex.setText(1, 2, ez.getBeschreibung());
+		flex.setText(1, 3, Double.toString(ez.getPreis()));
+		flex.setText(1, 4, "erstellt am");
+		flex.setText(1, 5, "geändert am");
+		flex.setWidget(1, 6, btnBearbeiten);
+		flex.setWidget(1, 7, btnLoeschen);
 		
 		/**
 		 * Verknüpfung zu style.css
@@ -174,26 +208,24 @@ public void updateEnderzeugnis(Enderzeugnis ez){
 }
 
 
-	
-	
-	public void showSuccess() {
 
-		Window.alert("Bauteil wurde erfolgreich angelegt");
+
+	
+	
+	public void showSuccess(Enderzeugnis ez) {
+
+		Label lbl = new Label("Hallo");
+		this.vPanel.add(lbl);
 	}
 	
 	
 	
-	public void showEnderzeugnis(Enderzeugnis ez) {
-		
-		
-		
-		
-	}
 	
 	
-
-
-		public class AnlegenBtnClickHandler implements ClickHandler {
+//--------------------------------------------------------------------------------------
+//---------------------------- Click Handler Buttons------------------------------------
+//--------------------------------------------------------------------------------------
+		public class BtnAnlegenClickHandler implements ClickHandler {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -201,6 +233,39 @@ public void updateEnderzeugnis(Enderzeugnis ez){
 				serviceImpl.createEnderzeugnis();
 			}
 		}
+		
+		public class BtnSpeichernClickHandler implements ClickHandler {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				vPanel.clear();
+				/**
+				 * Es werden die ver�nderbaren Parameter 
+				 * aus den TextBoxen geholt
+				 */
+				ez.setName(txtName.getText());
+				ez.setPreis(Double.parseDouble(txtPreis.getText()));
+				ez.setBeschreibung(txtBeschreibung.getText());
+				
+				serviceImpl.updateEnderzeugnis(ez);
+			}
+		}
+		
+		
+		
+		
+		
+		public class BtnAbbrechenClickHandler implements ClickHandler {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				vPanel.clear();
+				serviceImpl.deleteEnderzeugnis(ez.getId());
+			}
+		}
+		
+		
 		
 		/**
 		 * ClickHandler zum Men�button Speichern
@@ -211,34 +276,15 @@ public void updateEnderzeugnis(Enderzeugnis ez){
 		 * getBauteil(Bauteil bt) (BauteilGUI) auf der GUI sichtbar gemacht
 		 *
 		 */
-		public class SpeichernBtnClickHandler implements ClickHandler {
+		public class BtnBearbeitenClickHandler implements ClickHandler {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				
-				
-				
-
-				
+				serviceImpl.getEnderzeugnis(ez.getId());
 			}
 		}
 		
-		/**
-		 * Wird ein Objekt auf der Bauteilgui angezeigt, 
-		 * kann es �ber den Aendern Button ver�ndert werden.
-		 * Hierzu wird das Bauteil �ber getBauteil2(int id) (Client Impl) aus der DB geholt
-		 * und �ber die Methode UpdateBauteil2(Bauteil bt)(BauteilGUI) 
-		 * auf der Bauteilgui sichtbar gemacht
-		 */
 		
-		public class AendernBtnClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				
-				
-			}
-		}
 		
 		/**
 		 * Wenn ein Bauteil angezeigt wird,
@@ -263,7 +309,7 @@ public void updateEnderzeugnis(Enderzeugnis ez){
 		 * �ber die ShowAllBauteile( Vektor<Bauteile> bauteil) Methode
 		 * auf der BauteilGUI werden die Bauteile sichtbar gemacht
 		 */
-		public class ShowAllBtn1ClickHandler implements ClickHandler {
+		public class BtnShowAllClickHandler implements ClickHandler {
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -286,9 +332,7 @@ public void updateEnderzeugnis(Enderzeugnis ez){
 			@Override
 			public void onClick(ClickEvent event) {
 				
-				
-
-			
+				serviceImpl.getBaugruppe(Integer.parseInt(txtSuchen.getText()));
 			}
 		}
 	

@@ -149,7 +149,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 //-----------------------------------------------------------------------------
 	@Override
 	public String deleteEnderzeugnis(int id) {
-		// TODO Auto-generated method stub
+		EnderzeugnisMapper.enderzeugnisMapper().deleteEnderzeugnis(id);
 		return null;
 	}
 
@@ -180,7 +180,7 @@ public Vector<Enderzeugnis> getEnderzeugnis(int id){
 	
 public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {
 		
-		return EnderzeugnisMapper.enderzeugnisMapper().update(ez);
+		return EnderzeugnisMapper.enderzeugnisMapper().updateEnderzeugnis(ez);
 	}
 //-----------------------------------------------------------------------------
 //----------------------------Ende Enderzeugnis----------------------------------------

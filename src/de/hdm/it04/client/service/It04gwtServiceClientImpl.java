@@ -412,7 +412,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	@Override
 	public void onSuccess(Vector<Baugruppe> result) {
-		// TODO Auto-generated method stub
+		
+		Baugruppe bg = result.firstElement();
+		
+		
 		
 	}
 		
@@ -507,15 +510,14 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		@Override
 		public void onSuccess(Vector<Baugruppe> result) {
 
-			// Object result entählt, was vom server zurück kommt clientImpl
-			// updatet das GUI anschließend
-
 			if (result instanceof Vector) {
 				Vector<Baugruppe> baugruppe = new Vector<Baugruppe>();
 				baugruppe = (Vector<Baugruppe>) result;
-
+				maingui.listeBaugruppen = baugruppe;
 				
-				baugruppegui.showAllBaugruppen(baugruppe);
+				
+				
+				
 			}
 		}
 	}
@@ -588,7 +590,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	
 	
 /*-------------------------------------------------------------------------------------------*/
-/*------------------------------------------Baugruppe Callbacks--------------------------------*/
+/*------------------------------------------Ende Baugruppe Callbacks--------------------------------*/
 /*-------------------------------------------------------------------------------------------*/		
 	
 	
@@ -612,14 +614,12 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	@Override
 	public void onFailure(Throwable caught) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onSuccess(Object result) {
-		// TODO Auto-generated method stub
-		
+
 	}
 		
 	}
@@ -674,17 +674,6 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				
 				enderzeugnisgui.showAnlegenForm(ez);			
 			}
-			
-			if (result instanceof Bauteil){
-				Bauteil bt = (Bauteil) result;
-				Vector<Bauteil> bauteile = new Vector<Bauteil>();
-				bauteile.addElement(bt);
-				bauteilgui.getBauteil(bauteile);
-			}
-			else {
-				
-				Enderzeugnis ez = new Enderzeugnis();
-			}
 		}
 	}
 	
@@ -692,15 +681,17 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			
+			alertgui.load("Fehler", "red");
 		}
 
 		@Override
-		public void onSuccess(Vector<Enderzeugnis> result) { 
-			if (result instanceof Vector) {
-				
-				
-			}
+		public void onSuccess(Vector<Enderzeugnis> result) {
+			
+			//Da nur ein Enderzeugnis geupdatet wird, kann sich nur ein
+			//EZ im Vektor befinden. Das Element wird gespeichert.
+			Enderzeugnis ez = result.firstElement();
+		
+			enderzeugnisgui.showEnderzeugnisForm(ez);
 		}
 	}
 	
@@ -708,14 +699,17 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			enderzeugnisgui.showSuccess();
-			
+		
 		}
 
 		@Override
 		public void onSuccess(Vector<Enderzeugnis> result) {
-			// TODO Auto-generated method stub
 			
+				//Da nur ein Enderzeugnis geupdatet wird, kann sich nur ein
+				//EZ im Vektor befinden. Das Element wird gespeichert.
+				Enderzeugnis ez = result.firstElement();
+				
+				enderzeugnisgui.showEnderzeugnisForm(ez);
 		}
 	}
 

@@ -187,7 +187,7 @@ public class EnderzeugnisMapper {
 		return ez;
 	}
 	
-	public Vector<Enderzeugnis> update(Enderzeugnis ez) {
+	public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {
 
 		Connection con = DbConnection.connection();
 		
@@ -202,8 +202,9 @@ public class EnderzeugnisMapper {
 			
 			stmt.executeUpdate("UPDATE enderzeugnis SET name = '" + ez.getName()+ "', " 
 					+ "aenderungsDatum = '" + new Timestamp(date.getTime()) + "', "
-					+ "preis = '" + ez.getPreis()
-					+ "' WHERE id=" + ez.getId());
+					+ "preis = " + ez.getPreis() + ", "
+					+ "beschreibung = '" + ez.getBeschreibung()
+					+ "' WHERE id= " + ez.getId());
 			
 			result.add(ez);
 			
@@ -236,7 +237,7 @@ public class EnderzeugnisMapper {
 					// Statement ausf�llen und als Query an die DB schicken
 
 					ResultSet rs = stmt
-							.executeQuery("SELECT id, name, beschreibung, preis, baugruppe, erstellungsDatum, aenderungsDatum FROM bauteil "
+							.executeQuery("SELECT id, name, beschreibung, preis, baugruppe, erstellungsDatum, aenderungsDatum FROM enderzeugnis "
 									+ "WHERE id=" + id);
 					
 					
@@ -246,6 +247,7 @@ public class EnderzeugnisMapper {
 					*/
 						ez.setId(rs.getInt("id"));
 						ez.setName(rs.getString("name"));
+						ez.setBeschreibung(rs.getString("beschreibung"));
 						ez.setBaugruppe(rs.getInt("baugruppe"));
 						ez.setPreis(rs.getDouble("preis"));
 						ez.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
@@ -261,6 +263,41 @@ public class EnderzeugnisMapper {
 				return result;
 	}
 	
+
+	
+	
+	
+	
+	
+	public String deleteEnderzeugnis(int id) {
+
+		// DB-Verbindung holen
+				Connection con = DbConnection.connection();
+				
+				
+
+				// Ergebnisstring vorbereiten
+				String result;
+
+				try {
+
+					// Leeres SQL-Statement (JDBC) anlegen
+
+					Statement stmt = con.createStatement();
+
+					// Statement ausf�llen und als Query an die DB schicken
+
+					stmt.executeQuery("DELETE FROM enderzeugnis WHERE id =" + id);
+					
+					result = "Enderzeugnis wurde gelöscht!";
+	
+
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+					return null;
+				}
+				return result;
+	}
 	
 }
 
