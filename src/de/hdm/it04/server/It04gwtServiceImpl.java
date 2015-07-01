@@ -162,7 +162,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Vector<Enderzeugnis> getEnderzeugnisForUpdate(int id) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub blabla
 		return null;
 	}
 
