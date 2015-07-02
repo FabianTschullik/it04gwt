@@ -1,5 +1,6 @@
 package de.hdm.it04.server;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.it04.client.service.It04gwtService;
@@ -139,6 +140,11 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		
 		return BaugruppeMapper.baugruppeMapper().findByKey(id);
 	}
+	
+	public Vector<Baugruppe> getAllBaugruppenForZuordnungBaugruppe(){
+		return BaugruppeMapper.baugruppeMapper().findAll();
+	}
+
 //-----------------------------------------------------------------------------
 //----------------------------Ende Baugruppe----------------------------------------
 //-----------------------------------------------------------------------------

@@ -37,6 +37,7 @@ public interface It04gwtServiceAsync {
 		void getBaugruppe(String name, AsyncCallback<Vector<Baugruppe>> callback);
 		void getBaugruppeForUpdate(int id, AsyncCallback<Vector<Baugruppe>> callback);
 		void getAllBaugruppen(AsyncCallback<Vector<Baugruppe>> callback);
+		void getAllBaugruppenForZuordnungBaugruppe(AsyncCallback<Vector<Baugruppe>> callback);
 		//------------------------------------------------------
 		//------------Ende Baugruppe---------------------------------
 		//------------------------------------------------------

@@ -165,6 +165,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	public void getAllBaugruppen(){
 		this.service.getAllBaugruppen(new GetAllBaugruppenCallback());	
 	}
+	
+	public void getAllBaugruppenForZuordnungBaugruppe(){
+		this.service.getAllBaugruppenForZuordnungBaugruppe(new GetAllBaugruppenForZuordnungBaugruppeCallback());
+	}
 
 	
 	
@@ -399,7 +403,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	@Override
 	public void onSuccess(Vector<Baugruppe> result) {
-		// TODO Auto-generated method stub
+		Baugruppe bg = new Baugruppe();
+		bg = result.firstElement();
+		baugruppegui.showAnlegenForm(bg);
+		
 		
 	}
 		
@@ -487,9 +494,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			
 			//Da nur ein Enderzeugnis geupdatet wird, kann sich nur ein
 			//EZ im Vektor befinden. Das Element wird gespeichert.
-			Baugruppe bg = result.firstElement();
+			Vector<Baugruppe> bg = (Vector<Baugruppe>) result;
 			
-			baugruppegui.showBaugruppeForm(bg);
+			getAllBaugruppenForZuordnungBaugruppe();
 	}		
 	}
 	
@@ -497,7 +504,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// maingui.GetAllError();
+			alertgui.load("Fehler", "red");
 		}
 
 		@Override
@@ -518,18 +525,13 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			
+			alertgui.load("Baugruppe konnte nicht gelöscht werden", "red");
 		}
 
 		@Override
 		public void onSuccess(Object result) {
-
-			System.out.println("Rueckmeldung vom Server erhalten");
 			if (result instanceof String){
-				
-			String meldung = (String) result;
-			baugruppegui.menue();
-			alertgui.load(meldung, "green");
+				alertgui.load("Bautgruppe wurde erfolgreich gelöscht", "green");
 		}
 		else {
 			//maingui.showError();
@@ -578,6 +580,24 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}
 	}
 	
+	private class GetAllBaugruppenForZuordnungBaugruppeCallback implements AsyncCallback<Vector<Baugruppe>> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			alertgui.load("Fehler", "red");
+		}
+
+		@Override
+		public void onSuccess(Vector<Baugruppe> result) {
+			
+			// Object result entÃ¤hlt, was vom server zurÃ¼ck kommt clientImpl
+			// updatet das GUI anschlieÃŸend
+			Vector<Baugruppe> baugruppe = new Vector<Baugruppe>();
+			baugruppe = (Vector<Baugruppe>) result;
+			
+			baugruppegui.showZuordnungsForm(baugruppe);
+	}
+		}
 	
 	
 	

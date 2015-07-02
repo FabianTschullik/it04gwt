@@ -365,7 +365,7 @@ public class MainGUI extends Composite {
 			vPanelDetailsContent.clear();
 			BaugruppeGUI baugruppegui = new BaugruppeGUI(vPanelDetailsContent);
 			
-			baugruppegui.menue();
+			serviceImpl.getAllBaugruppen();
 
 				
 		}

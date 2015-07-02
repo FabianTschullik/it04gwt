@@ -97,6 +97,7 @@ public interface It04gwtService extends RemoteService {
 	Vector <Baugruppe> getBaugruppe(String name);
 	Vector <Baugruppe> getBaugruppeForUpdate(int id);
 	Vector <Baugruppe> getAllBaugruppen();
+	Vector <Baugruppe> getAllBaugruppenForZuordnungBaugruppe();
 //---------------------------------------------------------------------------
 //---------------------------Ende Baugruppe---------------------------------------
 //----------------------------------------------------------------------------
