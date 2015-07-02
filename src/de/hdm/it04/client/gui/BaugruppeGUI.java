@@ -17,12 +17,10 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 
-import de.hdm.it04.client.gui.BauteilGUI.AendernBtnClickHandler;
+
 import de.hdm.it04.client.gui.BauteilGUI.AnlegenBtnClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.LoeschenBtnClickHandler;
 import de.hdm.it04.client.gui.BauteilGUI.ShowAllBtn1ClickHandler;
 import de.hdm.it04.client.gui.BauteilGUI.SpeichernBtnClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.SuchenBtnClickHandler;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;

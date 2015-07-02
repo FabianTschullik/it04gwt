@@ -1,11 +1,5 @@
 package de.hdm.it04.client.gui;
 
-
-
-
-
-
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -27,12 +21,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import java.util.Date;
 import java.util.Vector;
 
-import de.hdm.it04.client.gui.BaugruppeGUI.BtnAbbrechenClickHandler;
-import de.hdm.it04.client.gui.BaugruppeGUI.BtnSpeichernClickHandler;
-import de.hdm.it04.client.gui.BaugruppeGUI.BtnSuchenClickHandler;
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
@@ -122,7 +112,7 @@ public class BauteilGUI {
 
 					@Override
 					public void onSuccess(Bauteil result) {
-						RootPanel.get().add(new BauteilGUI().updateBauteil(result));;
+						RootPanel.get("").add(new BauteilGUI().updateBauteil(result));;
 						
 					}
 				});
@@ -194,7 +184,32 @@ public class BauteilGUI {
 		
 		
 		Button ShowAllBtn1 = new Button("Alle Bauteile anzeigen");
-		ShowAllBtn1.addClickHandler(new ShowAllBtn1ClickHandler());
+		ShowAllBtn1.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				greetingService.getAll(new AsyncCallback<Vector<Bauteil>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Bauteil> result) {
+						RootPanel.get().add(new BauteilGUI().getBauteil(result));
+						
+					}
+				});			
+			}
+		});
+		
+		
+		
+		
+		
+		
 		this.hPanel.add(ShowAllBtn1);	
 		
 		vPanel.add(hPanel);
@@ -237,9 +252,13 @@ public class BauteilGUI {
 					}
 
 					@Override
-					public void onSuccess(Vector<Bauteil> arg0) {
+					public void onSuccess(Vector<Bauteil> result) {
 						
-						RootPanel.get().add(new AlertGUI().load("kkgk", "red"));
+						RootPanel.get().add(new AlertGUI().load("angelegt", "green"));
+						Vector<Bauteil> bauteile = new Vector<Bauteil>();
+						bauteile = (Vector<Bauteil>) result;
+						
+						RootPanel.get().add(new BauteilGUI().showAllBauteile(bauteile));
 					}
 				});
 				
@@ -427,7 +446,13 @@ public Widget getBauteil(Vector<Bauteil> bauteile){
 
 						@Override
 						public void onSuccess(Vector result) {
+				
+							Vector<Bauteil> bauteile = new Vector<Bauteil>();
+							bauteile = (Vector<Bauteil>) result;
+							Bauteil bt = new Bauteil();
+							bt = bauteile.elementAt(0);
 							RootPanel.get().add(new AlertGUI().load("OK", "green"));
+							RootPanel.get().add(new BauteilGUI().updateBauteil(bt));
 							
 						}});
 					
@@ -492,7 +517,7 @@ public Widget getBauteil(Vector<Bauteil> bauteile){
  * @param Vektor mit Bauteilen gef�llt
  */
 
-public void showAllBauteile(Vector<Bauteil> bauteile) {
+public Widget showAllBauteile(Vector<Bauteil> bauteile) {
 		
 		/**
 		 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
@@ -575,7 +600,9 @@ public void showAllBauteile(Vector<Bauteil> bauteile) {
 		/**
 		 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
 		 */
-		this.vPanel.add(bauteileTable);
+		vPanel.add(bauteileTable);
+		
+		return vPanel;
 	
 }
 
@@ -653,7 +680,14 @@ public void showSearchResult(Vector<Baugruppe> bg){
 						}
 
 						@Override
-						public void onSuccess(Vector<Bauteil> arg0) {
+						public void onSuccess(Vector<Bauteil> result) {
+							
+							// Object result entÃ¤hlt, was vom server zurÃ¼ck kommt clientImpl
+							// updatet das GUI anschlieÃend
+							Vector<Bauteil> bauteile = new Vector<Bauteil>();
+							bauteile = (Vector<Bauteil>) result;
+							
+							RootPanel.get().add(new BauteilGUI().showAllBauteile(bauteile));
 							
 							
 						}

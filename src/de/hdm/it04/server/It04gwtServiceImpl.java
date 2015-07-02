@@ -1,67 +1,60 @@
 package de.hdm.it04.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.server.db.BaugruppeMapper;
 import de.hdm.it04.server.db.BauteilMapper;
 import de.hdm.it04.server.db.EnderzeugnisMapper;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
-import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.LoginInfo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.net.URL;
 import java.net.URLConnection;
-
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonToken;
-
 import java.util.Vector;
 
 /**
- * Diese Klasse wird benötigt, um die Kommunikation zwischen der Datenbank
- * und dem Client zu ermöglichen. Hierbei werden die Methoden der Mapper-Klasse
+ * Diese Klasse wird benötigt, um die Kommunikation zwischen der Datenbank und
+ * dem Client zu ermöglichen. Hierbei werden die Methoden der Mapper-Klasse
  * aufgerufen.
  */
 public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		It04gwtService {
 
 	private static final long serialVersionUID = 1L;
-	
-	
-	private static Logger log = Logger.getLogger(It04gwtServiceImpl.class.getCanonicalName());
 
+	private static Logger log = Logger.getLogger(It04gwtServiceImpl.class
+			.getCanonicalName());
 
 	/**
 	 * Escape an html string. Escaping data received from the client helps to
 	 * prevent cross-site script vulnerabilities.
 	 * 
-	 * @param html the html string to escape
+	 * @param html
+	 *            the html string to escape
 	 * @return the escaped string
 	 */
 	private String escapeHtml(String html) {
 		if (html == null) {
 			return null;
 		}
-		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+				.replaceAll(">", "&gt;");
 	}
 
-	// TODO #11: implement login helper methods in service implementation	
+	// TODO #11: implement login helper methods in service implementation
 
 	@Override
 	public String getUserEmail(final String token) {
@@ -92,7 +85,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public LoginInfo loginDetails(final String token) {
-		String url = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + token;
+		String url = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token="
+				+ token;
 
 		final StringBuffer r = new StringBuffer();
 		try {
@@ -152,13 +146,15 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 	// TODO #11:> end
 
-//--------------------------------------------------------------------------
-//------------------------- Bauteil ----------------------------------------
-//--------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
+	// ------------------------- Bauteil
+	// ----------------------------------------
+	// --------------------------------------------------------------------------
 	/**
 	 * Die Methode legt ein Bauteil an.
 	 * 
-	 * @param Ein Objekt vom Typ Bauteil welches gespeichert werden soll
+	 * @param Ein
+	 *            Objekt vom Typ Bauteil welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Bauteil
 	 */
 	public Bauteil createBauteil() {
@@ -172,25 +168,27 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * übergeben wird steht in diesem Vektor lediglich ein Objekt vom Typ
 	 * Bauteil.
 	 * 
-	 * @param ID als Integer
+	 * @param ID
+	 *            als Integer
 	 * @return Vektor mit Bauteil-Objekten
 	 */
 	public Vector<Bauteil> getBauteil(int id) {
 
 		return BauteilMapper.bauteilMapper().findByKey(id);
 	}
-	
+
 	public Vector<Bauteil> getBauteilForUpdate(int id) {
 
 		return BauteilMapper.bauteilMapper().findByKey(id);
 	}
-	
+
 	/**
 	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
 	 * finden. Da mehrere Bauteile mit dem selben Namen exisitieren können, wird
 	 * das Bauteil in einem Vektor gespeichert.
 	 * 
-	 * @param Ein Name eines Bauteils, welches gefunden werden soll
+	 * @param Ein
+	 *            Name eines Bauteils, welches gefunden werden soll
 	 * @return Vektor vom Typ Bauteil, welches alle Bauteile mit dem übergebenen
 	 *         Namen enthält
 	 */
@@ -198,7 +196,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 		return BauteilMapper.bauteilMapper().findByName(name);
 	}
-	
+
 	/**
 	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem
 	 * Vektor.
@@ -214,68 +212,72 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode aktualisiert ein Bauteil.
 	 * 
-	 * @param Ein Objekt vom Typ Bauteil
+	 * @param Ein
+	 *            Objekt vom Typ Bauteil
 	 * @return Objekt vom Typ Bauteil
 	 */
 	public Vector<Bauteil> updateBauteil(Bauteil bt) {
 
 		return BauteilMapper.bauteilMapper().update(bt);
 	}
-	
-	public String deleteBauteil(int id){
+
+	public String deleteBauteil(int id) {
 		return BauteilMapper.bauteilMapper().delete(id);
 	}
-//-----------------------------------------------------------------------------
-//--------------------------- Ende Bauteil ------------------------------------
-//-----------------------------------------------------------------------------
-	
-//-----------------------------------------------------------------------------
-//----------------------------Baugruppe----------------------------------------
-//-----------------------------------------------------------------------------
-	
-	public Baugruppe createBaugruppe(){
-		
+
+	// -----------------------------------------------------------------------------
+	// --------------------------- Ende Bauteil
+	// ------------------------------------
+	// -----------------------------------------------------------------------------
+
+	// -----------------------------------------------------------------------------
+	// ----------------------------Baugruppe----------------------------------------
+	// -----------------------------------------------------------------------------
+
+	public Baugruppe createBaugruppe() {
+
 		return BaugruppeMapper.baugruppeMapper().insert();
 	}
-	
-	public Vector<Baugruppe> updateBaugruppe(Baugruppe bg){
-		
+
+	public Vector<Baugruppe> updateBaugruppe(Baugruppe bg) {
+
 		return BaugruppeMapper.baugruppeMapper().updateBaugruppe(bg);
 	}
-	
-	public String deleteBaugruppe(int id){
-		
+
+	public String deleteBaugruppe(int id) {
+
 		return BaugruppeMapper.baugruppeMapper().deleteBaugruppe(id);
 	}
-	
-	public Vector<Baugruppe> getBaugruppe(int id){
-		
+
+	public Vector<Baugruppe> getBaugruppe(int id) {
+
 		return BaugruppeMapper.baugruppeMapper().findByKey(id);
 	}
-	
-	public Vector<Baugruppe> getBaugruppe(String name){
-		
+
+	public Vector<Baugruppe> getBaugruppe(String name) {
+
 		return BaugruppeMapper.baugruppeMapper().findByName(name);
 	}
-	
-	public Vector<Baugruppe> getAllBaugruppen(){
-		
+
+	public Vector<Baugruppe> getAllBaugruppen() {
+
 		return BaugruppeMapper.baugruppeMapper().findAll();
 	}
-	
+
 	@Override
 	public Vector<Baugruppe> getBaugruppeForUpdate(int id) {
-		
+
 		return BaugruppeMapper.baugruppeMapper().findByKey(id);
 	}
-//-----------------------------------------------------------------------------
-//----------------------------Ende Baugruppe----------------------------------------
-//-----------------------------------------------------------------------------
 
-	
-//-----------------------------------------------------------------------------
-//----------------------------Enderzeugnis----------------------------------------
-//-----------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------
+	// ----------------------------Ende
+	// Baugruppe----------------------------------------
+	// -----------------------------------------------------------------------------
+
+	// -----------------------------------------------------------------------------
+	// ----------------------------Enderzeugnis----------------------------------------
+	// -----------------------------------------------------------------------------
 	@Override
 	public String deleteEnderzeugnis(int id) {
 		EnderzeugnisMapper.enderzeugnisMapper().deleteEnderzeugnis(id);
@@ -284,10 +286,9 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Vector<Enderzeugnis> getAllEnderzeugnisse() {
-		
-		return EnderzeugnisMapper.enderzeugnisMapper().findAll();	
-	}
 
+		return EnderzeugnisMapper.enderzeugnisMapper().findAll();
+	}
 
 	@Override
 	public Vector<Enderzeugnis> getEnderzeugnisForUpdate(int id) {
@@ -295,9 +296,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		return null;
 	}
 
-	
-public Vector<Enderzeugnis> getEnderzeugnis(int id){
-		
+	public Vector<Enderzeugnis> getEnderzeugnis(int id) {
+
 		return EnderzeugnisMapper.enderzeugnisMapper().getEnderzeugnisById(id);
 	}
 
@@ -305,20 +305,22 @@ public Vector<Enderzeugnis> getEnderzeugnis(int id){
 
 		return EnderzeugnisMapper.enderzeugnisMapper().insert();
 	}
-	
-	
-public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {
-		
+
+	public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {
+
 		return EnderzeugnisMapper.enderzeugnisMapper().updateEnderzeugnis(ez);
 	}
-//-----------------------------------------------------------------------------
-//----------------------------Ende Enderzeugnis----------------------------------------
-//-----------------------------------------------------------------------------	
+
+	// -----------------------------------------------------------------------------
+	// ----------------------------Ende
+	// Enderzeugnis----------------------------------------
+	// -----------------------------------------------------------------------------
 
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
 	 * 
-	 * @param ID von einem Bauteil als Integer,
+	 * @param ID
+	 *            von einem Bauteil als Integer,
 	 * @return Ein String mit einer Meldung, ob Bauteil erfolgreich gelöscht
 	 *         wurde
 	 */
@@ -326,19 +328,5 @@ public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {
 
 		return BauteilMapper.bauteilMapper().delete(id);
 	}
-	
-	
-	
-	
-
-	
-	
-
-	
-
-	
-
-
-
 
 }
