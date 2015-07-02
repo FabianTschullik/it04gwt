@@ -8,10 +8,23 @@ import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Enderzeugnis;
+import de.hdm.it04.shared.LoginInfo;
 
 public interface It04gwtServiceAsync {
 
 	//Asyncs geben niemals einen wert zurück, da dieser über callback zurück kommt.
+	
+	// TODO #10: create login helper methods in service asynchronous interface	
+		void getUserEmail(String token, AsyncCallback<String> callback);
+
+		void login(String requestUri, AsyncCallback<LoginInfo> asyncCallback);
+
+		void loginDetails(String token, AsyncCallback<LoginInfo> asyncCallback);
+		// TODO #10:> end
+	
+	
+	
+	
 		
 		//------------------------------------------------------
 		//-------------Bauteil----------------------------------

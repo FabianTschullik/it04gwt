@@ -6,9 +6,11 @@ package de.hdm.it04.client.gui;
 
 
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -19,6 +21,7 @@ import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -30,10 +33,16 @@ import java.util.Vector;
 import de.hdm.it04.client.gui.BaugruppeGUI.BtnAbbrechenClickHandler;
 import de.hdm.it04.client.gui.BaugruppeGUI.BtnSpeichernClickHandler;
 import de.hdm.it04.client.gui.BaugruppeGUI.BtnSuchenClickHandler;
+import de.hdm.it04.client.service.It04gwtService;
+import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 
-public class BauteilGUI extends MainGUI {
+public class BauteilGUI {
+	
+	
+	TextBox textBoxSuchen = new TextBox();
+	private final It04gwtServiceAsync greetingService = GWT.create(It04gwtService.class);
 	
 	/**
 	 * lokal Instanz eines Bauteils
@@ -48,7 +57,7 @@ public class BauteilGUI extends MainGUI {
 	 */
 	
 	TextBox suchen = new TextBox();
-	TextBox textBoxSuchen = new TextBox();
+	
 	
 	/**
 	 * TextBoxe, in denen Name, Materialbezeichnung und Beschreibung
@@ -70,17 +79,13 @@ public class BauteilGUI extends MainGUI {
 	private HorizontalPanel hPanel = new HorizontalPanel();
 	
 	
-	public BauteilGUI(VerticalPanel vPanel){	
-		super(serviceImpl);
-		this.vPanel = vPanel;
-	}
 	
 	/**
 	 * Bauteil Menï¿½
 	 * @return gibt nichts zurï¿½ck, da alles gleich dem vPanel hinzugefï¿½gt wird
 	 */
 	
-	public void menue(){
+	public Widget menue(){
 		
 		btV = null;
 		bt= null;
@@ -103,22 +108,98 @@ public class BauteilGUI extends MainGUI {
 		 */
 		
 		Button AnlegenBtn = new Button("Anlegen");
-		AnlegenBtn.addClickHandler(new AnlegenBtnClickHandler());
-		this.hPanel.add(AnlegenBtn);
+		AnlegenBtn.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				greetingService.createBauteil(new AsyncCallback<Bauteil>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Bauteil result) {
+						RootPanel.get().add(new BauteilGUI().updateBauteil(result));;
+						
+					}
+				});
+				
+			}
+			
+			
+			
+			
+			
+		});
+		hPanel.add(AnlegenBtn);
 
 		
-		suchen.setText("id oder Name");
-		this.hPanel.add(suchen);
+		textBoxSuchen.setText("id oder Name...");
+		hPanel.add(textBoxSuchen);
 		
 		Button SuchenBtn = new Button("Bauteil suchen");
-		SuchenBtn.addClickHandler(new SuchenBtnClickHandler());
-		this.hPanel.add(SuchenBtn);	
+		SuchenBtn.addClickHandler(new ClickHandler(){
+
+			public void onClick(ClickEvent arg0) {
+				
+				String bgSuche = textBoxSuchen.getText();
+				
+				if (bgSuche.matches("[0-9]+")){
+					int id = Integer.parseInt(bgSuche);
+					greetingService.getBauteil(id, new AsyncCallback<Vector<Bauteil>>() {
+
+						public void onFailure(Throwable arg0) {
+							RootPanel.get().add(new AlertGUI().load("ad", "red"));
+							
+						}
+
+						
+						public void onSuccess(Vector<Bauteil> result) {
+							RootPanel.get().add(new BauteilGUI().getBauteil(result));
+							RootPanel.get().add(new AlertGUI().load("ad", "green"));
+							
+						}
+					});
+					
+				}
+			String name = bgSuche;
+				greetingService.getBauteil(name, new AsyncCallback<Vector<Bauteil>>() {
+
+					
+					public void onFailure(Throwable arg0) {
+						RootPanel.get().add(new AlertGUI().load("ad", "red"));						
+					}
+
+					public void onSuccess(Vector<Bauteil> result) {
+						RootPanel.get().add(new BauteilGUI().getBauteil(result));
+						RootPanel.get().add(new AlertGUI().load("ad", "green"));
+						
+					}
+				});
+				
+				
+			}
+			
+			
+			
+		});
+		hPanel.add(SuchenBtn);	
+		
+		
+		
+		
+		
 		
 		Button ShowAllBtn1 = new Button("Alle Bauteile anzeigen");
 		ShowAllBtn1.addClickHandler(new ShowAllBtn1ClickHandler());
 		this.hPanel.add(ShowAllBtn1);	
 		
-		this.vPanel.add(hPanel);
+		vPanel.add(hPanel);
+		
+		return vPanel;
 		
 	}
 	
@@ -129,7 +210,7 @@ public class BauteilGUI extends MainGUI {
 	 * @param bt (leeres Objekt bzw. ohne Name, Beschreibung und Materialbezeichnung)
 	 */
 	
-	public void updateBauteil(Bauteil bauteil){
+	public Widget updateBauteil(Bauteil bauteil){
 		
 		this.bt = bauteil;
 			
@@ -140,7 +221,31 @@ public class BauteilGUI extends MainGUI {
 	  FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
 	  
 	  Button btnSpeichern = new Button("Speichern");
-		btnSpeichern.addClickHandler(new SpeichernBtnClickHandler());
+		btnSpeichern.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent arg0) {
+				bt.setName(name.getText());
+				bt.setBeschreibung(beschreibung.getText());
+				bt.setMaterialBezeichnung(materialBezeichnung.getText());
+				greetingService.updateBauteil(bt, new AsyncCallback<Vector<Bauteil>>() {
+
+					@Override
+					public void onFailure(Throwable arg0) {
+						RootPanel.get().add(new AlertGUI().load("kkgk", "red"));
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Bauteil> arg0) {
+						
+						RootPanel.get().add(new AlertGUI().load("kkgk", "red"));
+					}
+				});
+				
+				
+				
+			}});
 		
 		//Button btnAbbrechen = new Button("Abbrechen");
 		//btnAbbrechen.addClickHandler(new BtnAbbrechenClickHandler());
@@ -172,7 +277,7 @@ public class BauteilGUI extends MainGUI {
 	  }
 	  else{
 		  // Add a title to the form
-		  layout.setHTML(0, 0, "<h3>Bauteil ändern<h3>");
+		  layout.setHTML(0, 0, "<h3>Bauteil ï¿½ndern<h3>");
 		  cellFormatter.setColSpan(0, 0, 2);
 		  cellFormatter.setHorizontalAlignment(
 		      0, 0, HasHorizontalAlignment.ALIGN_CENTER);
@@ -205,6 +310,8 @@ public class BauteilGUI extends MainGUI {
 	  decPanel.setWidget(layout);
 	  
 	  this.vPanel.add(decPanel);
+	  
+	  return vPanel;
 
 			}
 		
@@ -231,7 +338,7 @@ public class BauteilGUI extends MainGUI {
  */
 	
 	
-public void getBauteil(Vector<Bauteil> bauteile){
+public Widget getBauteil(Vector<Bauteil> bauteile){
 	
 	/**
 	 * ID wird lokal gepseichert, 
@@ -259,16 +366,74 @@ public void getBauteil(Vector<Bauteil> bauteile){
 			 * Button, um Bauteil innerhalb der Tabelle zu lÃ¶schen
 			 */
 			Button loeschenBtn = new Button("X");
-			loeschenBtn.addClickHandler(new LoeschenBtnClickHandler());
-			//this.vPanelCreate.add(btnDelete);
+			loeschenBtn.addClickHandler(new ClickHandler(){
+
+				@Override
+				public void onClick(ClickEvent event) {
+					
+					Cell cell = bauteileTable.getCellForEvent(event);
+					
+					int rowIndex = cell.getRowIndex();
+					String id1 = bauteileTable.getText(rowIndex, 0);
+					int id = Integer.parseInt(id1);
+					greetingService.deleteBauteil(id, new AsyncCallback() {
+
+						@Override
+						public void onFailure(Throwable arg0) {
+						RootPanel.get().add(new AlertGUI().load("Fehler", "red"));
+							
+						}
+
+						@Override
+						public void onSuccess(Object arg0) {
+							RootPanel.get().add(new AlertGUI().load("Erfolg", "green"));
+							
+						}
+
+						
+					
+					});
+					
+					
+				}
+				
+				
+			});
+			
 			
 			
 			/**
 			 * Button, um Editieren des Bauteils innerhalb der Tabelle aufzurufen
 			 */
 			Button aendernBtn = new Button("Editieren");
-			aendernBtn.addClickHandler(new AendernBtnClickHandler());
-			//this.vPanelCreate.add(editBtn);
+			aendernBtn.addClickHandler(new ClickHandler(){
+
+				@Override
+				public void onClick(ClickEvent event) {
+					
+					Cell cell = bauteileTable.getCellForEvent(event);
+					
+					int rowIndex = cell.getRowIndex();
+					String id1 = bauteileTable.getText(rowIndex, 0);
+					int id = Integer.parseInt(id1);
+					
+					greetingService.getBauteilForUpdate(id, new AsyncCallback<Vector<Bauteil>>(){
+
+						@Override
+						public void onFailure(Throwable arg0) {
+							RootPanel.get().add(new AlertGUI().load("Fehler", "red"));
+							
+						}
+
+						@Override
+						public void onSuccess(Vector result) {
+							RootPanel.get().add(new AlertGUI().load("OK", "green"));
+							
+						}});
+					
+					
+				}});
+		
 			
 			
 			/**
@@ -318,6 +483,8 @@ public void getBauteil(Vector<Bauteil> bauteile){
 		 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
 		 */
 		this.vPanel.add(bauteileTable);
+		
+		return vPanel;
 	}
 
 /**
@@ -469,12 +636,34 @@ public void showSearchResult(Vector<Baugruppe> bg){
 	btnSpeichern.addClickHandler(new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent event) {
+					bt.setName(name.getText());
+					bt.setBeschreibung(beschreibung.getText());
+					bt.setMaterialBezeichnung(materialBezeichnung.getText());
 					
+					name.setText("");
+					beschreibung.setText("");
+					materialBezeichnung.setText("");
+					
+					greetingService.updateBauteil(bt, new AsyncCallback<Vector<Bauteil>>() {
+
+						@Override
+						public void onFailure(Throwable arg0) {
+							//RootPanel.get().add(new AlertGUI().load("kkgk", "red"));
+							
+						}
+
+						@Override
+						public void onSuccess(Vector<Bauteil> arg0) {
+							
+							
+						}
+					});
 		
 				}
 			});
 	
 	vPanel.add(btnSpeichern);
+	
 	
 	
 }
@@ -509,10 +698,29 @@ public void showMeldung (String meldung){
 		public void onClick(ClickEvent event) {
 			
 			vPanel.clear();
-			serviceImpl.createBauteil();
+			
+			greetingService.createBauteil(
+			
+			new AsyncCallback<Object>() {
+				public void onFailure(Throwable caught) {
+					
+				}
+
+				public void onSuccess(Object result) {
+					
+					if (result instanceof Bauteil) {
+						
+						
+						Bauteil bt = (Bauteil) result;
+						
+						
+						updateBauteil(bt);
 				
-		}
-	}
+				}
+				}	});
+			
+			}}
+	
 	
 	/**
 	 * ClickHandler zum Menï¿½button Speichern
@@ -549,75 +757,16 @@ public void showMeldung (String meldung){
 			/**
 			 * Das Objekt wird an die ClientImpl weiter gegeben
 			 */
-			serviceImpl.updateBauteil(bt);
+			//serviceImpl.updateBauteil(bt);
 			
 			bt = null;
 			
 		}
 	}
 	
-	/**
-	 * Wird ein Objekt auf der Bauteilgui angezeigt, 
-	 * kann es ï¿½ber den Aendern Button verï¿½ndert werden.
-	 * Hierzu wird das Bauteil ï¿½ber getBauteil2(int id) (Client Impl) aus der DB geholt
-	 * und ï¿½ber die Methode UpdateBauteil2(Bauteil bt)(BauteilGUI) 
-	 * auf der Bauteilgui sichtbar gemacht
-	 */
-	
-	public class AendernBtnClickHandler implements ClickHandler {
 
-		@Override
-		public void onClick(ClickEvent event) {
-			
-vPanel.clear();
-			
-			Cell cell = bauteileTable.getCellForEvent(event);
-			
-			int rowIndex = cell.getRowIndex();
-			String id1 = bauteileTable.getText(rowIndex, 0);
-			int id = Integer.parseInt(id1);
-			serviceImpl.getBauteilForUpdate(id);
-			
-			
-			
-			
-		}
-	}
 	
-	/**
-	 * Wenn ein Bauteil angezeigt wird,
-	 * wird es ï¿½ber den Lï¿½schen Button entfernt
-	 * dazu wird die ClientImpl Methode delte Bauteil(int id) aufgerufen
-	 * Auf der Bauteil GUI kann man bei erfolgreichem Lï¿½schen den Satz
-	 * "Bauteil wurde erfolgreich gelï¿½scht" 
-	 * (Methode showMeldung(String meldung) (Bauteil Gui) lesen
-	 * lesen
-	 */
-	public class LoeschenBtnClickHandler implements ClickHandler {
 
-		@Override
-		public void onClick(ClickEvent event) {
-			
-			vPanel.clear();
-			
-			Cell cell = bauteileTable.getCellForEvent(event);
-			
-			int rowIndex = cell.getRowIndex();
-			String id1 = bauteileTable.getText(rowIndex, 0);
-			int id = Integer.parseInt(id1);
-			serviceImpl.deleteBauteil(id);
-			
-			
-				
-		}
-	}
-	
-	/**
-	 * Der ShowAll Button holt ï¿½ber die ShowAllBauteile Methode
-	 * alle Bauteile in einem Vektor aus der DB 
-	 * ï¿½ber die ShowAllBauteile( Vektor<Bauteile> bauteil) Methode
-	 * auf der BauteilGUI werden die Bauteile sichtbar gemacht
-	 */
 	public class ShowAllBtn1ClickHandler implements ClickHandler {
 
 		@Override
@@ -625,57 +774,18 @@ vPanel.clear();
 			
 			vPanel.clear();
 			
-			serviceImpl.getAll();
+			//serviceImpl.getAll();
 			
 			
 				
 		}
 	}
 	
-	/**
-	 * ï¿½ber den Suchenbutton kann man Bauteile suchen
-	 * indem man die ID oder ein Name eingibt.
-	 *Dann wird die Methode getBauteile oder findBauteilByName in der Klasse ClientImpl aufgerufen
-	 */
-	
-	public class SuchenBtnClickHandler implements ClickHandler {
 
-		@Override
-		public void onClick(ClickEvent event) {
-			
-			vPanel.clear();
-			String searchFor = suchen.getText();
-			
-			if (searchFor.matches("[0-9]+")){
-				int id = Integer.parseInt(searchFor);
-				serviceImpl.getBauteil(id);
-			}
-			
-			else 
-			
-			serviceImpl.getBauteil(searchFor);
+	
+	
+	
 
-		
-		}
-	}
-	
-	
-	
-	public class BtnSuchenClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				vPanel.clear();
-				String bgSuche = textBoxSuchen.getText();
-				
-				if (bgSuche.matches("[0-9]+")){
-					int id = Integer.parseInt(bgSuche);
-					//serviceImpl.get(id);
-				}
-				else 
-				serviceImpl.getBauteil(bgSuche);				
-			}
-	}
 
 				
   }

@@ -7,20 +7,20 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
-import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 
-public class AlertGUI extends MainGUI {
+public class AlertGUI  {
 
-	VerticalPanel vPanel = new VerticalPanel();
-	HorizontalPanel hPanel = new HorizontalPanel();
+	
 
-	public AlertGUI(VerticalPanel vPanel) {
-		super(serviceImpl);
-		this.vPanel = vPanel;
-	}
+	
 
-	public void load(String text, String color) {
+	public Widget load(String text, String color) {
+		
+		
+		VerticalPanel vPanel = new VerticalPanel();
+		HorizontalPanel hPanel = new HorizontalPanel();
 
 		Label lbl = new Label();
 
@@ -48,9 +48,9 @@ public class AlertGUI extends MainGUI {
 		vPanel.add(hPanel);
 		
 		hPanel.add(btn);
-		this.vPanel.add(hPanel);
+		vPanel.add(hPanel);
 		
-		
+		return vPanel;
 		
 	}
 	
@@ -59,7 +59,7 @@ public class AlertGUI extends MainGUI {
 		@Override
 		public void onClick(ClickEvent event) {
 			
-			vPanel.clear();
+			
 		
 			
 		}

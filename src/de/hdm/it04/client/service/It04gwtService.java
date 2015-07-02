@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
+import de.hdm.it04.shared.LoginInfo;
 
 /**
  * Das Interface Service wird von der Klasse Service Impl implementiert.
@@ -15,9 +16,22 @@ import de.hdm.it04.shared.Enderzeugnis;
  * Das Interface wird für die RPCs benötigt.
  *
  */
-@RemoteServiceRelativePath("exampleservice")
+@RemoteServiceRelativePath("sms")
 public interface It04gwtService extends RemoteService {
 
+	
+	// TODO #09: start create login helper methods in service interface	
+		String getUserEmail(String token);	
+		
+		LoginInfo login(String requestUri);	
+		
+		LoginInfo loginDetails(String token);
+		// TODO #09:> end
+	
+	
+	
+	
+	
 //---------------------------------------------------------------------------
 //--------------------------- Bauteil ---------------------------------------
 //---------------------------------------------------------------------------

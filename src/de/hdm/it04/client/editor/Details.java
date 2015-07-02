@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.it04.client.service.It04gwtServiceClientImpl;
+
 import de.hdm.it04.shared.Element;
 
 /**

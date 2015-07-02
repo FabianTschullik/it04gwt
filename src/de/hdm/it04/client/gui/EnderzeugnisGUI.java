@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Enderzeugnis;
 
-public class EnderzeugnisGUI extends MainGUI{
+public class EnderzeugnisGUI {
 	
 	private TextBox txtSuchen = new TextBox();
 	private TextBox txtName = new TextBox();
@@ -37,10 +37,7 @@ public class EnderzeugnisGUI extends MainGUI{
 	
 
 
-	public EnderzeugnisGUI(VerticalPanel vPanel){	
-		super(serviceImpl);
-		this.vPanel = vPanel;
-	}
+
 	
 public void menue(){
 	
@@ -167,6 +164,8 @@ public ListBox createMultiBox(){
 }
 
 public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
+	
+	FlexTable flex = new FlexTable();
 	
 		this.ez = enderzeugnis;
 		//this.vPanel.clear();
@@ -317,7 +316,7 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 			@Override
 			public void onClick(ClickEvent event) {
 				vPanel.clear();
-				serviceImpl.createEnderzeugnis();
+				//serviceImpl.createEnderzeugnis();
 			}
 		}
 		
@@ -335,7 +334,7 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 				ez.setPreis(Double.parseDouble(txtPreis.getText()));
 				ez.setBeschreibung(txtBeschreibung.getText());
 				
-				serviceImpl.updateEnderzeugnis(ez);
+				//serviceImpl.updateEnderzeugnis(ez);
 			}
 		}
 		
@@ -348,7 +347,7 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 			@Override
 			public void onClick(ClickEvent event) {
 				vPanel.clear();
-				serviceImpl.deleteEnderzeugnis(ez.getId());
+				//serviceImpl.deleteEnderzeugnis(ez.getId());
 			}
 		}
 		
@@ -367,7 +366,7 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 
 			@Override
 			public void onClick(ClickEvent event) {
-				serviceImpl.getEnderzeugnis(ez.getId());
+				//serviceImpl.getEnderzeugnis(ez.getId());
 			}
 		}
 		
@@ -401,7 +400,7 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 			@Override
 			public void onClick(ClickEvent event) {
 				vPanel.clear();
-				serviceImpl.getAllEnderzeugnisse();	
+				//serviceImpl.getAllEnderzeugnisse();	
 			}
 		}
 		
@@ -416,7 +415,7 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 			@Override
 			public void onClick(ClickEvent event) {
 				
-				serviceImpl.getBaugruppe(Integer.parseInt(txtSuchen.getText()));
+				//serviceImpl.getBaugruppe(Integer.parseInt(txtSuchen.getText()));
 			}
 		}
 	

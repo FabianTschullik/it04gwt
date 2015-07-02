@@ -3,6 +3,8 @@ package de.hdm.it04.shared;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 /**
  * Die abstrakte Klasse BusinessObject repräsentiert ein BusinessObject und ist im
  * <code>shared</code> Package. Die Klasse wird benötigt, da sie alle
@@ -14,7 +16,7 @@ import java.sql.Timestamp;
  * zwischen Client und Server funktioniert.
  */
 @SuppressWarnings("serial")
-public abstract class BusinessObject implements Serializable {
+public abstract class BusinessObject implements IsSerializable {
 
 	// Variablendeklarationen
 	private int id;

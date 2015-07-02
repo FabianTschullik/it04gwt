@@ -16,91 +16,58 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
-import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
 
-public class MainGUI extends Composite {
+public class MainGUI  {
 	
-	static It04gwtServiceClientImpl serviceImpl;
-	
-	private VerticalPanel vPanel = new VerticalPanel();
-	private HorizontalPanel hPanelButtons = new HorizontalPanel();
-	private HorizontalPanel hPanel = new HorizontalPanel();
-	private VerticalPanel vPanelTree = new VerticalPanel();
-	private VerticalPanel vPanelDetails = new VerticalPanel();
-	private VerticalPanel vPanelDetailsContent = new VerticalPanel();
-	public Vector<Baugruppe> listeBaugruppen;
-	
-	public VerticalPanel getvPanelDetailsContent() {
-		return vPanelDetailsContent;
-	}
-
-
-
-
-
-	public void setvPanelDetailsContent(VerticalPanel vPanelDetailsContent) {
-		this.vPanelDetailsContent = vPanelDetailsContent;
-	}
-
-
-
-	private HorizontalPanel hPanelDetailsButtons = new HorizontalPanel();
-	FlexTable flex = new FlexTable();
-	FlexTable findBauteilTable  = new FlexTable();
+	//static It04gwtServiceClientImpl serviceImpl;
 	
 	
-	public MainGUI(It04gwtServiceClientImpl serviceImpl){
-		
-		initWidget(this.vPanel);
-		this.serviceImpl = serviceImpl;
+
 	
-		this.vPanel.add(hPanelButtons);
-		this.vPanel.add(hPanel);
-		this.hPanel.add(vPanelTree);
-		this.hPanel.add(vPanelDetails);
-		//this.vPanelDetails.add(hPanelDetailsButtons);
-		this.vPanelDetails.add(vPanelDetailsContent);
+	
+	public  Widget load(){
 		
-		
-		this.vPanelDetails.setBorderWidth(1);
-		this.vPanelTree.setBorderWidth(1);
-		this.hPanel.setBorderWidth(1);
-		
-		
-		
-		
-		
-		
-		
-		
+HorizontalPanel hPanel = new HorizontalPanel();
+	
 		
 		//-----------------------------------------------------------------
 		//------------------- Buttons obere Leiste ------------------------
 		//-----------------------------------------------------------------
 		
 		Button btnBauteil = new Button("Bauteil");
-		btnBauteil.addClickHandler(new BtnBauteilClickHandler());
-		this.hPanelButtons.add(btnBauteil);
+		btnBauteil.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				RootPanel.get().add(new BauteilGUI().menue());
+			}
+		
+		});
+		
+		
+		hPanel.add(btnBauteil);
 		
 		Button btnBaugruppe = new Button("Baugruppe");
 		btnBaugruppe.addClickHandler(new BtnBaugruppeClickHandler());
-		this.hPanelButtons.add(btnBaugruppe);
+		hPanel.add(btnBaugruppe);
 		
 		Button btnEnderzeugnis = new Button("Enderzeugnis");
 		btnEnderzeugnis.addClickHandler(new BtnEnderzeugnisClickHandler());
-		this.hPanelButtons.add(btnEnderzeugnis);
+		hPanel.add(btnEnderzeugnis);
 		
 		Button btnImpressum = new Button("Impressum");
 		btnImpressum.addClickHandler(new BtnImpressumClickHandler());
-		this.hPanelButtons.add(btnImpressum);
+		hPanel.add(btnImpressum);
 		
 		//-----------------------------------------------------------------
 		//------------------- Ende Buttons obere Leiste ------------------------
@@ -125,8 +92,8 @@ public class MainGUI extends Composite {
 	    	    
 	    Tree t = new Tree();
 	    t.addItem(root);
- 
-	    this.vPanelTree.add(t);	    
+	    return hPanel;
+	    //vPanelTree.add(t);	    
 }	    
 	    
 
@@ -217,35 +184,35 @@ public class MainGUI extends Composite {
  		/**
  		 * Bauteil-Tabelle zum Panel hinzugefügt damit das Ganze auch angezeigt wird 
  		 */
- 		this.vPanelDetails.add(bauteileTable);
+ 		//this.vPanelDetails.add(bauteileTable);
  		
  		/**
  		 * Buttons
  		 */
  		Button btnNeu = new Button("Neu");
  		//btnNeu.addClickHandler(new NeuClickHandler());
- 		this.hPanelButtons.add(btnNeu);
+ 	//	this.hPanelButtons.add(btnNeu);
  		
  		Button btnEdit = new Button("Bearbeiten");
  		//btnEdit.addClickHandler(new EditClickHandler());
- 		this.hPanelButtons.add(btnEdit);
+ 		//this.hPanelButtons.add(btnEdit);
  		
  		Button btnDelete = new Button("Loeschen");
  		//btnDelete.addClickHandler(new DeleteClickHandler());
- 		this.hPanelButtons.add(btnDelete);
+ 		//this.hPanelButtons.add(btnDelete);
  		
  		Button btnAbbrechen = new Button("Abbrechen");
  		//btnAbbrechen.addClickHandler(new AbbrechenClickHandler());
- 		this.hPanelButtons.add(btnAbbrechen);
+ 		//this.hPanelButtons.add(btnAbbrechen);
  		
  		Button btnUpdate = new Button("Aktualisieren");
  		//btnUpdate.addClickHandler(new UpdateClickHandler());
- 		this.hPanelButtons.add(btnUpdate);
+ 		//this.hPanelButtons.add(btnUpdate);
  		
  		//this.hPanelMain.add(vPanelFlexTable);
  		//this.vPanelMain.add(vPanelCreate);
  		//this.vPanelFlexTable.add(hPanelButtons);
- 		this.vPanelDetails.add(bauteileTable);
+ 		//this.vPanelDetails.add(bauteileTable);
  	}
 
 	
@@ -255,16 +222,16 @@ public class MainGUI extends Composite {
  	
  	public void showBauteil(Bauteil bt){
  		
- 		this.vPanelDetailsContent.clear();
-		this.flex.clear();
+ 		//this.vPanelDetailsContent.clear();
+		//this.flex.clear();
 
 		HTML topic = new HTML("<h2>Detailansicht Bauteil</h2>");
 
-		this.vPanelDetailsContent.add(topic);
+		//this.vPanelDetailsContent.add(topic);
 
 			Label lbl = new Label(Integer.toString(bt.getId()));
 			
-			this.vPanelDetailsContent.add(lbl);
+		//	this.vPanelDetailsContent.add(lbl);
  		
 			
  	}
@@ -278,15 +245,15 @@ public class MainGUI extends Composite {
 			
 	public void showConnectedBauteil(Vector<Bauteil> elemente){
 				
-		this.flex.clear();
+		//this.flex.clear();
 		
-		this.flex = new FlexTable();
-		flex.setText(0, 0, "ID");
-		flex.setText(0, 1, "Name");
-		flex.setText(0, 2, "Materialezeichnung");
-		flex.setText(0, 3, "Beschreibung");
-		flex.setText(0, 4, "erstellt am");
-		flex.setText(0, 5, "geändert am");
+		//this.flex = new FlexTable();
+		//flex.setText(0, 0, "ID");
+		//flex.setText(0, 1, "Name");
+		//flex.setText(0, 2, "Materialezeichnung");
+		//flex.setText(0, 3, "Beschreibung");
+		//flex.setText(0, 4, "erstellt am");
+		//flex.setText(0, 5, "geändert am");
 		
 		/**
 		 * Für jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
@@ -313,23 +280,23 @@ public class MainGUI extends Composite {
 			/**
 			 * Konvertieren der Bauteil-Daten und befüllen der Tabelle
 			 */
-			flex.setText(j+1, 0, Integer.toString(elemente.elementAt(j).getId()));
-			flex.setText(j+1, 1, elemente.elementAt(j).getName());
-			flex.setText(j+1, 2, elemente.elementAt(j).getMaterialBezeichnung());
-			flex.setText(j+1, 3, elemente.elementAt(j).getBeschreibung());
-			flex.setText(j+1, 4, s1);
-			flex.setText(j+1, 5, s2);	
+			//flex.setText(j+1, 0, Integer.toString(elemente.elementAt(j).getId()));
+			//flex.setText(j+1, 1, elemente.elementAt(j).getName());
+			//flex.setText(j+1, 2, elemente.elementAt(j).getMaterialBezeichnung());
+			//flex.setText(j+1, 3, elemente.elementAt(j).getBeschreibung());
+			//flex.setText(j+1, 4, s1);
+			//flex.setText(j+1, 5, s2);	
 		}
 		
 
 		/**
 		 * Verknüpfung zu style.css
 		 */
-		flex.setCellPadding(6);
-		flex.getRowFormatter().addStyleName(0,  "watchListHeader");
-		flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
-		flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-		this.vPanelDetailsContent.add(flex);	
+		//flex.setCellPadding(6);
+		//flex.getRowFormatter().addStyleName(0,  "watchListHeader");
+	//	flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+		//flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+		//this.vPanelDetailsContent.add(flex);	
 	}
 	
 
@@ -346,10 +313,10 @@ public class MainGUI extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			
-			vPanelDetailsContent.clear();
-			BauteilGUI bauteilgui = new BauteilGUI(vPanelDetailsContent);
+			//vPanelDetailsContent.clear();
+			//BauteilGUI bauteilgui = new BauteilGUI(vPanelDetailsContent);
 			
-			bauteilgui.menue();
+			//bauteilgui.menue();
 		}
 	}
 	
@@ -360,10 +327,10 @@ public class MainGUI extends Composite {
 		public void onClick(ClickEvent event) {
 			
 
-			vPanelDetailsContent.clear();
-			BaugruppeGUI baugruppegui = new BaugruppeGUI(vPanelDetailsContent);
+			//vPanelDetailsContent.clear();
+			//BaugruppeGUI baugruppegui = new BaugruppeGUI(vPanelDetailsContent);
 			
-			baugruppegui.menue();
+		//	baugruppegui.menue();
 
 				
 		}
@@ -373,10 +340,10 @@ public class MainGUI extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			vPanelDetailsContent.clear();
-			EnderzeugnisGUI enderzeugnisgui = new EnderzeugnisGUI(vPanelDetailsContent);
+			//vPanelDetailsContent.clear();
+			//EnderzeugnisGUI enderzeugnisgui = new EnderzeugnisGUI(vPanelDetailsContent);
 			
-			enderzeugnisgui.menue();
+			//enderzeugnisgui.menue();
 			
 		}
 	}
@@ -386,10 +353,10 @@ public class MainGUI extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			
-			vPanelDetailsContent.clear();
-			AlertGUI alertgui = new AlertGUI(vPanelDetailsContent);
+			//vPanelDetailsContent.clear();
+			//AlertGUI alertgui = new AlertGUI(vPanelDetailsContent);
 			
-			alertgui.load("Fehler", "red");
+			//alertgui.load("Fehler", "red");
 			
 		}
 	}

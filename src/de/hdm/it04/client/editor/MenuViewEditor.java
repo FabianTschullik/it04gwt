@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
-import de.hdm.it04.client.service.It04gwtServiceClientImpl;
+
 
 /**
  * 

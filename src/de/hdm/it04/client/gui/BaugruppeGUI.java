@@ -27,7 +27,7 @@ import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
 
-public class BaugruppeGUI extends MainGUI {
+public class BaugruppeGUI  {
 	
 	private TextBox txtSuchen = new TextBox();
 	private TextBox txtName = new TextBox();
@@ -41,10 +41,7 @@ public class BaugruppeGUI extends MainGUI {
 	
 
 
-	public BaugruppeGUI(VerticalPanel vPanel){	
-		super(serviceImpl);
-		this.vPanel = vPanel;
-	}
+	
 	
 public void menue(){
 		
@@ -144,6 +141,8 @@ public void showAnlegenForm(Baugruppe bg){
 
 
 public void showBaugruppeForm(Baugruppe bg){
+	
+	FlexTable flex = new FlexTable();
 	
 	this.bg = bg;
 	//this.vPanel.clear();
@@ -277,7 +276,7 @@ public class BtnAnlegenClickHandler implements ClickHandler {
 	@Override
 	public void onClick(ClickEvent event) {
 		vPanel.clear();
-		serviceImpl.createBaugruppe();
+		//serviceImpl.createBaugruppe();
 	}
 }
 
@@ -296,7 +295,7 @@ public class BtnShowAllClickHandler implements ClickHandler {
 	public void onClick(ClickEvent event) {
 		
 		vPanel.clear();
-		serviceImpl.getAllBaugruppen();	
+		//serviceImpl.getAllBaugruppen();	
 	}
 }
 
@@ -313,7 +312,7 @@ public class BtnSpeichernClickHandler implements ClickHandler {
 		bg.setName(txtName.getText());
 		bg.setBeschreibung(txtBeschreibung.getText());
 		
-		serviceImpl.updateBaugruppe(bg);
+		//serviceImpl.updateBaugruppe(bg);
 	}
 }
 
@@ -322,7 +321,7 @@ public class BtnAbbrechenClickHandler implements ClickHandler {
 	@Override
 	public void onClick(ClickEvent event) {
 		vPanel.clear();
-		serviceImpl.deleteBaugruppe(bg.getId());
+		//serviceImpl.deleteBaugruppe(bg.getId());
 	}
 }
 

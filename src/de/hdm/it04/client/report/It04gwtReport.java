@@ -10,7 +10,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 
 
 	/**
@@ -22,7 +21,7 @@ public class It04gwtReport implements EntryPoint {
 			//ReportGUI reportgui = new ReportGUI();
 			//RootPanel.get().add(reportgui);
 			
-			It04gwtServiceClientImpl clientImpl = new It04gwtServiceClientImpl(GWT.getModuleBaseURL()+"sms");
-			RootPanel.get().add(clientImpl.getMainGUI());
+			//It04gwtServiceClientImpl clientImpl = new It04gwtServiceClientImpl(GWT.getModuleBaseURL()+"sms");
+			//RootPanel.get().add(clientImpl.getMainGUI());
 		}	
 }
