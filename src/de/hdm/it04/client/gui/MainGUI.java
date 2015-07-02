@@ -36,7 +36,6 @@ public class MainGUI extends Composite {
 	private VerticalPanel vPanelTree = new VerticalPanel();
 	private VerticalPanel vPanelDetails = new VerticalPanel();
 	private VerticalPanel vPanelDetailsContent = new VerticalPanel();
-	public Vector<Baugruppe> listeBaugruppen;
 	
 	public VerticalPanel getvPanelDetailsContent() {
 		return vPanelDetailsContent;
@@ -379,7 +378,8 @@ public class MainGUI extends Composite {
 			vPanelDetailsContent.clear();
 			EnderzeugnisGUI enderzeugnisgui = new EnderzeugnisGUI(vPanelDetailsContent);
 			
-			enderzeugnisgui.menue();
+			serviceImpl.getAllEnderzeugnisse();
+			//enderzeugnisgui.menue();
 			
 		}
 	}

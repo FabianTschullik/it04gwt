@@ -162,14 +162,14 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public Vector<Enderzeugnis> getEnderzeugnisForUpdate(int id) {
-		// TODO Auto-generated method stub blabla
-		return null;
+		
+		return EnderzeugnisMapper.enderzeugnisMapper().findByKey(id);
 	}
 
 	
 public Vector<Enderzeugnis> getEnderzeugnis(int id){
 		
-		return EnderzeugnisMapper.enderzeugnisMapper().getEnderzeugnisById(id);
+		return EnderzeugnisMapper.enderzeugnisMapper().findByKey(id);
 	}
 
 	public Enderzeugnis createEnderzeugnis() {
@@ -182,6 +182,11 @@ public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {
 		
 		return EnderzeugnisMapper.enderzeugnisMapper().updateEnderzeugnis(ez);
 	}
+
+
+public Vector<Baugruppe> getAllBaugruppenForZuordnung(){
+	return BaugruppeMapper.baugruppeMapper().findAll();
+}
 //-----------------------------------------------------------------------------
 //----------------------------Ende Enderzeugnis----------------------------------------
 //-----------------------------------------------------------------------------	

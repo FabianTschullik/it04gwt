@@ -255,53 +255,69 @@ public class EnderzeugnisMapper {
 	}
 	
 	
-	public Vector<Enderzeugnis> getEnderzeugnisById(int id) {
+	/**
+	 * Suchen eines Bauteils mit vorgegebener id. Da diese eindeutig ist, wird
+	 * genau ein Vektor-Objekt zurückgegeben.
+	 * 
+	 * Warum Vektor? Da im späteren Verlauf die Methode findByKey und findByName
+	 * zusammen geführt werden. So ist es möglich über das Suchfeld per Name und
+	 * id zusuchen. Der Vektor ist notwendig, da der Name nicht als primär
+	 * Schlüssel gekennzeichnet ist. Daher können auch mehrere Ergebnise zurück
+	 * gegeben werden. Der Vektor ist für die findByKey Methode im prinzip nicht
+	 * notwendig.
+	 * 
+	 * @param id
+	 *            Primärschlüsselattribut (->DB)
+	 * @return Konto-Objekt-Vektor, das dem übergebenen Schlüssel entspricht,
+	 *         null bei nicht vorhandenem DB-Tupel.
+	 */
+	public Vector<Enderzeugnis> findByKey(int id) {
 
 		// DB-Verbindung holen
-				Connection con = DbConnection.connection();
+		Connection con = DbConnection.connection();
+
+		// Ergebnisvektor vorbereiten
+		Vector<Enderzeugnis> result = new Vector<Enderzeugnis>();
+
+		try {
+
+			// Leeres SQL-Statement (JDBC) anlegen
+
+			Statement stmt = con.createStatement();
+
+			// Statement ausf�llen und als Query an die DB schicken
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT id, name, beschreibung, preis, erstellungsDatum, aenderungsDatum FROM enderzeugnis "
+							+ "WHERE id=" + id);
+			/*
+			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
+			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+			 */
+
+			while (rs.next()) {
+
+				// Ergebnis-Tupel in Objekt umwandeln
+
+				Enderzeugnis bt = new Enderzeugnis();
+				bt.setId(rs.getInt("id"));
+				bt.setName(rs.getString("name"));
+				bt.setBeschreibung(rs.getString("beschreibung"));
+				//bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
+				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+
+				result.addElement(bt);
 				
-				Vector<Enderzeugnis> result = new Vector<Enderzeugnis>();
-
-				// Ergebnisvektor vorbereiten
-				Enderzeugnis ez = new Enderzeugnis();
-
-				try {
-
-					
-					Statement stmt = con.createStatement();
-
-					// Statement ausf�llen und als Querysdds an die DB schicken
-
-					ResultSet rs = stmt
-							.executeQuery("SELECT id, name, beschreibung, preis, baugruppe, erstellungsDatum, aenderungsDatum FROM enderzeugnis "
-									+ "WHERE id=" + id);
-					
-					
-					/*
-					 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
-					 * werden. Pr�fe, ob ein Ergebnis vorliegt.
-					*/
-						ez.setId(rs.getInt("id"));
-						ez.setName(rs.getString("name"));
-						ez.setBeschreibung(rs.getString("beschreibung"));
-						ez.setBaugruppe(rs.getInt("baugruppe"));
-						ez.setPreis(rs.getDouble("preis"));
-						ez.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
-						ez.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
-
-						result.add(ez);
-	
-
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-					return null;
-				}
 				return result;
-	}
-	
+			}
 
-	
-	
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+			return null;
+		}
+		return null;
+	}
 	
 	
 	

@@ -3,6 +3,7 @@ package de.hdm.it04.client.service;
 import java.util.Vector;
 
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
@@ -208,6 +209,11 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	public void deleteEnderzeugnis(int id){
 		this.service.deleteEnderzeugnis(id, new DeleteEnderzeugnisCallback());
 	}
+	
+	
+	public void getAllBaugruppenForZuordnung(){
+		this.service.getAllBaugruppenForZuordnung(new GetAllBaugruppenForZuordnung());
+	}
 //------------------------------------------------------------------------------------
 //----------------------------------Ende Enderzeugnis----------------------------------
 //------------------------------------------------------------------------------------
@@ -355,7 +361,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			alertgui.load("Bauteil konnte nicht gelöscht werden", "red");
+			alertgui.load("Bauteil konnte nicht gelï¿½scht werden", "red");
 		}
 
 		@Override
@@ -502,21 +508,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			Vector<Baugruppe> baugruppe = new Vector<Baugruppe>();
 			baugruppe = (Vector<Baugruppe>) result;
 			
-			 enderzeugnisgui.baugruppen = baugruppe;
-
-			if(enderzeugnisgui.status == 0){
-				baugruppegui.showAllBaugruppen(baugruppe);
-			}
-			
-			
-			if(enderzeugnisgui.status == 1){
-				enderzeugnisgui.status = 0;
-				enderzeugnisgui.showAnlegenForm(enderzeugnisgui.ez);
-			}
-			
-			
-					
-		
+			baugruppegui.showAllBaugruppen(baugruppe);
 	}
 		}
 	
@@ -620,10 +612,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	@Override
 	public void onSuccess(Object result) {
-		
-		enderzeugnisgui.menue();
-		alertgui.load((String)result, "green");
-
+		Window.confirm("Bauteil wurd erfolgreich gelÃ¶scht!");
+		//Window.open("eine Mama stinkt", "Fck you", features);
+	
+		//alertgui.load("Vorgang wurde abgebrochen", "green");
 	}
 		
 	}
@@ -634,14 +626,16 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
+			Window.alert("Bla");
 			
 		}
 
 		@Override
 		public void onSuccess(Vector<Enderzeugnis> result) {
-			// TODO Auto-generated method stub
 			
+			Enderzeugnis ez = new Enderzeugnis();
+			ez = result.firstElement();
+			enderzeugnisgui.showAnlegenForm(ez);
 		}
 		
 	}
@@ -662,6 +656,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Vector<Enderzeugnis> enderzeugnisse = new Vector<Enderzeugnis>();
 				enderzeugnisse = (Vector<Enderzeugnis>) result;
 
+				//enderzeugnisgui.menue(enderzeugnisse);
 				enderzeugnisgui.showAllEnderzeugnisse(enderzeugnisse);
 						
 			
@@ -721,12 +716,30 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			
 				//Da nur ein Enderzeugnis geupdatet wird, kann sich nur ein
 				//EZ im Vektor befinden. Das Element wird gespeichert.
-				Enderzeugnis ez = result.firstElement();
-				
-				
-				
-				enderzeugnisgui.zwischenmethodeZuordnung(ez);
+			
+				getAllBaugruppenForZuordnung();
+				//Enderzeugnis ez = result.firstElement();
 				//enderzeugnisgui.showEnderzeugnisForm(ez);
+		}
+	}
+
+	
+	
+	private class GetAllBaugruppenForZuordnung implements AsyncCallback<Vector<Baugruppe>> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+		
+		}
+
+		@Override
+		public void onSuccess(Vector<Baugruppe> result) {
+			
+			Vector<Baugruppe> baugruppen = new Vector<Baugruppe>();
+			baugruppen = (Vector<Baugruppe>) result;
+
+			
+			enderzeugnisgui.showZuordnungsForm(baugruppen);
 		}
 	}
 

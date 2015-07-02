@@ -98,6 +98,7 @@ public interface It04gwtServiceClientInt {
 	//void getEnderzeugnis(String name);
 	void getEnderzeugnisForUpdate (int id);
 	void getAllEnderzeugnisse();
+	void getAllBaugruppenForZuordnung();
 //------------------------------------------------------------------------------------
 //------------------------------Ende Enderzeugnis----------------------------------
 //------------------------------------------------------------------------------------	
