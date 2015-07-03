@@ -16,7 +16,7 @@ public class AlertGUI  {
 
 	
 
-	public Widget load(String text, String color) {
+	public void load(String text, String color) {
 		
 		
 		VerticalPanel vPanel = new VerticalPanel();
@@ -50,7 +50,7 @@ public class AlertGUI  {
 		hPanel.add(btn);
 		vPanel.add(hPanel);
 		
-		return vPanel;
+		RootPanel.get("alert").add(vPanel);
 		
 	}
 	
@@ -59,7 +59,7 @@ public class AlertGUI  {
 		@Override
 		public void onClick(ClickEvent event) {
 			
-			
+			RootPanel.get("alert").clear();
 		
 			
 		}

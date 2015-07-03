@@ -142,14 +142,13 @@ public class BauteilGUI {
 					greetingService.getBauteil(id, new AsyncCallback<Vector<Bauteil>>() {
 
 						public void onFailure(Throwable arg0) {
-							RootPanel.get().add(new AlertGUI().load("ad", "red"));
+						
 							
 						}
 
 						
 						public void onSuccess(Vector<Bauteil> result) {
-							RootPanel.get().add(new BauteilGUI().getBauteil(result));
-							RootPanel.get().add(new AlertGUI().load("ad", "green"));
+							
 							
 						}
 					});
@@ -160,12 +159,12 @@ public class BauteilGUI {
 
 					
 					public void onFailure(Throwable arg0) {
-						RootPanel.get().add(new AlertGUI().load("ad", "red"));						
+											
 					}
 
 					public void onSuccess(Vector<Bauteil> result) {
 						RootPanel.get().add(new BauteilGUI().getBauteil(result));
-						RootPanel.get().add(new AlertGUI().load("ad", "green"));
+						
 						
 					}
 				});
@@ -247,14 +246,14 @@ public class BauteilGUI {
 
 					@Override
 					public void onFailure(Throwable arg0) {
-						RootPanel.get().add(new AlertGUI().load("kkgk", "red"));
+						
 						
 					}
 
 					@Override
 					public void onSuccess(Vector<Bauteil> result) {
 						
-						RootPanel.get().add(new AlertGUI().load("angelegt", "green"));
+						
 						Vector<Bauteil> bauteile = new Vector<Bauteil>();
 						bauteile = (Vector<Bauteil>) result;
 						
@@ -399,13 +398,13 @@ public Widget getBauteil(Vector<Bauteil> bauteile){
 
 						@Override
 						public void onFailure(Throwable arg0) {
-						RootPanel.get().add(new AlertGUI().load("Fehler", "red"));
+					
 							
 						}
 
 						@Override
 						public void onSuccess(Object arg0) {
-							RootPanel.get().add(new AlertGUI().load("Erfolg", "green"));
+							
 							
 						}
 
@@ -440,7 +439,7 @@ public Widget getBauteil(Vector<Bauteil> bauteile){
 
 						@Override
 						public void onFailure(Throwable arg0) {
-							RootPanel.get().add(new AlertGUI().load("Fehler", "red"));
+							
 							
 						}
 
@@ -451,7 +450,7 @@ public Widget getBauteil(Vector<Bauteil> bauteile){
 							bauteile = (Vector<Bauteil>) result;
 							Bauteil bt = new Bauteil();
 							bt = bauteile.elementAt(0);
-							RootPanel.get().add(new AlertGUI().load("OK", "green"));
+							
 							RootPanel.get().add(new BauteilGUI().updateBauteil(bt));
 							
 						}});

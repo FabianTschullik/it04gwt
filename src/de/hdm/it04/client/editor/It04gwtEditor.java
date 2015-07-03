@@ -7,6 +7,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import de.hdm.it04.client.gui.MainGUI;
+import de.hdm.it04.client.gui.MenuForm;
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.LoginInfo;
@@ -33,14 +34,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
-
-
-
-
-
-
-
+import com.google.gwt.user.client.ui.Widget;
 
 
 	/**
@@ -150,6 +144,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 		
 		
 		public void onModuleLoad() {
+		
+			
+			
 			
 			
 			// TODO #08: create login controls
@@ -172,7 +169,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 					if (result.getName() != null && !result.getName().isEmpty()) {
 						addGoogleAuthHelper();
 						loadLogout(result);
-						RootPanel.get().add(new MainGUI().load());
+	
+						RootPanel.get("header").add(new MenuForm());
 						
 					} else {
 						loadLogin(result);
