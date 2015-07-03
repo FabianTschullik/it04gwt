@@ -48,8 +48,8 @@ public class MainViewEditor extends Composite {
 	
 	public void openImpressumMain() {
 		this.hPanelDashboard.clear();
-		ImpressumMain ImpressumMain = new ImpressumMain();
-		this.hPanelDashboard.add(ImpressumMain);
+	
+	
 	}
 	
 	public void openDashboard() {

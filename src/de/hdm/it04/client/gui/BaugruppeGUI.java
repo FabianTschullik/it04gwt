@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
-
+import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.gui.BauteilGUI.AnlegenBtnClickHandler;
 import de.hdm.it04.client.gui.BauteilGUI.ShowAllBtn1ClickHandler;
@@ -81,7 +81,7 @@ public void menue(){
 //----------------------------------------------------------------------------
 //----------------------- Form zum Anlegen einer Baugruppe --------------------------
 //----------------------------------------------------------------------------
-public void showAnlegenForm(Baugruppe bg){
+public Widget showAnlegenForm(Baugruppe bg){
 	
 	
 	this.bg = bg;
@@ -132,6 +132,8 @@ public void showAnlegenForm(Baugruppe bg){
   decPanel.setWidget(layout);
   
   this.vPanel.add(decPanel);
+  
+  return vPanel;
 }
 //----------------------------------------------------------------------------
 //----------------------- Ende Form zum Anlegen eines EZ --------------------------

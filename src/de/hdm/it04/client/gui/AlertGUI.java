@@ -18,7 +18,7 @@ public class AlertGUI  {
 
 	public void load(String text, String color) {
 		
-		
+		RootPanel.get("alert").clear();
 		VerticalPanel vPanel = new VerticalPanel();
 		HorizontalPanel hPanel = new HorizontalPanel();
 

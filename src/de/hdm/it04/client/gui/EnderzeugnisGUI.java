@@ -2,9 +2,11 @@ package de.hdm.it04.client.gui;
 
 import java.util.Vector;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -18,11 +20,17 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
+import de.hdm.it04.client.service.It04gwtService;
+import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
+import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
 
 public class EnderzeugnisGUI {
+	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
+	AlertGUI alertGUI = new AlertGUI();
 	
 	private TextBox txtSuchen = new TextBox();
 	private TextBox txtName = new TextBox();
@@ -37,7 +45,63 @@ public class EnderzeugnisGUI {
 	
 
 
+	public Widget suchen(){
+		VerticalPanel vPanel = new VerticalPanel();
+		
+		txtSuchen.setText("id oder Name");
+		vPanel.add(txtSuchen);
+		
+		Button btnSuchen = new Button("Suchen");
+		vPanel.add(btnSuchen);
+		btnSuchen.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+	String ezSuche = txtSuchen.getText();
+				
+				if (ezSuche.matches("[0-9]+")){
+					int id = Integer.parseInt(ezSuche);
+					sms.getEnderzeugnis(id, new AsyncCallback<Vector<Enderzeugnis>>() {
 
+						public void onFailure(Throwable arg0) {
+						
+							
+						}
+
+						
+						public void onSuccess(Vector<Enderzeugnis> result) {
+							ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showAllEnderzeugnisse(result));
+							
+						}
+					});
+					
+				}
+			//String name = ezSuche;
+			
+			int id = Integer.parseInt(ezSuche);
+				sms.getEnderzeugnis(id, new AsyncCallback<Vector<Enderzeugnis>>() {
+
+					
+					public void onFailure(Throwable arg0) {
+											
+					}
+
+					public void onSuccess(Vector<Enderzeugnis> result) {
+						ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showAllEnderzeugnisse(result));;
+						
+						
+					}
+				});
+				
+				
+				
+			}
+		} );
+			
+		
+		
+		return vPanel;
+	}
 	
 public void menue(){
 	
@@ -81,7 +145,7 @@ public void menue(){
 //----------------------------------------------------------------------------
 //----------------------- Form zum Anlegen eines EZ --------------------------
 //----------------------------------------------------------------------------
-public void showAnlegenForm(Enderzeugnis enderzeugnis){
+public Widget showAnlegenForm(Enderzeugnis enderzeugnis){
 	
 	
 	this.ez = enderzeugnis;
@@ -102,16 +166,76 @@ public void showAnlegenForm(Enderzeugnis enderzeugnis){
     cellFormatter.setHorizontalAlignment(
         0, 0, HasHorizontalAlignment.ALIGN_CENTER);
 
-    Button btnSuchen = new Button("Suchen");
-	btnSuchen.addClickHandler(new BtnSuchenClickHandler());
+
 	
 	Button btnSpeichern = new Button("Speichern");
-	btnSpeichern.addClickHandler(new BtnSpeichernClickHandler());
+	btnSpeichern.addClickHandler(new ClickHandler() {
+		
+		@Override
+		public void onClick(ClickEvent event) {
+		
+			ez.setName(txtName.getText());
+			ez.setBeschreibung(txtBeschreibung.getText());
+			ez.setPreis(Double.parseDouble(txtPreis.getText()));
+			sms.updateEnderzeugnis(ez, new AsyncCallback<Vector<Enderzeugnis>>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					alertGUI.load(
+							"Enderzeugnis konnte nicht gespeichert werden",
+							"red");
+					
+				}
+
+				@Override
+				public void onSuccess(Vector<Enderzeugnis> result) {
+					alertGUI.load(
+							"Enderzeugnis wurde erfolgreich gespeichert",
+							"green");
+					
+					ContentContainer.getInstance().setContent(
+							new EnderzeugnisGUI().showAllEnderzeugnisse(result));
+
+					
+				}
+			});
+			
+		}
+	});
 	
 	Button btnAbbrechen = new Button("Abbrechen");
-	btnAbbrechen.addClickHandler(new BtnAbbrechenClickHandler());
+	btnAbbrechen.addClickHandler(new ClickHandler(){
+		public void onClick(ClickEvent event) {
+			
+			sms.deleteEnderzeugnis(ez.getId(), new AsyncCallback<Enderzeugnis>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					alertGUI.load(
+							"Vorgang konnte nicht abgebrochen werden",
+							"green");
+					
+				}
+
+				@Override
+				public void onSuccess(Enderzeugnis result) {
+					alertGUI.load(
+							"Vorgang wurde erfolgreich abgebrochen",
+							"green");
+					
+					ContentContainer.getInstance().setContent(
+							new Welcome().load());
+
+					
+					
+				}
+			});
+			
+			
+			
+	}
 	
-	
+	});
 	
 	
     // Add some standard form options
@@ -135,6 +259,8 @@ public void showAnlegenForm(Enderzeugnis enderzeugnis){
     decPanel.setWidget(layout);
     
     this.vPanel.add(decPanel);
+    
+    return vPanel;
 }
 //----------------------------------------------------------------------------
 //----------------------- Ende Form zum Anlegen eines EZ --------------------------
@@ -210,7 +336,7 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 
 
 
-public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
+public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 	
 	/**
 	 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
@@ -294,6 +420,8 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 	 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
 	 */
 	this.vPanel.add(bauteileTable);
+	
+	return vPanel;
 	
 }
 	
@@ -414,6 +542,7 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 
 			@Override
 			public void onClick(ClickEvent event) {
+				
 				
 				//serviceImpl.getBaugruppe(Integer.parseInt(txtSuchen.getText()));
 			}

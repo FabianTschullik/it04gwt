@@ -6,8 +6,10 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import de.hdm.it04.client.gui.ContentContainer;
 import de.hdm.it04.client.gui.MainGUI;
 import de.hdm.it04.client.gui.MenuForm;
+import de.hdm.it04.client.gui.Welcome;
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.LoginInfo;
@@ -171,6 +173,9 @@ import com.google.gwt.user.client.ui.Widget;
 						loadLogout(result);
 	
 						RootPanel.get("header").add(new MenuForm());
+						
+						RootPanel.get("content").add(new Welcome().load());
+					
 						
 					} else {
 						loadLogin(result);

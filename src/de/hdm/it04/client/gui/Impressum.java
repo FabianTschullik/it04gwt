@@ -1,30 +1,14 @@
-package de.hdm.it04.client.editor;
+package de.hdm.it04.client.gui;
 
-
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Tree;
-import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.it04.client.editor.MainViewEditor;
 
-
-/**
- * Diese Klasse enthält das Impressum.
- * Das Impressum wird zur eindeutigen Identifizierung der Website nach §5 TMG benötigt.
- *  
- * @author Schwab
- */
-
-public class ImpressumMain extends Composite {
+public class Impressum {
 	private VerticalPanel vPanel = new VerticalPanel();
-	private MainViewEditor main;
-	
-	
-	public ImpressumMain() {
-		initWidget(this.vPanel);
-		this.main = main;
-		
+
+	public HTML load() {
 
 		HTML html = new HTML(
 				"<h1>Impressum nach §5 TMG</h1>"
@@ -47,8 +31,8 @@ public class ImpressumMain extends Composite {
 						+ "ft027@hdm-stuttgart.de<br>"
 						+ "mv045@hdm-stuttgart.de<br>" + "</td>" + "</tr>"
 						+ "</table>");
+		
+		return html;
 
-		this.vPanel.add(html);
-	}	
+	}
 }
-	 

@@ -281,6 +281,8 @@ public class EnderzeugnisMapper {
 					 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
 					 * werden. Pr�fe, ob ein Ergebnis vorliegt.
 					*/
+					
+					while (rs.next()) {
 						ez.setId(rs.getInt("id"));
 						ez.setName(rs.getString("name"));
 						ez.setBeschreibung(rs.getString("beschreibung"));
@@ -290,7 +292,7 @@ public class EnderzeugnisMapper {
 						ez.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
 						result.add(ez);
-	
+					}
 
 				} catch (SQLException e2) {
 					e2.printStackTrace();

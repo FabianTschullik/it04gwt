@@ -10,7 +10,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import de.hdm.it04.client.editor.It04gwtEditor;
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
+import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Enderzeugnis;
 
 public class MenuForm extends HorizontalPanel {
 
@@ -35,6 +37,10 @@ public class MenuForm extends HorizontalPanel {
 
 		Command openImpressum = new Command() {
 			public void execute() {
+				ContentContainer.getInstance().setContent(new Impressum().load());
+				
+				
+				
 
 			}
 
@@ -42,6 +48,8 @@ public class MenuForm extends HorizontalPanel {
 
 		Command openSucheEnderzeugnis = new Command() {
 			public void execute() {
+				ContentContainer.getInstance().setContent(new EnderzeugnisGUI().suchen());
+				
 
 			}
 
@@ -63,6 +71,27 @@ public class MenuForm extends HorizontalPanel {
 
 		Command newEnderzeugnis = new Command() {
 			public void execute() {
+				sms.createEnderzeugnis(new AsyncCallback<Enderzeugnis>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+
+						alertGUI.load(
+								"Leeres Enderzeugnis konnte nicht geladen werden",
+								"red");
+
+					}
+
+					@Override
+					public void onSuccess(Enderzeugnis result) {
+
+						ContentContainer.getInstance().setContent(
+								new EnderzeugnisGUI().showAnlegenForm(result));
+
+					}
+				});
+				
+				
 
 			}
 		};
@@ -95,6 +124,26 @@ public class MenuForm extends HorizontalPanel {
 
 		Command newBaugruppe = new Command() {
 			public void execute() {
+				
+				sms.createBaugruppe(new AsyncCallback<Baugruppe>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+
+						alertGUI.load(
+								"Leere Baugruppe konnte nicht geladen werden",
+								"red");
+
+					}
+
+					@Override
+					public void onSuccess(Baugruppe result) {
+
+						ContentContainer.getInstance().setContent(
+								new BaugruppeGUI().showAnlegenForm(result));
+
+					}
+				});
 
 			}
 		};

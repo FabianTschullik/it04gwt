@@ -7,7 +7,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.it04.client.editor.ImpressumMain;
 import de.hdm.it04.client.report.MaterialbedarfGUI;
 
 
@@ -69,8 +68,8 @@ public class ReportGUI extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanelContent.clear();
-			ImpressumMain impmain = new ImpressumMain();
-			vPanelContent.add(impmain);
+			
+		
 		}	
 	}	
 }
