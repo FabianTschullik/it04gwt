@@ -30,6 +30,7 @@ import de.hdm.it04.shared.Bauteil;
 
 public class BauteilGUI {
 	
+	AlertGUI alertGUI = new AlertGUI();
 	
 	TextBox textBoxSuchen = new TextBox();
 	private final It04gwtServiceAsync greetingService = GWT.create(It04gwtService.class);
@@ -252,12 +253,14 @@ public class BauteilGUI {
 
 					@Override
 					public void onSuccess(Vector<Bauteil> result) {
+						alertGUI.load("Bauteil wurde angelegt", "green");
 						
-						
+						{
 						Vector<Bauteil> bauteile = new Vector<Bauteil>();
 						bauteile = (Vector<Bauteil>) result;
 						
 						RootPanel.get().add(new BauteilGUI().showAllBauteile(bauteile));
+						}
 					}
 				});
 				
