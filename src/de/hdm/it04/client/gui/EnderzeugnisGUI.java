@@ -4,6 +4,8 @@ import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -16,6 +18,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -26,7 +29,6 @@ import de.hdm.it04.shared.Enderzeugnis;
 
 public class EnderzeugnisGUI extends MainGUI{
 	
-	private TextBox txtSuchen = new TextBox();
 	private TextBox txtName = new TextBox();
 	private TextBox txtPreis = new TextBox();
 	private TextArea txtBeschreibung = new TextArea();
@@ -35,6 +37,7 @@ public class EnderzeugnisGUI extends MainGUI{
 	public Enderzeugnis ez;
 	FlexTable baugruppeTable = new FlexTable();
 	FlexTable enderzeugnisseTable = new FlexTable();
+	
 	
 
 
@@ -108,12 +111,11 @@ public void showAnlegenForm(Enderzeugnis enderzeugnis){
 
 public void showZuordnungsForm (Vector <Baugruppe> baugruppe){
 	
-	this.vPanel.clear();
 	
 	/**
 	 * neuer HTML Bereich
 	 */
-	HTML topic = new HTML("<h2>Welche Baugruppen möchten Sie dem Enderzeugnis zuordnen?</h2>");
+	HTML topic = new HTML("<h2>Welche Baugruppe möchten Sie dem Enderzeugnis zuordnen?</h2>");
 	this.vPanel.add(topic);
 	
 	Button btnZuordnung = new Button("Jetzt zuordnen");
@@ -121,8 +123,9 @@ public void showZuordnungsForm (Vector <Baugruppe> baugruppe){
 		
 		@Override
 		public void onClick(ClickEvent event) {
-			// TODO Auto-generated method stub
 			
+			vPanel.clear();
+			serviceImpl.updateEnderzeugnis(ez);
 		}
 	});
 	
@@ -145,7 +148,25 @@ public void showZuordnungsForm (Vector <Baugruppe> baugruppe){
 	 */
 	for(int j=0; j < baugruppe.size(); j++ ){
 		
-		CheckBox cb = new CheckBox();
+		RadioButton rb = new RadioButton("Zuordnung");
+	
+		rb.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				boolean checked = ((CheckBox) event.getSource()).getValue();
+				
+				if (checked == true){
+					
+					Cell cell = baugruppeTable.getCellForEvent(event);
+					
+					int rowIndex = cell.getRowIndex();
+					String id1 = baugruppeTable.getText(rowIndex, 0);
+					int id = Integer.parseInt(id1);
+					ez.setBaugruppe(id);
+				}
+			}
+		});
 		
 		/**
 		 * Formatiert Timestamp zu String
@@ -172,7 +193,12 @@ public void showZuordnungsForm (Vector <Baugruppe> baugruppe){
 		//bauteileTable.setText(j+1, 3, s1);
 		//bauteileTable.setText(j+1, 4, s2);
 
-		baugruppeTable.setWidget(j+1, 6, cb);
+		baugruppeTable.setWidget(j+1, 6, rb);
+		
+		if(Integer.parseInt(baugruppeTable.getText(j+1, 0)) == ez.getBaugruppe()){
+			rb.setValue(true);
+		}
+		
 		
 		
 		/**
@@ -188,12 +214,6 @@ public void showZuordnungsForm (Vector <Baugruppe> baugruppe){
 	 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
 	 */
 	this.vPanel.add(baugruppeTable);
-	
-	
-	
-	
-	
-	
 }
 
 
@@ -369,7 +389,9 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 				ez.setPreis(Double.parseDouble(txtPreis.getText()));
 				ez.setBeschreibung(txtBeschreibung.getText());
 				
-				serviceImpl.updateEnderzeugnis(ez);
+				serviceImpl.getAllBaugruppenForZuordnung();
+				
+				
 			}
 		}
 		

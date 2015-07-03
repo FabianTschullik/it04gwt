@@ -525,13 +525,13 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			alertgui.load("Baugruppe konnte nicht gelöscht werden", "red");
+			alertgui.load("Baugruppe konnte nicht gelï¿½scht werden", "red");
 		}
 
 		@Override
 		public void onSuccess(Object result) {
 			if (result instanceof String){
-				alertgui.load("Bautgruppe wurde erfolgreich gelöscht", "green");
+				alertgui.load("Bautgruppe wurde erfolgreich gelï¿½scht", "green");
 		}
 		else {
 			//maingui.showError();
@@ -737,9 +737,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				//Da nur ein Enderzeugnis geupdatet wird, kann sich nur ein
 				//EZ im Vektor befinden. Das Element wird gespeichert.
 			
-				getAllBaugruppenForZuordnung();
-				//Enderzeugnis ez = result.firstElement();
-				//enderzeugnisgui.showEnderzeugnisForm(ez);
+				
+				Enderzeugnis ez = result.firstElement();
+				enderzeugnisgui.showEnderzeugnisForm(ez);
 		}
 	}
 
@@ -757,7 +757,6 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			
 			Vector<Baugruppe> baugruppen = new Vector<Baugruppe>();
 			baugruppen = (Vector<Baugruppe>) result;
-
 			
 			enderzeugnisgui.showZuordnungsForm(baugruppen);
 		}

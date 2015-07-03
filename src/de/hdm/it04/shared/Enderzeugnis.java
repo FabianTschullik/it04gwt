@@ -16,7 +16,7 @@ public class Enderzeugnis extends Element {
 	}
 	
 	
-	public double getBaugruppe() {
+	public int getBaugruppe() {
 		return baugruppe;
 	}
 

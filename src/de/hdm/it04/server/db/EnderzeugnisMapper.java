@@ -240,6 +240,7 @@ public class EnderzeugnisMapper {
 			stmt.executeUpdate("UPDATE enderzeugnis SET name = '" + ez.getName()+ "', " 
 					+ "aenderungsDatum = '" + new Timestamp(date.getTime()) + "', "
 					+ "preis = " + ez.getPreis() + ", "
+					+ "baugruppe = " + ez.getBaugruppe() + ", "
 					+ "beschreibung = '" + ez.getBeschreibung()
 					+ "' WHERE id= " + ez.getId());
 			
@@ -288,7 +289,7 @@ public class EnderzeugnisMapper {
 			// Statement ausf�llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, preis, erstellungsDatum, aenderungsDatum FROM enderzeugnis "
+					.executeQuery("SELECT id, name, beschreibung, baugruppe, preis, erstellungsDatum, aenderungsDatum FROM enderzeugnis "
 							+ "WHERE id=" + id);
 			/*
 			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
@@ -303,7 +304,7 @@ public class EnderzeugnisMapper {
 				bt.setId(rs.getInt("id"));
 				bt.setName(rs.getString("name"));
 				bt.setBeschreibung(rs.getString("beschreibung"));
-				//bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
+				bt.setBaugruppe(rs.getInt("baugruppe"));
 				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 

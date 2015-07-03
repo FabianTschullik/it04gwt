@@ -12,5 +12,6 @@ public class Baugruppe extends Element {
 	
 		// Stückliste von Baugruppe mit all seinen Unterbaugruppen und Bauteilen
 		Vector<TeileListe> stueckliste = new Vector<TeileListe>();
+		
 	}
 
