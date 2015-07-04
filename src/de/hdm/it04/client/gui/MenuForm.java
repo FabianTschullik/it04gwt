@@ -65,7 +65,7 @@ public class MenuForm extends HorizontalPanel {
 
 		Command openSucheBauteil = new Command() {
 			public void execute() {
-				
+				ContentContainer.getInstance().setContent(new BauteilGUI().suchen());
 
 			}
 
@@ -154,18 +154,16 @@ public class MenuForm extends HorizontalPanel {
 		MenuBar bauteilMenu = new MenuBar(true);
 
 		bauteilMenu.addItem("anlegen", newBauteil);
-		bauteilMenu.addItem("suchen", openSucheBaugruppe);
-		bauteilMenu.addItem("anzeigen", cmd);
+		bauteilMenu.addItem("suchen", openSucheBauteil);
+		
 
 		MenuBar baugruppeMenu = new MenuBar(true);
 		baugruppeMenu.addItem("anlegen", newBaugruppe);
 		baugruppeMenu.addItem("suchen", openSucheBaugruppe);
-		baugruppeMenu.addItem("anzeigen", cmd);
 
 		MenuBar enderzeugnisMenu = new MenuBar(true);
 		enderzeugnisMenu.addItem("anlegen", newEnderzeugnis);
 		enderzeugnisMenu.addItem("suchen", openSucheEnderzeugnis);
-		enderzeugnisMenu.addItem("anzeigen", cmd);
 
 		MenuBar impressumMenu = new MenuBar(true);
 

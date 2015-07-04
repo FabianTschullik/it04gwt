@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -27,6 +28,7 @@ import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Enderzeugnis;
 
 public class BauteilGUI {
 	
@@ -54,8 +56,8 @@ public class BauteilGUI {
 	 * TextBoxe, in denen Name, Materialbezeichnung und Beschreibung
 	 * hinzugef�gt und ge�ndert werden k�nnen
 	 */
-	
-	
+	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
+	private TextBox txtSuchen = new TextBox();
 	TextBox name = new TextBox();
 	TextBox materialBezeichnung = new TextBox();
 	TextArea beschreibung = new TextArea();
@@ -70,77 +72,23 @@ public class BauteilGUI {
 	private HorizontalPanel hPanel = new HorizontalPanel();
 	
 	
-	
-	/**
-	 * Bauteil Men�
-	 * @return gibt nichts zur�ck, da alles gleich dem vPanel hinzugef�gt wird
-	 */
-	
-	public Widget menue(){
+	public Widget suchen(){
+		VerticalPanel vPanel = new VerticalPanel();
 		
-		btV = null;
-		bt= null;
-		bauteileTable.removeAllRows();
+		txtSuchen.setText("id oder Name");
+		vPanel.add(txtSuchen);
 		
-		
-		/**
-		 * neuer HTML Bereich
-		 */
-		HTML topic = new HTML("<h2>Was wollen Sie mit dem Bauteil tun?</h2>");
-		
-		/**
-		 * vPanel wird dem HTML Bereich zugeordnet
-		 */
-
-		this.vPanel.add(topic);
-		
-		/**
-		 * Men� Buttons um weiter Aktivit�ten f�r Bauteil zu w�hlen
-		 */
-		
-		Button AnlegenBtn = new Button("Anlegen");
-		AnlegenBtn.addClickHandler(new ClickHandler(){
-
+		Button btnSuchen = new Button("Suchen");
+		vPanel.add(btnSuchen);
+		btnSuchen.addClickHandler(new ClickHandler() {
+			
 			@Override
 			public void onClick(ClickEvent event) {
-				greetingService.createBauteil(new AsyncCallback<Bauteil>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onSuccess(Bauteil result) {
-						RootPanel.get("").add(new BauteilGUI().updateBauteil(result));;
-						
-					}
-				});
+	String btSuche = txtSuchen.getText();
 				
-			}
-			
-			
-			
-			
-			
-		});
-		hPanel.add(AnlegenBtn);
-
-		
-		textBoxSuchen.setText("id oder Name...");
-		hPanel.add(textBoxSuchen);
-		
-		Button SuchenBtn = new Button("Bauteil suchen");
-		SuchenBtn.addClickHandler(new ClickHandler(){
-
-			public void onClick(ClickEvent arg0) {
-				
-				String bgSuche = textBoxSuchen.getText();
-				
-				if (bgSuche.matches("[0-9]+")){
-					int id = Integer.parseInt(bgSuche);
-					greetingService.getBauteil(id, new AsyncCallback<Vector<Bauteil>>() {
+				if (btSuche.matches("[0-9]+")){
+					int id = Integer.parseInt(btSuche);
+					sms.getBauteil(id, new AsyncCallback<Vector<Bauteil>>() {
 
 						public void onFailure(Throwable arg0) {
 						
@@ -149,14 +97,15 @@ public class BauteilGUI {
 
 						
 						public void onSuccess(Vector<Bauteil> result) {
-							
+							ContentContainer.getInstance().setContent(new BauteilGUI().showAllBauteile(result));
 							
 						}
 					});
 					
 				}
-			String name = bgSuche;
-				greetingService.getBauteil(name, new AsyncCallback<Vector<Bauteil>>() {
+			String name = btSuche;
+			
+				sms.getBauteil(name, new AsyncCallback<Vector<Bauteil>>() {
 
 					
 					public void onFailure(Throwable arg0) {
@@ -164,59 +113,23 @@ public class BauteilGUI {
 					}
 
 					public void onSuccess(Vector<Bauteil> result) {
-						RootPanel.get().add(new BauteilGUI().getBauteil(result));
+						ContentContainer.getInstance().setContent(new BauteilGUI().showAllBauteile(result));;
 						
 						
 					}
 				});
 				
 				
+				
 			}
+		} );
 			
-			
-			
-		});
-		hPanel.add(SuchenBtn);	
 		
-		
-		
-		
-		
-		
-		Button ShowAllBtn1 = new Button("Alle Bauteile anzeigen");
-		ShowAllBtn1.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				greetingService.getAll(new AsyncCallback<Vector<Bauteil>>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onSuccess(Vector<Bauteil> result) {
-						RootPanel.get().add(new BauteilGUI().getBauteil(result));
-						
-					}
-				});			
-			}
-		});
-		
-		
-		
-		
-		
-		
-		this.hPanel.add(ShowAllBtn1);	
-		
-		vPanel.add(hPanel);
 		
 		return vPanel;
-		
 	}
+	
+
 	
 	
 	/**
@@ -247,30 +160,46 @@ public class BauteilGUI {
 
 					@Override
 					public void onFailure(Throwable arg0) {
-						
+						alertGUI.load("Bauteil konnte nicht gespeichert werden", "red");
+						ContentContainer.getInstance().setContent(new Welcome().load());
 						
 					}
 
 					@Override
 					public void onSuccess(Vector<Bauteil> result) {
-						alertGUI.load("Bauteil wurde angelegt", "green");
+						alertGUI.load("Bauteil wurde gespeichert", "green");
+						ContentContainer.getInstance().setContent(new BauteilGUI().showAllBauteile(result));
 						
-						{
-						Vector<Bauteil> bauteile = new Vector<Bauteil>();
-						bauteile = (Vector<Bauteil>) result;
-						
-						RootPanel.get().add(new BauteilGUI().showAllBauteile(bauteile));
-						}
 					}
 				});
 				
 				
 				
+				
 			}});
 		
-		//Button btnAbbrechen = new Button("Abbrechen");
-		//btnAbbrechen.addClickHandler(new BtnAbbrechenClickHandler());
-		
+		Button btnAbbrechen = new Button("Abbrechen");
+		btnAbbrechen.addClickHandler(new ClickHandler(){
+			public void onClick(ClickEvent event) {
+				
+				sms.deleteBauteil(bt.getId(), new AsyncCallback<Bauteil>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						alertGUI.load("Bauteil wurde NOT gespeichert", "red");
+						
+					}
+
+					@Override
+					public void onSuccess(Bauteil result) {
+						alertGUI.load("Bauteil wurde gespeichert", "green");
+						
+					}
+				});
+
+				
+			}
+		});
 	  
 	  if (bauteil.getName() == null){
 
@@ -292,7 +221,7 @@ public class BauteilGUI {
 	  layout.setWidget(4, 1, materialBezeichnung);
 	  //layout.setWidget(4, 2, btnSuchen);
 	  layout.setWidget(5, 0, btnSpeichern);
-	 // layout.setWidget(5, 1, btnAbbrechen);
+	  layout.setWidget(5, 1, btnAbbrechen);
 	  
 	  
 	  }
@@ -317,7 +246,7 @@ public class BauteilGUI {
 		  layout.setWidget(4, 1, materialBezeichnung);
 		  //layout.setWidget(4, 2, btnSuchen);
 		  layout.setWidget(5, 0, btnSpeichern);
-		 // layout.setWidget(5, 1, btnAbbrechen);
+		  layout.setWidget(5, 1, btnAbbrechen);
 		  
 	  }
 	  

@@ -49,7 +49,7 @@ HorizontalPanel hPanel = new HorizontalPanel();
 
 			@Override
 			public void onClick(ClickEvent event) {
-				RootPanel.get().add(new BauteilGUI().menue());
+				//RootPanel.get().add(new BauteilGUI().menue());
 			}
 		
 		});
