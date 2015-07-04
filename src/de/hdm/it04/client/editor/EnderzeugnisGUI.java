@@ -1,10 +1,12 @@
 package de.hdm.it04.client.editor;
 
+import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -26,11 +28,15 @@ import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Benutzer;
 import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.LoginInfo;
 
 public class EnderzeugnisGUI {
-	LoginInfo logininfo;
+
+
+	
+	
 	
 	
 	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
@@ -43,6 +49,8 @@ public class EnderzeugnisGUI {
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel hPanel = new HorizontalPanel();
 	public Enderzeugnis ez;
+	
+	It04gwtEditor user = new It04gwtEditor();
 	
 	
 
@@ -141,11 +149,14 @@ public Widget showAnlegenForm(Enderzeugnis enderzeugnis){
 		
 		@Override
 		public void onClick(ClickEvent event) {
-		
+			
+		String user = It04gwtEditor.user;
+
+			
 			ez.setName(txtName.getText());
 			ez.setBeschreibung(txtBeschreibung.getText());
 			ez.setPreis(Double.parseDouble(txtPreis.getText()));
-			ez.setLetzterBearbeiter(logininfo.getEmailAddress());
+			ez.setLetzterBearbeiter(user);
 			sms.updateEnderzeugnis(ez, new AsyncCallback<Vector<Enderzeugnis>>() {
 
 				@Override
@@ -272,25 +283,27 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 		flex.setText(0, 1, "Name");
 		flex.setText(0, 2, "Beschreibung");
 		flex.setText(0, 3, "Preis");
-		flex.setText(0, 4, "erstellt am");
-		flex.setText(0, 5, "geändert am");
-		flex.setText(0, 6, "Bearbeiten");
-		flex.setText(0, 7, "Löschen");
+		flex.setText(0, 4, "Preis");
+		flex.setText(0, 5, "letzter Bearbeiter");
+		flex.setText(0, 6, "geändert am");
+		flex.setText(0, 7, "Bearbeiten");
+		flex.setText(0, 8, "Löschen");
 		
 		Button btnBearbeiten = new Button("Bearbeiten");
 		btnBearbeiten.addClickHandler(new BtnBearbeitenClickHandler());
 		
 		Button btnLoeschen = new Button("Loeschen");
-		//btnLoeschen.addClickHandler(new BtnLoeschenClickHandler());
+		
 		
 		flex.setText(1, 0, Integer.toString(ez.getId()));
 		flex.setText(1, 1, ez.getName());
 		flex.setText(1, 2, ez.getBeschreibung());
 		flex.setText(1, 3, Double.toString(ez.getPreis()));
-		flex.setText(1, 4, "erstellt am");
-		flex.setText(1, 5, "geändert am");
-		flex.setWidget(1, 6, btnBearbeiten);
-		flex.setWidget(1, 7, btnLoeschen);
+		flex.setText(1, 5, ez.getLetzterBearbeiter());
+		flex.setText(1, 6, "erstellt am");
+		flex.setText(1, 7, "geändert am");
+		flex.setWidget(1, 8, btnBearbeiten);
+		flex.setWidget(1, 9, btnLoeschen);
 		
 		/**
 		 * Verknüpfung zu style.css
@@ -318,8 +331,8 @@ public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 	bauteileTable.setText(0,4,"Erstellt am");
 	bauteileTable.setText(0,5,"Zuletzt geaendert am");
 	bauteileTable.setText(0,6,"letzter Bearbeiter");
-	//bauteileTable.setText(0,7,"Edit");
-	//bauteileTable.setText(0,8,"Delete");
+	bauteileTable.setText(0,7,"Edit");
+	bauteileTable.setText(0,8,"Delete");
 	
 	/**
 	 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
@@ -345,17 +358,20 @@ public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 		/**
 		 * Formatiert Timestamp zu String
 		 */
-		/*Date d1 = new Date();
-		d1 = bauteile.elementAt(j).getErstellungsDatum();
-		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
+		
+		
+		
+		Date d1 = new Date();
+		d1 = enderzeugnisse.elementAt(j).getErstellungsDatum();
+		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
 		
 		
 		/**
 		 * Formatiert Timestamp zu String
 		 */
-		/*Date d2 = new Date();
-		d2 = bauteile.elementAt(j).getAenderungsDatum();
-		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
+		Date d2 = new Date();
+		d2 = enderzeugnisse.elementAt(j).getAenderungsDatum();
+		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 		
 	
 		/**
@@ -365,6 +381,9 @@ public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 		bauteileTable.setText(j+1, 1, enderzeugnisse.elementAt(j).getName());
 		bauteileTable.setText(j+1, 2, enderzeugnisse.elementAt(j).getBeschreibung());
 		bauteileTable.setText(j+1, 3, Double.toString(enderzeugnisse.elementAt(j).getPreis()));
+		bauteileTable.setText(j+1, 4, s1);
+		bauteileTable.setText(j+1, 5, s2);
+		bauteileTable.setText(j+1, 6, enderzeugnisse.elementAt(j).getLetzterBearbeiter());
 		//bauteileTable.setText(j+1, 4, s1);
 		//bauteileTable.setText(j+1, 5, s2);
 
@@ -430,8 +449,9 @@ public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 				ez.setName(txtName.getText());
 				ez.setPreis(Double.parseDouble(txtPreis.getText()));
 				ez.setBeschreibung(txtBeschreibung.getText());
+				ez.setLetzterBearbeiter("nina");
 				
-				//serviceImpl.updateEnderzeugnis(ez);
+			
 			}
 		}
 		

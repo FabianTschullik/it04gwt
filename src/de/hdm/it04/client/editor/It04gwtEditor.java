@@ -27,6 +27,14 @@ import de.hdm.it04.shared.LoginInfo;
 	public class It04gwtEditor implements EntryPoint {
 		
 		
+public static String user;
+		
+
+		
+
+		
+		
+		
 		// TODO #05: add constants for OAuth2 (don't forget to update GOOGLE_CLIENT_ID)
 		private static final Auth AUTH = Auth.get();
 		private static final String GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth";
@@ -150,23 +158,26 @@ import de.hdm.it04.shared.LoginInfo;
 
 				@Override
 				public void onSuccess(final LoginInfo result) {
+					
+					
+					user = result.getName();
+														
 					if (result.getName() != null && !result.getName().isEmpty()) {
 						addGoogleAuthHelper();
 						loadLogout(result);
 						
-						Benutzer benutzer = new Benutzer();
-						benutzer.setEmail(result.getEmailAddress());
+						
 					greetingService.saveBenutzer(result.getName(), new AsyncCallback(){
 
 						@Override
 						public void onFailure(Throwable caught) {
-						Window.alert("gayt net");
+						
 							
 						}
 
 						@Override
 						public void onSuccess(Object result) {
-							Window.alert("gayt");
+					
 							
 						}});
 					
