@@ -131,9 +131,9 @@ public class MaterialbedarfGUI {
 			/**
 			 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
 			 */
-			this.vPanel.add(enderzeugnisTable);
 			
-			return vPanel;
+			
+			return enderzeugnisTable;
 			
 		}
 	
