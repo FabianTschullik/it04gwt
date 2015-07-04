@@ -152,10 +152,6 @@ import de.hdm.it04.shared.LoginInfo;
 					if (result.getName() != null && !result.getName().isEmpty()) {
 						addGoogleAuthHelper();
 						loadLogout(result);
-	
-						Window.alert(GWT.getHostPageBaseURL());
-						Window.alert(GWT.getModuleBaseURL());
-						Window.alert(GWT.getModuleName());
 						
 						RootPanel.get("header").add(new MenuForm());
 						
