@@ -27,8 +27,12 @@ import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
+import de.hdm.it04.shared.LoginInfo;
 
 public class EnderzeugnisGUI {
+	LoginInfo logininfo;
+	
+	
 	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
 	AlertGUI alertGUI = new AlertGUI();
 	
@@ -141,6 +145,7 @@ public Widget showAnlegenForm(Enderzeugnis enderzeugnis){
 			ez.setName(txtName.getText());
 			ez.setBeschreibung(txtBeschreibung.getText());
 			ez.setPreis(Double.parseDouble(txtPreis.getText()));
+			ez.setLetzterBearbeiter(logininfo.getEmailAddress());
 			sms.updateEnderzeugnis(ez, new AsyncCallback<Vector<Enderzeugnis>>() {
 
 				@Override

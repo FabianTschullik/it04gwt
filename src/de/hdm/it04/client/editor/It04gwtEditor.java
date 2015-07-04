@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.TextBox;
 
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
+import de.hdm.it04.shared.Benutzer;
 import de.hdm.it04.shared.LoginInfo;
 
 
@@ -153,6 +154,8 @@ import de.hdm.it04.shared.LoginInfo;
 						addGoogleAuthHelper();
 						loadLogout(result);
 						
+						Benutzer benutzer = new Benutzer();
+						benutzer.setEmail(result.getEmailAddress());
 					greetingService.saveBenutzer(result.getName(), new AsyncCallback(){
 
 						@Override

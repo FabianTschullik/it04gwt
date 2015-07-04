@@ -22,6 +22,15 @@ public abstract class BusinessObject implements IsSerializable {
 	private int id;
 	private Timestamp erstellungsDatum;
 	private Timestamp aenderungsDatum;
+	private String letzterBearbeiter;
+
+	public String getLetzterBearbeiter() {
+		return letzterBearbeiter;
+	}
+
+	public void setLetzterBearbeiter(String letzterBearbeiter) {
+		this.letzterBearbeiter = letzterBearbeiter;
+	}
 
 	/**
 	 * Getter-Methode, welche die ID eines BusinessObjects (bzw. der geerbten
