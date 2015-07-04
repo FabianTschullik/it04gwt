@@ -124,7 +124,7 @@ public interface It04gwtService extends RemoteService {
 	String deleteEnderzeugnis(int id);
 	Vector <Enderzeugnis> getAllEnderzeugnisse();
 	Vector <Enderzeugnis> getEnderzeugnis(int id);
-	//Vector <Enderzeugnis> getEnderzeugnis(String name);
+	Vector <Enderzeugnis> getEnderzeugnis(String name);
 	Vector <Enderzeugnis> getEnderzeugnisForUpdate(int id);
 	Vector <Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez);
 	

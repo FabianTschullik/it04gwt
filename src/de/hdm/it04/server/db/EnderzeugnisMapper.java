@@ -301,6 +301,50 @@ public class EnderzeugnisMapper {
 				return result;
 	}
 	
+	
+	public Vector<Enderzeugnis> findByName(String name) {
+
+		// DB-Verbindung holen
+		Connection con = DbConnection.connection();
+
+		Vector<Enderzeugnis> result = new Vector<Enderzeugnis>();
+
+		try {
+
+			// Leeres SQL-Statement (JDBC) anlegen
+
+			Statement stmt = con.createStatement();
+
+			// Statement ausf�llen und als Query an die DB schicken
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM enderzeugnis "
+							+ "WHERE name=" + "'" + name + "'");
+			/*
+			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
+			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+			 */
+
+			while (rs.next()) {
+
+				// Ergebnis-Tupel in Objekt umwandeln
+
+				Enderzeugnis ez = new Enderzeugnis();
+				ez.setId(rs.getInt("id"));
+				ez.setName(rs.getString("name"));
+				ez.setBeschreibung(rs.getString("beschreibung"));
+				ez.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
+				ez.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+
+				result.add(ez);
+			}
+
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		return result;
+	}
+	
 
 	
 	

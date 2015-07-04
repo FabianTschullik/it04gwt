@@ -58,10 +58,11 @@ public class EnderzeugnisGUI {
 			@Override
 			public void onClick(ClickEvent event) {
 	String ezSuche = txtSuchen.getText();
+	String name = ezSuche;
 				
 				if (ezSuche.matches("[0-9]+")){
 					int id = Integer.parseInt(ezSuche);
-					sms.getEnderzeugnis(id, new AsyncCallback<Vector<Enderzeugnis>>() {
+					sms.getEnderzeugnis(ezSuche, new AsyncCallback<Vector<Enderzeugnis>>() {
 
 						public void onFailure(Throwable arg0) {
 						
@@ -76,10 +77,8 @@ public class EnderzeugnisGUI {
 					});
 					
 				}
-			//String name = ezSuche;
 			
-			int id = Integer.parseInt(ezSuche);
-				sms.getEnderzeugnis(id, new AsyncCallback<Vector<Enderzeugnis>>() {
+				sms.getEnderzeugnis(name, new AsyncCallback<Vector<Enderzeugnis>>() {
 
 					
 					public void onFailure(Throwable arg0) {
