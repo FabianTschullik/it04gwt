@@ -1,4 +1,4 @@
-package de.hdm.it04.client.gui;
+package de.hdm.it04.client.editor;
 
 import java.util.Vector;
 

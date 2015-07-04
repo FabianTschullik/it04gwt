@@ -3,6 +3,7 @@ package de.hdm.it04.client.service;
 import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;

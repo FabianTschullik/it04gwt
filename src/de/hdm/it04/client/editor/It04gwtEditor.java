@@ -2,41 +2,22 @@ package de.hdm.it04.client.editor;
 
 import com.google.api.gwt.oauth2.client.Auth;
 import com.google.api.gwt.oauth2.client.AuthRequest;
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.RootPanel;
-
-import de.hdm.it04.client.gui.ContentContainer;
-import de.hdm.it04.client.gui.MainGUI;
-import de.hdm.it04.client.gui.MenuForm;
-import de.hdm.it04.client.gui.Welcome;
-import de.hdm.it04.client.service.It04gwtService;
-import de.hdm.it04.client.service.It04gwtServiceAsync;
-import de.hdm.it04.shared.LoginInfo;
-
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
+
+import de.hdm.it04.client.service.It04gwtService;
+import de.hdm.it04.client.service.It04gwtServiceAsync;
+import de.hdm.it04.shared.LoginInfo;
 
 
 	/**
@@ -172,6 +153,10 @@ import com.google.gwt.user.client.ui.Widget;
 						addGoogleAuthHelper();
 						loadLogout(result);
 	
+						Window.alert(GWT.getHostPageBaseURL());
+						Window.alert(GWT.getModuleBaseURL());
+						Window.alert(GWT.getModuleName());
+						
 						RootPanel.get("header").add(new MenuForm());
 						
 						RootPanel.get("content").add(new Welcome().load());

@@ -1,4 +1,4 @@
-package de.hdm.it04.client.gui;
+package de.hdm.it04.client.editor;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

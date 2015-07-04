@@ -1,4 +1,4 @@
-package de.hdm.it04.client.gui;
+package de.hdm.it04.client.editor;
 
 import java.util.Vector;
 
@@ -18,9 +18,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.hdm.it04.client.gui.BauteilGUI.AnlegenBtnClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.ShowAllBtn1ClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.SpeichernBtnClickHandler;
+import de.hdm.it04.client.editor.BauteilGUI.AnlegenBtnClickHandler;
+import de.hdm.it04.client.editor.BauteilGUI.ShowAllBtn1ClickHandler;
+import de.hdm.it04.client.editor.BauteilGUI.SpeichernBtnClickHandler;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
