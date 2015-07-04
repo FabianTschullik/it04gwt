@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -278,7 +279,26 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 		flex.setText(0, 7, "Löschen");
 		
 		Button btnBearbeiten = new Button("Bearbeiten");
-		btnBearbeiten.addClickHandler(new BtnBearbeitenClickHandler());
+		
+		btnBearbeiten.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				//Cell cell = flex.getCellForEvent(event);
+				//int rowIndex = cell.getRowIndex();
+				//String id1 = flex.getText(rowIndex, 0);
+				//int id = Integer.parseInt(id1);
+				//vPanel.clear();
+				//sms.getEnderzeugnisForUpdate(id);
+				
+			}
+			
+			
+			
+		}
+		
+		
 		
 		Button btnLoeschen = new Button("Loeschen");
 		//btnLoeschen.addClickHandler(new BtnLoeschenClickHandler());
@@ -402,120 +422,10 @@ public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 	}
 	
 	
-	
-	
-	
-//--------------------------------------------------------------------------------------
-//---------------------------- Click Handler Buttons------------------------------------
-//--------------------------------------------------------------------------------------
-		public class BtnAnlegenClickHandler implements ClickHandler {
+			
 
-			@Override
-			public void onClick(ClickEvent event) {
-				vPanel.clear();
-				//serviceImpl.createEnderzeugnis();
-			}
-		}
-		
-		public class BtnSpeichernClickHandler implements ClickHandler {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				
-				vPanel.clear();
-				/**
-				 * Es werden die ver�nderbaren Parameter 
-				 * aus den TextBoxen geholt
-				 */
-				ez.setName(txtName.getText());
-				ez.setPreis(Double.parseDouble(txtPreis.getText()));
-				ez.setBeschreibung(txtBeschreibung.getText());
-				
-				//serviceImpl.updateEnderzeugnis(ez);
-			}
-		}
 		
-		
-		
-		
-		
-		public class BtnAbbrechenClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				vPanel.clear();
-				//serviceImpl.deleteEnderzeugnis(ez.getId());
-			}
-		}
-		
-		
-		
-		/**
-		 * ClickHandler zum Men�button Speichern
-		 * Wenn ein Bauteil angelegt oder ver�ndert wurde, 
-		 * wird das Bauteil in der DB aktualisiert �ber die Methode
-		 *  updateBauteil() (Client Impl)
-		 * Danach wird das Objekt, welches ver�ndert wurde durch die Methode
-		 * getBauteil(Bauteil bt) (BauteilGUI) auf der GUI sichtbar gemacht
-		 *
-		 */
-		public class BtnBearbeitenClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				//serviceImpl.getEnderzeugnis(ez.getId());
-			}
-		}
-		
-		
-		
-		/**
-		 * Wenn ein Bauteil angezeigt wird,
-		 * wird es �ber den L�schen Button entfernt
-		 * dazu wird die ClientImpl Methode delte Bauteil(int id) aufgerufen
-		 * Auf der Bauteil GUI kann man bei erfolgreichem L�schen den Satz
-		 * "Bauteil wurde erfolgreich gel�scht" 
-		 * (Methode showMeldung(String meldung) (Bauteil Gui) lesen
-		 * lesen
-		 */
-		public class LoeschenBtnClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-	
-			}
-		}
-		
-		/**
-		 * Der ShowAll Button holt �ber die ShowAllBauteile Methode
-		 * alle Bauteile in einem Vektor aus der DB 
-		 * �ber die ShowAllBauteile( Vektor<Bauteile> bauteil) Methode
-		 * auf der BauteilGUI werden die Bauteile sichtbar gemacht
-		 */
-		public class BtnShowAllClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				vPanel.clear();
-				//serviceImpl.getAllEnderzeugnisse();	
-			}
-		}
-		
-		/**
-		 * �ber den Suchenbutton kann man Bauteile suchen
-		 * indem man die ID oder ein Name eingibt.
-		 *Dann wird die Methode getBauteile oder findBauteilByName in der Klasse ClientImpl aufgerufen
-		 */
-		
-		public class BtnSuchenClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				
-				
-				//serviceImpl.getBaugruppe(Integer.parseInt(txtSuchen.getText()));
-			}
-		}
 	
 
 }

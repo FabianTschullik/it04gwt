@@ -160,13 +160,13 @@ import de.hdm.it04.shared.LoginInfo;
 
 						@Override
 						public void onFailure(Throwable caught) {
-						Window.alert("gayt net");
+						//Window.alert("gayt net");
 							
 						}
 
 						@Override
 						public void onSuccess(Object result) {
-							Window.alert("gayt");
+							//Window.alert("gayt");
 							
 						}});
 					
