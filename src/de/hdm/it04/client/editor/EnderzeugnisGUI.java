@@ -103,42 +103,7 @@ public class EnderzeugnisGUI {
 		return vPanel;
 	}
 	
-public void menue(){
-	
-		this.hPanel.clear();
-		
-		/**
-		 * neuer HTML Bereich
-		 */
-		HTML topic = new HTML("<h2>Was wollen Sie mit dem Enderzeugnis tun?</h2>");
-		
 
-		this.vPanel.add(topic);
-		
-		/**
-		 * Men� Buttons um weiter Aktivitäten f�r Bauteil zu w�hlen
-		 */
-		
-		Button btnAnlegen = new Button("Anlegen");
-		btnAnlegen.addClickHandler(new BtnAnlegenClickHandler());
-		this.hPanel.add(btnAnlegen);
-
-			
-		txtSuchen.setText("id oder Name");
-		this.hPanel.add(txtSuchen);
-		
-		Button btnSuchen = new Button("Enderzeugnis suchen");
-		btnSuchen.addClickHandler(new BtnSuchenClickHandler());
-		this.hPanel.add(btnSuchen);	
-		
-		Button btnShowAll = new Button("Alle Enderzeugnisse anzeigen");
-		btnShowAll.addClickHandler(new BtnShowAllClickHandler());
-		this.hPanel.add(btnShowAll);	
-		
-		this.vPanel.add(hPanel);
-		
-		RootPanel.get("content").add(this.vPanel);	
-	}
 
 
 

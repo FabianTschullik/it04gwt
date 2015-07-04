@@ -57,6 +57,7 @@ public class MenuForm extends HorizontalPanel {
 
 		Command openSucheBaugruppe = new Command() {
 			public void execute() {
+				ContentContainer.getInstance().setContent(new BaugruppeGUI().suchen());
 
 			}
 

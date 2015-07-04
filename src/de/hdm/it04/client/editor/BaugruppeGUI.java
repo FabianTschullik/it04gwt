@@ -2,30 +2,32 @@ package de.hdm.it04.client.editor;
 
 import java.util.Vector;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
+
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.Widget;
 
-import de.hdm.it04.client.editor.BauteilGUI.AnlegenBtnClickHandler;
-import de.hdm.it04.client.editor.BauteilGUI.ShowAllBtn1ClickHandler;
-import de.hdm.it04.client.editor.BauteilGUI.SpeichernBtnClickHandler;
+
+import de.hdm.it04.client.service.It04gwtService;
+import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
-import de.hdm.it04.shared.Bauteil;
-import de.hdm.it04.shared.Enderzeugnis;
+
 
 public class BaugruppeGUI  {
+	
+	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
+	AlertGUI alertGUI = new AlertGUI();
 	
 	private TextBox txtSuchen = new TextBox();
 	private TextBox txtName = new TextBox();
@@ -35,56 +37,70 @@ public class BaugruppeGUI  {
 	public Baugruppe bg;
 	
 	
-
-	
-
-
-	
-	
-public void menue(){
+	public Widget suchen(){
+		VerticalPanel vPanel = new VerticalPanel();
 		
-	
-	this.hPanel.clear();
-		/**
-		 * neuer HTML Bereich
-		 */
-		HTML topic = new HTML("<h2>Was wollen Sie mit der Baugruppe tun?</h2>");
-		
-
-		this.vPanel.add(topic);
-		
-		/**
-		 * Men� Buttons um weiter Aktivitäten f�r Bauteil zu w�hlen
-		 */
-		
-		Button btnAnlegen = new Button("Anlegen");
-		btnAnlegen.addClickHandler(new BtnAnlegenClickHandler());
-		this.hPanel.add(btnAnlegen);
-
-			
 		txtSuchen.setText("id oder Name");
-		this.hPanel.add(txtSuchen);
+		vPanel.add(txtSuchen);
 		
-		Button btnSuchen = new Button("Baugruppe suchen");
-		btnSuchen.addClickHandler(new BtnSuchenClickHandler());
-		this.hPanel.add(btnSuchen);	
+		Button btnSuchen = new Button("Suchen");
+		vPanel.add(btnSuchen);
+		btnSuchen.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+	String bgSuche = txtSuchen.getText();
+				
+				if (bgSuche.matches("[0-9]+")){
+					int id = Integer.parseInt(bgSuche);
+					sms.getBaugruppe(id, new AsyncCallback<Vector<Baugruppe>>() {
+
+						public void onFailure(Throwable arg0) {
+						
+							
+						}
+
+						
+						public void onSuccess(Vector<Baugruppe> result) {
+							ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));
+							
+						}
+					});
+					
+				}
+			
+				sms.getBaugruppe(bgSuche, new AsyncCallback<Vector<Baugruppe>>() {
+
+					
+					public void onFailure(Throwable arg0) {
+											
+					}
+
+					public void onSuccess(Vector<Baugruppe> result) {
+						ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));;
+						
+						
+					}
+				});
+				
+				
+				
+			}
+		} );
+			
 		
-		Button btnShowAll = new Button("Alle Baugruppen anzeigen");
-		btnShowAll.addClickHandler(new BtnShowAllClickHandler());
-		this.hPanel.add(btnShowAll);	
 		
-		this.vPanel.add(hPanel);
-		
-		RootPanel.get("content").add(this.vPanel);	
+		return vPanel;
 	}
+
 
 //----------------------------------------------------------------------------
 //----------------------- Form zum Anlegen einer Baugruppe --------------------------
 //----------------------------------------------------------------------------
-public Widget showAnlegenForm(Baugruppe bg){
+public Widget showAnlegenForm(Baugruppe baugruppe){
 	
 	
-	this.bg = bg;
+	this.bg = baugruppe;
 	txtName.setText(bg.getName());
 	txtBeschreibung.setText(bg.getBeschreibung());
 	
@@ -101,11 +117,41 @@ public Widget showAnlegenForm(Baugruppe bg){
   cellFormatter.setHorizontalAlignment(
       0, 0, HasHorizontalAlignment.ALIGN_CENTER);
 
-  Button btnSuchen = new Button("Suchen");
-	btnSuchen.addClickHandler(new BtnSuchenClickHandler());
+ 
 	
 	Button btnSpeichern = new Button("Speichern");
-	btnSpeichern.addClickHandler(new BtnSpeichernClickHandler());
+	btnSpeichern.addClickHandler(new ClickHandler() {
+		
+		@Override
+		public void onClick(ClickEvent event) {
+		
+			bg.setName(txtName.getText());
+			bg.setBeschreibung(txtBeschreibung.getText());
+			sms.updateBaugruppe(bg, new AsyncCallback<Vector<Baugruppe>>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					alertGUI.load(
+							"Enderzeugnis konnte nicht gespeichert werden",
+							"red");
+					
+				}
+
+				@Override
+				public void onSuccess(Vector<Baugruppe> result) {
+					alertGUI.load(
+							"Enderzeugnis wurde erfolgreich gespeichert",
+							"green");
+					
+					ContentContainer.getInstance().setContent(
+							new BaugruppeGUI().showAllBaugruppen(result));
+
+					
+				}
+			});
+			
+		}
+	});
 	
 	Button btnAbbrechen = new Button("Abbrechen");
 	btnAbbrechen.addClickHandler(new BtnAbbrechenClickHandler());
@@ -121,8 +167,6 @@ public Widget showAnlegenForm(Baugruppe bg){
   layout.setHTML(3, 0, "Beschreibung");
   layout.setWidget(3, 1, txtBeschreibung);
   layout.setHTML(4, 0, "Baugruppe zuordnen");
-  //layout.setWidget(4, 1, createMultiBox());
-  //layout.setWidget(4, 2, btnSuchen);
   layout.setWidget(5, 0, btnSpeichern);
   layout.setWidget(5, 1, btnAbbrechen);
   
@@ -183,7 +227,7 @@ public void showBaugruppeForm(Baugruppe bg){
 	this.vPanel.add(flex);
 }
 
-public void showAllBaugruppen(Vector<Baugruppe> baugruppen){
+public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 	
 	/**
 	 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
@@ -265,6 +309,7 @@ public void showAllBaugruppen(Vector<Baugruppe> baugruppen){
 	 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
 	 */
 	this.vPanel.add(baugruppeTable);
+	return vPanel;
 	
 }
 
