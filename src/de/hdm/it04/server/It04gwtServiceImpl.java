@@ -1,28 +1,36 @@
 package de.hdm.it04.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.server.db.BaugruppeMapper;
 import de.hdm.it04.server.db.BauteilMapper;
+import de.hdm.it04.server.db.BenutzerMapper;
 import de.hdm.it04.server.db.EnderzeugnisMapper;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Benutzer;
 import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.LoginInfo;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.net.URL;
 import java.net.URLConnection;
+
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonToken;
+
 import java.util.Vector;
 
 /**
@@ -315,23 +323,43 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 		return EnderzeugnisMapper.enderzeugnisMapper().updateEnderzeugnis(ez);
 	}
+	
+	public String delete(int id) {
+
+		return BauteilMapper.bauteilMapper().delete(id);
+	}
 
 	// -----------------------------------------------------------------------------
 	// ----------------------------Ende
 	// Enderzeugnis----------------------------------------
 	// -----------------------------------------------------------------------------
 
-	/**
-	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
-	 * 
-	 * @param ID
-	 *            von einem Bauteil als Integer,
-	 * @return Ein String mit einer Meldung, ob Bauteil erfolgreich gelöscht
-	 *         wurde
-	 */
-	public String delete(int id) {
 
-		return BauteilMapper.bauteilMapper().delete(id);
+	// -----------------------------------------------------------------------------
+	// ----------------------------Benutzer
+	//----------------------------------------
+	// -----------------------------------------------------------------------------
+
+
+	@Override
+	public Benutzer saveBenutzer(String mail) {
+		
+		return BenutzerMapper.benutzerMapper().saveBenutzer(mail);
+	
+	
 	}
+	
+	@Override
+	public Benutzer checkBenutzer(String mail) {
+		
+		return BenutzerMapper.benutzerMapper().checkBenutzer(mail);
+	
+	
+	}
+	
+	// -----------------------------------------------------------------------------
+		// ----------------------------Ende Benutzer
+		//----------------------------------------
+		// -----------------------------------------------------------------------------
 
 }

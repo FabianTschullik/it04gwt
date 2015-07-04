@@ -62,7 +62,7 @@ public class EnderzeugnisGUI {
 				
 				if (ezSuche.matches("[0-9]+")){
 					int id = Integer.parseInt(ezSuche);
-					sms.getEnderzeugnis(ezSuche, new AsyncCallback<Vector<Enderzeugnis>>() {
+					sms.getEnderzeugnis(id, new AsyncCallback<Vector<Enderzeugnis>>() {
 
 						public void onFailure(Throwable arg0) {
 						

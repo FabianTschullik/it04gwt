@@ -40,7 +40,9 @@ public class DbConnection {
 	 * Software neu komilieren zu müssen.
 	 */
 	// private static String googleUrl =
-	// "jdbc:google:mysql://it04sms:it04:3306/sms?user=root&password=root";
+	// "jdbc:google:mysql://it04sms:db:3306/sms?user=root&password=root";
+	// "jdbc:mysql://127.0.0.1:3306/sms?user=root&password=root"
+	
 	private static String localUrl = "jdbc:mysql://127.0.0.1:3306/sms?user=root&password=root";
 
 	/**

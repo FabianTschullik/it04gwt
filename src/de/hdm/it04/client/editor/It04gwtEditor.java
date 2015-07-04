@@ -153,6 +153,23 @@ import de.hdm.it04.shared.LoginInfo;
 						addGoogleAuthHelper();
 						loadLogout(result);
 						
+					greetingService.saveBenutzer(result.getName(), new AsyncCallback(){
+
+						@Override
+						public void onFailure(Throwable caught) {
+						Window.alert("gayt net");
+							
+						}
+
+						@Override
+						public void onSuccess(Object result) {
+							Window.alert("gayt");
+							
+						}});
+					
+					
+					
+						
 						RootPanel.get("header").add(new MenuForm());
 						
 						RootPanel.get("content").add(new Welcome().load());
