@@ -1,10 +1,12 @@
 package de.hdm.it04.client.editor;
 
+import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
@@ -123,8 +125,11 @@ public Widget showAnlegenForm(Baugruppe baugruppe){
 		@Override
 		public void onClick(ClickEvent event) {
 		
+			String user = It04gwtEditor.user;
+			
 			bg.setName(txtName.getText());
 			bg.setBeschreibung(txtBeschreibung.getText());
+			bg.setLetzterBearbeiter(user);
 			sms.updateBaugruppe(bg, new AsyncCallback<Vector<Baugruppe>>() {
 
 				@Override
@@ -151,8 +156,7 @@ public Widget showAnlegenForm(Baugruppe baugruppe){
 		}
 	});
 	
-	Button btnAbbrechen = new Button("Abbrechen");
-	btnAbbrechen.addClickHandler(new BtnAbbrechenClickHandler());
+
 	
 	
 	
@@ -166,7 +170,7 @@ public Widget showAnlegenForm(Baugruppe baugruppe){
   layout.setWidget(3, 1, txtBeschreibung);
   layout.setHTML(4, 0, "Baugruppe zuordnen");
   layout.setWidget(5, 0, btnSpeichern);
-  layout.setWidget(5, 1, btnAbbrechen);
+ // layout.setWidget(5, 1, btnAbbrechen);
   
 
   // Wrap the content in a DecoratorPanel
@@ -197,22 +201,19 @@ public void showBaugruppeForm(Baugruppe bg){
 	flex.setText(0, 2, "Beschreibung");
 	flex.setText(0, 3, "erstellt am");
 	flex.setText(0, 4, "geändert am");
-	flex.setText(0, 5, "Bearbeiten");
-	flex.setText(0, 6, "Löschen");
-	
-	Button btnBearbeiten = new Button("Bearbeiten");
-	btnBearbeiten.addClickHandler(new BtnBearbeitenClickHandler());
-	
-	Button btnLoeschen = new Button("Loeschen");
-	//btnLoeschen.addClickHandler(new BtnLoeschenClickHandler());
+	flex.setText(0, 5, "Letzter Bearbeiter");
+	flex.setText(0, 6, "Bearbeiten");
+	flex.setText(0, 7, "Löschen");
+
 	
 	flex.setText(1, 0, Integer.toString(bg.getId()));
 	flex.setText(1, 1, bg.getName());
 	flex.setText(1, 2, bg.getBeschreibung());
 	flex.setText(1, 3, "erstellt am");
 	flex.setText(1, 4, "geändert am");
-	flex.setWidget(1, 5, btnBearbeiten);
-	flex.setWidget(1, 6, btnLoeschen);
+	flex.setText(1, 5, bg.getLetzterBearbeiter());
+	//flex.setWidget(1, 6, btnBearbeiten);
+	//flex.setWidget(1, 7, btnLoeschen);
 	
 	/**
 	 * Verknüpfung zu style.css
@@ -264,18 +265,20 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 		/**
 		 * Formatiert Timestamp zu String
 		 */
-		/*Date d1 = new Date();
-		d1 = bauteile.elementAt(j).getErstellungsDatum();
-		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
+		Date d1 = new Date();
+		d1 = baugruppen.elementAt(j).getErstellungsDatum();
+		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
 		
 		
 		/**
 		 * Formatiert Timestamp zu String
 		 */
-		/*Date d2 = new Date();
-		d2 = bauteile.elementAt(j).getAenderungsDatum();
-		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
+		Date d2 = new Date();
+		d2 = baugruppen.elementAt(j).getAenderungsDatum();
+		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 		
+		
+		String user = It04gwtEditor.user;
 	
 		/**
 		 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
@@ -283,8 +286,9 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 		baugruppeTable.setText(j+1, 0, Integer.toString(baugruppen.elementAt(j).getId()));
 		baugruppeTable.setText(j+1, 1, baugruppen.elementAt(j).getName());
 		baugruppeTable.setText(j+1, 2, baugruppen.elementAt(j).getBeschreibung());
-		//bauteileTable.setText(j+1, 3, s1);
-		//bauteileTable.setText(j+1, 4, s2);
+		baugruppeTable.setText(j+1, 3, s1);
+		baugruppeTable.setText(j+1, 4, s2);
+		baugruppeTable.setText(j+1, 5, user);
 
 		
 		/**
@@ -342,37 +346,4 @@ public class BtnShowAllClickHandler implements ClickHandler {
 	}
 }
 
-public class BtnSpeichernClickHandler implements ClickHandler {
-
-	@Override
-	public void onClick(ClickEvent event) {
-		
-		vPanel.clear();
-		/**
-		 * Es werden die ver�nderbaren Parameter 
-		 * aus den TextBoxen geholt
-		 */
-		bg.setName(txtName.getText());
-		bg.setBeschreibung(txtBeschreibung.getText());
-		
-		//serviceImpl.updateBaugruppe(bg);
-	}
-}
-
-public class BtnAbbrechenClickHandler implements ClickHandler {
-
-	@Override
-	public void onClick(ClickEvent event) {
-		vPanel.clear();
-		//serviceImpl.deleteBaugruppe(bg.getId());
-	}
-}
-
-public class BtnBearbeitenClickHandler implements ClickHandler {
-
-	@Override
-	public void onClick(ClickEvent event) {
-		//serviceImpl.getEnderzeugnis(ez.getId());
-	}
-}
 }

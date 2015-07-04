@@ -223,7 +223,10 @@ public class BaugruppeMapper {
 				// holen
 
 				Date date = new Date();
-				new Timestamp(date.getTime());
+				Timestamp timestamp = new Timestamp(date.getTime());
+				
+				bg.setAenderungsDatum(timestamp);
+				bg.setErstellungsDatum(timestamp);
 
 				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
 				stmt.executeUpdate("INSERT INTO baugruppe (id, erstellungsDatum, aenderungsDatum) "
