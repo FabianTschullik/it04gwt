@@ -74,12 +74,6 @@ public class StrukturstuecklisteGUI {
 		return vPanel;
 	}
 	
-	/**
-	 * -----------------------------------------------------------------------------------
-	 * Anzeige fuer Strukturstueckliste
-	 * @param baugruppen
-	 * -----------------------------------------------------------------------------------
-	 */
 	public void showBaugruppeStrukturstueckliste(Vector<Baugruppe> baugruppen){
 		
 		/**
@@ -143,9 +137,4 @@ public class StrukturstuecklisteGUI {
 			//It04gwtServiceReportImpl.createStrukturstuecklisteReport();
 		}
 	}
-	/**
-	 * ------------------------------------------------------------------------------------------------
-	 *ENDE fuer Strukturstueckliste
-	 *-------------------------------------------------------------------------------------------------
-	 */
 }
