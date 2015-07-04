@@ -13,13 +13,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.editor.AlertGUI;
+
 import de.hdm.it04.client.editor.BaugruppeGUI;
 import de.hdm.it04.client.editor.BauteilGUI;
 import de.hdm.it04.client.editor.ContentContainer;
+
 import de.hdm.it04.client.service.report.It04gwtServiceReport;
 import de.hdm.it04.client.service.report.It04gwtServiceReportAsync;
 import de.hdm.it04.shared.Baugruppe;
-import de.hdm.it04.shared.Bauteil;
 
 
 public class StrukturstuecklisteGUI {
@@ -78,12 +79,6 @@ public class StrukturstuecklisteGUI {
 		return vPanel;
 	}
 	
-	/**
-	 * -----------------------------------------------------------------------------------
-	 * Anzeige fuer Strukturstueckliste
-	 * @param baugruppen
-	 * -----------------------------------------------------------------------------------
-	 */
 	public void showBaugruppeStrukturstueckliste(Vector<Baugruppe> baugruppen){
 		
 		/**
@@ -147,9 +142,4 @@ public class StrukturstuecklisteGUI {
 			//It04gwtServiceReportImpl.createStrukturstuecklisteReport();
 		}
 	}
-	/**
-	 * ------------------------------------------------------------------------------------------------
-	 *ENDE fuer Strukturstueckliste
-	 *-------------------------------------------------------------------------------------------------
-	 */
 }

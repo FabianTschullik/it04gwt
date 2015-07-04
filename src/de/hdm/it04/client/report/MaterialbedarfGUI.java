@@ -26,7 +26,7 @@ public class MaterialbedarfGUI {
 	
 	TextBox txtSuchen = new TextBox();
 	private final It04gwtServiceReportAsync smsReport = GWT.create(It04gwtServiceReport.class);
-	
+	VerticalPanel vPanel = new VerticalPanel();
 	
 	/**
 	 * Suchfunktion
@@ -76,6 +76,7 @@ public class MaterialbedarfGUI {
 		} );
 		return vPanel;
 	}	
+	
 	
 	public Widget showEnderzeugnisseMaterialbedarf(Vector<Enderzeugnis> enderzeugnisse){
 		
@@ -131,8 +132,9 @@ public class MaterialbedarfGUI {
 			/**
 			 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
 			 */
-			
-			
+
+			//this.vPanel.add(enderzeugnisTable);
+
 			return enderzeugnisTable;
 			
 		}
