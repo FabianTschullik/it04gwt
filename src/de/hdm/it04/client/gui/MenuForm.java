@@ -19,7 +19,7 @@ public class MenuForm extends HorizontalPanel {
 
 	/*
 	 * Im Konstruktor werden die Widgets z.T. erzeugt. Alle werden in einem
-	 * Raster angeordnet, dessen Größe sich aus dem Platzbedarf der enthaltenen
+	 * Raster angeordnet, dessen Grï¿½ï¿½e sich aus dem Platzbedarf der enthaltenen
 	 * Widgets bestimmt.
 	 */
 	public MenuForm() {
@@ -35,6 +35,7 @@ public class MenuForm extends HorizontalPanel {
 
 		Command openImpressum = new Command() {
 			public void execute() {
+				
 
 			}
 
@@ -56,6 +57,7 @@ public class MenuForm extends HorizontalPanel {
 
 		Command openSucheBauteil = new Command() {
 			public void execute() {
+				
 
 			}
 
@@ -86,6 +88,7 @@ public class MenuForm extends HorizontalPanel {
 
 						ContentContainer.getInstance().setContent(
 								new BauteilGUI().updateBauteil(result));
+						
 
 					}
 				});
