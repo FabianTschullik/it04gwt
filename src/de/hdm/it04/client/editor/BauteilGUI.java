@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import java.util.Date;
 import java.util.Vector;
 
 import de.hdm.it04.client.service.It04gwtService;
@@ -65,8 +66,6 @@ public class BauteilGUI {
 	/**
 	 * FlexTable zum anzeigen der Bauteile/ des Bauteils
 	 */
-	
-	FlexTable flex = new FlexTable();
 	
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel hPanel = new HorizontalPanel();
@@ -488,19 +487,22 @@ public Widget showAllBauteile(Vector<Bauteil> bauteile) {
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			/*Date d1 = new Date();
+			Date d1 = new Date();
 			d1 = bauteile.elementAt(j).getErstellungsDatum();
-			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
+			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
 			
 			
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			/*Date d2 = new Date();
+			Date d2 = new Date();
 			d2 = bauteile.elementAt(j).getAenderungsDatum();
-			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
+			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 			
 		
+			String user = It04gwtEditor.user;
+
+			
 			/**
 			 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
 			 */
@@ -508,9 +510,9 @@ public Widget showAllBauteile(Vector<Bauteil> bauteile) {
 			bauteileTable.setText(j+1, 1, bauteile.elementAt(j).getName());
 			bauteileTable.setText(j+1, 2, bauteile.elementAt(j).getBeschreibung());
 			bauteileTable.setText(j+1, 3, bauteile.elementAt(j).getMaterialBezeichnung());
-			//bauteileTable.setText(j+1, 4, s1);
-			//bauteileTable.setText(j+1, 5, s2);
-
+			bauteileTable.setText(j+1, 4, s1);
+			bauteileTable.setText(j+1, 5, s2);
+			bauteileTable.setText(j+1, 6, user);
 			
 			/**
 			 * Einfuegen der Buttons in die Tabelle
@@ -696,56 +698,6 @@ public void showMeldung (String meldung){
 	 * getBauteil(Bauteil bt) (BauteilGUI) auf der GUI sichtbar gemacht
 	 *
 	 */
-	public class SpeichernBtnClickHandler implements ClickHandler {
-
-		@Override
-		public void onClick(ClickEvent event) {
-			
-			vPanel.clear();
-			
-			/**
-			 * Es werden die ver�nderbaren Parameter 
-			 * aus den TextBoxen geholt
-			 */
-			
-	
-			
-			
-			bt.setName(name.getText());
-			bt.setBeschreibung(beschreibung.getText());
-			bt.setMaterialBezeichnung(materialBezeichnung.getText());
-			
-			name.setText("");
-			beschreibung.setText("");
-			materialBezeichnung.setText("");
-			
-			/**
-			 * Das Objekt wird an die ClientImpl weiter gegeben
-			 */
-			//serviceImpl.updateBauteil(bt);
-			
-			bt = null;
-			
-		}
-	}
-	
-
-	
-
-	public class ShowAllBtn1ClickHandler implements ClickHandler {
-
-		@Override
-		public void onClick(ClickEvent event) {
-			
-			vPanel.clear();
-			
-			//serviceImpl.getAll();
-			
-			
-				
-		}
-	}
-	
 
 	
 	

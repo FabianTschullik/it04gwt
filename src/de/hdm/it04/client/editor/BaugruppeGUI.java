@@ -9,20 +9,13 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.Widget;
-
-
-import de.hdm.it04.client.editor.BauteilGUI.AnlegenBtnClickHandler;
-import de.hdm.it04.client.editor.BauteilGUI.ShowAllBtn1ClickHandler;
-import de.hdm.it04.client.editor.BauteilGUI.SpeichernBtnClickHandler;
-import de.hdm.it04.server.report.It04gwtServiceReportImpl;
 
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
