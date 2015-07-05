@@ -81,6 +81,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		this.service.updateBauteil(bt, new GetBauteilCallback());
 	}
 	
+	
 	/**
 	 * Diese Methode wird benoetigt, um ein Bauteil mit einer bestimmten ID zu
 	 * finden und anzeigen zu lassen
@@ -181,6 +182,12 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	public void getAllBaugruppenForZuordnungBaugruppe(){
 		this.service.getAllBaugruppenForZuordnungBaugruppe(new GetAllBaugruppenForZuordnungBaugruppeCallback());
 	}
+	
+	public void getBauteilZwischenTabelle(int id){
+		this.service.getBauteilZwischenTabelle(id, new GetBauteilZwischenTabelleCallback());
+	}
+	
+	
 //------------------------------------------------------------------------------------
 //----------------------------------Ende Baugruppe----------------------------------
 //------------------------------------------------------------------------------------
@@ -579,7 +586,27 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 		}			
 	}
 }	
+	
+	private class GetBauteilZwischenTabelleCallback implements AsyncCallback<Vector<Bauteil>>{
 
+		@Override
+		public void onFailure(Throwable caught) {
+			alertgui.load("Fehler zx", "red");
+		}
+
+		
+
+		@Override
+		public void onSuccess(Vector<Bauteil> result) {
+			if(result instanceof Vector){
+				Vector<Bauteil> bt = new Vector<Bauteil>();
+				bt = result;
+				baugruppegui.Tree(bt);
+			}
+			
+		}
+}	
+ 
 
 
 	/**
@@ -806,11 +833,15 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
+			
+			alertgui.load("Geht nicht", "red");
 		
 		}
 
 		@Override
 		public void onSuccess(Vector<Baugruppe> result) {
+			
+			alertgui.load("Geht", "green");
 			
 			Vector<Baugruppe> baugruppen = new Vector<Baugruppe>();
 			baugruppen = (Vector<Baugruppe>) result;

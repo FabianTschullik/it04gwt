@@ -39,6 +39,7 @@ public interface It04gwtServiceAsync {
 		void getBaugruppeForUpdate(int id, AsyncCallback<Vector<Baugruppe>> callback);
 		void getAllBaugruppen(AsyncCallback<Vector<Baugruppe>> callback);
 		void getAllBaugruppenForZuordnungBaugruppe(AsyncCallback<Vector<Baugruppe>> callback);
+		void getBauteilZwischenTabelle(int id, AsyncCallback<Vector<Bauteil>> callback);
 		//------------------------------------------------------
 		//------------Ende Baugruppe---------------------------------
 		//------------------------------------------------------

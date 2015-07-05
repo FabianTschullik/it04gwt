@@ -2,35 +2,27 @@ package de.hdm.it04.client.gui;
 
 import java.util.Vector;
 
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
-import com.google.gwt.user.client.ui.HTMLTable.Cell;
 
-import de.hdm.it04.client.gui.BauteilGUI.AendernBtnClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.AnlegenBtnClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.LoeschenBtnClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.ShowAllBtn1ClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.SpeichernBtnClickHandler;
-import de.hdm.it04.client.gui.BauteilGUI.SuchenBtnClickHandler;
-import de.hdm.it04.client.gui.EnderzeugnisGUI.BtnAnlegenClickHandler;
-import de.hdm.it04.client.gui.EnderzeugnisGUI.BtnBearbeitenClickHandler;
-import de.hdm.it04.client.gui.EnderzeugnisGUI.BtnLoeschenClickHandler;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
@@ -185,6 +177,10 @@ public void showBaugruppeForm(Baugruppe bg){
 	Button btnLoeschen = new Button("Loeschen");
 	//btnLoeschen.addClickHandler(new BtnLoeschenClickHandler());
 	
+	Button btnZuordnungDetails = new Button("Zuordnungdetails");
+	btnZuordnungDetails.addClickHandler(new BtnZuordnungDetailsClickHandler());
+	
+	
 	
 	flex.setText(1, 0, Integer.toString(bg.getId()));
 	flex.setText(1, 1, bg.getName());
@@ -193,6 +189,7 @@ public void showBaugruppeForm(Baugruppe bg){
 	flex.setText(1, 4, "geändert am");
 	flex.setWidget(1, 5, btnBearbeiten);
 	flex.setWidget(1, 6, btnLoeschen);
+	flex.setWidget(1,7, btnZuordnungDetails);
 	
 	/**
 	 * Verknüpfung zu style.css
@@ -469,7 +466,88 @@ public void showZuordnungsFormForBauteile (Vector <Bauteil> bauteile){
 	this.vPanel.add(bauteileTable);
 }
 
+public void Tree(Vector<Bauteil> bauteil){
+	
+	
+	
+	Bauteil[] bt = new Bauteil[bauteil.size()];
+	bauteil.copyInto(bt);
+	
+	Label lbl = new Label(Integer.toString(bt.length));
+	this.vPanel.add(lbl);
+	TreeItem root = new TreeItem();
+	
+	
+    root.setText(bg.getName());
+    
+    for(int i = 0; i<bt.length;i++){
+    	TreeItem sub = new TreeItem();
+    	sub.setUserObject(bt[i]);
+    	sub.setText(bt[i].getName());
+    	root.addItem(sub);
+    }
+    
+   /* TreeItem sub = new TreeItem();
+    sub.setUserObject(bt[0]);
+    sub.setText(bt[0].getName());
+    root.addItem(sub);*/
+    
+    
+    
+    /*for(int i = 0; i< baugruppe.length; i++){
+    	//root.addTextItem(baugruppe[i].getName());
+    	TreeItem sub = new TreeItem();
+    	sub.setText(baugruppe[i].getName());
+    	for(int z = 0; z<baugruppe.length; z ++)
+    	sub.addTextItem(baugruppe[z].getName());
+    	root.addItem(sub);
+ }
+    
+   
+  		for(int i = 0; i< baugruppe.length; i++){
+    	sub.addTextItem(baugruppe[i].getName());
+	   	root.addItem(sub);
+ }*/
+    
+    	Tree t = new Tree();
+    	t.addSelectionHandler(new SelectionHandler<TreeItem>(){
+			
+			@Override
+			public void onSelection(SelectionEvent<TreeItem> event) {
+				 TreeItem selectedItem = event.getSelectedItem();
+					
+					
+					Object result = selectedItem.getUserObject();
+					if (result instanceof Baugruppe){
+						int id = ((Baugruppe) result).getId();
+						serviceImpl.getBaugruppeForUpdate(id);
+					}
+					else if (result instanceof Bauteil){
+						int id = ((Bauteil) result).getId();
+						serviceImpl.getBauteilForUpdate(id);
+					}
+						else{
+						
+						
+				}
+				
+				
+			}
+    		
+    	});
+    	t.addItem(root);
 
+    
+    
+    	this.vPanel.add(t);
+	
+	
+	//RootPanel.get().add(vPanel);
+	
+	
+	
+	
+}
 
 
 public class BtnAnlegenClickHandler implements ClickHandler {
@@ -564,11 +642,14 @@ public class BtnLoeschenClickHandler implements ClickHandler {
 
 
 
-public class BaugruppeZuordnenClickHandler implements ClickHandler {
+public class BtnZuordnungDetailsClickHandler implements ClickHandler {
 
 	@Override
 	public void onClick(ClickEvent event) {
-	
+		vPanel.clear();
+		int id = bg.getId();
+		serviceImpl.getBauteilZwischenTabelle(id);
+		
 	}
 }
 

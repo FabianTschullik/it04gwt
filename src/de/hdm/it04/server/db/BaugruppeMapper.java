@@ -128,6 +128,50 @@ public class BaugruppeMapper {
 	
 	
 	
+	public Vector<TeileListe> findByKeyZwischentabelle(int id) {
+
+		// DB-Verbindung holen
+		Connection con = DbConnection.connection();
+
+		// Ergebnisvektor vorbereiten
+		Vector<TeileListe> list = new Vector<TeileListe>();
+
+		try {
+
+			// Leeres SQL-Statement (JDBC) anlegen
+
+			Statement stmt = con.createStatement();
+
+			// Statement ausf�llen und als Query an die DB schicken
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT id, bauteil, anzahl FROM bauteilBaugruppe "
+							+ "WHERE baugruppe=" + id);
+			/*
+			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
+			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+			 */
+
+			while (rs.next()) {
+
+				// Ergebnis-Tupel in Objekt umwandeln
+
+				TeileListe tl = new TeileListe();
+				tl.setId(rs.getInt("bauteil"));
+				tl.setAnzahl(rs.getInt("anzahl"));
+				
+
+
+				list.add(tl);
+			}
+
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+			return null;
+		}
+		return list;
+	}
+	
 	
 	
 	

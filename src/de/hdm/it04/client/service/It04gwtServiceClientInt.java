@@ -27,6 +27,7 @@ public interface It04gwtServiceClientInt {
 	void updateBauteil(Bauteil bt);
 	void deleteBauteil(int id);
 	void getAllBauteileForZuordnung();
+	
 
 //------------------------------------------------------------------------------------
 //------------------------------ENDE-Bauteil Methoden----------------------------------
@@ -43,6 +44,7 @@ public interface It04gwtServiceClientInt {
 	void getBaugruppe(String name);
 	void getBaugruppeForUpdate (int id);
 	void getAllBaugruppen();
+	void getBauteilZwischenTabelle(int id);
 //------------------------------------------------------------------------------------
 //------------------------------ENDE Baugruppe----------------------------------
 //------------------------------------------------------------------------------------

@@ -11,6 +11,7 @@ import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Enderzeugnis;
+import de.hdm.it04.shared.TeileListe;
 
 import java.util.Vector;
 
@@ -50,6 +51,25 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	public Vector<Bauteil> getBauteil(int id) {
 
 		return BauteilMapper.bauteilMapper().findByKey(id);
+	}
+	
+	public Vector<Bauteil> getBauteilZwischenTabelle(int id) {
+		
+		Vector<TeileListe> list = new Vector<TeileListe>();
+		
+		list = BaugruppeMapper.baugruppeMapper().findByKeyZwischentabelle(id);
+		Vector<Bauteil> btl = new Vector<Bauteil>();
+		
+		for(int i=0; i <list.size(); i++){
+			Vector<Bauteil> bt = new Vector<Bauteil>();
+			int id1;
+			id1= list.elementAt(i).getId();
+			bt = BauteilMapper.bauteilMapper().findByKey(id1);
+			btl.add(bt.firstElement());
+		}		
+		
+		return btl;
+		
 	}
 	
 	public Vector<Bauteil> getBauteilForUpdate(int id) {

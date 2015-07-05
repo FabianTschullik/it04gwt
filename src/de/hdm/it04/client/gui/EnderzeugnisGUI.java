@@ -575,6 +575,19 @@ public void tree(Vector<Baugruppe> baugruppe){
 		}
 		
 		
+		public class BtnZuordnungClickHandler implements ClickHandler{
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+					vPanel.clear();
+					serviceImpl.getAllBaugruppenForZuordnung();	
+				
+				
+			}
+			
+		}
+		
 		
 		/**
 		 * Der ShowAll Button holt �ber die ShowAllBauteile Methode
@@ -582,26 +595,19 @@ public void tree(Vector<Baugruppe> baugruppe){
 		 * �ber die ShowAllBauteile( Vektor<Bauteile> bauteil) Methode
 		 * auf der BauteilGUI werden die Bauteile sichtbar gemacht
 		 */
-		public class BtnZuordnungClickHandler implements ClickHandler {
+		public class BtnZuordnungDetailsClickHandler implements ClickHandler {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				vPanel.clear();
-				serviceImpl.getAllBaugruppenForZuordnung();	
+				int id = ez.getBaugruppe();
+				serviceImpl.getBaugruppeForZuordnungDetails(id);	
 			}
 		}
 		
 		
 
-		public class BtnZuordnungDetailsClickHandler implements ClickHandler {
-
-					@Override
-					public void onClick(ClickEvent event) {
-						vPanel.clear();
-						int id = ez.getBaugruppe();
-						serviceImpl.getBaugruppeForZuordnungDetails(id);	
-					}
-				}
+		
 
 		
 }
