@@ -243,7 +243,8 @@ public class EnderzeugnisMapper {
 					+ "aenderungsDatum = '" + new Timestamp(date.getTime()) + "', "
 					+ "preis = " + ez.getPreis() + ", "
 					+ "baugruppe = " + ez.getBaugruppe() + ", "
-					+ "beschreibung = '" + ez.getBeschreibung()
+					+ "beschreibung = '" + ez.getBeschreibung() + "', "
+					+ "letzterBearbeiter = '" + ez.getLetzterBearbeiter()
 					+ "' WHERE id= " + ez.getId());
 			
 			result.add(ez);

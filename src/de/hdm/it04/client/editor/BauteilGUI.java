@@ -37,6 +37,8 @@ public class BauteilGUI {
 	
 	TextBox textBoxSuchen = new TextBox();
 	
+	 String user = It04gwtEditor.user;
+	
 	
 	/**
 	 * lokal Instanz eines Bauteils
@@ -164,6 +166,7 @@ public class BauteilGUI {
 					bt.setName(txtName.getText());
 					bt.setMaterialBezeichnung(txtMaterialBezeichnung.getText());
 					bt.setBeschreibung(txtBeschreibung.getText());
+					bt.setLetzterBearbeiter(user);
 					
 					sms.updateBauteil(bt, new AsyncCallback<Vector<Bauteil>>() {
 
@@ -387,6 +390,7 @@ public Widget showAllBauteile(Vector<Bauteil> bauteile) {
 		 bauteile.elementAt(j).getAenderungsDatum(); String s2 =
 		 DateTimeFormat.getMediumDateTimeFormat().format(d2);
 		 
+		
 
 		/**
 		 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
@@ -397,6 +401,7 @@ public Widget showAllBauteile(Vector<Bauteil> bauteile) {
 		bauteileTable.setText(j + 1, 3, bauteile.elementAt(j).getMaterialBezeichnung());
 		bauteileTable.setText(j+1, 4, s1);
 		bauteileTable.setText(j+1, 5, s2);
+		bauteileTable.setText(j + 1, 6, user);
 		bauteileTable.setWidget(j + 1, 7, btnBearbeiten);
 		bauteileTable.setWidget(j + 1, 8, btnLoeschen);
 

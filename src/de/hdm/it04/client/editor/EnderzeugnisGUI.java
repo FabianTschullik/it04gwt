@@ -33,6 +33,8 @@ public class EnderzeugnisGUI {
 
 	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
 	AlertGUI alertGUI = new AlertGUI();
+	
+	String user = It04gwtEditor.user;
 
 	private TextBox txtSuchen = new TextBox();
 	private TextBox txtName = new TextBox();
@@ -276,6 +278,7 @@ public class EnderzeugnisGUI {
 				ez.setName(txtName.getText());
 				ez.setPreis(Double.parseDouble(txtPreis.getText()));
 				ez.setBeschreibung(txtBeschreibung.getText());
+				ez.setLetzterBearbeiter(user);
 
 				sms.getAllBaugruppen(new AsyncCallback<Vector<Baugruppe>>() {
 
@@ -475,6 +478,8 @@ public class EnderzeugnisGUI {
 			 enderzeugnisse.elementAt(j).getAenderungsDatum(); String s2 =
 			 DateTimeFormat.getMediumDateTimeFormat().format(d2);
 			 
+			 
+			 
 
 			/**
 			 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
@@ -486,6 +491,7 @@ public class EnderzeugnisGUI {
 			enderzeugnisseTable.setText(j + 1, 3, Double.toString(enderzeugnisse.elementAt(j).getPreis()));
 			enderzeugnisseTable.setText(j+1, 4, s1);
 			enderzeugnisseTable.setText(j+1, 5, s2);
+			enderzeugnisseTable.setText(j + 1, 6, user);
 			enderzeugnisseTable.setWidget(j + 1, 7, btnBearbeiten);
 			enderzeugnisseTable.setWidget(j + 1, 8, btnLoeschen);
 
