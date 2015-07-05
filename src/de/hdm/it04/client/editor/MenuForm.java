@@ -1,7 +1,10 @@
 package de.hdm.it04.client.editor;
 
+import java.util.Vector;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.MenuBar;
@@ -52,6 +55,37 @@ public class MenuForm extends HorizontalPanel {
 				
 
 			}
+			
+		};
+			
+			Command showEnderzeugnis = new Command() {
+				public void execute() {
+					
+					sms.getAllEnderzeugnisse(new AsyncCallback<Vector<Enderzeugnis>>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+							Window.alert("hasf");
+							
+						}
+
+						@Override
+						public void onSuccess(Vector<Enderzeugnis> result) {
+							Window.alert("geht");
+							
+							ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showAllEnderzeugnisse(result));
+							
+						}
+					});
+					
+					
+					
+					
+					
+					
+					
+
+				}
 
 		};
 
@@ -162,6 +196,7 @@ public class MenuForm extends HorizontalPanel {
 		baugruppeMenu.addItem("suchen", openSucheBaugruppe);
 
 		MenuBar enderzeugnisMenu = new MenuBar(true);
+		enderzeugnisMenu.addItem("alle anzeigen", showEnderzeugnis);
 		enderzeugnisMenu.addItem("anlegen", newEnderzeugnis);
 		enderzeugnisMenu.addItem("suchen", openSucheEnderzeugnis);
 

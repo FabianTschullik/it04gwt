@@ -306,12 +306,12 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 	public Vector<Enderzeugnis> getEnderzeugnis(int id) {
 
-		return EnderzeugnisMapper.enderzeugnisMapper().getEnderzeugnisById(id);
+		return EnderzeugnisMapper.enderzeugnisMapper().findByKey(id);
 	}
 	
 	public Vector<Enderzeugnis> getEnderzeugnis(String name) {
 
-		return EnderzeugnisMapper.enderzeugnisMapper().findByName(name);
+		return null;
 	}
 
 	public Enderzeugnis createEnderzeugnis() {
