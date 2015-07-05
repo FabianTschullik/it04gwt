@@ -457,6 +457,7 @@ public void updateZwischentabelle(int bauteilID, int anzahl, int baugruppeID){
 			
 			
 			if (rs.next()) {
+				  
 				
 				
 				/*
