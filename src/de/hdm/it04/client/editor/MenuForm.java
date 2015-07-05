@@ -65,13 +65,13 @@ public class MenuForm extends HorizontalPanel {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("hasf");
+						
 							
 						}
 
 						@Override
 						public void onSuccess(Vector<Enderzeugnis> result) {
-							Window.alert("geht");
+							
 							
 							ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showAllEnderzeugnisse(result));
 							

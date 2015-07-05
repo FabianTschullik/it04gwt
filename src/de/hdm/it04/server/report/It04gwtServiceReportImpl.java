@@ -45,12 +45,13 @@ public class It04gwtServiceReportImpl extends RemoteServiceServlet implements It
 	
 	@Override
 	public Vector<Enderzeugnis> getEnderzeugnis(int id) {
-		return EnderzeugnisMapper.enderzeugnisMapper().getEnderzeugnisById(id);
+		return EnderzeugnisMapper.enderzeugnisMapper().findByKey(id);
 	}
 
 	@Override
 	public Vector<Enderzeugnis> getEnderzeugnis(String name) {
-		return EnderzeugnisMapper.enderzeugnisMapper().findByName(name);
+		//return EnderzeugnisMapper.enderzeugnisMapper().findByName(name);
+		return null;
 	}
 	
 	@Override

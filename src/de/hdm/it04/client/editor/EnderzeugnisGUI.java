@@ -3,6 +3,7 @@ package de.hdm.it04.client.editor;
 import java.util.Date;
 import java.util.Vector;
 
+import com.google.api.gwt.oauth2.client.Callback;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -18,6 +19,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextArea;
@@ -46,48 +48,25 @@ public class EnderzeugnisGUI {
 	private TextArea txtBeschreibung = new TextArea();
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel hPanel = new HorizontalPanel();
-	public Enderzeugnis ez;
+	static Enderzeugnis ez;
 	FlexTable enderzeugnisseTable = new FlexTable();
 	FlexTable baugruppeTable  = new FlexTable();
 	
-	It04gwtEditor user = new It04gwtEditor();
+	
 	
 	
 
 	public Widget showZuordnungsForm (Vector <Baugruppe> baugruppe){
 		
 		
+		VerticalPanel vPanel= new VerticalPanel();
 		/**
 		 * neuer HTML Bereich
 		 */
 		HTML topic = new HTML("<h2>Welche Baugruppe möchten Sie dem Enderzeugnis zuordnen?</h2>");
-		this.vPanel.add(topic);
+		vPanel.add(topic);
 		
-		Button btnZuordnung = new Button("Jetzt zuordnen");
-		btnZuordnung.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				
-				
-				sms.updateEnderzeugnis(ez, new AsyncCallback<Vector<Enderzeugnis>>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						new AlertGUI().load("Enderzeugnis wurde erfolgreich angelegt", "green");
-						
-					}
-
-					@Override
-					public void onSuccess(Vector<Enderzeugnis> result) {
-						new AlertGUI().load("Enderzeugnis wurde erfolgreich angelegt", "green");
-						
-					}
-				});
-			}
-		});
-		
-		this.vPanel.add(btnZuordnung);
+	
 		
 		/**
 		 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
@@ -155,7 +134,7 @@ public class EnderzeugnisGUI {
 			
 			if(Integer.parseInt(baugruppeTable.getText(j+1, 0)) == ez.getBaugruppe()){
 				rb.setValue(true);
-			}
+	}
 			
 			
 			
@@ -171,7 +150,41 @@ public class EnderzeugnisGUI {
 		/**
 		 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
 		 */
-		this.vPanel.add(baugruppeTable);
+		vPanel.add(baugruppeTable);
+		
+	
+		Button btnSuchen = new Button("Baugruppe zuordnen");
+		vPanel.add(btnSuchen);
+		btnSuchen.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+
+			sms.updateEnderzeugnis(ez, new AsyncCallback<Vector<Enderzeugnis>>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					new AlertGUI().load("Enderzeugnis konnte nicht gespeichert werden", "red");
+					
+				}
+
+				@Override
+				public void onSuccess(Vector<Enderzeugnis> result) {
+					
+					
+					ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showAllEnderzeugnisse(result));
+					new AlertGUI().load("Enderzeugnis wurde erfolgreich gespeichert", "green");
+					
+				}
+			});
+
+		
+		
+				
+			
+		}} );
+		
+		vPanel.add(btnSuchen);
 		
 		return vPanel;
 	}
@@ -262,7 +275,7 @@ public class EnderzeugnisGUI {
 	        0, 0, HasHorizontalAlignment.ALIGN_CENTER);
 
 		
-		Button btnSpeichern = new Button("Speichern");
+		Button btnSpeichern = new Button("Weiter");
 		btnSpeichern.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -273,7 +286,21 @@ public class EnderzeugnisGUI {
 				ez.setPreis(Double.parseDouble(txtPreis.getText()));
 				ez.setBeschreibung(txtBeschreibung.getText());
 				
-				//sms.getAllBaugruppenForZuordnung();
+				sms.getAllBaugruppen(new AsyncCallback<Vector<Baugruppe>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+					
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Baugruppe> result) {
+						
+						ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showZuordnungsForm(result));
+						
+					}
+				});
 				
 			}
 		});
@@ -339,7 +366,7 @@ public ListBox createMultiBox(){
     return dropBox;
 }
 
-public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
+public Widget showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 	
 	FlexTable flex = new FlexTable();
 	
@@ -403,6 +430,8 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 		flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 		flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
 		this.vPanel.add(flex);
+		
+		return vPanel;
 }
 
 
@@ -495,7 +524,32 @@ public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
+				Cell cell = enderzeugnisseTable.getCellForEvent(event);
+				
+				int rowIndex = cell.getRowIndex();
+				String id1 = enderzeugnisseTable.getText(rowIndex, 0);
+				int id = Integer.parseInt(id1);
+				
+				sms.getEnderzeugnis(id, new AsyncCallback<Vector<Enderzeugnis>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Enderzeugnis> result) {
+						
+						ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showAnlegenForm(result.firstElement()));
+						
+					}
+				});
+				
+				
+				
+				
+				
 				
 			}});
 		
