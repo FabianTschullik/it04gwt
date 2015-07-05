@@ -101,7 +101,7 @@ public class BaugruppeMapper {
 			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
 			 */
 
-			if (rs.next()) {
+			while (rs.next()) {
 
 				// Ergebnis-Tupel in Objekt umwandeln
 
@@ -363,7 +363,7 @@ public class BaugruppeMapper {
 			// Statement ausf�llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM baugruppe "
+					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
 							+ "WHERE name=" + "'" + name + "'");
 			/*
 			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben

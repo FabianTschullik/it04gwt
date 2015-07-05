@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Benutzer;
 import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.LoginInfo;
 
@@ -124,8 +125,21 @@ public interface It04gwtService extends RemoteService {
 	String deleteEnderzeugnis(int id);
 	Vector <Enderzeugnis> getAllEnderzeugnisse();
 	Vector <Enderzeugnis> getEnderzeugnis(int id);
-	//Vector <Enderzeugnis> getEnderzeugnis(String name);
+	Vector <Enderzeugnis> getEnderzeugnis(String name);
 	Vector <Enderzeugnis> getEnderzeugnisForUpdate(int id);
 	Vector <Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez);
+	
+	
+	//---------------------------------------------------------------------------
+	//---------------------------Ende Enderzeugnis-------------------------------------
+	//----------------------------------------------------------------------------	
+	
+	
+	//---------------------------------------------------------------------------
+	//---------------------------User-------------------------------------
+	//----------------------------------------------------------------------------	
+	
+	Benutzer saveBenutzer(String mail);
+	Benutzer checkBenutzer(String mail);
 	
 }

@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.TextBox;
 
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
+import de.hdm.it04.shared.Benutzer;
 import de.hdm.it04.shared.LoginInfo;
 
 
@@ -24,6 +25,14 @@ import de.hdm.it04.shared.LoginInfo;
 	 * Entry point classes define <code>onModuleLoad()</code>.
 	 */
 	public class It04gwtEditor implements EntryPoint {
+		
+		
+public static String user;
+		
+
+		
+
+		
 		
 		
 		// TODO #05: add constants for OAuth2 (don't forget to update GOOGLE_CLIENT_ID)
@@ -149,9 +158,36 @@ import de.hdm.it04.shared.LoginInfo;
 
 				@Override
 				public void onSuccess(final LoginInfo result) {
+					
+					
+					user = result.getName();
+														
 					if (result.getName() != null && !result.getName().isEmpty()) {
 						addGoogleAuthHelper();
 						loadLogout(result);
+						
+						
+					greetingService.saveBenutzer(result.getName(), new AsyncCallback(){
+
+						@Override
+						public void onFailure(Throwable caught) {
+
+						;
+
+							
+						}
+
+						@Override
+						public void onSuccess(Object result) {
+
+					
+
+
+							
+						}});
+					
+					
+					
 						
 						RootPanel.get("header").add(new MenuForm());
 						

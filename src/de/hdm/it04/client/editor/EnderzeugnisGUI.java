@@ -1,22 +1,20 @@
 package de.hdm.it04.client.editor;
 
+import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -24,11 +22,15 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
-import de.hdm.it04.shared.Baugruppe;
-import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
 
 public class EnderzeugnisGUI {
+
+
+	
+	
+	
+	
 	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
 	AlertGUI alertGUI = new AlertGUI();
 	
@@ -39,6 +41,8 @@ public class EnderzeugnisGUI {
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel hPanel = new HorizontalPanel();
 	public Enderzeugnis ez;
+	
+	It04gwtEditor user = new It04gwtEditor();
 	
 	
 
@@ -58,6 +62,7 @@ public class EnderzeugnisGUI {
 			@Override
 			public void onClick(ClickEvent event) {
 	String ezSuche = txtSuchen.getText();
+	String name = ezSuche;
 				
 				if (ezSuche.matches("[0-9]+")){
 					int id = Integer.parseInt(ezSuche);
@@ -76,10 +81,8 @@ public class EnderzeugnisGUI {
 					});
 					
 				}
-			//String name = ezSuche;
 			
-			int id = Integer.parseInt(ezSuche);
-				sms.getEnderzeugnis(id, new AsyncCallback<Vector<Enderzeugnis>>() {
+				sms.getEnderzeugnis(name, new AsyncCallback<Vector<Enderzeugnis>>() {
 
 					
 					public void onFailure(Throwable arg0) {
@@ -103,42 +106,7 @@ public class EnderzeugnisGUI {
 		return vPanel;
 	}
 	
-public void menue(){
-	
-		this.hPanel.clear();
-		
-		/**
-		 * neuer HTML Bereich
-		 */
-		HTML topic = new HTML("<h2>Was wollen Sie mit dem Enderzeugnis tun?</h2>");
-		
 
-		this.vPanel.add(topic);
-		
-		/**
-		 * Men� Buttons um weiter Aktivitäten f�r Bauteil zu w�hlen
-		 */
-		
-		Button btnAnlegen = new Button("Anlegen");
-		btnAnlegen.addClickHandler(new BtnAnlegenClickHandler());
-		this.hPanel.add(btnAnlegen);
-
-			
-		txtSuchen.setText("id oder Name");
-		this.hPanel.add(txtSuchen);
-		
-		Button btnSuchen = new Button("Enderzeugnis suchen");
-		btnSuchen.addClickHandler(new BtnSuchenClickHandler());
-		this.hPanel.add(btnSuchen);	
-		
-		Button btnShowAll = new Button("Alle Enderzeugnisse anzeigen");
-		btnShowAll.addClickHandler(new BtnShowAllClickHandler());
-		this.hPanel.add(btnShowAll);	
-		
-		this.vPanel.add(hPanel);
-		
-		RootPanel.get("content").add(this.vPanel);	
-	}
 
 
 
@@ -173,10 +141,14 @@ public Widget showAnlegenForm(Enderzeugnis enderzeugnis){
 		
 		@Override
 		public void onClick(ClickEvent event) {
-		
+			
+		String user = It04gwtEditor.user;
+
+			
 			ez.setName(txtName.getText());
 			ez.setBeschreibung(txtBeschreibung.getText());
 			ez.setPreis(Double.parseDouble(txtPreis.getText()));
+			ez.setLetzterBearbeiter(user);
 			sms.updateEnderzeugnis(ez, new AsyncCallback<Vector<Enderzeugnis>>() {
 
 				@Override
@@ -303,25 +275,46 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 		flex.setText(0, 1, "Name");
 		flex.setText(0, 2, "Beschreibung");
 		flex.setText(0, 3, "Preis");
-		flex.setText(0, 4, "erstellt am");
-		flex.setText(0, 5, "geändert am");
-		flex.setText(0, 6, "Bearbeiten");
-		flex.setText(0, 7, "Löschen");
+		flex.setText(0, 4, "Preis");
+		flex.setText(0, 5, "letzter Bearbeiter");
+		flex.setText(0, 6, "geändert am");
+		flex.setText(0, 7, "Bearbeiten");
+		flex.setText(0, 8, "Löschen");
 		
 		Button btnBearbeiten = new Button("Bearbeiten");
-		btnBearbeiten.addClickHandler(new BtnBearbeitenClickHandler());
+		
+		btnBearbeiten.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				//Cell cell = flex.getCellForEvent(event);
+				//int rowIndex = cell.getRowIndex();
+				//String id1 = flex.getText(rowIndex, 0);
+				//int id = Integer.parseInt(id1);
+				//vPanel.clear();
+				//sms.getEnderzeugnisForUpdate(id);
+				
+			}
+			
+			
+			
+		});
+		
+		
 		
 		Button btnLoeschen = new Button("Loeschen");
-		//btnLoeschen.addClickHandler(new BtnLoeschenClickHandler());
+		
 		
 		flex.setText(1, 0, Integer.toString(ez.getId()));
 		flex.setText(1, 1, ez.getName());
 		flex.setText(1, 2, ez.getBeschreibung());
 		flex.setText(1, 3, Double.toString(ez.getPreis()));
-		flex.setText(1, 4, "erstellt am");
-		flex.setText(1, 5, "geändert am");
-		flex.setWidget(1, 6, btnBearbeiten);
-		flex.setWidget(1, 7, btnLoeschen);
+		flex.setText(1, 5, ez.getLetzterBearbeiter());
+		flex.setText(1, 6, "erstellt am");
+		flex.setText(1, 7, "geändert am");
+		flex.setWidget(1, 8, btnBearbeiten);
+		flex.setWidget(1, 9, btnLoeschen);
 		
 		/**
 		 * Verknüpfung zu style.css
@@ -349,8 +342,8 @@ public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 	bauteileTable.setText(0,4,"Erstellt am");
 	bauteileTable.setText(0,5,"Zuletzt geaendert am");
 	bauteileTable.setText(0,6,"letzter Bearbeiter");
-	//bauteileTable.setText(0,7,"Edit");
-	//bauteileTable.setText(0,8,"Delete");
+	bauteileTable.setText(0,7,"Edit");
+	bauteileTable.setText(0,8,"Delete");
 	
 	/**
 	 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
@@ -376,17 +369,20 @@ public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 		/**
 		 * Formatiert Timestamp zu String
 		 */
-		/*Date d1 = new Date();
-		d1 = bauteile.elementAt(j).getErstellungsDatum();
-		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
+		
+		
+		
+		Date d1 = new Date();
+		d1 = enderzeugnisse.elementAt(j).getErstellungsDatum();
+		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
 		
 		
 		/**
 		 * Formatiert Timestamp zu String
 		 */
-		/*Date d2 = new Date();
-		d2 = bauteile.elementAt(j).getAenderungsDatum();
-		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
+		Date d2 = new Date();
+		d2 = enderzeugnisse.elementAt(j).getAenderungsDatum();
+		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 		
 	
 		/**
@@ -396,6 +392,9 @@ public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 		bauteileTable.setText(j+1, 1, enderzeugnisse.elementAt(j).getName());
 		bauteileTable.setText(j+1, 2, enderzeugnisse.elementAt(j).getBeschreibung());
 		bauteileTable.setText(j+1, 3, Double.toString(enderzeugnisse.elementAt(j).getPreis()));
+		bauteileTable.setText(j+1, 4, s1);
+		bauteileTable.setText(j+1, 5, s2);
+		bauteileTable.setText(j+1, 6, enderzeugnisse.elementAt(j).getLetzterBearbeiter());
 		//bauteileTable.setText(j+1, 4, s1);
 		//bauteileTable.setText(j+1, 5, s2);
 
@@ -424,195 +423,9 @@ public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 	return vPanel;
 	
 }
-	
-public Widget showEnderzeugnisseMaterialbedarf(Vector<Enderzeugnis> enderzeugnisse){
-	
-	/**
-	 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
-	 */
-	FlexTable enderzeugnisTable = new FlexTable();
-	enderzeugnisTable.setText(0,0,"ID");
-	enderzeugnisTable.setText(0,1,"Name");
-	enderzeugnisTable.setText(0,2,"Beschreibung");
-	enderzeugnisTable.setText(0,3,"Preis");	
-	enderzeugnisTable.setText(0,4,"Menge");
-	enderzeugnisTable.setText(0,5,"Materialbedarf berechnen");
-	
-	/**
-	 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
-	 */
-	for(int j=0; j < enderzeugnisse.size(); j++ ){
-		
-
-		/**
-		 * Button, um Editieren des Bauteils innerhalb der Tabelle aufzurufen
-		 */
-		Button btnMaterialbedarfBerechnen = new Button("Berechnen");
-		btnMaterialbedarfBerechnen.addClickHandler(new btnMaterialbedarfBerechnenClickHandler());
-		//this.vPanelCreate.add(editBtn);
-
-		/**
-		 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
-		 */
-		enderzeugnisTable.setText(j+1, 0, Integer.toString(enderzeugnisse.elementAt(j).getId()));
-		enderzeugnisTable.setText(j+1, 1, enderzeugnisse.elementAt(j).getName());
-		enderzeugnisTable.setText(j+1, 2, enderzeugnisse.elementAt(j).getBeschreibung());
-		enderzeugnisTable.setText(j+1, 3, Double.toString(enderzeugnisse.elementAt(j).getPreis()));
-		//enderzeugnisTable.setText(j+1, 4, TEXTBOX MISSING);
-
-	
-		/**
-		 * Einfuegen der Buttons in die Tabelle
-		 */
-		enderzeugnisTable.setWidget(j+1, 5, btnMaterialbedarfBerechnen);
-		
-		
-		/**
-		 * Verknuepfung zu style.css
-		 */
-		enderzeugnisTable.setCellPadding(6);
-		enderzeugnisTable.getRowFormatter().addStyleName(0,  "watchListHeader");
-		enderzeugnisTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
-		enderzeugnisTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-	}	
-	
-	/**
-	 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
-	 */
-	this.vPanel.add(enderzeugnisTable);
-	
-	return vPanel;
-	
 }
 
-
-	public void showSuccess(Enderzeugnis ez) {
-
-		Label lbl = new Label("Hallo");
-		this.vPanel.add(lbl);
-	}
 		
 	
-//--------------------------------------------------------------------------------------
-//---------------------------- Click Handler Buttons------------------------------------
-//--------------------------------------------------------------------------------------
-	public class btnMaterialbedarfBerechnenClickHandler implements ClickHandler {
 
-		@Override
-		public void onClick(ClickEvent event) {
-			// TODO Auto-generated method stub
-		}	
-	}
-	
-	
-	public class BtnAnlegenClickHandler implements ClickHandler {
 
-			@Override
-			public void onClick(ClickEvent event) {
-				vPanel.clear();
-				//serviceImpl.createEnderzeugnis();
-			}
-		}
-		
-		public class BtnSpeichernClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				
-				vPanel.clear();
-				/**
-				 * Es werden die ver�nderbaren Parameter 
-				 * aus den TextBoxen geholt
-				 */
-				ez.setName(txtName.getText());
-				ez.setPreis(Double.parseDouble(txtPreis.getText()));
-				ez.setBeschreibung(txtBeschreibung.getText());
-				
-				//serviceImpl.updateEnderzeugnis(ez);
-			}
-		}
-		
-		
-		
-		
-		
-		public class BtnAbbrechenClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				vPanel.clear();
-				//serviceImpl.deleteEnderzeugnis(ez.getId());
-			}
-		}
-		
-		
-		
-		/**
-		 * ClickHandler zum Men�button Speichern
-		 * Wenn ein Bauteil angelegt oder ver�ndert wurde, 
-		 * wird das Bauteil in der DB aktualisiert �ber die Methode
-		 *  updateBauteil() (Client Impl)
-		 * Danach wird das Objekt, welches ver�ndert wurde durch die Methode
-		 * getBauteil(Bauteil bt) (BauteilGUI) auf der GUI sichtbar gemacht
-		 *
-		 */
-		public class BtnBearbeitenClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				//serviceImpl.getEnderzeugnis(ez.getId());
-			}
-		}
-		
-		
-		
-		/**
-		 * Wenn ein Bauteil angezeigt wird,
-		 * wird es �ber den L�schen Button entfernt
-		 * dazu wird die ClientImpl Methode delte Bauteil(int id) aufgerufen
-		 * Auf der Bauteil GUI kann man bei erfolgreichem L�schen den Satz
-		 * "Bauteil wurde erfolgreich gel�scht" 
-		 * (Methode showMeldung(String meldung) (Bauteil Gui) lesen
-		 * lesen
-		 */
-		public class LoeschenBtnClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-	
-			}
-		}
-		
-		/**
-		 * Der ShowAll Button holt �ber die ShowAllBauteile Methode
-		 * alle Bauteile in einem Vektor aus der DB 
-		 * �ber die ShowAllBauteile( Vektor<Bauteile> bauteil) Methode
-		 * auf der BauteilGUI werden die Bauteile sichtbar gemacht
-		 */
-		public class BtnShowAllClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				vPanel.clear();
-				//serviceImpl.getAllEnderzeugnisse();	
-			}
-		}
-		
-		/**
-		 * �ber den Suchenbutton kann man Bauteile suchen
-		 * indem man die ID oder ein Name eingibt.
-		 *Dann wird die Methode getBauteile oder findBauteilByName in der Klasse ClientImpl aufgerufen
-		 */
-		
-		public class BtnSuchenClickHandler implements ClickHandler {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				
-				
-				//serviceImpl.getBaugruppe(Integer.parseInt(txtSuchen.getText()));
-			}
-		}
-	
-
-}

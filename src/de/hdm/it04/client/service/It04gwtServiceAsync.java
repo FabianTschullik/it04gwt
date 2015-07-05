@@ -63,12 +63,23 @@ public interface It04gwtServiceAsync {
 		void createEnderzeugnis(AsyncCallback<Enderzeugnis> callback);
 		void getEnderzeugnis(int id, AsyncCallback<Vector<Enderzeugnis>> callback );	
 		void getEnderzeugnisForUpdate(int id, AsyncCallback<Vector<Enderzeugnis>> callback );	
-		//void getEnderzeugnis(String name, AsyncCallback<Vector<Enderzeugnis>> callback );
+		void getEnderzeugnis(String name, AsyncCallback<Vector<Enderzeugnis>> callback );
 		void getAllEnderzeugnisse(AsyncCallback<Vector<Enderzeugnis>> callback );	
 		void deleteEnderzeugnis(int id, AsyncCallback callback);
 		void updateEnderzeugnis(Enderzeugnis ez, AsyncCallback<Vector<Enderzeugnis>> callback);
 		//------------------------------------------------------
 		//------------Ende Enderzeugnis---------------------------------
+		//------------------------------------------------------
+		
+		//------------------------------------------------------
+		//------------Benutzer---------------------------------
+		//------------------------------------------------------
+		
+		void saveBenutzer(String name, AsyncCallback callback);
+		void checkBenutzer(String name, AsyncCallback callback);
+		
+		//------------------------------------------------------
+		//------------Ende Benutzer---------------------------------
 		//------------------------------------------------------
 		
 }
