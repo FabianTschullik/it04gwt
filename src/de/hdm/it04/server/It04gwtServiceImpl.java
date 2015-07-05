@@ -199,6 +199,11 @@ public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {
 public Vector<Baugruppe> getAllBaugruppenForZuordnung(){
 	return BaugruppeMapper.baugruppeMapper().findAll();
 }
+
+public Vector<Baugruppe> getBaugruppeForZuordnungDetails(int id){
+	return BaugruppeMapper.baugruppeMapper().findByKey(id);
+}
+
 //-----------------------------------------------------------------------------
 //----------------------------Ende Enderzeugnis----------------------------------------
 //-----------------------------------------------------------------------------	

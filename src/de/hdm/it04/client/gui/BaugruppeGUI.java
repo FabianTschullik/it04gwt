@@ -299,7 +299,7 @@ public void showAllBaugruppen(Vector<Baugruppe> baugruppen){
 }
 
 
-public void fülleTeileListe (FlexTable table){
+public void fuelleTeileListe (FlexTable table){
 	
 	//Durch den gesamten Vektor gehen
 	for(int i=0; i<bg.stueckliste.size(); i++){
@@ -355,7 +355,7 @@ public void showZuordnungsFormForBauteile (Vector <Bauteil> bauteile){
 		public void onClick(ClickEvent event) {
 			
 			//TeileListe in den Vektor speichern
-			fülleTeileListe(bauteileTable);
+			fuelleTeileListe(bauteileTable);
 			
 			Label lbl = new Label("Hallo");
 			vPanel.add(lbl);

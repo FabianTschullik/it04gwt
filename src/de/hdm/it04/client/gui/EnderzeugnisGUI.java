@@ -4,6 +4,8 @@ import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.Window;
@@ -22,8 +24,11 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.it04.server.db.BaugruppeMapper;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Enderzeugnis;
 
@@ -244,6 +249,9 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 		Button btnZuordnung = new Button("Zuordnung");
 		btnZuordnung.addClickHandler(new BtnZuordnungClickHandler());
 		
+		Button btnZuordnungDetails = new Button("Zuordnungdetails");
+		btnZuordnungDetails.addClickHandler(new BtnZuordnungDetailsClickHandler());
+		
 		flex.setText(1, 0, Integer.toString(ez.getId()));
 		flex.setText(1, 1, ez.getName());
 		flex.setText(1, 2, ez.getBeschreibung());
@@ -253,6 +261,7 @@ public void showEnderzeugnisForm(Enderzeugnis enderzeugnis){
 		flex.setWidget(1, 6, btnBearbeiten);
 		flex.setWidget(1, 8, btnZuordnung);
 		flex.setWidget(1, 9, btnLoeschen);
+		flex.setWidget(1, 10, btnZuordnungDetails);
 		
 		/**
 		 * Verknüpfung zu style.css
@@ -361,6 +370,77 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 	
 	
 }
+
+public void tree(Vector<Baugruppe> baugruppe){
+	Baugruppe[] bg = new Baugruppe[baugruppe.size()];
+	baugruppe.copyInto(bg);
+	
+	
+	TreeItem root = new TreeItem();
+	
+	
+    root.setText(ez.getName());
+    
+    TreeItem sub = new TreeItem();
+    sub.setUserObject(bg[0]);
+    sub.setText(bg[0].getName());
+    root.addItem(sub);
+    
+    
+    
+    /*for(int i = 0; i< baugruppe.length; i++){
+    	//root.addTextItem(baugruppe[i].getName());
+    	TreeItem sub = new TreeItem();
+    	sub.setText(baugruppe[i].getName());
+    	for(int z = 0; z<baugruppe.length; z ++)
+    	sub.addTextItem(baugruppe[z].getName());
+    	root.addItem(sub);
+ }
+    
+   
+  		for(int i = 0; i< baugruppe.length; i++){
+    	sub.addTextItem(baugruppe[i].getName());
+	   	root.addItem(sub);
+ }*/
+    
+    	Tree t = new Tree();
+    	t.addSelectionHandler(new SelectionHandler<TreeItem>(){
+			
+			@Override
+			public void onSelection(SelectionEvent<TreeItem> event) {
+				 TreeItem selectedItem = event.getSelectedItem();
+					
+					
+					Object result = selectedItem.getUserObject();
+					if (result instanceof Baugruppe){
+						int id = ((Baugruppe) result).getId();
+						serviceImpl.getBaugruppeForUpdate(id);
+					}
+					else if (result instanceof Enderzeugnis){
+						int id = ((Enderzeugnis) result).getId();
+						serviceImpl.getEnderzeugnis(id);
+					}
+						else{
+						Label lbl = new Label(selectedItem.getHTML());
+						vPanel.add(lbl);
+						
+				}
+				
+				
+			}
+    		
+    	});
+    	t.addItem(root);
+
+    
+    
+    	this.vPanel.add(t);
+	
+	
+	//RootPanel.get().add(vPanel);
+	
+}
+
 	
 	
 //--------------------------------------------------------------------------------------
@@ -510,4 +590,18 @@ public void showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 				serviceImpl.getAllBaugruppenForZuordnung();	
 			}
 		}
+		
+		
+
+		public class BtnZuordnungDetailsClickHandler implements ClickHandler {
+
+					@Override
+					public void onClick(ClickEvent event) {
+						vPanel.clear();
+						int id = ez.getBaugruppe();
+						serviceImpl.getBaugruppeForZuordnungDetails(id);	
+					}
+				}
+
+		
 }

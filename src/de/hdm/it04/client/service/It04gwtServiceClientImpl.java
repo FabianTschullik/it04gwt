@@ -225,6 +225,10 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	public void getAllBaugruppenForZuordnung(){
 		this.service.getAllBaugruppenForZuordnung(new GetAllBaugruppenForZuordnung());
 	}
+	
+	public void getBaugruppeForZuordnungDetails(int id){
+		this.service.getBaugruppeForZuordnungDetails(id, new GetBaugruppeForZuordnungDetailsCallback());
+	}
 //------------------------------------------------------------------------------------
 //----------------------------------Ende Enderzeugnis----------------------------------
 //------------------------------------------------------------------------------------
@@ -795,6 +799,23 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			
 			enderzeugnisgui.showZuordnungsForm(baugruppen);
 			
+		}
+	}
+	
+	private class GetBaugruppeForZuordnungDetailsCallback implements AsyncCallback<Vector<Baugruppe>> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+		
+		}
+
+		@Override
+		public void onSuccess(Vector<Baugruppe> result) {
+			
+			Vector<Baugruppe> baugruppen = new Vector<Baugruppe>();
+			baugruppen = (Vector<Baugruppe>) result;
+			
+			enderzeugnisgui.tree(baugruppen);
 		}
 	}
 
