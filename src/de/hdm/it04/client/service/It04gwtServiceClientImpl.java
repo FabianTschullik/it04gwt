@@ -7,6 +7,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
+import de.hdm.it04.client.editor.DataTree;
 import de.hdm.it04.client.gui.AlertGUI;
 import de.hdm.it04.client.gui.BaugruppeGUI;
 import de.hdm.it04.client.gui.BauteilGUI;
@@ -28,6 +29,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	private EnderzeugnisGUI enderzeugnisgui;
 	private AlertGUI alertgui;
 	private BaugruppeGUI baugruppegui;
+	private DataTree	datatreegui;
 
 
 	
@@ -548,7 +550,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			Vector<Baugruppe> baugruppe = new Vector<Baugruppe>();
 			baugruppe = (Vector<Baugruppe>) result;
 			
-			baugruppegui.showAllBaugruppen(baugruppe);
+			//baugruppegui.showAllBaugruppen(baugruppe);
+			maingui.menue(baugruppe);
+			
 	}
 		}
 	
@@ -707,8 +711,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 				Vector<Enderzeugnis> enderzeugnisse = new Vector<Enderzeugnis>();
 				enderzeugnisse = (Vector<Enderzeugnis>) result;
 
-				//enderzeugnisgui.menue(enderzeugnisse);
 				enderzeugnisgui.showAllEnderzeugnisse(enderzeugnisse);
+				
 						
 			
 		}
@@ -789,7 +793,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			Vector<Baugruppe> baugruppen = new Vector<Baugruppe>();
 			baugruppen = (Vector<Baugruppe>) result;
 			
-			enderzeugnisgui.showZuordnungsForm(baugruppen);
+			//enderzeugnisgui.showZuordnungsForm(baugruppen);
+			
 		}
 	}
 

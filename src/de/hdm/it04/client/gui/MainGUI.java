@@ -16,11 +16,13 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.it04.client.editor.DataTree;
 import de.hdm.it04.client.service.It04gwtServiceClientImpl;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
@@ -36,6 +38,9 @@ public class MainGUI extends Composite {
 	private VerticalPanel vPanelTree = new VerticalPanel();
 	private VerticalPanel vPanelDetails = new VerticalPanel();
 	private VerticalPanel vPanelDetailsContent = new VerticalPanel();
+	public TreeGUI treegui;
+	
+	
 	
 	public VerticalPanel getvPanelDetailsContent() {
 		return vPanelDetailsContent;
@@ -54,6 +59,9 @@ public class MainGUI extends Composite {
 	private HorizontalPanel hPanelDetailsButtons = new HorizontalPanel();
 	FlexTable flex = new FlexTable();
 	FlexTable findBauteilTable  = new FlexTable();
+	
+	
+	
 	
 	
 	public MainGUI(It04gwtServiceClientImpl serviceImpl){
@@ -101,9 +109,17 @@ public class MainGUI extends Composite {
 		btnImpressum.addClickHandler(new BtnImpressumClickHandler());
 		this.hPanelButtons.add(btnImpressum);
 		
+		Button Tree = new Button("Tree");
+		Tree.addClickHandler(new TreeClickHandler());
+		this.hPanelButtons.add(Tree);
+		
+		
+		
 		//-----------------------------------------------------------------
 		//------------------- Ende Buttons obere Leiste ------------------------
 		//-----------------------------------------------------------------
+		
+		
 		
 		TreeItem root = new TreeItem();
 	    root.setText("Baugruppe");
@@ -396,6 +412,75 @@ public class MainGUI extends Composite {
 			
 		}
 	}
+	
+	public class TreeClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			
+			vPanelDetailsContent.clear();
+			serviceImpl.getAllBaugruppen();
+			
+			
+		}
+	}
+	
+	
+	
+	
+	public void menue(Vector<Baugruppe> baugruppen){
+		Baugruppe[] baugruppe = new Baugruppe[baugruppen.size()];
+		baugruppen.copyInto(baugruppe);
+		
+		Button btnAnlegen = new Button("Anlegen");
+		//btnAnlegen.addClickHandler(new BtnAnlegenClickHandler());
+		vPanel.add(btnAnlegen);
+		
+		
+		TreeItem root = new TreeItem();
+		
+		
+	    root.setText("Baugruppen");
+	    
+	    
+	    /*sub.setText("Alle Baugruppen");
+	    root.addItem(sub);*/
+	    
+	    /**
+	     * addTextItem erkennt String nicht ohne ""
+	     */
+	    
+	    
+	    for(int i = 0; i< baugruppe.length; i++){
+	    	//root.addTextItem(baugruppe[i].getName());
+	    	TreeItem sub = new TreeItem();
+	    	sub.setText(baugruppe[i].getName());
+	    	for(int z = 0; z<baugruppe.length; z ++)
+	    	sub.addTextItem(baugruppe[z].getName());
+	    	root.addItem(sub);
+	 }
+	    
+	   
+	  /*  for(int i = 0; i< baugruppe.length; i++){
+	    	sub.addTextItem(baugruppe[i].getName());
+		   	root.addItem(sub);
+	 }*/
+	    
+
+	    Tree t = new Tree();
+	    t.addItem(root);
+
+	    
+	    
+	    this.vPanel.add(t);
+		
+		
+		RootPanel.get().add(vPanel);
+		
+	
+	
+	}
+	
 	
 	
 	
