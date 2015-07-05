@@ -128,6 +128,16 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	public void deleteBauteil(int id){
 		this.service.deleteBauteil(id, new DeleteBauteilCallback());
 	}
+	
+	
+	/**
+	 * Diese Methode wird benötigt um ein Bauteil zu löschen
+	 * @param id 
+	 * @return void
+	 */
+	public void getAllBauteileForZuordnung(){
+		this.service.getAll(new GetAllBauteileForZuordnungCallback());
+	}
 //------------------------------------------------------------------------------------
 //----------------------------------Ende Bauteil----------------------------------
 //------------------------------------------------------------------------------------
@@ -169,11 +179,6 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	public void getAllBaugruppenForZuordnungBaugruppe(){
 		this.service.getAllBaugruppenForZuordnungBaugruppe(new GetAllBaugruppenForZuordnungBaugruppeCallback());
 	}
-
-	
-	
-	
-	
 //------------------------------------------------------------------------------------
 //----------------------------------Ende Baugruppe----------------------------------
 //------------------------------------------------------------------------------------
@@ -380,6 +385,26 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			}
 		}
 	}
+	
+	
+	private class GetAllBauteileForZuordnungCallback implements AsyncCallback<Vector<Bauteil>> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+		
+		}
+
+		@Override
+		public void onSuccess(Vector<Bauteil> result) {
+			
+			Vector<Bauteil> bauteile = new Vector<Bauteil>();
+			bauteile = (Vector<Bauteil>) result;
+			
+			baugruppegui.showZuordnungsFormForBauteile(bauteile);
+		}
+	}
+
+
 /*-------------------------------------------------------------------------------------------*/
 /*------------------------------------------Ende Bauteil Callbacks--------------------------------*/
 /*-------------------------------------------------------------------------------------------*/	
@@ -435,6 +460,9 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 	
 	
 	
+	
+	
+	
 	private class FindConnectedBauteileByKeyCallback implements AsyncCallback<Vector<Bauteil>>{
 
 		@Override
@@ -486,7 +514,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			
+			alertgui.load("Hallo", "red");
 		}
 
 		@Override
@@ -494,11 +522,16 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			
 			//Da nur ein Enderzeugnis geupdatet wird, kann sich nur ein
 			//EZ im Vektor befinden. Das Element wird gespeichert.
-			Vector<Baugruppe> bg = (Vector<Baugruppe>) result;
 			
-			getAllBaugruppenForZuordnungBaugruppe();
+			Baugruppe bg = result.firstElement();
+			baugruppegui.showBaugruppeForm(bg);	
 	}		
-	}
+  }
+	
+	
+	
+	
+	
 	
 	private class GetAllBaugruppenCallback implements AsyncCallback<Vector<Baugruppe>> {
 
@@ -595,7 +628,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			Vector<Baugruppe> baugruppe = new Vector<Baugruppe>();
 			baugruppe = (Vector<Baugruppe>) result;
 			
-			baugruppegui.showZuordnungsForm(baugruppe);
+			//baugruppegui.showZuordnungsForm(baugruppe);
 	}
 		}
 	
@@ -632,10 +665,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 
 	@Override
 	public void onSuccess(Object result) {
-		Window.confirm("Bauteil wurd erfolgreich gelöscht!");
-		//Window.open("eine Mama stinkt", "Fck you", features);
 	
-		//alertgui.load("Vorgang wurde abgebrochen", "green");
+		alertgui.load("Vorgang wurde abgebrochen", "green");
 	}
 		
 	}

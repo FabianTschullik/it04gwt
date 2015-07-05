@@ -23,6 +23,7 @@ public interface It04gwtServiceAsync {
 		void getAll(AsyncCallback<Vector<Bauteil>> callback);
 		void updateBauteil(Bauteil bt, AsyncCallback<Vector<Bauteil>> callback);
 		void deleteBauteil(int id,AsyncCallback callback);
+		void getAllBauteileForZuordnung (AsyncCallback<Vector<Bauteil>> callback);
 		//------------------------------------------------------
 		//-------------Ende Bauteil-----------------------------
 		//------------------------------------------------------

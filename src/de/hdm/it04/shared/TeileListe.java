@@ -1,6 +1,9 @@
 package de.hdm.it04.shared;
 
-public class TeileListe {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class TeileListe implements Serializable {
 
 	private int anzahl;
 	private int id;

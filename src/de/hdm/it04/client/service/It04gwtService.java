@@ -2,6 +2,7 @@ package de.hdm.it04.client.service;
 
 import java.util.Vector;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -82,6 +83,8 @@ public interface It04gwtService extends RemoteService {
 	 *         wurde
 	 */
 	String deleteBauteil(int id);
+	
+	Vector<Bauteil> getAllBauteileForZuordnung();
 	
 //---------------------------------------------------------------------------
 //--------------------------- Bauteil ---------------------------------------

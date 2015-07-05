@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
+import de.hdm.it04.shared.TeileListe;
 
 /**
  * Mapper-Klasse, die <code>Baugruppe</code>-Objekte auf eine relationale
@@ -130,59 +131,6 @@ public class BaugruppeMapper {
 	
 	
 	
-	public Vector<Bauteil> findConnectedBauteileByKey(int id) {
-
-		// DB-Verbindung holen
-		Connection con = DbConnection.connection();
-
-		// Ergebnisvektor vorbereiten
-		Vector<Bauteil> result = new Vector<Bauteil>();
-
-		try {
-
-			// Leeres SQL-Statement (JDBC) anlegen
-
-			Statement stmt = con.createStatement();
-
-			// Statement ausf�llen und als Query an die DB schicken
-
-			ResultSet rs = stmt
-					.executeQuery("SELECT bauteil.id, bauteil.name, bauteil.materialBezeichnung,"
-							+ " bauteil.beschreibung, bauteil.materialBezeichnung, bauteil.erstellungsDatum, bauteil.aenderungsDatum " +
-									"FROM bauteil, baugruppe, bauteilBaugruppe " +
-									"WHERE bauteil.id = bauteilBaugruppe.bauteil " +
-									"AND baugruppe.id = bauteilBaugruppe.baugruppe " +
-									"AND baugruppe.id=" + id);
-							
-							
-			/*
-			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
-			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
-			 */
-
-			if (rs.next()) {
-
-				// Ergebnis-Tupel in Objekt umwandeln
-
-				Bauteil bt = new Bauteil();
-				bt.setId(rs.getInt("id"));
-				bt.setName(rs.getString("name"));
-				bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
-				bt.setBeschreibung(rs.getString("beschreibung"));
-				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
-				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
-
-				result.add(bt);
-
-				return result;
-			}
-
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-			return null;
-		}
-		return null;
-	}
 
 	/**
 	 * Einfügen eines <code>Baugruppen</code>-Objekts in die Datenbank. Dabei wird
@@ -251,6 +199,10 @@ public class BaugruppeMapper {
 		return bg;
 	}
 
+	
+	
+	
+	
 	/**
 	 * Auslesen aller Bauteile.
 	 * 
@@ -292,61 +244,9 @@ public class BaugruppeMapper {
 		return result;
 	}
 
-	/**
-	 * Suchen eines Bauteils mit vorgegebenen namen. Da dieser nicht eindeutig
-	 * ist, wird ein Vektor-Objekt zurückgegeben.
-	 * 
-	 * Warum Vektor? Da name kein Primörschlüsselattribut ist können Bauteile
-	 * mit dem gleiche Namen in diesem Vektor zurück gegeben werden.
-	 * 
-	 * @return Konto-Objekt-Vektor, das dem übergebenen namen entspricht, null
-	 *         bei nicht vorhandenem DB-Tupel.
-	 */
-	/*
-	public Vector<Baugruppe> findUnterBaugruppen(Baugruppe bg){
-		
-		// DB-Verbindung holen
-				Connection con = DbConnection.connection();
-
-				Vector<Baugruppe> result = new Vector<Baugruppe>();
-
-				try {
-
-					// Leeres SQL-Statement (JDBC) anlegen
-
-					Statement stmt = con.createStatement();
-
-					// Statement ausf�llen und als Query an die DB schicken
-					
-					
-
-					ResultSet rs = stmt
-							.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM baugruppe "
-									+ "WHERE name=" + "'" + name + "'");
-					
-
-					while (rs.next()) {
-
-						// Ergebnis-Tupel in Objekt umwandeln
-
-						Baugruppe bg = new Baugruppe();
-						bg.setId(rs.getInt("id"));
-						bg.setName(rs.getString("name"));
-						bg.setBeschreibung(rs.getString("beschreibung"));
-						bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
-						bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
-
-						result.add(bg);
-					}
-
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-				}
-				return result;
-			}
-	}
 	
-*/
+	
+
 	public Vector<Baugruppe> findByName(String name) {
 
 		// DB-Verbindung holen
@@ -390,6 +290,9 @@ public class BaugruppeMapper {
 		return result;
 	}
 
+	
+	
+	
 	/**
 	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
 	 * 
@@ -402,23 +305,30 @@ public class BaugruppeMapper {
 		Vector<Baugruppe> result = new Vector<Baugruppe>();
 		Connection con = DbConnection.connection();
 
-		try {
+		try {			
+			// Leeres SQL-Statement (JDBC) anlegen
 			Statement stmt = con.createStatement();
 			
 			Date date = new Date();
 			new Timestamp(date.getTime());
 
+			
 			stmt.executeUpdate("UPDATE baugruppe SET name = '" + bg.getName()+ "', " 
 					+ "beschreibung = '" + bg.getBeschreibung() + "', "
 					+ "aenderungsDatum = '" + new Timestamp(date.getTime())
 					+ "' WHERE id=" + bg.getId());
 			
 			result.add(bg);
-
+			
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-
+		
+		
+		for(int i=0; i<bg.stueckliste.size(); i++){
+			updateZwischentabelle (bg.stueckliste.get(i).getId(), bg.stueckliste.get(i).getAnzahl(), bg.getId());
+		}
+		
 		// Um Analogie zu insert(Baugruppe bg) zu wahren, geben wir bg zurück
 		return result;
 	}
@@ -426,43 +336,55 @@ public class BaugruppeMapper {
 	
 	
 	
-	/**
-	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
-	 * 
-	 * @param bg
-	 *            das Objekt, das in die DB geschrieben werden soll
-	 * @return das als Parameter übergebene Objekt
-	 */
-	public Baugruppe update(Baugruppe bg, Bauteil bt) {
-
+	
+	
+public void updateZwischentabelle(int bauteilID, int anzahl, int baugruppeID){
+		
 		Connection con = DbConnection.connection();
-
+		
 		try {
 			Statement stmt = con.createStatement();
-			
-			Date date = new Date();
-			new Timestamp(date.getTime());
+					
+			/*
+			 * Zun�chst schauen wir nach, welches der momentan h�chste
+			 * Prim�rschl�sselwert ist.
+			 */
 
-			stmt.executeUpdate("UPDATE baugruppe SET name = '" + bg.getName()+ "', " 
-					+ "beschreibung = '" + bg.getBeschreibung() + "', "
-					+ "aenderungsDatum = '" + new Timestamp(date.getTime())
-					+ "' WHERE id=" + bg.getId());
+			ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+					+ "FROM bauteilBaugruppe ");
+
 			
-			this.insertBauteil(bg, bt);
 			
-		} catch (SQLException e2) {
-			e2.printStackTrace();
+			if (rs.next()) {
+				
+				
+				/*
+				 * bt erh�lt den bisher maximalen, nun um 1 inkrementierten
+				 * Prim�rschl�ssel.
+				 */
+
+				int bgbt = rs.getInt("maxid") + 1;
+
+				//stmt = con.createStatement();
+
+
+				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
+				stmt.executeUpdate("INSERT INTO bauteilBaugruppe (id, bauteil, anzahl, baugruppe) "
+						+ "VALUES ("
+						+ bgbt
+						+ ",'"
+						+ bauteilID
+						+ "','"
+						+ anzahl
+						+ "','"
+						+ baugruppeID + "')");
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		
-		
-		
-
-		// Um Analogie zu insert(Baugruppe bg) zu wahren, geben wir bg zurück
-		return bg;
 	}
 
-	
-	
+
 	public String deleteBaugruppe(int id) {
 
 		String ergebnis = "Baugruppe wurde erfolgreich geloescht!";
@@ -481,95 +403,5 @@ public class BaugruppeMapper {
 		return ergebnis;
 	}
 	
-public Baugruppe getBaugruppeDetails(int id) {
-		
-		Connection con = DbConnection.connection();
-
-		// Ergebnisvektor vorbereiten
-		Baugruppe result = new Baugruppe();
-		
-		try {
-			Statement stmt = con.createStatement();
-
-			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
-							+ " WHERE id = "+id);
-
-			// Für jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt
-			// erstellt.
-			while (rs.next()) {
-				Baugruppe bg = new Baugruppe();
-				bg.setId(rs.getInt("id"));
-				bg.setName(rs.getString("name"));
-				bg.setBeschreibung(rs.getString("beschreibung"));
-				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
-				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
-				
-				result = bg;
-			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-		
-		
-		return result;
-		
-	}
-
-
-
-
-
-
-/**
- * Einfügen eines <code>Baugruppen</code>-Objekts in die Datenbank. Dabei wird
- * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
- * berichtigt.
- * 
- * @param bt
- *            das zu speichernde Objekt
- * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
- *         <code>id</code>.
- */
-private void insertBauteil(Baugruppe bg, Bauteil bt) {
-	Connection con = DbConnection.connection();
-	
-
-	try {
-		Statement stmt = con.createStatement();
-
-		/*
-		 * Zun�chst schauen wir nach, welches der momentan h�chste
-		 * Prim�rschl�sselwert ist.
-		 */
-		ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-				+ "FROM bauteilBaugruppe ");
-
-		// Wenn wir etwas zur�ckerhalten, kann dies nur einzeilig sein
-		if (rs.next()) {
-			/*
-			 * bt erh�lt den bisher maximalen, nun um 1 inkrementierten
-			 * Prim�rschl�ssel.
-			 */
-			bg.setId(rs.getInt("maxid") + 1);
-
-			stmt = con.createStatement();
-
-
-			// Jetzt erst erfolgt die tats�chliche Einf�geoperation
-			stmt.executeUpdate("INSERT INTO bauteilBaugruppe (bauteil, baugruppe) "
-					+ "VALUES ("
-					+ bt.getId()
-					+ ",'"
-					+ bg.getId() 
-					+ ")");
-		}
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-
-}
-
-
 }
 
