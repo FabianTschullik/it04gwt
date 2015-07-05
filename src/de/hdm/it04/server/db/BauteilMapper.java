@@ -312,7 +312,8 @@ public class BauteilMapper {
 			stmt.executeUpdate("UPDATE bauteil SET name = '" + bt.getName()+ "', " 
 					+ "beschreibung = '" + bt.getBeschreibung() + "', "
 					+ "aenderungsDatum = '" + new Timestamp(date.getTime()) + "', "
-					+ "materialBezeichnung = '" + bt.getMaterialBezeichnung()
+					+ "materialBezeichnung = '" + bt.getMaterialBezeichnung() + "', "
+					+ "letzterBearbeiter = '" + bt.getLetzterBearbeiter()
 					+ "' WHERE id=" + bt.getId());
 
 		} catch (SQLException e2) {

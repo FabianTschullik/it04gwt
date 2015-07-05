@@ -413,7 +413,8 @@ public class BaugruppeMapper {
 
 			stmt.executeUpdate("UPDATE baugruppe SET name = '" + bg.getName()+ "', " 
 					+ "beschreibung = '" + bg.getBeschreibung() + "', "
-					+ "aenderungsDatum = '" + new Timestamp(date.getTime())
+					+ "aenderungsDatum = '" + new Timestamp(date.getTime()) + "', "
+					+ "letzterBearbeiter = '" + bg.getLetzterBearbeiter()
 					+ "' WHERE id=" + bg.getId());
 			
 			result.add(bg);
