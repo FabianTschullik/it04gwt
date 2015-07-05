@@ -128,11 +128,10 @@ public class It04gwtReport implements EntryPoint {
 
 	// TODO #07:> end
 
+	
 	/**
 	 * This is the entry point method.
 	 */
-
-
 	
 		public void onModuleLoad() {
 			
@@ -157,13 +156,10 @@ public class It04gwtReport implements EntryPoint {
 						addGoogleAuthHelper();
 						loadLogout(result);
 						GWT.getHostPageBaseURL();
-						Window.alert(GWT.getHostPageBaseURL());
-						Window.alert(GWT.getModuleBaseURL());
-						Window.alert(GWT.getModuleName());
 						
-						//RootPanel.get("header2").add(la);
+						RootPanel.get("header2").add(new MenuFormReport());
 						
-						//RootPanel.get("content2").add(new Welcome().load());
+						RootPanel.get("content2").add(new Welcome().load());
 					
 						
 					} else {
@@ -176,5 +172,4 @@ public class It04gwtReport implements EntryPoint {
 			
 			;
 		}
-}	
-
+}
