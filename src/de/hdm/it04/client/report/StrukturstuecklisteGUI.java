@@ -13,15 +13,19 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.editor.AlertGUI;
-
 import de.hdm.it04.client.editor.BaugruppeGUI;
 import de.hdm.it04.client.editor.BauteilGUI;
 import de.hdm.it04.client.editor.ContentContainer;
-
 import de.hdm.it04.client.service.report.It04gwtServiceReport;
 import de.hdm.it04.client.service.report.It04gwtServiceReportAsync;
 import de.hdm.it04.shared.Baugruppe;
+import de.hdm.it04.shared.Bauteil;
 
+/**
+ * 
+ * @author 
+ *
+ */
 
 public class StrukturstuecklisteGUI {
 	
@@ -29,6 +33,8 @@ public class StrukturstuecklisteGUI {
 	
 	TextBox txtSuchen = new TextBox();
 	private final It04gwtServiceReportAsync smsReport = GWT.create(It04gwtServiceReport.class);
+	VerticalPanel vPanel = new VerticalPanel();
+
 	
 	/**
 	 * Suche nach Baugruppe per Name oder ID
@@ -56,7 +62,7 @@ public class StrukturstuecklisteGUI {
 						}
 
 						public void onSuccess(Vector<Baugruppe> result) {
-							//ContentContainer.getInstance().setContent(new BaugruppeGUI().showBaugruppeStrukturstueckliste(result));
+							ContentContainer.getInstance().setContent(new StrukturstuecklisteGUI().showBaugruppeStrukturstueckliste(result));
 							
 						}
 					});	
@@ -71,7 +77,7 @@ public class StrukturstuecklisteGUI {
 					}
 
 					public void onSuccess(Vector<Baugruppe> result) {
-						//ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));;		
+						ContentContainer.getInstance().setContent(new StrukturstuecklisteGUI().showBaugruppeStrukturstueckliste(result));;		
 					}
 				});	
 			}
@@ -79,16 +85,16 @@ public class StrukturstuecklisteGUI {
 		return vPanel;
 	}
 	
-	public void showBaugruppeStrukturstueckliste(Vector<Baugruppe> baugruppen){
+	public Widget showBaugruppeStrukturstueckliste(Vector<Baugruppe> baugruppen){
 		
 		/**
 		 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
 		 */
-		FlexTable baugruppeTable = new FlexTable();
-		baugruppeTable.setText(0,0,"ID");
-		baugruppeTable.setText(0,1,"Name");
-		baugruppeTable.setText(0,2,"Beschreibung");
-		baugruppeTable.setText(0,3,"Strukturstueckliste erstellen");
+		FlexTable baugruppeReportTable = new FlexTable();
+		baugruppeReportTable.setText(0,0,"ID");
+		baugruppeReportTable.setText(0,1,"Name");
+		baugruppeReportTable.setText(0,2,"Beschreibung");
+		baugruppeReportTable.setText(0,3,"Strukturstueckliste erstellen");
 
 		
 		/**
@@ -105,30 +111,31 @@ public class StrukturstuecklisteGUI {
 			/**
 			 * Konvertieren der Baugruppe-Daten und befuellen der Tabelle
 			 */
-			baugruppeTable.setText(j+1, 0, Integer.toString(baugruppen.elementAt(j).getId()));
-			baugruppeTable.setText(j+1, 1, baugruppen.elementAt(j).getName());
-			baugruppeTable.setText(j+1, 2, baugruppen.elementAt(j).getBeschreibung());
+			baugruppeReportTable.setText(j+1, 0, Integer.toString(baugruppen.elementAt(j).getId()));
+			baugruppeReportTable.setText(j+1, 1, baugruppen.elementAt(j).getName());
+			baugruppeReportTable.setText(j+1, 2, baugruppen.elementAt(j).getBeschreibung());
 		
 			/**
 			 * Einfuegen der Buttons in die Tabelle
 			 */
-			baugruppeTable.setWidget(j+1, 3, btnStrukturstuecklisteErstellen);
+			baugruppeReportTable.setWidget(j+1, 3, btnStrukturstuecklisteErstellen);
 			
 			
 			/**
 			 * Verknuepfung zu style.css
 			 */
-			baugruppeTable.setCellPadding(6);
-			baugruppeTable.getRowFormatter().addStyleName(0,  "watchListHeader");
-			baugruppeTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
-			baugruppeTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+			baugruppeReportTable.setCellPadding(6);
+			baugruppeReportTable.getRowFormatter().addStyleName(0,  "watchListHeader");
+			baugruppeReportTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+			baugruppeReportTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
 		}	
 		
 		/**
 		 * Baugruppe-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
 		 */
-	//	this.vPanel.add(baugruppeTable);
+		this.vPanel.add(baugruppeReportTable);
 		
+		return vPanel;
 	}
 
 

@@ -2,6 +2,7 @@ package de.hdm.it04.client.report;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.MenuBar;
 
@@ -28,6 +29,7 @@ public class MenuFormReport extends HorizontalPanel {
 		Command openImpressum = new Command() {
 			public void execute() {
 				
+	
 				ContentContainer.getInstance().setContent(new Impressum().load());
 			}
 		};

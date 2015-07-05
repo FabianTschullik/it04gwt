@@ -157,9 +157,9 @@ public class It04gwtReport implements EntryPoint {
 						loadLogout(result);
 						GWT.getHostPageBaseURL();
 						
-						RootPanel.get("header2").add(new MenuFormReport());
+						RootPanel.get("header").add(new MenuFormReport());
 						
-						RootPanel.get("content2").add(new Welcome().load());
+						RootPanel.get("content").add(new Welcome().load());
 					
 						
 					} else {
