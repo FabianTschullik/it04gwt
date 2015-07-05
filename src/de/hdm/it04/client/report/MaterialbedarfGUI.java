@@ -51,12 +51,12 @@ public class MaterialbedarfGUI {
 					smsReport.getEnderzeugnis(id, new AsyncCallback<Vector<Enderzeugnis>>() {
 
 						public void onFailure(Throwable arg0) {
-							
+							alertGUI.load("Enderzeugnis konnte nicht gefunden werden", "red");	
 						}
 
 						public void onSuccess(Vector<Enderzeugnis> result) {
 							ContentContainer.getInstance().setContent(new MaterialbedarfGUI().showEnderzeugnisseMaterialbedarf(result));
-							
+							alertGUI.load("Enderzeugnis wurde gefunden", "green");
 						}
 					});	
 				}
@@ -66,11 +66,12 @@ public class MaterialbedarfGUI {
 
 					
 					public void onFailure(Throwable arg0) {
-											
+						alertGUI.load("Enderzeugnis konnte nicht gefunden werden", "red");					
 					}
 
 					public void onSuccess(Vector<Enderzeugnis> result) {
-						ContentContainer.getInstance().setContent(new MaterialbedarfGUI().showEnderzeugnisseMaterialbedarf(result));;		
+						ContentContainer.getInstance().setContent(new MaterialbedarfGUI().showEnderzeugnisseMaterialbedarf(result));;	
+						alertGUI.load("Enderzeugnis wurde gefunden", "green");
 					}
 				});	
 			}

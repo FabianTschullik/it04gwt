@@ -58,12 +58,12 @@ public class StrukturstuecklisteGUI {
 					smsReport.getBaugruppe(id, new AsyncCallback<Vector<Baugruppe>>() {
 
 						public void onFailure(Throwable arg0) {
-							
+							alertGUI.load("Enderzeugnis konnte nicht gefunden werden", "red");
 						}
 
 						public void onSuccess(Vector<Baugruppe> result) {
 							ContentContainer.getInstance().setContent(new StrukturstuecklisteGUI().showBaugruppeStrukturstueckliste(result));
-							
+							alertGUI.load("Enderzeugnis wurde gefunden", "green");
 						}
 					});	
 				}
@@ -73,11 +73,12 @@ public class StrukturstuecklisteGUI {
 
 					
 					public void onFailure(Throwable arg0) {
-											
+						alertGUI.load("Enderzeugnis konnte nicht gefunden werden", "red");					
 					}
 
 					public void onSuccess(Vector<Baugruppe> result) {
-						ContentContainer.getInstance().setContent(new StrukturstuecklisteGUI().showBaugruppeStrukturstueckliste(result));;		
+						ContentContainer.getInstance().setContent(new StrukturstuecklisteGUI().showBaugruppeStrukturstueckliste(result));;	
+						alertGUI.load("Enderzeugnis wurde gefunden", "green");
 					}
 				});	
 			}
