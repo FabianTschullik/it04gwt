@@ -14,7 +14,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.editor.AlertGUI;
 import de.hdm.it04.client.editor.ContentContainer;
-import de.hdm.it04.client.editor.EnderzeugnisGUI;
+import de.hdm.it04.client.service.It04gwtService;
+import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.client.service.report.It04gwtServiceReport;
 import de.hdm.it04.client.service.report.It04gwtServiceReportAsync;
 import de.hdm.it04.shared.Enderzeugnis;
@@ -26,6 +27,7 @@ public class MaterialbedarfGUI {
 	
 	TextBox txtSuchen = new TextBox();
 	private final It04gwtServiceReportAsync smsReport = GWT.create(It04gwtServiceReport.class);
+	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
 	VerticalPanel vPanel = new VerticalPanel();
 	TextBox mengeMaterial = new TextBox();
 	
@@ -51,7 +53,7 @@ public class MaterialbedarfGUI {
 					smsReport.getEnderzeugnis(id, new AsyncCallback<Vector<Enderzeugnis>>() {
 
 						public void onFailure(Throwable arg0) {
-							alertGUI.load("Enderzeugnis konnte nicht gefunden werden", "red");	
+							//alertGUI.load("Enderzeugnis konnte nicht gefunden werden", "red");	
 						}
 
 						public void onSuccess(Vector<Enderzeugnis> result) {
@@ -60,20 +62,22 @@ public class MaterialbedarfGUI {
 						}
 					});	
 				}
-				String name = ezSuche;
-			
+				String name = ezSuche;		
+				
 				smsReport.getEnderzeugnis(name, new AsyncCallback<Vector<Enderzeugnis>>() {
 
 					
 					public void onFailure(Throwable arg0) {
-						alertGUI.load("Enderzeugnis konnte nicht gefunden werden", "red");					
+											
 					}
 
 					public void onSuccess(Vector<Enderzeugnis> result) {
-						ContentContainer.getInstance().setContent(new MaterialbedarfGUI().showEnderzeugnisseMaterialbedarf(result));;	
+						ContentContainer.getInstance().setContent(new MaterialbedarfGUI().showEnderzeugnisseMaterialbedarf(result));;
 						alertGUI.load("Enderzeugnis wurde gefunden", "green");
+						
 					}
-				});	
+				});
+	
 			}
 		} );
 		return vPanel;
