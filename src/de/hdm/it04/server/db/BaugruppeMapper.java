@@ -465,6 +465,7 @@ public void updateZwischentabelle(int bauteilID, int anzahl, int baugruppeID){
 
 				int bgbt = rs.getInt("maxid") + 1;
 
+				
 				//stmt = con.createStatement();
 
 
