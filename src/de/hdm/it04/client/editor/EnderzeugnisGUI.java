@@ -338,7 +338,7 @@ public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse){
 					public void onFailure(Throwable caught) {
 						new AlertGUI().load("Enderzeugnis konnte nicht gelöscht werden", "red");
 						
-					}
+					}  
 
 					@Override
 					public void onSuccess(Object result) {
