@@ -55,7 +55,7 @@ public class MaterialbedarfGUI {
 						}
 
 						public void onSuccess(Vector<Enderzeugnis> result) {
-							ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showAllEnderzeugnisse(result));
+							ContentContainer.getInstance().setContent(new MaterialbedarfGUI().showEnderzeugnisseMaterialbedarf(result));
 							
 						}
 					});	
@@ -70,7 +70,7 @@ public class MaterialbedarfGUI {
 					}
 
 					public void onSuccess(Vector<Enderzeugnis> result) {
-						ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showAllEnderzeugnisse(result));;		
+						ContentContainer.getInstance().setContent(new MaterialbedarfGUI().showEnderzeugnisseMaterialbedarf(result));;		
 					}
 				});	
 			}
