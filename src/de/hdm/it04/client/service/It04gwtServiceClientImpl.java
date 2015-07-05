@@ -550,8 +550,8 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			Vector<Baugruppe> baugruppe = new Vector<Baugruppe>();
 			baugruppe = (Vector<Baugruppe>) result;
 			
-			//baugruppegui.showAllBaugruppen(baugruppe);
-			maingui.menue(baugruppe);
+			baugruppegui.showAllBaugruppen(baugruppe);
+			
 			
 	}
 		}
@@ -793,7 +793,7 @@ public class It04gwtServiceClientImpl implements It04gwtServiceClientInt {
 			Vector<Baugruppe> baugruppen = new Vector<Baugruppe>();
 			baugruppen = (Vector<Baugruppe>) result;
 			
-			//enderzeugnisgui.showZuordnungsForm(baugruppen);
+			enderzeugnisgui.showZuordnungsForm(baugruppen);
 			
 		}
 	}

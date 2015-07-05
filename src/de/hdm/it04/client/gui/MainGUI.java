@@ -38,7 +38,6 @@ public class MainGUI extends Composite {
 	private VerticalPanel vPanelTree = new VerticalPanel();
 	private VerticalPanel vPanelDetails = new VerticalPanel();
 	private VerticalPanel vPanelDetailsContent = new VerticalPanel();
-	public TreeGUI treegui;
 	
 	
 	
@@ -108,13 +107,8 @@ public class MainGUI extends Composite {
 		Button btnImpressum = new Button("Impressum");
 		btnImpressum.addClickHandler(new BtnImpressumClickHandler());
 		this.hPanelButtons.add(btnImpressum);
-		
-		Button Tree = new Button("Tree");
-		Tree.addClickHandler(new TreeClickHandler());
-		this.hPanelButtons.add(Tree);
-		
-		
-		
+	
+	
 		//-----------------------------------------------------------------
 		//------------------- Ende Buttons obere Leiste ------------------------
 		//-----------------------------------------------------------------
@@ -413,73 +407,11 @@ public class MainGUI extends Composite {
 		}
 	}
 	
-	public class TreeClickHandler implements ClickHandler {
-
-		@Override
-		public void onClick(ClickEvent event) {
-			
-			vPanelDetailsContent.clear();
-			serviceImpl.getAllBaugruppen();
-			
-			
-		}
-	}
 	
 	
 	
 	
-	public void menue(Vector<Baugruppe> baugruppen){
-		Baugruppe[] baugruppe = new Baugruppe[baugruppen.size()];
-		baugruppen.copyInto(baugruppe);
-		
-		Button btnAnlegen = new Button("Anlegen");
-		//btnAnlegen.addClickHandler(new BtnAnlegenClickHandler());
-		vPanel.add(btnAnlegen);
-		
-		
-		TreeItem root = new TreeItem();
-		
-		
-	    root.setText("Baugruppen");
-	    
-	    
-	    /*sub.setText("Alle Baugruppen");
-	    root.addItem(sub);*/
-	    
-	    /**
-	     * addTextItem erkennt String nicht ohne ""
-	     */
-	    
-	    
-	    for(int i = 0; i< baugruppe.length; i++){
-	    	//root.addTextItem(baugruppe[i].getName());
-	    	TreeItem sub = new TreeItem();
-	    	sub.setText(baugruppe[i].getName());
-	    	for(int z = 0; z<baugruppe.length; z ++)
-	    	sub.addTextItem(baugruppe[z].getName());
-	    	root.addItem(sub);
-	 }
-	    
-	   
-	  /*  for(int i = 0; i< baugruppe.length; i++){
-	    	sub.addTextItem(baugruppe[i].getName());
-		   	root.addItem(sub);
-	 }*/
-	    
-
-	    Tree t = new Tree();
-	    t.addItem(root);
-
-	    
-	    
-	    this.vPanel.add(t);
-		
-		
-		RootPanel.get().add(vPanel);
-		
 	
-	
-	}
 	
 	
 	
