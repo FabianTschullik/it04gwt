@@ -104,6 +104,30 @@ public class MenuForm extends HorizontalPanel {
 			}
 
 		};
+		
+		
+		Command showBauteil = new Command() {
+			public void execute() {
+				
+				sms.getAll(new AsyncCallback<Vector<Bauteil>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Bauteil> result) {
+						ContentContainer.getInstance().setContent(new BauteilGUI().showAllBauteile(result));
+						
+					}
+				});
+				
+
+			}
+
+		};
 
 		Command newEnderzeugnis = new Command() {
 			public void execute() {
@@ -149,8 +173,7 @@ public class MenuForm extends HorizontalPanel {
 					@Override
 					public void onSuccess(Bauteil result) {
 
-						ContentContainer.getInstance().setContent(
-								new BauteilGUI().updateBauteil(result));
+						ContentContainer.getInstance().setContent(new BauteilGUI().showAnlegenForm(result));
 						
 
 					}
@@ -189,6 +212,7 @@ public class MenuForm extends HorizontalPanel {
 
 		bauteilMenu.addItem("anlegen", newBauteil);
 		bauteilMenu.addItem("suchen", openSucheBauteil);
+		bauteilMenu.addItem("alle anzeigen", showBauteil);
 		
 
 		MenuBar baugruppeMenu = new MenuBar(true);

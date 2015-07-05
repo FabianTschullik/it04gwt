@@ -36,7 +36,7 @@ public class BauteilGUI {
 	AlertGUI alertGUI = new AlertGUI();
 	
 	TextBox textBoxSuchen = new TextBox();
-	private final It04gwtServiceAsync greetingService = GWT.create(It04gwtService.class);
+	
 	
 	/**
 	 * lokal Instanz eines Bauteils
@@ -59,9 +59,9 @@ public class BauteilGUI {
 	 */
 	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
 	private TextBox txtSuchen = new TextBox();
-	TextBox name = new TextBox();
-	TextBox materialBezeichnung = new TextBox();
-	TextArea beschreibung = new TextArea();
+	TextBox txtName = new TextBox();
+	TextBox txtMaterialBezeichnung = new TextBox();
+	TextArea txtBeschreibung = new TextArea();
 	
 	/**
 	 * FlexTable zum anzeigen der Bauteile/ des Bauteils
@@ -130,140 +130,99 @@ public class BauteilGUI {
 	
 
 	
-	
-	/**
-	 * Anlegen eines Bauteils bzw. F�llung des Leeren Bauteils 
-	 * Spalten Name, Beschreibung und Materialbezeichnung sind leer
-	 * @param bt (leeres Objekt bzw. ohne Name, Beschreibung und Materialbezeichnung)
-	 */
-	
-	public Widget updateBauteil(Bauteil bauteil){
-		
-		this.bt = bauteil;
+	// ----------------------------------------------------------------------------
+		// ----------------------- Form zum Anlegen eines BT
+		// --------------------------
+		// ----------------------------------------------------------------------------
+		public Widget showAnlegenForm(Bauteil bauteil) {
+
 			
-		
-		// Create a table to layout the form options
-	  FlexTable layout = new FlexTable();
-	  layout.setCellSpacing(6);
-	  FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
-	  
-	  Button btnSpeichern = new Button("Speichern");
-		btnSpeichern.addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent arg0) {
-				bt.setName(name.getText());
-				bt.setBeschreibung(beschreibung.getText());
-				bt.setMaterialBezeichnung(materialBezeichnung.getText());
-				greetingService.updateBauteil(bt, new AsyncCallback<Vector<Bauteil>>() {
-
-					@Override
-					public void onFailure(Throwable arg0) {
-						alertGUI.load("Bauteil konnte nicht gespeichert werden", "red");
-						ContentContainer.getInstance().setContent(new Welcome().load());
-						
-					}
-
-					@Override
-					public void onSuccess(Vector<Bauteil> result) {
-						alertGUI.load("Bauteil wurde gespeichert", "green");
-						ContentContainer.getInstance().setContent(new BauteilGUI().showAllBauteile(result));
-						
-					}
-				});
-				
-				
-				
-				
-			}});
-		
-		Button btnAbbrechen = new Button("Abbrechen");
-		btnAbbrechen.addClickHandler(new ClickHandler(){
-			public void onClick(ClickEvent event) {
-				
-				sms.deleteBauteil(bt.getId(), new AsyncCallback<Bauteil>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						alertGUI.load("Bauteil wurde NOT gespeichert", "red");
-						
-					}
-
-					@Override
-					public void onSuccess(Bauteil result) {
-						alertGUI.load("Bauteil wurde gespeichert", "green");
-						
-					}
-				});
-
-				
-			}
-		});
-	  
-	  if (bauteil.getName() == null){
-
-	  // Add a title to the form
-	  layout.setHTML(0, 0, "<h3>Bauteil anlegen<h3>");
-	  cellFormatter.setColSpan(0, 0, 2);
-	  cellFormatter.setHorizontalAlignment(
-	      0, 0, HasHorizontalAlignment.ALIGN_CENTER);
 			
-		
-	  // Add some standard form options
-	  layout.setHTML(1, 0, "ID");
-	  layout.setText(1, 1, Integer.toString(bt.getId()));
-	  layout.setHTML(2, 0, "Name");
-	  layout.setWidget(2, 1, name);
-	  layout.setHTML(3, 0, "Beschreibung");
-	  layout.setWidget(3, 1, beschreibung);
-	  layout.setHTML(4, 0, "Materialbezeichnung");
-	  layout.setWidget(4, 1, materialBezeichnung);
-	  //layout.setWidget(4, 2, btnSuchen);
-	  layout.setWidget(5, 0, btnSpeichern);
-	  layout.setWidget(5, 1, btnAbbrechen);
-	  
-	  
-	  }
-	  else{
-		  // Add a title to the form
-		  layout.setHTML(0, 0, "<h3>Bauteil �ndern<h3>");
-		  cellFormatter.setColSpan(0, 0, 2);
-		  cellFormatter.setHorizontalAlignment(
-		      0, 0, HasHorizontalAlignment.ALIGN_CENTER);
-		  name.setText(bt.getName());
-		  beschreibung.setText(bt.getBeschreibung());
-		  materialBezeichnung.setText(bt.getMaterialBezeichnung());
+
+			this.bt = bauteil;
+			txtName.setText(bt.getName());
+			txtBeschreibung.setText(bt.getBeschreibung());
+			txtMaterialBezeichnung.setText(bt.getMaterialBezeichnung());
+
+			// Create a table to layout the form options
+			FlexTable layout = new FlexTable();
+			layout.setCellSpacing(6);
+			FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
+
+			// Add a title to the form
+			layout.setHTML(0, 0, "<h3>Bauteil anlegen/bearbeiten<h3>");
+			cellFormatter.setColSpan(0, 0, 2);
+			cellFormatter.setHorizontalAlignment(0, 0,
+					HasHorizontalAlignment.ALIGN_CENTER);
+
+			Button btnSpeichern = new Button("Speichern");
+			btnSpeichern.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+
+					bt.setName(txtName.getText());
+					bt.setMaterialBezeichnung(txtMaterialBezeichnung.getText());
+					bt.setBeschreibung(txtBeschreibung.getText());
+					
+					sms.updateBauteil(bt, new AsyncCallback<Vector<Bauteil>>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+							new AlertGUI().load("Bauteil konnte nicht gespeichert werden", "red");
+							
+						}
+
+						@Override
+						public void onSuccess(Vector<Bauteil> result) {
+							new AlertGUI().load("Bauteil wurde erfolgreich gespeichert", "green");
+							ContentContainer.getInstance().setContent(new BauteilGUI().showAllBauteile(result));
+							
+						}
+					});
+
 			
-		  // Add some standard form options
-		  layout.setHTML(1, 0, "ID");
-		  layout.setText(1, 1, Integer.toString(bt.getId()));
-		  layout.setHTML(2, 0, "Name");
-		  layout.setWidget(2, 1, name);
-		  layout.setHTML(3, 0, "Beschreibung");
-		  layout.setWidget(3, 1, beschreibung);
-		  layout.setHTML(4, 0, "MaterialBezeichnung");
-		  layout.setWidget(4, 1, materialBezeichnung);
-		  //layout.setWidget(4, 2, btnSuchen);
-		  layout.setWidget(5, 0, btnSpeichern);
-		  layout.setWidget(5, 1, btnAbbrechen);
-		  
-	  }
-	  
-	  
-	  
-	  
-	  
 
-	  // Wrap the content in a DecoratorPanel
-	  DecoratorPanel decPanel = new DecoratorPanel();
-	  decPanel.setWidget(layout);
-	  
-	  this.vPanel.add(decPanel);
-	  
-	  return vPanel;
+				}
+			});
 
-			}
-		
+			Button btnAbbrechen = new Button("Abbrechen");
+			btnAbbrechen.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					ContentContainer.getInstance().setContent(new Welcome().load());
+					new AlertGUI().load("Vorgang wurde erfolgreich abgebrochen",
+							"green");
+
+				}
+			});
+
+			// Add some standard form options
+			layout.setHTML(1, 0, "ID");
+			layout.setText(1, 1, Integer.toString(bt.getId()));
+			layout.setHTML(2, 0, "Name");
+			layout.setWidget(2, 1, txtName);
+			layout.setHTML(3, 0, "Beschreibung");
+			layout.setWidget(3, 1, txtBeschreibung);
+			layout.setHTML(4, 0, "Materialbezeichnung");
+			layout.setWidget(4, 1, txtMaterialBezeichnung);
+			layout.setWidget(5, 0, btnSpeichern);
+			layout.setWidget(5, 1, btnAbbrechen);
+
+			// Wrap the content in a DecoratorPanel
+			DecoratorPanel decPanel = new DecoratorPanel();
+			decPanel.setWidget(layout);
+
+			this.vPanel.add(decPanel);
+			return vPanel;
+		}
+
+		// ----------------------------------------------------------------------------
+		// ----------------------- Ende Form zum Anlegen eines BT
+		// --------------------------
+		// ----------------------------------------------------------------------------
+
 
 
 
@@ -287,160 +246,6 @@ public class BauteilGUI {
  */
 	
 	
-public Widget getBauteil(Vector<Bauteil> bauteile){
-	
-	/**
-	 * ID wird lokal gepseichert, 
-	 * falls das Objekt ge�ndert werden soll
-	 */
-		bauteileTable.removeAllRows();
-		this.btV= bauteile;	
-		
-		bauteileTable.setText(0,0,"ID");
-		bauteileTable.setText(0,1,"Name");
-		bauteileTable.setText(0,2,"Beschreibung");
-		bauteileTable.setText(0,3,"Bezeichnung");	
-		bauteileTable.setText(0,4,"Erstellt am");
-		bauteileTable.setText(0,5,"Zuletzt geaendert am");
-		bauteileTable.setText(0,6,"letzter Bearbeiter");
-		bauteileTable.setText(0,7,"Edit");
-		bauteileTable.setText(0,8,"Delete");
-		
-		/**
-		 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
-		 */
-		for(int j=0; j < btV.size(); j++ ){
-			
-			/**
-			 * Button, um Bauteil innerhalb der Tabelle zu löschen
-			 */
-			Button loeschenBtn = new Button("X");
-			loeschenBtn.addClickHandler(new ClickHandler(){
-
-				@Override
-				public void onClick(ClickEvent event) {
-					
-					Cell cell = bauteileTable.getCellForEvent(event);
-					
-					int rowIndex = cell.getRowIndex();
-					String id1 = bauteileTable.getText(rowIndex, 0);
-					int id = Integer.parseInt(id1);
-					greetingService.deleteBauteil(id, new AsyncCallback() {
-
-						@Override
-						public void onFailure(Throwable arg0) {
-					
-							
-						}
-
-						@Override
-						public void onSuccess(Object arg0) {
-							
-							
-						}
-
-						
-					
-					});
-					
-					
-				}
-				
-				
-			});
-			
-			
-			
-			/**
-			 * Button, um Editieren des Bauteils innerhalb der Tabelle aufzurufen
-			 */
-			Button aendernBtn = new Button("Editieren");
-			aendernBtn.addClickHandler(new ClickHandler(){
-
-				@Override
-				public void onClick(ClickEvent event) {
-					
-					Cell cell = bauteileTable.getCellForEvent(event);
-					
-					int rowIndex = cell.getRowIndex();
-					String id1 = bauteileTable.getText(rowIndex, 0);
-					int id = Integer.parseInt(id1);
-					
-					greetingService.getBauteilForUpdate(id, new AsyncCallback<Vector<Bauteil>>(){
-
-						@Override
-						public void onFailure(Throwable arg0) {
-							
-							
-						}
-
-						@Override
-						public void onSuccess(Vector result) {
-				
-							Vector<Bauteil> bauteile = new Vector<Bauteil>();
-							bauteile = (Vector<Bauteil>) result;
-							Bauteil bt = new Bauteil();
-							bt = bauteile.elementAt(0);
-							
-							RootPanel.get().add(new BauteilGUI().updateBauteil(bt));
-							
-						}});
-					
-					
-				}});
-		
-			
-			
-			/**
-			 * Formatiert Timestamp zu String
-			 */
-			/*Date d1 = new Date();
-			d1 = bauteile.elementAt(j).getErstellungsDatum();
-			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
-			
-			
-			/**
-			 * Formatiert Timestamp zu String
-			 */
-			/*Date d2 = new Date();
-			d2 = bauteile.elementAt(j).getAenderungsDatum();
-			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
-			
-		
-			/**
-			 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
-			 */
-			bauteileTable.setText(j+1, 0, Integer.toString(bauteile.elementAt(j).getId()));
-			bauteileTable.setText(j+1, 1, btV.elementAt(j).getName());
-			bauteileTable.setText(j+1, 2, btV.elementAt(j).getBeschreibung());
-			bauteileTable.setText(j+1, 3, btV.elementAt(j).getMaterialBezeichnung());
-			//bauteileTable.setText(j+1, 4, s1);
-			//bauteileTable.setText(j+1, 5, s2);
-
-			
-			/**
-			 * Einfuegen der Buttons in die Tabelle
-			 */
-			bauteileTable.setWidget(j+1, 8, loeschenBtn );
-			bauteileTable.setWidget(j+1, 7, aendernBtn);
-			
-			
-			/**
-			 * Verknuepfung zu style.css
-			 */
-			bauteileTable.setCellPadding(6);
-			bauteileTable.getRowFormatter().addStyleName(0,  "watchListHeader");
-			bauteileTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
-			bauteileTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-		}	
-		
-		/**
-		 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
-		 */
-		this.vPanel.add(bauteileTable);
-		
-		return vPanel;
-	}
 
 /**
  * Anzeigen von allen Bauteilen, die in der DB enthalten sind
@@ -448,198 +253,180 @@ public Widget getBauteil(Vector<Bauteil> bauteile){
  */
 
 public Widget showAllBauteile(Vector<Bauteil> bauteile) {
-		
-		/**
-		 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
-		 */
-		FlexTable bauteileTable = new FlexTable();
-		bauteileTable.setText(0,0,"ID");
-		bauteileTable.setText(0,1,"Name");
-		bauteileTable.setText(0,2,"Beschreibung");
-		bauteileTable.setText(0,3,"Bezeichnung");	
-		bauteileTable.setText(0,4,"Erstellt am");
-		bauteileTable.setText(0,5,"Zuletzt geaendert am");
-		bauteileTable.setText(0,6,"letzter Bearbeiter");
-		//bauteileTable.setText(0,7,"Edit");
-		//bauteileTable.setText(0,8,"Delete");
-		
-		/**
-		 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
-		 */
-		for(int j=0; j < bauteile.size(); j++ ){
-			
-			/**
-			 * Button, um Bauteil innerhalb der Tabelle zu löschen
-			 */
-			//Button btnDelete = new Button("X");
-			//btnDelete.addClickHandler(new DeleteClickHandler());
-			//this.vPanelCreate.add(btnDelete);
-			
-			
-			/**
-			 * Button, um Editieren des Bauteils innerhalb der Tabelle aufzurufen
-			 */
-			//Button editBtn = new Button("Editieren");
-			//editBtn.addClickHandler(new EditClickHandler());
-			//this.vPanelCreate.add(editBtn);
-			
-			
-			/**
-			 * Formatiert Timestamp zu String
-			 */
-			Date d1 = new Date();
-			d1 = bauteile.elementAt(j).getErstellungsDatum();
-			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
-			
-			
-			/**
-			 * Formatiert Timestamp zu String
-			 */
-			Date d2 = new Date();
-			d2 = bauteile.elementAt(j).getAenderungsDatum();
-			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
-			
-		
-			String user = It04gwtEditor.user;
-
-			
-			/**
-			 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
-			 */
-			bauteileTable.setText(j+1, 0, Integer.toString(bauteile.elementAt(j).getId()));
-			bauteileTable.setText(j+1, 1, bauteile.elementAt(j).getName());
-			bauteileTable.setText(j+1, 2, bauteile.elementAt(j).getBeschreibung());
-			bauteileTable.setText(j+1, 3, bauteile.elementAt(j).getMaterialBezeichnung());
-			bauteileTable.setText(j+1, 4, s1);
-			bauteileTable.setText(j+1, 5, s2);
-			bauteileTable.setText(j+1, 6, user);
-			
-			/**
-			 * Einfuegen der Buttons in die Tabelle
-			 */
-			//bauteileTable.setWidget(j+1, 8, btnDelete);
-			//bauteileTable.setWidget(j+1, 7, editBtn);
-			
-			
-			/**
-			 * Verknuepfung zu style.css
-			 */
-			bauteileTable.setCellPadding(6);
-			bauteileTable.getRowFormatter().addStyleName(0,  "watchListHeader");
-			bauteileTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
-			bauteileTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-		}	
-		
-		/**
-		 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
-		 */
-		vPanel.add(bauteileTable);
-		
-		return vPanel;
-	
-}
-
-public void showSearchResult(Vector<Baugruppe> bg){
-	
-	VerticalPanel vPanel = new VerticalPanel();
-	FlexTable flex = new FlexTable();
-
-	HTML topic = new HTML("<h3>Wählen Siedie Baugruppe zu, welcher Sie das Bauteil zuordnen möchten.</h3> <br>");
-	
-
-	flex.setText(0, 0, "ID");
-	flex.setText(0, 1, "Name");
-	flex.setText(0, 2, "Beschreibung");
-	flex.setText(0, 3, "erstellt am");
-	flex.setText(0, 4, "geändert am");
-	flex.setText(0, 5, "zu EZ zuordnen");
-	
-	
 
 	/**
-	 * Konvertieren der Bauteil-Daten und befüllen der Tabelle
+	 * neuer HTML Bereich
 	 */
+	HTML topic = new HTML(
+			"<h2>Was wollen Sie mit dem Bauteil tun?</h2>");
+	this.vPanel.add(topic);
+
 	
-	CheckBox checkBox = new CheckBox();
-	
-	//flex.setText(1, 0, Integer.toString(bg.getId()));
-	//flex.setText(1, 1, bg.getName());
-	//flex.setText(1, 3, bg.getBeschreibung());
-	//flex.setText(1, 3, ); 
-	//flex.setText(1, 4, );
-	flex.setWidget(1, 5, checkBox);
-	
-	
-	
-	
-	
-	
+
+	this.vPanel.add(this.hPanel);
+
 	/**
-	 * Verknüpfung zu style.css
+	 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften
+	 * belegen
 	 */
-	flex.getRowFormatter().addStyleName(0, "EnderzeugnisHeader");
-	flex.getRowFormatter().addStyleName(0, "Row1");
-	flex.getRowFormatter().addStyleName(1, "Row2");
 
-	flex.getCellFormatter().addStyleName(0, 2, "EnderzeugnisNumericColumn");
-	flex.getCellFormatter()
-			.addStyleName(0, 3, "EnderzeugnistNumericColumn");
+	bauteileTable.setText(0, 0, "ID");
+	bauteileTable.setText(0, 1, "Name");
+	bauteileTable.setText(0, 2, "Beschreibung");
+	bauteileTable.setText(0, 3, "Materialbezeichnung");
+	bauteileTable.setText(0, 4, "Erstellt am");
+	bauteileTable.setText(0, 5, "Zuletzt geaendert am");
+	bauteileTable.setText(0, 6, "letzter Bearbeiter");
+	bauteileTable.setText(0, 7, "Bearbeiten");
+	bauteileTable.setText(0, 8, "Löschen");
 
-	
-	
-	
-	
-	
-	vPanel.add(flex);
-	
-	Button btnSpeichern = new Button("Speichern");
-	btnSpeichern.addClickHandler(new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					bt.setName(name.getText());
-					bt.setBeschreibung(beschreibung.getText());
-					bt.setMaterialBezeichnung(materialBezeichnung.getText());
-					
-					name.setText("");
-					beschreibung.setText("");
-					materialBezeichnung.setText("");
-					
-					greetingService.updateBauteil(bt, new AsyncCallback<Vector<Bauteil>>() {
+	/**
+	 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem
+	 * Vektor belegt
+	 */
+	for (int j = 0; j < bauteile.size(); j++) {
 
-						@Override
-						public void onFailure(Throwable arg0) {
-							//RootPanel.get().add(new AlertGUI().load("kkgk", "red"));
-							
-						}
+		Button btnLoeschen = new Button("Löschen");
+		btnLoeschen.addClickHandler(new ClickHandler() {
 
-						@Override
-						public void onSuccess(Vector<Bauteil> result) {
-							
-							// Object result entÃ¤hlt, was vom server zurÃ¼ck kommt clientImpl
-							// updatet das GUI anschlieÃend
-							Vector<Bauteil> bauteile = new Vector<Bauteil>();
-							bauteile = (Vector<Bauteil>) result;
-							
-							RootPanel.get().add(new BauteilGUI().showAllBauteile(bauteile));
-							
-							
-						}
-					});
+			@Override
+			public void onClick(ClickEvent event) {
+
+				Cell cell = bauteileTable.getCellForEvent(event);
+
+				int rowIndex = cell.getRowIndex();
+				String id1 = bauteileTable.getText(rowIndex, 0);
+				int id = Integer.parseInt(id1);
+
+				sms.deleteBauteil(id, new AsyncCallback() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						new AlertGUI()
+								.load("Bauteil konnte nicht gelöscht werden",
+										"red");
+
+					}
+
+					@Override
+					public void onSuccess(Object result) {
+						new AlertGUI().load(
+								"Bauteil wurde erfolgreich gelöscht",
+								"green");
+						sms.getAll(new AsyncCallback<Vector<Bauteil>>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+
+							}
+
+							@Override
+							public void onSuccess(
+									Vector<Bauteil> result) {
+
+								ContentContainer
+										.getInstance()
+										.setContent(new BauteilGUI().showAllBauteile(result));
+
+							}
+						});
+
+					}
+				});
+
+			}
+		});
+
+		Button btnBearbeiten = new Button("Bearbeiten");
+		btnBearbeiten.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				Cell cell = bauteileTable.getCellForEvent(event);
+
+				int rowIndex = cell.getRowIndex();
+				String id1 = bauteileTable.getText(rowIndex, 0);
+				int id = Integer.parseInt(id1);
+
+				sms.getBauteil(id,
+						new AsyncCallback<Vector<Bauteil>>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+
+							}
+
+							@Override
+							public void onSuccess(
+									Vector<Bauteil> result) {
+
+								ContentContainer.getInstance().setContent(
+										new BauteilGUI().showAnlegenForm(result.firstElement()));
+
+							}
+						});
+
+			}
+		});
+
+		/**
+		 * Formatiert Timestamp zu String
+		 */
 		
-				}
-			});
-	
-	vPanel.add(btnSpeichern);
-	
-	
-	
+		 Date d1 = new Date(); d1 =
+		 bauteile.elementAt(j).getErstellungsDatum(); String s1 =
+		 DateTimeFormat.getMediumDateTimeFormat().format(d1);
+		 
+
+		/**
+		 * Formatiert Timestamp zu String
+		 */
+		
+		 Date d2 = new Date(); d2 =
+		 bauteile.elementAt(j).getAenderungsDatum(); String s2 =
+		 DateTimeFormat.getMediumDateTimeFormat().format(d2);
+		 
+
+		/**
+		 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
+		 */
+		bauteileTable.setText(j + 1, 0,Integer.toString(bauteile.elementAt(j).getId()));
+		bauteileTable.setText(j + 1, 1, bauteile.elementAt(j).getName());
+		bauteileTable.setText(j + 1, 2, bauteile.elementAt(j).getBeschreibung());
+		bauteileTable.setText(j + 1, 3, bauteile.elementAt(j).getMaterialBezeichnung());
+		bauteileTable.setText(j+1, 4, s1);
+		bauteileTable.setText(j+1, 5, s2);
+		bauteileTable.setWidget(j + 1, 7, btnBearbeiten);
+		bauteileTable.setWidget(j + 1, 8, btnLoeschen);
+
+		/**
+		 * Verknuepfung zu style.css
+		 */
+		bauteileTable.setCellPadding(6);
+		bauteileTable.getRowFormatter().addStyleName(0,
+				"watchListHeader");
+		bauteileTable.getCellFormatter().addStyleName(0, 2,
+				"watchListNumericColumn");
+		bauteileTable.getCellFormatter().addStyleName(0, 3,
+				"watchListNumericColumn");
+	}
+
+	/**
+	 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch
+	 * angezeigt wird
+	 */
+	vPanel.add(bauteileTable);
+
+	return vPanel;
+
 }
 
-public void showMeldung (String meldung){
-	
-	Label lbl1 = new Label(meldung);
-	vPanel.add(lbl1);
-}
+
+
+
+
+
 
 
 
@@ -659,34 +446,7 @@ public void showMeldung (String meldung){
  */
 
 
-	public class AnlegenBtnClickHandler implements ClickHandler {
-
-		@Override
-		public void onClick(ClickEvent event) {
-			
-			vPanel.clear();
-			
-			greetingService.createBauteil(
-			
-			new AsyncCallback<Object>() {
-				public void onFailure(Throwable caught) {
-					
-				}
-
-				public void onSuccess(Object result) {
-					
-					if (result instanceof Bauteil) {
-						
-						
-						Bauteil bt = (Bauteil) result;
-						
-						
-						updateBauteil(bt);
-				
-				}
-				}	});
-			
-			}}
+	
 	
 	
 	/**
