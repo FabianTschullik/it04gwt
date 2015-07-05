@@ -101,6 +101,7 @@ public class StrukturstuecklisteGUI {
 		 * Fuer jede Baugruppe werden die Tabellenspalten mit den Werten aus dem Vektor belegt
 		 */
 		for(int j=0; j < baugruppen.size(); j++ ){
+			
 			/**
 			 * Button, um Strukturstueckliste zu erstellen
 			 */
