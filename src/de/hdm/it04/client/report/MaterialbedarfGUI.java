@@ -26,7 +26,7 @@ public class MaterialbedarfGUI {
 	
 	TextBox txtSuchen = new TextBox();
 	private final It04gwtServiceReportAsync smsReport = GWT.create(It04gwtServiceReport.class);
-	
+	VerticalPanel vPanel = new VerticalPanel();
 	
 	/**
 	 * Suchfunktion
