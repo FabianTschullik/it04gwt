@@ -405,23 +405,30 @@ public class BaugruppeMapper {
 		Vector<Baugruppe> result = new Vector<Baugruppe>();
 		Connection con = DbConnection.connection();
 
-		try {
+		try {			
+			// Leeres SQL-Statement (JDBC) anlegen
 			Statement stmt = con.createStatement();
 			
 			Date date = new Date();
 			new Timestamp(date.getTime());
 
+			
 			stmt.executeUpdate("UPDATE baugruppe SET name = '" + bg.getName()+ "', " 
 					+ "beschreibung = '" + bg.getBeschreibung() + "', "
 					+ "aenderungsDatum = '" + new Timestamp(date.getTime())
 					+ "' WHERE id=" + bg.getId());
 			
 			result.add(bg);
-
+			
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-
+		
+		
+		for(int i=0; i<bg.stueckliste.size(); i++){
+			updateZwischentabelle (bg.stueckliste.get(i).getId(), bg.stueckliste.get(i).getAnzahl(), bg.getId());
+		}
+		
 		// Um Analogie zu insert(Baugruppe bg) zu wahren, geben wir bg zurück
 		return result;
 	}
@@ -429,40 +436,54 @@ public class BaugruppeMapper {
 	
 	
 	
-	/**
-	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
-	 * 
-	 * @param bg
-	 *            das Objekt, das in die DB geschrieben werden soll
-	 * @return das als Parameter übergebene Objekt
-	 */
-	public Baugruppe update(Baugruppe bg, Bauteil bt) {
-
+	
+	
+public void updateZwischentabelle(int bauteilID, int anzahl, int baugruppeID){
+		
 		Connection con = DbConnection.connection();
-
+		
 		try {
 			Statement stmt = con.createStatement();
-			
-			Date date = new Date();
-			new Timestamp(date.getTime());
+					
+			/*
+			 * Zun�chst schauen wir nach, welches der momentan h�chste
+			 * Prim�rschl�sselwert ist.
+			 */
 
-			stmt.executeUpdate("UPDATE baugruppe SET name = '" + bg.getName()+ "', " 
-					+ "beschreibung = '" + bg.getBeschreibung() + "', "
-					+ "aenderungsDatum = '" + new Timestamp(date.getTime())
-					+ "' WHERE id=" + bg.getId());
+			ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+					+ "FROM bauteilBaugruppe ");
+
 			
-			this.insertBauteil(bg, bt);
 			
-		} catch (SQLException e2) {
-			e2.printStackTrace();
+			if (rs.next()) {
+				
+				
+				/*
+				 * bt erh�lt den bisher maximalen, nun um 1 inkrementierten
+				 * Prim�rschl�ssel.
+				 */
+
+				int bgbt = rs.getInt("maxid") + 1;
+
+				//stmt = con.createStatement();
+
+
+				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
+				stmt.executeUpdate("INSERT INTO bauteilBaugruppe (id, bauteil, anzahl, baugruppe) "
+						+ "VALUES ("
+						+ bgbt
+						+ ",'"
+						+ bauteilID
+						+ "','"
+						+ anzahl
+						+ "','"
+						+ baugruppeID + "')");
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		
-		
-		
-
-		// Um Analogie zu insert(Baugruppe bg) zu wahren, geben wir bg zurück
-		return bg;
 	}
+
 
 	
 	

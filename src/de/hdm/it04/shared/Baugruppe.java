@@ -11,6 +11,6 @@ import java.util.Vector;
 public class Baugruppe extends Element {
 	
 		// Stückliste von Baugruppe mit all seinen Unterbaugruppen und Bauteilen
-		Vector<TeileListe> stueckliste = new Vector<TeileListe>();
+		public Vector<TeileListe> stueckliste = new Vector<TeileListe>();
 	}
 

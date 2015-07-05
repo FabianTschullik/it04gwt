@@ -96,6 +96,28 @@ public class MenuForm extends HorizontalPanel {
 			}
 
 		};
+		
+		Command showBaugruppe = new Command() {
+			public void execute() {
+				sms.getAllBaugruppen(new AsyncCallback<Vector<Baugruppe>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						new AlertGUI().load("Baugruppen konnten nicht geladen werden", "red");
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Baugruppe> result) {
+						ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));
+						
+					}
+				});
+			
+
+			}
+
+		};
 
 		Command openSucheBauteil = new Command() {
 			public void execute() {
@@ -210,12 +232,14 @@ public class MenuForm extends HorizontalPanel {
 
 		MenuBar bauteilMenu = new MenuBar(true);
 
+		bauteilMenu.addItem("alle anzeigen", showBauteil);
 		bauteilMenu.addItem("anlegen", newBauteil);
 		bauteilMenu.addItem("suchen", openSucheBauteil);
-		bauteilMenu.addItem("alle anzeigen", showBauteil);
+		
 		
 
 		MenuBar baugruppeMenu = new MenuBar(true);
+		baugruppeMenu.addItem("alle anzeigen", showBaugruppe);
 		baugruppeMenu.addItem("anlegen", newBaugruppe);
 		baugruppeMenu.addItem("suchen", openSucheBaugruppe);
 

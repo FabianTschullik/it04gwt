@@ -9,9 +9,12 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextArea;
@@ -22,6 +25,8 @@ import com.google.gwt.user.client.ui.Widget;
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
+import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.TeileListe;
 
 
 public class BaugruppeGUI  {
@@ -34,7 +39,11 @@ public class BaugruppeGUI  {
 	private TextArea txtBeschreibung = new TextArea();
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel hPanel = new HorizontalPanel();
-	public Baugruppe bg;
+	static Baugruppe bg;
+	FlexTable baugruppeTable = new FlexTable();
+	FlexTable bauteileTable = new FlexTable();
+	
+	String user = It04gwtEditor.user;
 	
 	
 	public Widget suchen(){
@@ -97,94 +106,278 @@ public class BaugruppeGUI  {
 //----------------------------------------------------------------------------
 //----------------------- Form zum Anlegen einer Baugruppe --------------------------
 //----------------------------------------------------------------------------
-public Widget showAnlegenForm(Baugruppe baugruppe){
-	
-	
-	this.bg = baugruppe;
-	txtName.setText(bg.getName());
-	txtBeschreibung.setText(bg.getBeschreibung());
-	
-	
-	
-	// Create a table to layout the form options
-  FlexTable layout = new FlexTable();
-  layout.setCellSpacing(6);
-  FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
-
-  // Add a title to the form
-  layout.setHTML(0, 0, "<h3>Baugruppe anlegen<h3>");
-  cellFormatter.setColSpan(0, 0, 2);
-  cellFormatter.setHorizontalAlignment(
-      0, 0, HasHorizontalAlignment.ALIGN_CENTER);
-
- 
-	
-	Button btnSpeichern = new Button("Speichern");
-	btnSpeichern.addClickHandler(new ClickHandler() {
+	//----------------------------------------------------------------------------
+	//----------------------- Form zum Anlegen einer Baugruppe --------------------------
+	//----------------------------------------------------------------------------
+	public Widget showAnlegenForm(Baugruppe baugruppe){
 		
-		@Override
-		public void onClick(ClickEvent event) {
 		
-			String user = It04gwtEditor.user;
+		this.bg = baugruppe;
+		txtName.setText(bg.getName());
+		txtBeschreibung.setText(bg.getBeschreibung());
+		
+		
+		
+		// Create a table to layout the form options
+	  FlexTable layout = new FlexTable();
+	  layout.setCellSpacing(6);
+	  FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
+
+	  // Add a title to the form
+	  layout.setHTML(0, 0, "<h3>Baugruppe anlegen<h3>");
+	  cellFormatter.setColSpan(0, 0, 2);
+	  cellFormatter.setHorizontalAlignment(
+	      0, 0, HasHorizontalAlignment.ALIGN_CENTER);
+
+	 
+		
+		Button btnSpeichern = new Button("weiter");
+		btnSpeichern.addClickHandler(new ClickHandler() {
 			
-			bg.setName(txtName.getText());
-			bg.setBeschreibung(txtBeschreibung.getText());
-			bg.setLetzterBearbeiter(user);
-			sms.updateBaugruppe(bg, new AsyncCallback<Vector<Baugruppe>>() {
+			@Override
+			public void onClick(ClickEvent event) {
+				bg.setName(txtName.getText());
+				bg.setBeschreibung(txtBeschreibung.getText());
+				bg.setLetzterBearbeiter(user);
+				
+				sms.getAll(new AsyncCallback<Vector<Bauteil>>() {
 
-				@Override
-				public void onFailure(Throwable caught) {
-					alertGUI.load(
-							"Enderzeugnis konnte nicht gespeichert werden",
-							"red");
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Bauteil> result) {
+						ContentContainer.getInstance().setContent(new BaugruppeGUI().showZuordnungsFormForBauteile(result));
+						
+					}
+				});
+				
+				
+			}
+		});
+		
+		//Button btnAbbrechen = new Button("Abbrechen");
+	//	btnAbbrechen.addClickHandler(new BtnAbbrechenClickHandler());
+		
+		
+		
+		
+	  // Add some standard form options
+	  layout.setHTML(1, 0, "ID");
+	  layout.setText(1, 1, Integer.toString(bg.getId()));
+	  layout.setHTML(2, 0, "Name");
+	  layout.setWidget(2, 1, txtName);
+	  layout.setHTML(3, 0, "Beschreibung");
+	  layout.setWidget(3, 1, txtBeschreibung);
+	  //layout.setWidget(4, 1, createMultiBox());
+	  //layout.setWidget(4, 2, btnSuchen);
+	  layout.setWidget(5, 0, btnSpeichern);
+	  //layout.setWidget(5, 1, btnAbbrechen);
+	  
+
+	  // Wrap the content in a DecoratorPanel
+	  DecoratorPanel decPanel = new DecoratorPanel();
+	  decPanel.setWidget(layout);
+	  
+	  this.vPanel.add(decPanel);
+	return vPanel;
+	}
+	//----------------------------------------------------------------------------
+	//----------------------- Ende Form zum Anlegen eines EZ --------------------------
+	//----------------------------------------------------------------------------
+
+	
+	
+	
+	public void fuelleTeileListe (FlexTable table){
+		
+		//Durch den gesamten Vektor gehen
+		for(int i=0; i<bg.stueckliste.size(); i++){
+			
+			
+			//Durch alle Tabellenzeilen durchgehen
+			for(int j=1; j<table.getRowCount(); j++){
+				
+				int aktuellesVektorElement = bg.stueckliste.elementAt(i).getId();
+				int aktuelleZeile = Integer.parseInt(table.getText(j, 0));
+				
+				TextBox tb = new TextBox();
+				tb = (TextBox) table.getWidget(aktuelleZeile, 7);
+				
+				
+				if(aktuelleZeile == aktuellesVektorElement){		
 					
+					int anzahl;
+					
+					if(tb.getText() == ""){
+						anzahl = 1;
+					}
+					else{
+						anzahl = Integer.parseInt(tb.getText());
+					}
+					
+					bg.stueckliste.elementAt(i).setAnzahl(anzahl);
+					j = table.getRowCount();
 				}
+			}
+		}	
+	  }
 
+
+
+
+	public Widget showZuordnungsFormForBauteile (Vector <Bauteil> bauteile){
+		
+		/**
+		 * neuer HTML Bereich
+		 */
+		HTML topic = new HTML("<h2>Aus welchen Bauteilen besteht Ihre Baugruppe?</h2>");
+		this.vPanel.add(topic);
+		
+		
+		Button btnZuordnung = new Button("Jetzt zuordnen");
+		btnZuordnung.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				//TeileListe in den Vektor speichern
+				fuelleTeileListe(bauteileTable);
+				
+				//serviceImpl.updateBaugruppe(bg);
+				sms.updateBaugruppe(bg, new AsyncCallback<Vector<Baugruppe>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						new AlertGUI().load("Enderzeugnis wurde erfolgreich gespeichert","red");
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Baugruppe> result) {
+						ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));
+						new AlertGUI().load("Enderzeugnis wurde erfolgreich gespeichert","green");
+						
+					}
+				});
+				vPanel.clear();
+			}
+		});
+		
+		this.vPanel.add(btnZuordnung);
+		
+		/**
+		 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
+		 */
+		bauteileTable.setText(0,0,"ID");
+		bauteileTable.setText(0,1,"Name");
+		bauteileTable.setText(0,2,"Beschreibung");
+		bauteileTable.setText(0,3,"Erstellt am");
+		bauteileTable.setText(0,4,"Zuletzt geaendert am");
+		bauteileTable.setText(0,5,"letzter Bearbeiter");
+		bauteileTable.setText(0,6,"Zuordnen");
+		bauteileTable.setText(0, 7, "Menge");
+		
+		/**
+		 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
+		 */
+		for(int j=0; j < bauteile.size(); j++ ){
+			
+			final TextBox txtMenge = new TextBox();
+			txtMenge.setText("1");
+			
+			CheckBox cb = new CheckBox();
+			
+			cb.addClickHandler(new ClickHandler() {
+				
+				
 				@Override
-				public void onSuccess(Vector<Baugruppe> result) {
-					alertGUI.load(
-							"Enderzeugnis wurde erfolgreich gespeichert",
-							"green");
+				public void onClick(ClickEvent event) {
 					
-					ContentContainer.getInstance().setContent(
-							new BaugruppeGUI().showAllBaugruppen(result));
-
+					TeileListe tl = new TeileListe();
+					boolean checked = ((CheckBox) event.getSource()).getValue();
 					
+								
+					if (checked == true){
+						
+						//Bauteil der TeileListe hinzufügen wenn gecheckt
+						Cell cell = bauteileTable.getCellForEvent(event);
+						
+						//Aktuelle ID holen aus der Tabelle indem Reihe gesucht wird
+						int rowIndex = cell.getRowIndex();
+						String id1 = bauteileTable.getText(rowIndex, 0);
+						int id = Integer.parseInt(id1);
+						
+						tl.setId(id);
+						
+						//TeileListe in den Vektor speichern
+						bg.stueckliste.add(tl);
+					}
+					else{	
+						//Bauteiil von TeileListe entfernen wenn nicht gecheckt
+						bg.stueckliste.remove(tl.getId());
+					}
 				}
 			});
 			
-		}
-	});
+			/**
+			 * Formatiert Timestamp zu String
+			 */
+			/*Date d1 = new Date();
+			d1 = bauteile.elementAt(j).getErstellungsDatum();
+			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
+			
+			
+			/**
+			 * Formatiert Timestamp zu String
+			 */
+			/*Date d2 = new Date();
+			d2 = bauteile.elementAt(j).getAenderungsDatum();
+			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
+			
+		
+			/**
+			 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
+			 */
+			bauteileTable.setText(j+1, 0, Integer.toString(bauteile.elementAt(j).getId()));
+			bauteileTable.setText(j+1, 1, bauteile.elementAt(j).getName());
+			bauteileTable.setText(j+1, 2, bauteile.elementAt(j).getBeschreibung());
+			//bauteileTable.setText(j+1, 3, s1);
+			//bauteileTable.setText(j+1, 4, s2);
+			bauteileTable.setText(j+1, 5, user);
+			bauteileTable.setWidget(j+1, 6, cb);
+			bauteileTable.setWidget(j+1, 7, txtMenge);
+			
+			//if(Integer.parseInt(bauteileTable.getText(j+1, 0)) == ez.getBaugruppe()){
+			//	rb.setValue(true);
+			//}
+			
+			
+			
+			/**
+			 * Verknuepfung zu style.css
+			 */
+			bauteileTable.setCellPadding(6);
+			bauteileTable.getRowFormatter().addStyleName(0,  "watchListHeader");
+			bauteileTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+			bauteileTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+		}	
+		
+		/**
+		 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
+		 */
+		this.vPanel.add(bauteileTable);
+		
+		return vPanel;
+	}
+	
 	
 
 	
 	
-	
-	
-  // Add some standard form options
-  layout.setHTML(1, 0, "ID");
-  layout.setText(1, 1, Integer.toString(bg.getId()));
-  layout.setHTML(2, 0, "Name");
-  layout.setWidget(2, 1, txtName);
-  layout.setHTML(3, 0, "Beschreibung");
-  layout.setWidget(3, 1, txtBeschreibung);
-  layout.setHTML(4, 0, "Baugruppe zuordnen");
-  layout.setWidget(5, 0, btnSpeichern);
- // layout.setWidget(5, 1, btnAbbrechen);
-  
-
-  // Wrap the content in a DecoratorPanel
-  DecoratorPanel decPanel = new DecoratorPanel();
-  decPanel.setWidget(layout);
-  
-  this.vPanel.add(decPanel);
-  
-  return vPanel;
-}
-//----------------------------------------------------------------------------
-//----------------------- Ende Form zum Anlegen eines EZ --------------------------
-//----------------------------------------------------------------------------
-
 
 public void showBaugruppeForm(Baugruppe bg){
 	
@@ -226,20 +419,32 @@ public void showBaugruppeForm(Baugruppe bg){
 	this.vPanel.add(flex);
 }
 
+
 public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
+	
+	this.hPanel.clear();
+	/**
+	 * neuer HTML Bereich
+	 */
+	HTML topic = new HTML("<h2>Was wollen Sie mit der Baugruppe tun?</h2>");
+	this.vPanel.add(topic);
+	
+	
+	
+	this.vPanel.add(this.hPanel);
+	
 	
 	/**
 	 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
 	 */
-	FlexTable baugruppeTable = new FlexTable();
 	baugruppeTable.setText(0,0,"ID");
 	baugruppeTable.setText(0,1,"Name");
 	baugruppeTable.setText(0,2,"Beschreibung");
 	baugruppeTable.setText(0,3,"Erstellt am");
 	baugruppeTable.setText(0,4,"Zuletzt geaendert am");
 	baugruppeTable.setText(0,5,"letzter Bearbeiter");
-	//bauteileTable.setText(0,6,"Edit");
-	//bauteileTable.setText(0,7,"Delete");
+	baugruppeTable.setText(0,6,"Bearbeiten");
+	baugruppeTable.setText(0,7,"Löschen");
 	
 	/**
 	 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
@@ -249,36 +454,107 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 		/**
 		 * Button, um Bauteil innerhalb der Tabelle zu löschen
 		 */
-		//Button btnDelete = new Button("X");
-		//btnDelete.addClickHandler(new DeleteClickHandler());
-		//this.vPanelCreate.add(btnDelete);
+		Button btnLoeschen = new Button ("Löschen");
+		btnLoeschen.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Cell cell = baugruppeTable.getCellForEvent(event);
+				
+				int rowIndex = cell.getRowIndex();
+				String id1 = baugruppeTable.getText(rowIndex, 0);
+				int id = Integer.parseInt(id1);
+				
+				vPanel.clear();
+				baugruppeTable.removeAllRows();
+				
+				
+				sms.deleteBaugruppe(id, new AsyncCallback() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Object result) {
+						new AlertGUI().load("Baugruppe wurde erfolgreich gelöscht", "green");
+						
+						sms.getAllBaugruppen(new AsyncCallback<Vector<Baugruppe>>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								new AlertGUI().load("Baugruppen konnten nicht angezeigt werden", "red");
+								
+							}
+
+							@Override
+							public void onSuccess(Vector<Baugruppe> result) {
+								ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));
+								new AlertGUI().load("Baugruppe wurde erfolgreich gelöscht", "green");
+								
+							}
+						});
+						
+						
+						
+					}
+				});
+			
+				
+			}
+		});
+		
 		
 		
 		/**
 		 * Button, um Editieren des Bauteils innerhalb der Tabelle aufzurufen
 		 */
-		//Button editBtn = new Button("Editieren");
-		//editBtn.addClickHandler(new EditClickHandler());
-		//this.vPanelCreate.add(editBtn);
+		
+		Button btnBearbeiten = new Button ("Bearbeiten");
+		btnBearbeiten.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Cell cell = baugruppeTable.getCellForEvent(event);
+				int rowIndex = cell.getRowIndex();
+				String id1 = baugruppeTable.getText(rowIndex, 0);
+				int id = Integer.parseInt(id1);
+				
+				sms.getBaugruppe(id, new AsyncCallback<Vector<Baugruppe>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Baugruppe> result) {
+						ContentContainer.getInstance().setContent(new BaugruppeGUI().showAnlegenForm(result.firstElement()));
+						
+					}
+				});
+				
+				
+			}
+		});
+			/**
+		 * Formatiert Timestamp zu String
+		 */
+		/*Date d1 = new Date();
+		d1 = bauteile.elementAt(j).getErstellungsDatum();
+		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
 		
 		
 		/**
 		 * Formatiert Timestamp zu String
 		 */
-		Date d1 = new Date();
-		d1 = baugruppen.elementAt(j).getErstellungsDatum();
-		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
+		/*Date d2 = new Date();
+		d2 = bauteile.elementAt(j).getAenderungsDatum();
+		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
 		
-		
-		/**
-		 * Formatiert Timestamp zu String
-		 */
-		Date d2 = new Date();
-		d2 = baugruppen.elementAt(j).getAenderungsDatum();
-		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
-		
-		
-		String user = It04gwtEditor.user;
 	
 		/**
 		 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
@@ -286,17 +562,13 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 		baugruppeTable.setText(j+1, 0, Integer.toString(baugruppen.elementAt(j).getId()));
 		baugruppeTable.setText(j+1, 1, baugruppen.elementAt(j).getName());
 		baugruppeTable.setText(j+1, 2, baugruppen.elementAt(j).getBeschreibung());
-		baugruppeTable.setText(j+1, 3, s1);
-		baugruppeTable.setText(j+1, 4, s2);
-		baugruppeTable.setText(j+1, 5, user);
-
-		
+		//bauteileTable.setText(j+1, 3, s1);
+		//bauteileTable.setText(j+1, 4, s2);
 		/**
 		 * Einfuegen der Buttons in die Tabelle
 		 */
-		//bauteileTable.setWidget(j+1, 5, btnDelete);
-		//bauteileTable.setWidget(j+1, 6, editBtn);
-		
+		baugruppeTable.setWidget(j+1, 6, btnBearbeiten );
+		baugruppeTable.setWidget(j+1, 7, btnLoeschen);
 		
 		/**
 		 * Verknuepfung zu style.css
@@ -318,32 +590,5 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 
 
 
-public class BtnAnlegenClickHandler implements ClickHandler {
-
-	@Override
-	public void onClick(ClickEvent event) {
-		vPanel.clear();
-		//serviceImpl.createBaugruppe();
-	}
-}
-
-public class BtnSuchenClickHandler implements ClickHandler {
-
-	@Override
-	public void onClick(ClickEvent event) {
-		
-		//serviceImpl.getBaugruppe(Integer.parseInt(txtSuchen.getText()));
-	}
-}
-
-public class BtnShowAllClickHandler implements ClickHandler {
-
-	@Override
-	public void onClick(ClickEvent event) {
-		
-		vPanel.clear();
-		//serviceImpl.getAllBaugruppen();	
-	}
-}
 
 }
