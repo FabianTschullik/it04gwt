@@ -815,7 +815,8 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 						
 						
 						bg = result.firstElement();
-						tree (bg);
+						//tree (bg);
+						ContentContainer.getInstance().setContent(new TreeGUI().tree(bg));
 						
 						
 					}
