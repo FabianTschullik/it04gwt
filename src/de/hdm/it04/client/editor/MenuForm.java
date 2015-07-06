@@ -48,6 +48,13 @@ public class MenuForm extends HorizontalPanel {
 			}
 
 		};
+		
+		Command openHandbuch = new Command(){
+			public void execute(){
+				
+				ContentContainer.getInstance().setContent(new BenutzerHandbuch().load());
+			}
+		};
 
 		Command openSucheEnderzeugnis = new Command() {
 			public void execute() {
@@ -249,6 +256,7 @@ public class MenuForm extends HorizontalPanel {
 		enderzeugnisMenu.addItem("suchen", openSucheEnderzeugnis);
 
 		MenuBar impressumMenu = new MenuBar(true);
+		MenuBar benutzerhandbuch = new MenuBar(true);
 
 		// Make a new menu bar, adding a few cascading menus to it.
 		MenuBar menu = new MenuBar();
@@ -256,6 +264,7 @@ public class MenuForm extends HorizontalPanel {
 		menu.addItem("Baugruppe", baugruppeMenu);
 		menu.addItem("Enderzeugnis", enderzeugnisMenu);
 		menu.addItem("Impressum", openImpressum);
+		menu.addItem("Benutzer Handbuch", openHandbuch);
 
 		buttonsPanel.add(menu);
 
