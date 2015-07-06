@@ -262,8 +262,35 @@ public class BaugruppeGUI  {
 		HTML topic = new HTML("<h2>Aus welchen Bauteilen besteht Ihre Baugruppe?</h2>");
 		this.vPanel.add(topic);
 		
+		Button btnZuordnung = new Button("weiter");
+		btnZuordnung.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				
+				sms.getAllBaugruppen(new AsyncCallback<Vector<Baugruppe>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Baugruppe> result) {
+						ContentContainer.getInstance().setContent(new BaugruppeGUI().showZuordnungsFormForBaugruppen(result));
+						
+					}
+				});
+				
+				
+				
+			}
+		});
 		
 		
+		/*
 		Button btnZuordnung = new Button("weiter");
 		btnZuordnung.addClickHandler(new ClickHandler() {
 			
@@ -309,7 +336,7 @@ public class BaugruppeGUI  {
 				vPanel.clear();
 			}
 		});
-		
+		*/
 		this.vPanel.add(btnZuordnung);
 		
 		/**
@@ -904,22 +931,20 @@ public Widget tree(Baugruppe bauguppe){
 	//this.vPanel.add(lbl);
 	
 	
-	TeileListe [] tl = new TeileListe[bg.connectedBaugruppen.size()];
-	bg.connectedBaugruppen.copyInto(tl);
+	
+	//Window.alert("Bla: " + bg.connectedBauteile.size());
     
-    Window.alert("Bla: " + tl.length);
-    
-   
     	
-    	for(int i=0; i<3;i++){
+    	for(int i=0; i<bg.connectedBauteile.size();i++){
+    		
     		
     		root.setText(bg.getName());
-    	    TreeItem sub = new TreeItem();
-    		sub.setText("Hallo");
-    		root.addItem(sub);
+    	    //TreeItem sub = new TreeItem();
+    		//sub.setText("Hallo");
+    		//root.addItem(sub);
     		
-    		/*
-    		sms.getBaugruppe(bg.connectedBaugruppen.elementAt(i).getId(), new AsyncCallback<Vector<Baugruppe>>() {
+    		
+    		sms.getBauteil(bg.connectedBauteile.elementAt(i).getId(), new AsyncCallback<Vector<Bauteil>>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
@@ -928,13 +953,13 @@ public Widget tree(Baugruppe bauguppe){
 				}
 
 				@Override
-				public void onSuccess(Vector<Baugruppe> result) {
+				public void onSuccess(Vector<Bauteil> result) {
 					TreeItem sub = new TreeItem();
 					sub.setText(result.firstElement().getName());
 					root.addItem(sub);
 				}
 			});
-    		*/
+    		
     		
     	}
     	

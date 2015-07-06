@@ -114,6 +114,8 @@ public class BaugruppeMapper {
 				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
 				result.add(bg);
+				
+				bg.connectedBauteile = findByKeyZwischentabelle(bg.getId());
 
 				return result;
 			}
