@@ -171,8 +171,7 @@ public class BaugruppeGUI  {
 			}
 		});
 		
-		//Button btnAbbrechen = new Button("Abbrechen");
-	//	btnAbbrechen.addClickHandler(new BtnAbbrechenClickHandler());
+	
 		
 		
 		
@@ -184,10 +183,9 @@ public class BaugruppeGUI  {
 	  layout.setWidget(2, 1, txtName);
 	  layout.setHTML(3, 0, "Beschreibung");
 	  layout.setWidget(3, 1, txtBeschreibung);
-	  //layout.setWidget(4, 1, createMultiBox());
-	  //layout.setWidget(4, 2, btnSuchen);
+	 
 	  layout.setWidget(5, 0, btnSpeichern);
-	  //layout.setWidget(5, 1, btnAbbrechen);
+	
 	  
 
 	  // Wrap the content in a DecoratorPanel
@@ -351,17 +349,17 @@ public class BaugruppeGUI  {
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			/*Date d1 = new Date();
+			Date d1 = new Date();
 			d1 = bauteile.elementAt(j).getErstellungsDatum();
-			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
+			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
 			
 			
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			/*Date d2 = new Date();
+			Date d2 = new Date();
 			d2 = bauteile.elementAt(j).getAenderungsDatum();
-			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
+			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 			
 		
 			/**
@@ -370,8 +368,9 @@ public class BaugruppeGUI  {
 			bauteileTable.setText(j+1, 0, Integer.toString(bauteile.elementAt(j).getId()));
 			bauteileTable.setText(j+1, 1, bauteile.elementAt(j).getName());
 			bauteileTable.setText(j+1, 2, bauteile.elementAt(j).getBeschreibung());
-			//bauteileTable.setText(j+1, 3, s1);
-			//bauteileTable.setText(j+1, 4, s2);
+			bauteileTable.setText(j+1, 3, s1);
+			bauteileTable.setText(j+1, 4, s2);
+			bauteileTable.setText(j+1, 5, bauteile.elementAt(j).getLetzterBearbeiter());
 
 			bauteileTable.setWidget(j+1, 6, cb);
 			bauteileTable.setWidget(j+1, 7, txtMenge);
@@ -424,12 +423,14 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 
 					@Override
 					public void onFailure(Throwable caught) {
+						new AlertGUI().load("Baugruppe konnte nicht gespeichert werden", "red");
 						
 						
 					}
 
 					@Override
 					public void onSuccess(Vector<Baugruppe> result) {
+					new AlertGUI().load("Baugruppe wurde erfolgreich gespeichert", "green");
 				
 						
 						sms.getBaugruppe(bg.getId(), new AsyncCallback<Vector<Baugruppe>>() {
@@ -475,6 +476,10 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 		 */
 		for(int j=0; j < baugruppen.size(); j++ ){
 			
+			if (baugruppen.elementAt(j).getId() != bg.getId()) {
+				
+			
+			
 			final TextBox txtMenge = new TextBox();
 			txtMenge.setText("1");
 			
@@ -515,17 +520,17 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			/*Date d1 = new Date();
-			d1 = bauteile.elementAt(j).getErstellungsDatum();
-			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
+			Date d1 = new Date();
+			d1 = baugruppen.elementAt(j).getErstellungsDatum();
+			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
 			
 			
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			/*Date d2 = new Date();
-			d2 = bauteile.elementAt(j).getAenderungsDatum();
-			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
+			Date d2 = new Date();
+			d2 = baugruppen.elementAt(j).getAenderungsDatum();
+			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 			
 		
 			/**
@@ -534,14 +539,16 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			baugruppeTable.setText(j+1, 0, Integer.toString(baugruppen.elementAt(j).getId()));
 			baugruppeTable.setText(j+1, 1, baugruppen.elementAt(j).getName());
 			baugruppeTable.setText(j+1, 2, baugruppen.elementAt(j).getBeschreibung());
-			//bauteileTable.setText(j+1, 3, s1);
-			//bauteileTable.setText(j+1, 4, s2);
+			baugruppeTable.setText(j+1, 3, s1);
+			baugruppeTable.setText(j+1, 4, s2);
+			baugruppeTable.setText(j+1, 5, baugruppen.elementAt(j).getLetzterBearbeiter());
 
 			baugruppeTable.setWidget(j+1, 6, cb);
 			baugruppeTable.setWidget(j+1, 7, txtMenge);
 			
 			//if(Integer.parseInt(bauteileTable.getText(j+1, 0)) == ez.getBaugruppe()){
 			//	rb.setValue(true);
+			//
 			//}
 			
 			
@@ -553,6 +560,9 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			baugruppeTable.getRowFormatter().addStyleName(0,  "watchListHeader");
 			baugruppeTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 			baugruppeTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+			
+			}
+			
 		}	
 		
 		/**
@@ -589,8 +599,7 @@ public void fuelleConnectedBaugruppen (FlexTable table){
 			int aktuellesVektorElement = bg.connectedBaugruppen.elementAt(i).getId();
 			int aktuelleZeile = Integer.parseInt(table.getText(j, 0));
 			
-		//	TextBox tb = new TextBox();
-			//tb = (TextBox) table.getWidget(aktuelleZeile, 7);
+	
 			
 			
 			TextBox tb = new TextBox();
@@ -624,53 +633,6 @@ public void fuelleConnectedBaugruppen (FlexTable table){
 
 
 
-
-
-
-
-	
-
-public void showBaugruppeForm(Baugruppe bg){
-	
-	FlexTable flex = new FlexTable();
-	
-	this.bg = bg;
-	//this.vPanel.clear();
-	
-	/**
-	 *�berschriften der Tabelle 
-	 */
-	flex.setText(0, 0, "ID");
-	flex.setText(0, 1, "Name");
-	flex.setText(0, 2, "Beschreibung");
-	flex.setText(0, 3, "erstellt am");
-	flex.setText(0, 4, "geändert am");
-	flex.setText(0, 5, "Letzter Bearbeiter");
-	flex.setText(0, 6, "Bearbeiten");
-	flex.setText(0, 7, "Löschen");
-
-	
-	flex.setText(1, 0, Integer.toString(bg.getId()));
-	flex.setText(1, 1, bg.getName());
-	flex.setText(1, 2, bg.getBeschreibung());
-	flex.setText(1, 3, "erstellt am");
-	flex.setText(1, 4, "geändert am");
-	flex.setText(1, 5, bg.getLetzterBearbeiter());
-	//flex.setWidget(1, 6, btnBearbeiten);
-	//flex.setWidget(1, 7, btnLoeschen);
-	
-	/**
-	 * Verknüpfung zu style.css
-	 */
-
-	flex.setCellPadding(6);
-	flex.getRowFormatter().addStyleName(0,  "watchListHeader");
-	flex.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
-	flex.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-	this.vPanel.add(flex);
-}
-
-
 public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 	
 	this.hPanel.clear();
@@ -696,6 +658,7 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 	baugruppeTable.setText(0,5,"letzter Bearbeiter");
 	baugruppeTable.setText(0,6,"Bearbeiten");
 	baugruppeTable.setText(0,7,"Löschen");
+	baugruppeTable.setText(0,8,"Zuordnungsdetails");
 	
 	/**
 	 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
@@ -831,17 +794,19 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 			/**
 		 * Formatiert Timestamp zu String
 		 */
-		/*Date d1 = new Date();
-		d1 = bauteile.elementAt(j).getErstellungsDatum();
-		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
+		Date d1 = new Date();
+		d1 = baugruppen.elementAt(j).getErstellungsDatum();
+		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
+	
 		
 		
 		/**
 		 * Formatiert Timestamp zu String
 		 */
-		/*Date d2 = new Date();
-		d2 = bauteile.elementAt(j).getAenderungsDatum();
-		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
+		Date d2 = new Date();
+		d2 = baugruppen.elementAt(j).getAenderungsDatum();
+		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
+		
 		
 	
 		/**
@@ -850,8 +815,9 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 		baugruppeTable.setText(j+1, 0, Integer.toString(baugruppen.elementAt(j).getId()));
 		baugruppeTable.setText(j+1, 1, baugruppen.elementAt(j).getName());
 		baugruppeTable.setText(j+1, 2, baugruppen.elementAt(j).getBeschreibung());
-		//bauteileTable.setText(j+1, 3, s1);
-		//bauteileTable.setText(j+1, 4, s2);
+		baugruppeTable.setText(j+1, 3, s1);
+		baugruppeTable.setText(j+1, 4, s2);
+		baugruppeTable.setText(j+1, 5, baugruppen.elementAt(j).getLetzterBearbeiter());
 		/**
 		 * Einfuegen der Buttons in die Tabelle
 		 */
