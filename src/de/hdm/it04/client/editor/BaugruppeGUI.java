@@ -7,6 +7,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -42,6 +43,9 @@ public class BaugruppeGUI  {
 	static Baugruppe bg;
 	FlexTable baugruppeTable = new FlexTable();
 	FlexTable bauteileTable = new FlexTable();
+	
+	CheckBox cb = new CheckBox();
+	TextBox txtMenge = new TextBox();
 	
 	String user = It04gwtEditor.user;
 	
@@ -191,39 +195,53 @@ public class BaugruppeGUI  {
 
 	
 	
-	
 	public void fuelleTeileListe (FlexTable table){
 		
-		//Durch den gesamten Vektor gehen
-		for(int i=0; i<bg.stueckliste.size(); i++){
-			
-			
-			//Durch alle Tabellenzeilen durchgehen
-			for(int j=1; j<table.getRowCount(); j++){
-				
-				int aktuellesVektorElement = bg.stueckliste.elementAt(i).getId();
-				int aktuelleZeile = Integer.parseInt(table.getText(j, 0));
-				
-				TextBox tb = new TextBox();
-				tb = (TextBox) table.getWidget(aktuelleZeile, 7);
+		
+		
+	
+			//Durch den gesamten Vektor gehen
+			for(int i=0; i<bg.connectedBauteile.size(); i++){
 				
 				
-				if(aktuelleZeile == aktuellesVektorElement){		
+				
+				//Durch alle Tabellenzeilen durchgehen
+				for(int j=1; j<table.getRowCount(); j++){
 					
-					int anzahl;
 					
-					if(tb.getText() == ""){
-						anzahl = 1;
+					
+						
+					
+					int aktuellesVektorElement = bg.connectedBauteile.elementAt(i).getId();
+					int aktuelleZeile = Integer.parseInt(table.getText(j, 0));
+					
+				//	TextBox tb = new TextBox();
+					//tb = (TextBox) table.getWidget(aktuelleZeile, 7);
+					
+					
+					TextBox tb = new TextBox();
+				
+					tb = (TextBox) bauteileTable.getWidget(j, 7);
+						
+					
+					
+					
+					if(aktuelleZeile == aktuellesVektorElement){		
+						
+						int anzahl;
+						
+						if(tb.getText() == ""){
+							anzahl = 1;
 					}
 					else{
-						anzahl = Integer.parseInt(tb.getText());
+							anzahl = Integer.parseInt(tb.getText());
+						}
+						
+						bg.connectedBauteile.elementAt(i).setAnzahl(anzahl);
+						j = table.getRowCount();
 					}
-					
-					bg.stueckliste.elementAt(i).setAnzahl(anzahl);
-					j = table.getRowCount();
 				}
-			}
-		}	
+			}	
 	  }
 
 
@@ -238,7 +256,8 @@ public class BaugruppeGUI  {
 		this.vPanel.add(topic);
 		
 		
-		Button btnZuordnung = new Button("Jetzt zuordnen");
+		
+		Button btnZuordnung = new Button("weiter");
 		btnZuordnung.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -247,19 +266,36 @@ public class BaugruppeGUI  {
 				//TeileListe in den Vektor speichern
 				fuelleTeileListe(bauteileTable);
 				
-				//serviceImpl.updateBaugruppe(bg);
+			
 				sms.updateBaugruppe(bg, new AsyncCallback<Vector<Baugruppe>>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						new AlertGUI().load("Enderzeugnis wurde erfolgreich gespeichert","red");
+						
 						
 					}
 
 					@Override
 					public void onSuccess(Vector<Baugruppe> result) {
-						ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));
-						new AlertGUI().load("Enderzeugnis wurde erfolgreich gespeichert","green");
+						sms.getAllBaugruppen(new AsyncCallback<Vector<Baugruppe>>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Vector<Baugruppe> result) {
+								ContentContainer.getInstance().setContent(new BaugruppeGUI().showZuordnungsFormForBaugruppen(result));
+								
+							}
+						});
+						
+						
+						
+						
+				
 						
 					}
 				});
@@ -314,11 +350,11 @@ public class BaugruppeGUI  {
 						tl.setId(id);
 						
 						//TeileListe in den Vektor speichern
-						bg.stueckliste.add(tl);
+						bg.connectedBauteile.add(tl);
 					}
 					else{	
 						//Bauteiil von TeileListe entfernen wenn nicht gecheckt
-						bg.stueckliste.remove(tl.getId());
+						bg.connectedBauteile.remove(tl.getId());
 					}
 				}
 			});
@@ -347,7 +383,7 @@ public class BaugruppeGUI  {
 			bauteileTable.setText(j+1, 2, bauteile.elementAt(j).getBeschreibung());
 			//bauteileTable.setText(j+1, 3, s1);
 			//bauteileTable.setText(j+1, 4, s2);
-			bauteileTable.setText(j+1, 5, user);
+
 			bauteileTable.setWidget(j+1, 6, cb);
 			bauteileTable.setWidget(j+1, 7, txtMenge);
 			
@@ -375,8 +411,234 @@ public class BaugruppeGUI  {
 	}
 	
 	
+public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
+		
+		/**
+		 * neuer HTML Bereich
+		 */
+		HTML topic = new HTML("<h2>Aus welchen Unterbaugruppen besteht Ihre Baugruppe?</h2>");
+		this.vPanel.add(topic);
+		
+		
+		
+		Button btnZuordnung = new Button("speichern");
+		btnZuordnung.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				//TeileListe in den Vektor speichern
+				fuelleConnectedBaugruppen(baugruppeTable);
+				
+			
+				sms.updateBaugruppe(bg, new AsyncCallback<Vector<Baugruppe>>() {
 
+					@Override
+					public void onFailure(Throwable caught) {
+						
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Baugruppe> result) {
+				
+						
+						sms.getBaugruppe(bg.getId(), new AsyncCallback<Vector<Baugruppe>>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Vector<Baugruppe> result) {
+								ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));
+								
+							}
+						});
+						
+						
+				
+						
+					}
+				});
+				vPanel.clear();
+			}
+		});
+		
+		this.vPanel.add(btnZuordnung);
+		
+		/**
+		 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
+		 */
+		baugruppeTable.setText(0,0,"ID");
+		baugruppeTable.setText(0,1,"Name");
+		baugruppeTable.setText(0,2,"Beschreibung");
+		baugruppeTable.setText(0,3,"Erstellt am");
+		baugruppeTable.setText(0,4,"Zuletzt geaendert am");
+		baugruppeTable.setText(0,5,"letzter Bearbeiter");
+		baugruppeTable.setText(0,6,"Zuordnen");
+		baugruppeTable.setText(0, 7, "Menge");
+		
+		/**
+		 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
+		 */
+		for(int j=0; j < baugruppen.size(); j++ ){
+			
+			final TextBox txtMenge = new TextBox();
+			txtMenge.setText("1");
+			
+			CheckBox cb = new CheckBox();
+			
+			cb.addClickHandler(new ClickHandler() {
+				
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					
+					TeileListe tl = new TeileListe();
+					boolean checked = ((CheckBox) event.getSource()).getValue();
+					
+								
+					if (checked == true){
+						
+						//Bauteil der TeileListe hinzufügen wenn gecheckt
+						Cell cell = baugruppeTable.getCellForEvent(event);
+						
+						//Aktuelle ID holen aus der Tabelle indem Reihe gesucht wird
+						int rowIndex = cell.getRowIndex();
+						String id1 = baugruppeTable.getText(rowIndex, 0);
+						int id = Integer.parseInt(id1);
+						
+						tl.setId(id);
+						
+						//TeileListe in den Vektor speichern
+						bg.connectedBaugruppen.add(tl);
+					}
+					else{	
+						//Bauteiil von TeileListe entfernen wenn nicht gecheckt
+						bg.connectedBaugruppen.remove(tl.getId());
+					}
+				}
+			});
+			
+			/**
+			 * Formatiert Timestamp zu String
+			 */
+			/*Date d1 = new Date();
+			d1 = bauteile.elementAt(j).getErstellungsDatum();
+			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);*/
+			
+			
+			/**
+			 * Formatiert Timestamp zu String
+			 */
+			/*Date d2 = new Date();
+			d2 = bauteile.elementAt(j).getAenderungsDatum();
+			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);*/
+			
+		
+			/**
+			 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
+			 */
+			baugruppeTable.setText(j+1, 0, Integer.toString(baugruppen.elementAt(j).getId()));
+			baugruppeTable.setText(j+1, 1, baugruppen.elementAt(j).getName());
+			baugruppeTable.setText(j+1, 2, baugruppen.elementAt(j).getBeschreibung());
+			//bauteileTable.setText(j+1, 3, s1);
+			//bauteileTable.setText(j+1, 4, s2);
+
+			baugruppeTable.setWidget(j+1, 6, cb);
+			baugruppeTable.setWidget(j+1, 7, txtMenge);
+			
+			//if(Integer.parseInt(bauteileTable.getText(j+1, 0)) == ez.getBaugruppe()){
+			//	rb.setValue(true);
+			//}
+			
+			
+			
+			/**
+			 * Verknuepfung zu style.css
+			 */
+			baugruppeTable.setCellPadding(6);
+			baugruppeTable.getRowFormatter().addStyleName(0,  "watchListHeader");
+			baugruppeTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
+			baugruppeTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+		}	
+		
+		/**
+		 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
+		 */
+		this.vPanel.add(baugruppeTable);
+		
+		return vPanel;
+	}
 	
+
+
+
+
+
+
+public void fuelleConnectedBaugruppen (FlexTable table){
+	
+	
+	
+	
+	//Durch den gesamten Vektor gehen
+	for(int i=0; i<bg.connectedBaugruppen.size(); i++){
+		
+		
+		
+		//Durch alle Tabellenzeilen durchgehen
+		for(int j=1; j<table.getRowCount(); j++){
+			
+			
+			
+				
+			
+			int aktuellesVektorElement = bg.connectedBaugruppen.elementAt(i).getId();
+			int aktuelleZeile = Integer.parseInt(table.getText(j, 0));
+			
+		//	TextBox tb = new TextBox();
+			//tb = (TextBox) table.getWidget(aktuelleZeile, 7);
+			
+			
+			TextBox tb = new TextBox();
+		
+			tb = (TextBox) baugruppeTable.getWidget(j, 7);
+				
+			
+			
+			
+			if(aktuelleZeile == aktuellesVektorElement){		
+				
+				int anzahl;
+				
+				if(tb.getText() == ""){
+					anzahl = 1;
+			}
+			else{
+					anzahl = Integer.parseInt(tb.getText());
+				}
+				
+				bg.connectedBaugruppen.elementAt(i).setAnzahl(anzahl);
+				j = table.getRowCount();
+			}
+		}
+	}	
+}
+
+
+
+
+
+
+
+
+
+
+
 	
 
 public void showBaugruppeForm(Baugruppe bg){

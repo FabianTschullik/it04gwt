@@ -1,7 +1,11 @@
 package de.hdm.it04.shared;
 
-public class TeileListe {
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class TeileListe implements IsSerializable {
+
+	
 	private int anzahl;
 	private int id;
 	
