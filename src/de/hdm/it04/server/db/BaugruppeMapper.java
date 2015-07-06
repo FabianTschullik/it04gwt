@@ -459,7 +459,7 @@ public void updateZwischentabelleBaugruppeBaugruppe(int uebergeordneteBaugruppeI
 				+ "FROM baugruppeBaugruppe ");
 
 		
-		
+		        
 		if (rs.next()) {
 			  
 			
