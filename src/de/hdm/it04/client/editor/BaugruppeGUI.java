@@ -38,6 +38,8 @@ import de.hdm.it04.shared.TeileListe;
 
 public class BaugruppeGUI  {
 	
+	
+	
 	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
 	AlertGUI alertGUI = new AlertGUI();
 	
