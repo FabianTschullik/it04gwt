@@ -535,7 +535,7 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			baugruppeTable.setText(j+1, 2, baugruppen.elementAt(j).getBeschreibung());
 			baugruppeTable.setText(j+1, 3, s1);
 			baugruppeTable.setText(j+1, 4, s2);
-			baugruppeTable.setText(j+1, 4, baugruppen.elementAt(j).getLetzterBearbeiter());
+			baugruppeTable.setText(j+1, 5, baugruppen.elementAt(j).getLetzterBearbeiter());
 
 			baugruppeTable.setWidget(j+1, 6, cb);
 			baugruppeTable.setWidget(j+1, 7, txtMenge);
