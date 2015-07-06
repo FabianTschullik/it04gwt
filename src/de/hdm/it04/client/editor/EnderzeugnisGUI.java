@@ -6,6 +6,8 @@ import java.util.Vector;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -17,10 +19,13 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -366,6 +371,7 @@ public class EnderzeugnisGUI {
 		enderzeugnisseTable.setText(0, 6, "letzter Bearbeiter");
 		enderzeugnisseTable.setText(0, 7, "Bearbeiten");
 		enderzeugnisseTable.setText(0, 8, "Löschen");
+		enderzeugnisseTable.setText(0, 9, "Zuordnungdetails");
 
 		/**
 		 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem
@@ -460,6 +466,59 @@ public class EnderzeugnisGUI {
 
 				}
 			});
+			
+			
+			Button btnZuordnungDetails = new Button("Zuordnungdetails");
+			btnZuordnungDetails.addClickHandler(new ClickHandler(){
+				
+					public void onClick(ClickEvent event) {
+						Cell cell = enderzeugnisseTable.getCellForEvent(event);
+
+						int rowIndex = cell.getRowIndex();
+						String id1 = enderzeugnisseTable.getText(rowIndex, 0);
+						int id = Integer.parseInt(id1);
+	
+						sms.getEnderzeugnis(id,new AsyncCallback<Vector<Enderzeugnis>>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								
+								
+							}
+
+							@Override
+							public void onSuccess(Vector<Enderzeugnis> result) {
+								ez = result.firstElement();
+								int id = ez.getBaugruppe();
+								sms.getBaugruppeForZuordnungDetails(id, 
+										new AsyncCallback<Vector<Baugruppe>>(){
+
+									@Override
+									public void onFailure(Throwable caught) {
+										// TODO Auto-generated method stub
+										
+									}
+
+									@Override
+									public void onSuccess(Vector<Baugruppe> result) {
+										ContentContainer.getInstance().setContent(
+												new EnderzeugnisGUI()
+														.tree(result));
+										
+										
+									}
+									
+								});
+								
+								
+							}
+							
+						});	
+				}
+			}
+			
+				
+			);
 
 			/**
 			 * Formatiert Timestamp zu String
@@ -494,6 +553,7 @@ public class EnderzeugnisGUI {
 			enderzeugnisseTable.setText(j + 1, 6, user);
 			enderzeugnisseTable.setWidget(j + 1, 7, btnBearbeiten);
 			enderzeugnisseTable.setWidget(j + 1, 8, btnLoeschen);
+			enderzeugnisseTable.setWidget(j+1, 9, btnZuordnungDetails);
 
 			/**
 			 * Verknuepfung zu style.css
@@ -516,4 +576,104 @@ public class EnderzeugnisGUI {
 		return vPanel;
 
 	}
+
+
+public Widget tree(Vector<Baugruppe> baugruppe){
+		Baugruppe[] bg = new Baugruppe[baugruppe.size()];
+		baugruppe.copyInto(bg);
+	
+	
+		TreeItem root = new TreeItem();
+	
+		root.setUserObject(ez);
+		root.setText(ez.getName());
+    
+		TreeItem sub = new TreeItem();
+		sub.setUserObject(bg[0]);
+		sub.setText(bg[0].getName());
+		root.addItem(sub);
+    
+    
+    
+    /*for(int i = 0; i< baugruppe.length; i++){
+    	//root.addTextItem(baugruppe[i].getName());
+    	TreeItem sub = new TreeItem();
+    	sub.setText(baugruppe[i].getName());
+    	for(int z = 0; z<baugruppe.length; z ++)
+    	sub.addTextItem(baugruppe[z].getName());
+    	root.addItem(sub);
+ }
+    
+   
+  		for(int i = 0; i< baugruppe.length; i++){
+    	sub.addTextItem(baugruppe[i].getName());
+	   	root.addItem(sub);
+ }*/
+    
+    	Tree t = new Tree();
+    	t.addSelectionHandler(new SelectionHandler<TreeItem>(){
+			
+			@Override
+			public void onSelection(SelectionEvent<TreeItem> event) {
+				 TreeItem selectedItem = event.getSelectedItem();
+					
+					
+					Object result = selectedItem.getUserObject();
+					if (result instanceof Baugruppe){
+						int id = ((Baugruppe) result).getId();
+						sms.getBaugruppe(id, new AsyncCallback<Vector<Baugruppe>>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Vector<Baugruppe> result) {
+								ContentContainer.getInstance().setContent(new BaugruppeGUI().showAnlegenForm(result.firstElement()));
+								
+							}
+						});
+					}
+					else if (result instanceof Enderzeugnis){
+						int id = ((Enderzeugnis) result).getId();
+						sms.getEnderzeugnis(id,
+								new AsyncCallback<Vector<Enderzeugnis>>() {
+
+									@Override
+									public void onFailure(Throwable caught) {
+										// TODO Auto-generated method stub
+
+									}
+
+									@Override
+									public void onSuccess(
+											Vector<Enderzeugnis> result) {
+
+										ContentContainer.getInstance().setContent(
+												new EnderzeugnisGUI()
+														.showAnlegenForm(result
+																.firstElement()));
+
+									}
+								});
+
+					}
+				
+				
+				}
+    		
+    		});
+    		t.addItem(root);
+
+    
+    
+    		this.vPanel.add(t);
+	
+	
+    	return this.vPanel;
+	
+	}
+
 }

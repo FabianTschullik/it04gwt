@@ -67,6 +67,7 @@ public interface It04gwtServiceAsync {
 		void getAllEnderzeugnisse(AsyncCallback<Vector<Enderzeugnis>> callback );	
 		void deleteEnderzeugnis(int id, AsyncCallback callback);
 		void updateEnderzeugnis(Enderzeugnis ez, AsyncCallback<Vector<Enderzeugnis>> callback);
+		void getBaugruppeForZuordnungDetails(int id,AsyncCallback<Vector<Baugruppe>> callback );
 		//------------------------------------------------------
 		//------------Ende Enderzeugnis---------------------------------
 		//------------------------------------------------------

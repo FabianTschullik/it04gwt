@@ -328,6 +328,11 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 		return BauteilMapper.bauteilMapper().delete(id);
 	}
+	
+	public Vector<Baugruppe> getBaugruppeForZuordnungDetails(int id){
+		return BaugruppeMapper.baugruppeMapper().findByKey(id);
+	}
+
 
 	// -----------------------------------------------------------------------------
 	// ----------------------------Ende
