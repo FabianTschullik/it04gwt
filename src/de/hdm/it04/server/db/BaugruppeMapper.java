@@ -109,7 +109,7 @@ public class BaugruppeMapper {
 				Baugruppe bg = new Baugruppe();
 				bg.setId(rs.getInt("id"));
 				bg.setName(rs.getString("name"));
-				bg.setLetzterBearbeiter("letzterBearbeiter");
+				bg.setLetzterBearbeiter(rs.getString("letzterBearbeiter"));
 				bg.setBeschreibung(rs.getString("beschreibung"));
 				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
