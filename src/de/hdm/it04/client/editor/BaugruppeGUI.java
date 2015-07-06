@@ -546,6 +546,7 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			
 			//if(Integer.parseInt(bauteileTable.getText(j+1, 0)) == ez.getBaugruppe()){
 			//	rb.setValue(true);
+			//
 			//}
 			
 			
