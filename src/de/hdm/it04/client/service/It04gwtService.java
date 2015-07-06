@@ -128,6 +128,7 @@ public interface It04gwtService extends RemoteService {
 	Vector <Enderzeugnis> getEnderzeugnis(String name);
 	Vector <Enderzeugnis> getEnderzeugnisForUpdate(int id);
 	Vector <Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez);
+	Vector <Baugruppe> getBaugruppeForZuordnungDetails(int id);
 	
 	
 	//---------------------------------------------------------------------------
