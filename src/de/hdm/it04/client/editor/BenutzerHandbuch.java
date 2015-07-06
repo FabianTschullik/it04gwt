@@ -1,7 +1,9 @@
 package de.hdm.it04.client.editor;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.media.client.Audio;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HTML;
@@ -10,20 +12,35 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class BenutzerHandbuch {
 	private VerticalPanel vPanel = new VerticalPanel();
+	DialogBox box = new DialogBox();
 	
 
-	public Widget load() {
-				
+	public Widget load() {		
+		
+		HTML html = new HTML(
+				"<h1>Hier finden Sie das Benutzerhandbuch: <h1> ");
+		
+		vPanel.add(html);
 		
 		Frame frame = new Frame(GWT.getModuleBaseURL()+"images/Benutzerhandbuch.pdf");
 
-		frame.setPixelSize(700, 700);
+		frame.setPixelSize(Window.getClientWidth()/2, 700);
+		vPanel.add(frame);
 		
-		HTML html = new HTML(
-				"<h1>Hier finden Sie das Benutzerhandbuch: <h1> "
-				+ "<img src='/it04gwt/war/background.jpg'>");
 		
-		return frame;
+		
+		box.add(vPanel);
+		
+		box.setGlassEnabled(true);
+		box.setAnimationEnabled(true);
+		
+		int left = Window.getClientWidth()/2;
+		int top = Window.getClientHeight()/2;
+		box.setPopupPosition(left, top);
+		
+		box.show();
+		
+		return box;
 		
 
 	}

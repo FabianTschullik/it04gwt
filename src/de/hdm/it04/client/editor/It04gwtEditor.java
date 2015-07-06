@@ -10,6 +10,7 @@ import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.media.client.Audio;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -28,7 +29,9 @@ import de.hdm.it04.shared.LoginInfo;
 	public class It04gwtEditor implements EntryPoint {
 		
 		Audio sound;
-public static String user;
+		public static String user;
+
+	
 		
 
 		
