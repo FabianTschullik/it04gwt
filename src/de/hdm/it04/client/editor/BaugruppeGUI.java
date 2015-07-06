@@ -128,7 +128,7 @@ public class BaugruppeGUI  {
 		this.bg = baugruppe;
 		txtName.setText(bg.getName());
 		txtBeschreibung.setText(bg.getBeschreibung());
-		
+		         
 		
 		// Create a table to layout the form options
 	  FlexTable layout = new FlexTable();
