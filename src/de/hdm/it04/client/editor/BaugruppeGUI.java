@@ -474,6 +474,10 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 		 */
 		for(int j=0; j < baugruppen.size(); j++ ){
 			
+			if (baugruppen.elementAt(j).getId() != bg.getId()) {
+				
+			
+			
 			final TextBox txtMenge = new TextBox();
 			txtMenge.setText("1");
 			
@@ -553,6 +557,9 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			baugruppeTable.getRowFormatter().addStyleName(0,  "watchListHeader");
 			baugruppeTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 			baugruppeTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
+			
+			}
+			
 		}	
 		
 		/**
@@ -648,6 +655,7 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 	baugruppeTable.setText(0,5,"letzter Bearbeiter");
 	baugruppeTable.setText(0,6,"Bearbeiten");
 	baugruppeTable.setText(0,7,"Löschen");
+	baugruppeTable.setText(0,8,"Zuordnungsdetails");
 	
 	/**
 	 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
