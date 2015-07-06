@@ -341,6 +341,7 @@ public class EnderzeugnisGUI {
 		});
 
 		// Add some standard form options
+		//
 		layout.setHTML(1, 0, "ID");
 		layout.setText(1, 1, Integer.toString(ez.getId()));
 		layout.setHTML(2, 0, "Name");
