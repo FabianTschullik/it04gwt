@@ -95,7 +95,7 @@ public class BaugruppeMapper {
 			// Statement ausfï¿½llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
+					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum, letzterBearbeiter FROM baugruppe "
 							+ "WHERE id=" + id);
 			/*
 			 * Da id Primarschlï¿½ssel ist, kann max. nur ein Tupel zurï¿½ckgegeben
@@ -109,6 +109,7 @@ public class BaugruppeMapper {
 				Baugruppe bg = new Baugruppe();
 				bg.setId(rs.getInt("id"));
 				bg.setName(rs.getString("name"));
+				bg.setLetzterBearbeiter("letzterBearbeiter");
 				bg.setBeschreibung(rs.getString("beschreibung"));
 				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
@@ -273,7 +274,7 @@ public class BaugruppeMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
+					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum, letzterBearbeiter FROM baugruppe "
 							+ " ORDER BY id");
 
 			// FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Baugruppen-Objekt
@@ -281,6 +282,7 @@ public class BaugruppeMapper {
 			while (rs.next()) {
 				Baugruppe bg = new Baugruppe();
 				bg.setId(rs.getInt("id"));
+				bg.setLetzterBearbeiter("letzterBearbeiter");
 				bg.setName(rs.getString("name"));
 				bg.setBeschreibung(rs.getString("beschreibung"));
 				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
@@ -314,7 +316,7 @@ public class BaugruppeMapper {
 			// Statement ausfï¿½llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
+					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum, letzterBearbeiter FROM baugruppe "
 							+ "WHERE name=" + "'" + name + "'");
 			/*
 			 * Da id Primarschlï¿½ssel ist, kann max. nur ein Tupel zurï¿½ckgegeben
@@ -328,6 +330,7 @@ public class BaugruppeMapper {
 				Baugruppe bg = new Baugruppe();
 				bg.setId(rs.getInt("id"));
 				bg.setName(rs.getString("name"));
+				bg.setName(rs.getString("letzterBearbeiter"));
 				bg.setBeschreibung(rs.getString("beschreibung"));
 				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));

@@ -91,7 +91,7 @@ public class EnderzeugnisMapper {
 			// Statement ausf�llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT baugruppe.id, baugruppe.name, baugruppe.beschreibung, baugruppe.erstellungsDatum, baugruppe.aenderungsDatum " + 
+					.executeQuery("SELECT baugruppe.id, baugruppe.name, baugruppe.beschreibung, baugruppe.letzterBearbeiter, baugruppe.erstellungsDatum, baugruppe.aenderungsDatum " + 
 							"FROM enderzeugnis, baugruppe " + 
 							"WHERE enderzeugnis.baugruppe = baugruppe.id " +
 							"AND enderzeugnis.id = " + id);
@@ -109,6 +109,7 @@ public class EnderzeugnisMapper {
 				Baugruppe bg = new Baugruppe();
 				bg.setId(rs.getInt("id"));
 				bg.setName(rs.getString("name"));
+				bg.setLetzterBearbeiter(rs.getString("letzterBearbeiter"));
 				bg.setBeschreibung(rs.getString("beschreibung"));
 				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
@@ -162,9 +163,11 @@ public class EnderzeugnisMapper {
 				
 
 				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
-				stmt.executeUpdate("INSERT INTO enderzeugnis (id, erstellungsDatum, aenderungsDatum) "
+				stmt.executeUpdate("INSERT INTO enderzeugnis (id, erstellungsDatum, aenderungsDatum, letzterBearbeiter) "
 						+ "VALUES ("
 						+ ez.getId()
+						+ ",'"
+						+ez.getLetzterBearbeiter()
 						+ ",'"
 						+ new Timestamp(date.getTime())
 						+ "','"
@@ -198,7 +201,7 @@ public class EnderzeugnisMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, preis, baugruppe, erstellungsDatum, aenderungsDatum, beschreibung FROM enderzeugnis "
+					.executeQuery("SELECT id, name, preis, baugruppe, erstellungsDatum, aenderungsDatum, letzterBearbeiter, beschreibung FROM enderzeugnis "
 							+ " ORDER BY id");
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt
@@ -207,6 +210,7 @@ public class EnderzeugnisMapper {
 				Enderzeugnis ez = new Enderzeugnis();
 				ez.setId(rs.getInt("id"));
 				ez.setName(rs.getString("name"));
+				ez.setLetzterBearbeiter(rs.getString("letzterBearbeiter"));
 				ez.setPreis(rs.getDouble("preis"));
 				ez.setBaugruppe(rs.getInt("baugruppe"));
 				ez.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
@@ -292,7 +296,7 @@ public class EnderzeugnisMapper {
 			// Statement ausf�llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, baugruppe, preis, erstellungsDatum, aenderungsDatum FROM enderzeugnis "
+					.executeQuery("SELECT id, name, beschreibung, baugruppe, preis, erstellungsDatum, aenderungsDatum, letzterBearbeiter FROM enderzeugnis "
 							+ "WHERE id=" + id);
 			/*
 			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
@@ -308,6 +312,7 @@ public class EnderzeugnisMapper {
 				bt.setName(rs.getString("name"));
 				bt.setBeschreibung(rs.getString("beschreibung"));
 				bt.setBaugruppe(rs.getInt("baugruppe"));
+				bt.setLetzterBearbeiter(rs.getString("letzterBearbeiter"));
 				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
@@ -340,7 +345,7 @@ public class EnderzeugnisMapper {
 			// Statement ausf�llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM enderzeugnis "
+					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum, letzterBearbeiter FROM enderzeugnis "
 							+ "WHERE name=" + "'" + name + "'");
 			/*
 			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
@@ -354,6 +359,7 @@ public class EnderzeugnisMapper {
 				Enderzeugnis ez = new Enderzeugnis();
 				ez.setId(rs.getInt("id"));
 				ez.setName(rs.getString("name"));
+				ez.setLetzterBearbeiter(rs.getString("letzterBearbeiter"));
 				ez.setBeschreibung(rs.getString("beschreibung"));
 				ez.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				ez.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));

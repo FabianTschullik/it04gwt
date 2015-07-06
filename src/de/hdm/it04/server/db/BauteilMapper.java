@@ -212,7 +212,7 @@ public class BauteilMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
+					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum, letzterBearbeiter FROM bauteil "
 							+ " ORDER BY id");
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt
@@ -222,6 +222,7 @@ public class BauteilMapper {
 				bt.setId(rs.getInt("id"));
 				bt.setName(rs.getString("name"));
 				bt.setBeschreibung(rs.getString("beschreibung"));
+				bt.setLetzterBearbeiter(rs.getString("letzterBearbeiter"));
 				bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
 				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
@@ -263,7 +264,7 @@ public class BauteilMapper {
 			// Statement ausf�llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
+					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum, letzterBearbeiter FROM bauteil "
 							+ "WHERE name=" + "'" + name + "'");
 			/*
 			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
@@ -279,6 +280,7 @@ public class BauteilMapper {
 				bt.setName(rs.getString("name"));
 				bt.setBeschreibung(rs.getString("beschreibung"));
 				bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
+				bt.setLetzterBearbeiter(rs.getString("letzterBearbeiter"));
 				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
