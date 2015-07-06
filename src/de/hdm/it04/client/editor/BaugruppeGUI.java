@@ -171,6 +171,41 @@ public class BaugruppeGUI  {
 			}
 		});
 		
+		Button btnAbbrechen = new Button("Abbrechen");
+		btnAbbrechen.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				sms.deleteBaugruppe(bg.getId(), new AsyncCallback() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						new AlertGUI()
+								.load("Baugruppe konnte nicht gelöscht werden",
+										"red");
+
+					}
+
+					@Override
+					public void onSuccess(Object result) {
+						new AlertGUI().load("Vorgang wurde erfolgreich abgebrochen",
+								"green");
+						
+					}
+
+					
+					
+					
+					
+				});
+				
+				ContentContainer.getInstance().setContent(new Welcome().load());
+				
+
+			}
+		});
+
+		
 	
 		
 		
@@ -183,9 +218,8 @@ public class BaugruppeGUI  {
 	  layout.setWidget(2, 1, txtName);
 	  layout.setHTML(3, 0, "Beschreibung");
 	  layout.setWidget(3, 1, txtBeschreibung);
-	 
 	  layout.setWidget(5, 0, btnSpeichern);
-	
+	  layout.setWidget(5, 1, btnAbbrechen);
 	  
 
 	  // Wrap the content in a DecoratorPanel

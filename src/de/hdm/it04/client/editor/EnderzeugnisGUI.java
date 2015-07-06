@@ -311,9 +311,31 @@ Window.alert(ez.getLetzterBearbeiter());
 
 			@Override
 			public void onClick(ClickEvent event) {
+				sms.deleteEnderzeugnis(ez.getId(), new AsyncCallback() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						new AlertGUI()
+								.load("Baugruppe konnte nicht gelöscht werden",
+										"red");
+
+					}
+
+					@Override
+					public void onSuccess(Object result) {
+						new AlertGUI().load("Vorgang wurde erfolgreich abgebrochen",
+								"green");
+						
+					}
+
+					
+					
+					
+					
+				});
+				
 				ContentContainer.getInstance().setContent(new Welcome().load());
-				new AlertGUI().load("Vorgang wurde erfolgreich abgebrochen",
-						"green");
+				
 
 			}
 		});
