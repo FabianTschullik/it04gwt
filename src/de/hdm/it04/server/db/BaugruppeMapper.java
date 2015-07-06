@@ -11,12 +11,13 @@ import java.sql.Timestamp;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
+import de.hdm.it04.shared.TeileListe;
 
 /**
  * Mapper-Klasse, die <code>Baugruppe</code>-Objekte auf eine relationale
- * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
+ * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur VerfÃ¼gung
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
+ * gelÃ¶scht werden kÃ¶nnen. Das Mapping ist bidirektional. D.h., Objekte kÃ¶nnen
  * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  */
 public class BaugruppeMapper {
@@ -24,16 +25,16 @@ public class BaugruppeMapper {
 	/**
 	 * Die Klasse BaugruppeMapper wird nur einmal instantiiert. Man spricht
 	 * hierbei von einem sogenannten <b>Singleton</b>. Hierbei kann global auf
-	 * das Objekt über die Instanzoperation zugegriffen werden.
+	 * das Objekt Ã¼ber die Instanzoperation zugegriffen werden.
 	 * <p>
 	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
-	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
+	 * fÃ¼r sÃ¤mtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
 	 * speichert die einzige Instanz dieser Klasse.
 	 */
 	private static BaugruppeMapper baugruppeMapper = null;
 
 	/**
-	 * Geschützter Konstruktor - verhindert die Möglichkeit, mit
+	 * GeschÃ¼tzter Konstruktor - verhindert die MÃ¶glichkeit, mit
 	 * <code>new</code> neue Instanzen dieser Klasse zu erzeugen.
 	 */
 	protected BaugruppeMapper() {
@@ -42,7 +43,7 @@ public class BaugruppeMapper {
 	/**
 	 * Diese statische Methode kann aufgrufen werden durch
 	 * <code>BaugruppeMapper.baugruppeMapper()</code>. Sie stellt die
-	 * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine
+	 * Singleton-Eigenschaft sicher, indem Sie dafÃ¼r sorgt, dass nur eine
 	 * einzige Instanz von <code>BaugruppeMapper</code> existiert.
 	 * <p>
 	 * 
@@ -62,18 +63,18 @@ public class BaugruppeMapper {
 
 	/**
 	 * Suchen einer Baugruppe mit vorgegebener id. Da diese eindeutig ist, wird
-	 * genau ein Vektor-Objekt zurückgegeben.
+	 * genau ein Vektor-Objekt zurÃ¼ckgegeben.
 	 * 
-	 * Warum Vektor? Da im späteren Verlauf die Methode findByKey und findByName
-	 * zusammen geführt werden. So ist es möglich über das Suchfeld per Name und
-	 * id zusuchen. Der Vektor ist notwendig, da der Name nicht als primär
-	 * Schlüssel gekennzeichnet ist. Daher können auch mehrere Ergebnise zurück
-	 * gegeben werden. Der Vektor ist für die findByKey Methode im prinzip nicht
+	 * Warum Vektor? Da im spÃ¤teren Verlauf die Methode findByKey und findByName
+	 * zusammen gefÃ¼hrt werden. So ist es mÃ¶glich Ã¼ber das Suchfeld per Name und
+	 * id zusuchen. Der Vektor ist notwendig, da der Name nicht als primÃ¤r
+	 * SchlÃ¼ssel gekennzeichnet ist. Daher kÃ¶nnen auch mehrere Ergebnise zurÃ¼ck
+	 * gegeben werden. Der Vektor ist fÃ¼r die findByKey Methode im prinzip nicht
 	 * notwendig.
 	 * 
 	 * @param id
-	 *            Primärschlüsselattribut (->DB)
-	 * @return Konto-Objekt-Vektor, das dem übergebenen Schlüssel entspricht,
+	 *            PrimÃ¤rschlÃ¼sselattribut (->DB)
+	 * @return Konto-Objekt-Vektor, das dem Ã¼bergebenen SchlÃ¼ssel entspricht,
 	 *         null bei nicht vorhandenem DB-Tupel.
 	 */
 	
@@ -91,14 +92,14 @@ public class BaugruppeMapper {
 
 			Statement stmt = con.createStatement();
 
-			// Statement ausf�llen und als Query an die DB schicken
+			// Statement ausfï¿½llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
 					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
 							+ "WHERE id=" + id);
 			/*
-			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
-			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+			 * Da id Primarschlï¿½ssel ist, kann max. nur ein Tupel zurï¿½ckgegeben
+			 * werden. Prï¿½fe, ob ein Ergebnis vorliegt.
 			 */
 
 			while (rs.next()) {
@@ -144,7 +145,7 @@ public class BaugruppeMapper {
 
 			Statement stmt = con.createStatement();
 
-			// Statement ausf�llen und als Query an die DB schicken
+			// Statement ausfï¿½llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
 					.executeQuery("SELECT bauteil.id, bauteil.name, bauteil.materialBezeichnung,"
@@ -156,8 +157,8 @@ public class BaugruppeMapper {
 							
 							
 			/*
-			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
-			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+			 * Da id Primarschlï¿½ssel ist, kann max. nur ein Tupel zurï¿½ckgegeben
+			 * werden. Prï¿½fe, ob ein Ergebnis vorliegt.
 			 */
 
 			if (rs.next()) {
@@ -186,13 +187,13 @@ public class BaugruppeMapper {
 
 	
 	/**
-	 * Einfügen eines <code>Baugruppen</code>-Objekts in die Datenbank. Dabei wird
-	 * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
+	 * EinfÃ¼gen eines <code>Baugruppen</code>-Objekts in die Datenbank. Dabei wird
+	 * auch der PrimÃ¤rschlÃ¼ssel des Ã¼bergebenen Objekts geprÃ¼ft und ggf.
 	 * berichtigt.
 	 * 
 	 * @param bt
 	 *            das zu speichernde Objekt
-	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+	 * @return das bereits Ã¼bergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>id</code>.
 	 */
 	public Baugruppe insert() {
@@ -204,23 +205,23 @@ public class BaugruppeMapper {
 			Statement stmt = con.createStatement();
 
 			/*
-			 * Zun�chst schauen wir nach, welches der momentan h�chste
-			 * Prim�rschl�sselwert ist.
+			 * Zunï¿½chst schauen wir nach, welches der momentan hï¿½chste
+			 * Primï¿½rschlï¿½sselwert ist.
 			 */
 			ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
 					+ "FROM baugruppe ");
 
-			// Wenn wir etwas zur�ckerhalten, kann dies nur einzeilig sein
+			// Wenn wir etwas zurï¿½ckerhalten, kann dies nur einzeilig sein
 			if (rs.next()) {
 				/*
-				 * bt erh�lt den bisher maximalen, nun um 1 inkrementierten
-				 * Prim�rschl�ssel.
+				 * bt erhï¿½lt den bisher maximalen, nun um 1 inkrementierten
+				 * Primï¿½rschlï¿½ssel.
 				 */
 				bg.setId(rs.getInt("maxid") + 1);
 
 				stmt = con.createStatement();
 
-				// Aktuelle Zeit f�r Timestamp erstellungsDatum, aenderungsDatum
+				// Aktuelle Zeit fï¿½r Timestamp erstellungsDatum, aenderungsDatum
 				// holen
 
 				Date date = new Date();
@@ -229,7 +230,7 @@ public class BaugruppeMapper {
 				bg.setAenderungsDatum(timestamp);
 				bg.setErstellungsDatum(timestamp);
 
-				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
+				// Jetzt erst erfolgt die tatsï¿½chliche Einfï¿½geoperation
 				stmt.executeUpdate("INSERT INTO baugruppe (id, erstellungsDatum, aenderungsDatum) "
 						+ "VALUES ("
 						+ bg.getId()
@@ -243,14 +244,14 @@ public class BaugruppeMapper {
 		}
 
 		/*
-		 * R�ckgabe, der evtl. korrigierten Baugruppe.
+		 * Rï¿½ckgabe, der evtl. korrigierten Baugruppe.
 		 * 
 		 * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-		 * Objekte �bergeben werden, w�re die Anpassung des Bauteil-Objekts auch
-		 * ohne diese explizite R�ckgabe au�erhalb dieser Methode sichtbar. Die
-		 * explizite R�ckgabe von be ist eher ein Stilmittel, um zu
+		 * Objekte ï¿½bergeben werden, wï¿½re die Anpassung des Bauteil-Objekts auch
+		 * ohne diese explizite Rï¿½ckgabe auï¿½erhalb dieser Methode sichtbar. Die
+		 * explizite Rï¿½ckgabe von be ist eher ein Stilmittel, um zu
 		 * signalisieren, dass sich das Objekt evtl. im Laufe der Methode
-		 * ver�ndert hat.
+		 * verï¿½ndert hat.
 		 */
 		return bg;
 	}
@@ -258,9 +259,9 @@ public class BaugruppeMapper {
 	/**
 	 * Auslesen aller Bauteile.
 	 * 
-	 * @return Ein Vektor mit Bauteil-Objekten, die sämtliche Bauteile
-	 *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
-	 *         oder ggf. auch leerer Vetor zurückgeliefert.
+	 * @return Ein Vektor mit Bauteil-Objekten, die sÃ¤mtliche Bauteile
+	 *         reprÃ¤sentieren. Bei evtl. Exceptions wird ein partiell gefÃ¼llter
+	 *         oder ggf. auch leerer Vetor zurÃ¼ckgeliefert.
 	 */
 	public Vector<Baugruppe> findAll() {
 		Connection con = DbConnection.connection();
@@ -275,7 +276,7 @@ public class BaugruppeMapper {
 					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
 							+ " ORDER BY id");
 
-			// Für jeden Eintrag im Suchergebnis wird nun ein Baugruppen-Objekt
+			// FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Baugruppen-Objekt
 			// erstellt.
 			while (rs.next()) {
 				Baugruppe bg = new Baugruppe();
@@ -285,14 +286,14 @@ public class BaugruppeMapper {
 				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
-				// Hinzufügen des neuen Objekts zum Ergebnisvektor
+				// HinzufÃ¼gen des neuen Objekts zum Ergebnisvektor
 				result.addElement(bg);
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
-		// Ergebnisvektor zurückgeben
+		// Ergebnisvektor zurÃ¼ckgeben
 		return result;
 	}
 
@@ -310,14 +311,14 @@ public class BaugruppeMapper {
 
 			Statement stmt = con.createStatement();
 
-			// Statement ausf�llen und als Query an die DB schicken
+			// Statement ausfï¿½llen und als Query an die DB schicken
 
 			ResultSet rs = stmt
 					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
 							+ "WHERE name=" + "'" + name + "'");
 			/*
-			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
-			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+			 * Da id Primarschlï¿½ssel ist, kann max. nur ein Tupel zurï¿½ckgegeben
+			 * werden. Prï¿½fe, ob ein Ergebnis vorliegt.
 			 */
 
 			while (rs.next()) {
@@ -345,7 +346,7 @@ public class BaugruppeMapper {
 	 * 
 	 * @param bg
 	 *            das Objekt, das in die DB geschrieben werden soll
-	 * @return das als Parameter übergebene Objekt
+	 * @return das als Parameter Ã¼bergebene Objekt
 	 */
 	public Vector<Baugruppe> updateBaugruppe(Baugruppe bg) {
 
@@ -381,7 +382,7 @@ public class BaugruppeMapper {
 			updateZwischentabelleBaugruppeBaugruppe (bg.connectedBaugruppen.get(i).getId(), bg.connectedBaugruppen.get(i).getAnzahl(), bg.getId());
 		}
 		
-		// Um Analogie zu insert(Baugruppe bg) zu wahren, geben wir bg zurück
+		// Um Analogie zu insert(Baugruppe bg) zu wahren, geben wir bg zurÃ¼ck
 		return result;
 	}
 
@@ -398,8 +399,8 @@ public void updateZwischentabelleBauteilBaugruppe(int bauteilID, int anzahl, int
 			Statement stmt = con.createStatement();
 					
 			/*
-			 * Zun�chst schauen wir nach, welches der momentan h�chste
-			 * Prim�rschl�sselwert ist.
+			 * Zunï¿½chst schauen wir nach, welches der momentan hï¿½chste
+			 * Primï¿½rschlï¿½sselwert ist.
 			 */
 
 			ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
@@ -412,8 +413,8 @@ public void updateZwischentabelleBauteilBaugruppe(int bauteilID, int anzahl, int
 				
 				
 				/*
-				 * bt erh�lt den bisher maximalen, nun um 1 inkrementierten
-				 * Prim�rschl�ssel.
+				 * bt erhï¿½lt den bisher maximalen, nun um 1 inkrementierten
+				 * Primï¿½rschlï¿½ssel.
 				 */
 
 				int bgbt = rs.getInt("maxid") + 1;
@@ -422,7 +423,7 @@ public void updateZwischentabelleBauteilBaugruppe(int bauteilID, int anzahl, int
 				//stmt = con.createStatement();
 
 
-				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
+				// Jetzt erst erfolgt die tatsï¿½chliche Einfï¿½geoperation
 				stmt.executeUpdate("INSERT INTO bauteilBaugruppe (id, bauteil, anzahl, baugruppe) "
 						+ "VALUES ("
 						+ bgbt
@@ -451,8 +452,8 @@ public void updateZwischentabelleBaugruppeBaugruppe(int uebergeordneteBaugruppeI
 		Statement stmt = con.createStatement();
 				
 		/*
-		 * Zun�chst schauen wir nach, welches der momentan h�chste
-		 * Prim�rschl�sselwert ist.
+		 * Zunï¿½chst schauen wir nach, welches der momentan hï¿½chste
+		 * Primï¿½rschlï¿½sselwert ist.
 		 */
 
 		ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
@@ -465,8 +466,8 @@ public void updateZwischentabelleBaugruppeBaugruppe(int uebergeordneteBaugruppeI
 			
 			
 			/*
-			 * bt erh�lt den bisher maximalen, nun um 1 inkrementierten
-			 * Prim�rschl�ssel.
+			 * bt erhï¿½lt den bisher maximalen, nun um 1 inkrementierten
+			 * Primï¿½rschlï¿½ssel.
 			 */
 
 			int bgbg = rs.getInt("maxid") + 1;
@@ -475,7 +476,7 @@ public void updateZwischentabelleBaugruppeBaugruppe(int uebergeordneteBaugruppeI
 			//stmt = con.createStatement();
 
 
-			// Jetzt erst erfolgt die tats�chliche Einf�geoperation
+			// Jetzt erst erfolgt die tatsï¿½chliche Einfï¿½geoperation
 			stmt.executeUpdate("INSERT INTO baugruppeBaugruppe (id, uebergeordneteBaugruppe, untergeordneteBaugruppe, anzahl) "
 					+ "VALUES ("
 					+ bgbg
@@ -528,7 +529,7 @@ public Baugruppe getBaugruppeDetails(int id) {
 					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
 							+ " WHERE id = "+id);
 
-			// Für jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt
+			// FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt
 			// erstellt.
 			while (rs.next()) {
 				Baugruppe bg = new Baugruppe();
@@ -549,19 +550,63 @@ public Baugruppe getBaugruppeDetails(int id) {
 		
 	}
 
+public Vector<TeileListe> findByKeyZwischentabelle(int id) {
+
+	// DB-Verbindung holen
+	Connection con = DbConnection.connection();
+
+	// Ergebnisvektor vorbereiten
+	Vector<TeileListe> list = new Vector<TeileListe>();
+
+	try {
+
+		// Leeres SQL-Statement (JDBC) anlegen
+
+		Statement stmt = con.createStatement();
+
+		// Statement ausf�llen und als Query an die DB schicken
+
+		ResultSet rs = stmt
+				.executeQuery("SELECT id, bauteil, anzahl FROM bauteilBaugruppe "
+						+ "WHERE baugruppe=" + id);
+		/*
+		 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
+		 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+		 */
+
+		while (rs.next()) {
+
+			// Ergebnis-Tupel in Objekt umwandeln
+
+			TeileListe tl = new TeileListe();
+			tl.setId(rs.getInt("bauteil"));
+			tl.setAnzahl(rs.getInt("anzahl"));
+			
+
+
+			list.add(tl);
+		}
+
+	} catch (SQLException e2) {
+		e2.printStackTrace();
+		return null;
+	}
+	return list;
+}
+
 
 
 
 
 
 /**
- * Einfügen eines <code>Baugruppen</code>-Objekts in die Datenbank. Dabei wird
- * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
+ * EinfÃ¼gen eines <code>Baugruppen</code>-Objekts in die Datenbank. Dabei wird
+ * auch der PrimÃ¤rschlÃ¼ssel des Ã¼bergebenen Objekts geprÃ¼ft und ggf.
  * berichtigt.
  * 
  * @param bt
  *            das zu speichernde Objekt
- * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+ * @return das bereits Ã¼bergebene Objekt, jedoch mit ggf. korrigierter
  *         <code>id</code>.
  */
 private void insertBauteil(Baugruppe bg, Bauteil bt) {
@@ -572,24 +617,24 @@ private void insertBauteil(Baugruppe bg, Bauteil bt) {
 		Statement stmt = con.createStatement();
 
 		/*
-		 * Zun�chst schauen wir nach, welches der momentan h�chste
-		 * Prim�rschl�sselwert ist.
+		 * Zunï¿½chst schauen wir nach, welches der momentan hï¿½chste
+		 * Primï¿½rschlï¿½sselwert ist.
 		 */
 		ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
 				+ "FROM bauteilBaugruppe ");
 
-		// Wenn wir etwas zur�ckerhalten, kann dies nur einzeilig sein
+		// Wenn wir etwas zurï¿½ckerhalten, kann dies nur einzeilig sein
 		if (rs.next()) {
 			/*
-			 * bt erh�lt den bisher maximalen, nun um 1 inkrementierten
-			 * Prim�rschl�ssel.
+			 * bt erhï¿½lt den bisher maximalen, nun um 1 inkrementierten
+			 * Primï¿½rschlï¿½ssel.
 			 */
 			bg.setId(rs.getInt("maxid") + 1);
 
 			stmt = con.createStatement();
 
 
-			// Jetzt erst erfolgt die tats�chliche Einf�geoperation
+			// Jetzt erst erfolgt die tatsï¿½chliche Einfï¿½geoperation
 			stmt.executeUpdate("INSERT INTO bauteilBaugruppe (bauteil, baugruppe) "
 					+ "VALUES ("
 					+ bt.getId()

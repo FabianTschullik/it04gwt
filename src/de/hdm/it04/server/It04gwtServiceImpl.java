@@ -12,6 +12,7 @@ import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Benutzer;
 import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.LoginInfo;
+import de.hdm.it04.shared.TeileListe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -277,6 +278,24 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 		return BaugruppeMapper.baugruppeMapper().findByKey(id);
 	}
+	
+public Vector<Bauteil> getBauteilZwischenTabelle(int id) {
+		
+		Vector<TeileListe> list = new Vector<TeileListe>();
+		
+		list = BaugruppeMapper.baugruppeMapper().findByKeyZwischentabelle(id);
+		Vector<Bauteil> btl = new Vector<Bauteil>();
+		
+		for(int i=0; i <list.size(); i++){
+			Vector<Bauteil> bt = new Vector<Bauteil>();
+			int id1;
+			id1= list.elementAt(i).getId();
+			bt = BauteilMapper.bauteilMapper().findByKey(id1);
+			btl.add(bt.firstElement());
+		}		
+		
+		return btl;
+}
 
 	// -----------------------------------------------------------------------------
 	// ----------------------------Ende

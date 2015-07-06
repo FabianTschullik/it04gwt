@@ -6,6 +6,8 @@ import java.util.Vector;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -18,8 +20,11 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLTable.Cell;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -27,6 +32,7 @@ import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.TeileListe;
 
 
@@ -43,6 +49,7 @@ public class BaugruppeGUI  {
 	static Baugruppe bg;
 	FlexTable baugruppeTable = new FlexTable();
 	FlexTable bauteileTable = new FlexTable();
+	public TreeItem root = new TreeItem();
 	
 	CheckBox cb = new CheckBox();
 	TextBox txtMenge = new TextBox();
@@ -802,6 +809,42 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 				
 			}
 		});
+		
+		Button btnZuordnungDetails = new Button("Zuordnungdetails");
+		btnZuordnungDetails.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Cell cell = baugruppeTable.getCellForEvent(event);
+				int rowIndex = cell.getRowIndex();
+				String id1 = baugruppeTable.getText(rowIndex, 0);
+				int id = Integer.parseInt(id1);
+				
+				sms.getBaugruppe(id, new AsyncCallback<Vector<Baugruppe>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Baugruppe> result) {
+						
+						
+						bg = result.firstElement();
+						tree (bg);
+						
+						
+					}
+				});
+				
+			}
+		});
+			
+				
+		
+		
 			/**
 		 * Formatiert Timestamp zu String
 		 */
@@ -831,6 +874,7 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 		 */
 		baugruppeTable.setWidget(j+1, 6, btnBearbeiten );
 		baugruppeTable.setWidget(j+1, 7, btnLoeschen);
+		baugruppeTable.setWidget(j+1, 8, btnZuordnungDetails);
 		
 		/**
 		 * Verknuepfung zu style.css
@@ -847,6 +891,120 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 	this.vPanel.add(baugruppeTable);
 	return vPanel;
 	
+}
+
+public Widget tree(Baugruppe bauguppe){
+	
+	
+	
+	//Bauteil[] bt = new Bauteil[bauteil.size()];
+	//bauteil.copyInto(bt);
+	
+	//Label lbl = new Label(Integer.toString(bt.length));
+	//this.vPanel.add(lbl);
+	
+	
+	TeileListe [] tl = new TeileListe[bg.connectedBaugruppen.size()];
+	bg.connectedBaugruppen.copyInto(tl);
+    
+    Window.alert("Bla: " + tl.length);
+    
+   
+    	
+    	for(int i=0; i<3;i++){
+    		
+    		root.setText(bg.getName());
+    	    TreeItem sub = new TreeItem();
+    		sub.setText("Hallo");
+    		root.addItem(sub);
+    		
+    		/*
+    		sms.getBaugruppe(bg.connectedBaugruppen.elementAt(i).getId(), new AsyncCallback<Vector<Baugruppe>>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onSuccess(Vector<Baugruppe> result) {
+					TreeItem sub = new TreeItem();
+					sub.setText(result.firstElement().getName());
+					root.addItem(sub);
+				}
+			});
+    		*/
+    		
+    	}
+    	
+    
+    
+    /*
+    for(int i = 0; i<bt.length;i++){
+    	TreeItem sub = new TreeItem();
+    	sub.setUserObject(bt[i]);
+    	sub.setText(bt[i].getName());
+    	root.addItem(sub);
+    }
+    */
+    
+   /* TreeItem sub = new TreeItem();
+    sub.setUserObject(bt[0]);
+    sub.setText(bt[0].getName());
+    root.addItem(sub);*/
+    
+    
+    
+    /*for(int i = 0; i< baugruppe.length; i++){
+    	//root.addTextItem(baugruppe[i].getName());
+    	TreeItem sub = new TreeItem();
+    	sub.setText(baugruppe[i].getName());
+    	for(int z = 0; z<baugruppe.length; z ++)
+    	sub.addTextItem(baugruppe[z].getName());
+    	root.addItem(sub);
+ }
+    
+   
+  		for(int i = 0; i< baugruppe.length; i++){
+    	sub.addTextItem(baugruppe[i].getName());
+	   	root.addItem(sub);
+ }*/
+    
+    	Tree t = new Tree();
+    	t.addSelectionHandler(new SelectionHandler<TreeItem>(){
+			
+			@Override
+			public void onSelection(SelectionEvent<TreeItem> event) {
+				 TreeItem selectedItem = event.getSelectedItem();
+					
+					
+					Object result = selectedItem.getUserObject();
+					if (result instanceof Baugruppe){
+						int id = ((Baugruppe) result).getId();
+						//sms.getBaugruppeForUpdate(id);
+					}
+					else if (result instanceof Bauteil){
+						int id = ((Bauteil) result).getId();
+						//sms.getBauteilForUpdate(id);
+					}
+						else{
+						
+						
+				}
+				
+				
+			}
+    		
+    	});
+    	t.addItem(root);
+
+    
+    
+    	this.vPanel.add(t);
+	
+	
+	return this.vPanel;
 }
 
 
