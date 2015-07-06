@@ -164,11 +164,9 @@ public class EnderzeugnisMapper {
 				ez.setErstellungsDatum(timestamp);
 
 				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
-				stmt.executeUpdate("INSERT INTO enderzeugnis (id, letzterBearbeiter, erstellungsDatum, aenderungsDatum) "
+				stmt.executeUpdate("INSERT INTO enderzeugnis (id, erstellungsDatum, aenderungsDatum) "
 						+ "VALUES ('"
 						+ ez.getId()
-						+ "','"
-						+ez.getLetzterBearbeiter()
 						+ "','"
 						+ new Timestamp(date.getTime())
 						+ "','"
