@@ -128,7 +128,6 @@ public class BaugruppeGUI  {
 		txtBeschreibung.setText(bg.getBeschreibung());
 		
 		
-		
 		// Create a table to layout the form options
 	  FlexTable layout = new FlexTable();
 	  layout.setCellSpacing(6);
@@ -269,6 +268,7 @@ public class BaugruppeGUI  {
 			public void onClick(ClickEvent event) {
 				
 				
+				fuelleTeileListe(bauteileTable);
 				sms.getAllBaugruppen(new AsyncCallback<Vector<Baugruppe>>() {
 
 					@Override
@@ -290,53 +290,6 @@ public class BaugruppeGUI  {
 		});
 		
 		
-		/*
-		Button btnZuordnung = new Button("weiter");
-		btnZuordnung.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				
-				//TeileListe in den Vektor speichern
-				fuelleTeileListe(bauteileTable);
-				
-			
-				sms.updateBaugruppe(bg, new AsyncCallback<Vector<Baugruppe>>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						
-						
-					}
-
-					@Override
-					public void onSuccess(Vector<Baugruppe> result) {
-						sms.getAllBaugruppen(new AsyncCallback<Vector<Baugruppe>>() {
-
-							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							@Override
-							public void onSuccess(Vector<Baugruppe> result) {
-								ContentContainer.getInstance().setContent(new BaugruppeGUI().showZuordnungsFormForBaugruppen(result));
-								
-							}
-						});
-						
-						
-						
-						
-				
-						
-					}
-				});
-				vPanel.clear();
-			}
-		});
-		*/
 		this.vPanel.add(btnZuordnung);
 		
 		/**
@@ -422,7 +375,7 @@ public class BaugruppeGUI  {
 			bauteileTable.setWidget(j+1, 7, txtMenge);
 			
 			//if(Integer.parseInt(bauteileTable.getText(j+1, 0)) == ez.getBaugruppe()){
-			//	rb.setValue(true);
+				//rb.setValue(true);
 			//}
 			
 			
@@ -922,28 +875,44 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 
 public Widget tree(Baugruppe bauguppe){
 	
+	root.removeItems();
+	root.setText(bg.getName());
 	
 	
-	//Bauteil[] bt = new Bauteil[bauteil.size()];
-	//bauteil.copyInto(bt);
+ 	for(int i=0; i<bg.connectedBaugruppen.size();i++){
+		
+		
+		
+	    
+		sms.getBaugruppe(bg.connectedBaugruppen.elementAt(i).getId(), new AsyncCallback<Vector<Baugruppe>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Vector<Baugruppe> result) {
+				TreeItem sub = new TreeItem();
+				sub.setText(result.firstElement().getName());
+				root.addItem(sub);
+			}
+		});
+		
+		
+	}
 	
-	//Label lbl = new Label(Integer.toString(bt.length));
-	//this.vPanel.add(lbl);
 	
 	
+		
 	
-	//Window.alert("Bla: " + bg.connectedBauteile.size());
-    
     	
     	for(int i=0; i<bg.connectedBauteile.size();i++){
     		
     		
     		root.setText(bg.getName());
-    	    //TreeItem sub = new TreeItem();
-    		//sub.setText("Hallo");
-    		//root.addItem(sub);
-    		
-    		
+    	    
     		sms.getBauteil(bg.connectedBauteile.elementAt(i).getId(), new AsyncCallback<Vector<Bauteil>>() {
 
 				@Override

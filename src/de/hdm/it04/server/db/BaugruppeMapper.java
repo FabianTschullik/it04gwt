@@ -115,7 +115,8 @@ public class BaugruppeMapper {
 
 				result.add(bg);
 				
-				bg.connectedBauteile = findByKeyZwischentabelle(bg.getId());
+				bg.connectedBauteile = findConnectedBauteile(bg.getId());
+				bg.connectedBaugruppen = findConnectedBaugruppen(bg.getId());
 
 				return result;
 			}
@@ -132,7 +133,7 @@ public class BaugruppeMapper {
 	
 	
 	
-
+/*
 	public Vector<Bauteil> findConnectedBauteileByKey(int id) {
 
 		// DB-Verbindung holen
@@ -158,10 +159,7 @@ public class BaugruppeMapper {
 									"AND baugruppe.id=" + id);
 							
 							
-			/*
-			 * Da id Primarschlï¿½ssel ist, kann max. nur ein Tupel zurï¿½ckgegeben
-			 * werden. Prï¿½fe, ob ein Ergebnis vorliegt.
-			 */
+			
 
 			if (rs.next()) {
 
@@ -187,7 +185,7 @@ public class BaugruppeMapper {
 		return null;
 	}
 
-	
+*/
 	/**
 	 * EinfÃ¼gen eines <code>Baugruppen</code>-Objekts in die Datenbank. Dabei wird
 	 * auch der PrimÃ¤rschlÃ¼ssel des Ã¼bergebenen Objekts geprÃ¼ft und ggf.
@@ -343,6 +341,53 @@ public class BaugruppeMapper {
 		return result;
 	}
 
+	public void updateBauteilBaugruppe(int id, int anzahl){
+		
+		Connection con = DbConnection.connection();
+
+		try {			
+			// Leeres SQL-Statement (JDBC) anlegen
+			Statement stmt = con.createStatement();
+			
+			Date date = new Date();
+			new Timestamp(date.getTime());
+
+			
+			stmt.executeUpdate("UPDATE bauteilBaugruppe SET anzahl = '" + anzahl + "' " 
+					+ " WHERE id=" + id);
+			
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+public void updateBaugruppeBaugruppe(int id, int anzahl){
+		
+		Connection con = DbConnection.connection();
+
+		try {			
+			// Leeres SQL-Statement (JDBC) anlegen
+			Statement stmt = con.createStatement();
+			
+			Date date = new Date();
+			new Timestamp(date.getTime());
+
+			
+			stmt.executeUpdate("UPDATE baugruppeBaugruppe SET anzahl = '" + anzahl + "' " 
+					+ " WHERE id=" + id);
+			
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+	}
+	
+	
+	
+	
 	/**
 	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
 	 * 
@@ -376,12 +421,34 @@ public class BaugruppeMapper {
 		}
 		
 		
+		
 		for(int i=0; i<bg.connectedBauteile.size(); i++){
-			updateZwischentabelleBauteilBaugruppe (bg.connectedBauteile.get(i).getId(), bg.connectedBauteile.get(i).getAnzahl(), bg.getId());
+			
+			int id = prüfeObBtBgVorhanden(bg.connectedBauteile.get(i).getId(), bg.getId());
+			
+			if(id == 0){
+				insertZwischentabelleBauteilBaugruppe (bg.connectedBauteile.get(i).getId(), bg.connectedBauteile.get(i).getAnzahl(), bg.getId());
+			}
+			else{
+				updateBauteilBaugruppe(id, bg.connectedBauteile.get(i).getAnzahl());
+			}
+			
+			
 		}
 		
 		for(int i=0; i<bg.connectedBaugruppen.size(); i++){
-			updateZwischentabelleBaugruppeBaugruppe (bg.connectedBaugruppen.get(i).getId(), bg.connectedBaugruppen.get(i).getAnzahl(), bg.getId());
+			
+			int id = prüfeObBgBgVorhanden(bg.getId(), bg.connectedBaugruppen.get(i).getId());
+			
+
+			if(id == 0){
+				insertZwischentabelleBaugruppeBaugruppe (bg.getId(), bg.connectedBaugruppen.get(i).getId(), bg.connectedBaugruppen.get(i).getAnzahl());
+			}
+			else{
+				updateBaugruppeBaugruppe(id, bg.connectedBaugruppen.get(i).getAnzahl());
+			}
+			
+			
 		}
 		
 		// Um Analogie zu insert(Baugruppe bg) zu wahren, geben wir bg zurÃ¼ck
@@ -390,10 +457,84 @@ public class BaugruppeMapper {
 
 	
 	
+	public int prüfeObBtBgVorhanden(int bauteilID, int baugruppeID){
+		
+		 int id = 0;
+		
+		Connection con = DbConnection.connection();
+		
+		try {
+			Statement stmt = con.createStatement();
+					
+			/*
+			 * Zunï¿½chst schauen wir nach, welches der momentan hï¿½chste
+			 * Primï¿½rschlï¿½sselwert ist.
+			 */
+			ResultSet rs = stmt.executeQuery("SELECT id "
+					+ "FROM bauteilBaugruppe WHERE bauteil = '" + bauteilID
+					+ "' AND baugruppe = '" + baugruppeID + "'");
+			
+			
+			if (rs.next()==false) {
+			
+				id=0;
+			}
+			else{
+				id = rs.getInt("id");
+			}
+			
+		
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return id;
+	}
 	
 	
 	
-public void updateZwischentabelleBauteilBaugruppe(int bauteilID, int anzahl, int baugruppeID){
+	
+public int prüfeObBgBgVorhanden(int uebergeordneteBaugruppeID,int untergeordneteBaugruppeID){
+		
+		int id = 0;
+		
+		Connection con = DbConnection.connection();
+		
+		try {
+			Statement stmt = con.createStatement();
+					
+			/*
+			 * Zunï¿½chst schauen wir nach, welches der momentan hï¿½chste
+			 * Primï¿½rschlï¿½sselwert ist.
+			 */
+			ResultSet rs = stmt.executeQuery("SELECT id "
+					+ "FROM baugruppeBaugruppe WHERE uebergeordneteBaugruppe = '" + uebergeordneteBaugruppeID
+					+ "' AND untergeordneteBaugruppe = '" + untergeordneteBaugruppeID + "'");
+			
+			
+			
+			if (rs.next()==false) {
+				
+				id=0;
+			}
+			else{
+				id = rs.getInt("id");
+			}
+			
+		
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return id;
+	}
+	
+	
+public void insertZwischentabelleBauteilBaugruppe(int bauteilID, int anzahl, int baugruppeID){
 		
 		Connection con = DbConnection.connection();
 		
@@ -410,10 +551,7 @@ public void updateZwischentabelleBauteilBaugruppe(int bauteilID, int anzahl, int
 
 			
 			
-			if (rs.next()) {
-				  
-				
-				
+			if (rs.next()) {		
 				/*
 				 * bt erhï¿½lt den bisher maximalen, nun um 1 inkrementierten
 				 * Primï¿½rschlï¿½ssel.
@@ -446,7 +584,7 @@ public void updateZwischentabelleBauteilBaugruppe(int bauteilID, int anzahl, int
 
 
 
-public void updateZwischentabelleBaugruppeBaugruppe(int uebergeordneteBaugruppeID, int anzahl, int untergeordneteBaugruppeID){
+public void insertZwischentabelleBaugruppeBaugruppe(int uebergeordneteBaugruppeID, int untergeordneteBaugruppeID, int anzahl){
 	
 	Connection con = DbConnection.connection();
 	
@@ -485,9 +623,10 @@ public void updateZwischentabelleBaugruppeBaugruppe(int uebergeordneteBaugruppeI
 					+ ",'"
 					+ uebergeordneteBaugruppeID
 					+ "','"
-					+ anzahl
+					+ untergeordneteBaugruppeID
 					+ "','"
-					+ untergeordneteBaugruppeID + "')");
+					+ anzahl
+					+ "')");
 		}			
 	} catch (SQLException e) {
 		e.printStackTrace();
@@ -517,42 +656,9 @@ public void updateZwischentabelleBaugruppeBaugruppe(int uebergeordneteBaugruppeI
 		return ergebnis;
 	}
 	
-public Baugruppe getBaugruppeDetails(int id) {
-		
-		Connection con = DbConnection.connection();
 
-		// Ergebnisvektor vorbereiten
-		Baugruppe result = new Baugruppe();
-		
-		try {
-			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt
-					.executeQuery("SELECT id, name, beschreibung, erstellungsDatum, aenderungsDatum FROM baugruppe "
-							+ " WHERE id = "+id);
-
-			// FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt
-			// erstellt.
-			while (rs.next()) {
-				Baugruppe bg = new Baugruppe();
-				bg.setId(rs.getInt("id"));
-				bg.setName(rs.getString("name"));
-				bg.setBeschreibung(rs.getString("beschreibung"));
-				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
-				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
-				
-				result = bg;
-			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-		
-		
-		return result;
-		
-	}
-
-public Vector<TeileListe> findByKeyZwischentabelle(int id) {
+public Vector<TeileListe> findConnectedBauteile(int id) {
 
 	// DB-Verbindung holen
 	Connection con = DbConnection.connection();
@@ -571,10 +677,7 @@ public Vector<TeileListe> findByKeyZwischentabelle(int id) {
 		ResultSet rs = stmt
 				.executeQuery("SELECT id, bauteil, anzahl FROM bauteilBaugruppe "
 						+ "WHERE baugruppe=" + id);
-		/*
-		 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
-		 * werden. Pr�fe, ob ein Ergebnis vorliegt.
-		 */
+		
 
 		while (rs.next()) {
 
@@ -601,55 +704,49 @@ public Vector<TeileListe> findByKeyZwischentabelle(int id) {
 
 
 
-/**
- * EinfÃ¼gen eines <code>Baugruppen</code>-Objekts in die Datenbank. Dabei wird
- * auch der PrimÃ¤rschlÃ¼ssel des Ã¼bergebenen Objekts geprÃ¼ft und ggf.
- * berichtigt.
- * 
- * @param bt
- *            das zu speichernde Objekt
- * @return das bereits Ã¼bergebene Objekt, jedoch mit ggf. korrigierter
- *         <code>id</code>.
- */
-private void insertBauteil(Baugruppe bg, Bauteil bt) {
+public Vector<TeileListe> findConnectedBaugruppen(int id) {
+
+	// DB-Verbindung holen
 	Connection con = DbConnection.connection();
-	
+
+	// Ergebnisvektor vorbereiten
+	Vector<TeileListe> list = new Vector<TeileListe>();
 
 	try {
+
+		// Leeres SQL-Statement (JDBC) anlegen
+
 		Statement stmt = con.createStatement();
 
+		// Statement ausf�llen und als Query an die DB schicken
+
+		ResultSet rs = stmt
+				.executeQuery("SELECT id, anzahl, uebergeordneteBaugruppe, untergeordneteBaugruppe FROM baugruppeBaugruppe "
+						+ "WHERE uebergeordneteBaugruppe=" + id);
 		/*
-		 * Zunï¿½chst schauen wir nach, welches der momentan hï¿½chste
-		 * Primï¿½rschlï¿½sselwert ist.
+		 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
+		 * werden. Pr�fe, ob ein Ergebnis vorliegt.
 		 */
-		ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-				+ "FROM bauteilBaugruppe ");
 
-		// Wenn wir etwas zurï¿½ckerhalten, kann dies nur einzeilig sein
-		if (rs.next()) {
-			/*
-			 * bt erhï¿½lt den bisher maximalen, nun um 1 inkrementierten
-			 * Primï¿½rschlï¿½ssel.
-			 */
-			bg.setId(rs.getInt("maxid") + 1);
+		while (rs.next()) {
 
-			stmt = con.createStatement();
+			// Ergebnis-Tupel in Objekt umwandeln
+
+			TeileListe tl = new TeileListe();
+			tl.setId(rs.getInt("untergeordneteBaugruppe"));
+			tl.setAnzahl(rs.getInt("anzahl"));
+			
 
 
-			// Jetzt erst erfolgt die tatsï¿½chliche Einfï¿½geoperation
-			stmt.executeUpdate("INSERT INTO bauteilBaugruppe (bauteil, baugruppe) "
-					+ "VALUES ("
-					+ bt.getId()
-					+ ",'"
-					+ bg.getId() 
-					+ ")");
+			list.add(tl);
 		}
-	} catch (SQLException e) {
-		e.printStackTrace();
+
+	} catch (SQLException e2) {
+		e2.printStackTrace();
+		return null;
 	}
-
+	return list;
 }
-
 
 }
 

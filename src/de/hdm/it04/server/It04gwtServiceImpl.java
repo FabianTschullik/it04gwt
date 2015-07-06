@@ -283,7 +283,7 @@ public Vector<Bauteil> getBauteilZwischenTabelle(int id) {
 		
 		Vector<TeileListe> list = new Vector<TeileListe>();
 		
-		list = BaugruppeMapper.baugruppeMapper().findByKeyZwischentabelle(id);
+		list = BaugruppeMapper.baugruppeMapper().findConnectedBauteile(id);
 		Vector<Bauteil> btl = new Vector<Bauteil>();
 		
 		for(int i=0; i <list.size(); i++){
