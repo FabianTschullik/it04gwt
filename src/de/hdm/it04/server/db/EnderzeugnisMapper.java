@@ -8,6 +8,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Vector;
 
+import com.google.gwt.user.client.Window;
+
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
@@ -160,15 +162,14 @@ public class EnderzeugnisMapper {
 				
 				ez.setAenderungsDatum(timestamp);
 				ez.setErstellungsDatum(timestamp);
-				
 
 				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
-				stmt.executeUpdate("INSERT INTO enderzeugnis (id, erstellungsDatum, aenderungsDatum, letzterBearbeiter) "
-						+ "VALUES ("
+				stmt.executeUpdate("INSERT INTO enderzeugnis (id, letzterBearbeiter, erstellungsDatum, aenderungsDatum) "
+						+ "VALUES ('"
 						+ ez.getId()
-						+ ",'"
+						+ "','"
 						+ez.getLetzterBearbeiter()
-						+ ",'"
+						+ "','"
 						+ new Timestamp(date.getTime())
 						+ "','"
 						+ new Timestamp(date.getTime()) + "')");
