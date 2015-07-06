@@ -457,12 +457,14 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 
 					@Override
 					public void onFailure(Throwable caught) {
+						new AlertGUI().load("Baugruppe konnte nicht gespeichert werden", "red");
 						
 						
 					}
 
 					@Override
 					public void onSuccess(Vector<Baugruppe> result) {
+					new AlertGUI().load("Baugruppe wurde erfolgreich gespeichert", "green");
 				
 						
 						sms.getBaugruppe(bg.getId(), new AsyncCallback<Vector<Baugruppe>>() {
@@ -810,7 +812,8 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 						
 						
 						bg = result.firstElement();
-						tree (bg);
+						//tree (bg);
+						ContentContainer.getInstance().setContent(new TreeGUI().tree(bg));
 						
 						
 					}

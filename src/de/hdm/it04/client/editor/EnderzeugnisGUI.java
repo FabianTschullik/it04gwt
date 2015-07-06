@@ -155,7 +155,7 @@ public class EnderzeugnisGUI {
 
 			@Override
 			public void onClick(ClickEvent event) {
-Window.alert(ez.getLetzterBearbeiter());
+
 				sms.updateEnderzeugnis(ez,
 						new AsyncCallback<Vector<Enderzeugnis>>() {
 
