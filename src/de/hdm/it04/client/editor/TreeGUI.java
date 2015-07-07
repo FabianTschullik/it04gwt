@@ -40,7 +40,13 @@ public class TreeGUI {
 	public TreeGUI (){
 
 	}
-	
+	/**
+	 * Methode zum Speichern von allen Bauteilen und Baugruppen global, 
+	 * um einen Vereinfachten Zugriff auf die Bauteile und Baugruppen
+	 * zu erreichen.
+	 * @return: void
+	 * 
+	 */
 	private void getAllVectoren() {
 		
 		sms.getAll(new AsyncCallback<Vector<Bauteil>>(){
@@ -78,31 +84,25 @@ public class TreeGUI {
 							public void onSuccess(Vector<Enderzeugnis> result) {
 								allEz = result;
 								
-								
 							}
-							
 						});
-						
-						
-						
 					}
 				});
-				
 			}
-
 		});
-		
-		
-		
-		
-		
 						
-	
 	}
 	
-	
-
-	
+	/**
+	 * Rekursive Methode, welche die Tree Elemente setzt 
+	 * und miteinander zu einem Tree zusammen fügt
+	 * @param baugruppe: Baugruppe von der wir jeweils
+	 * die unteren Baugruppen und Bauteile dem Baum hinzufügen wollen
+	 * @param anzahl : Anzahl in welcher Menge ein Bauteil oder eine
+	 * Baugruppe benötigt wird
+	 * @return TreeItem, welches immer dem vorherigen TreeItem hinzugefügt
+	 * über return
+	 */
 	public TreeItem treerek(Baugruppe baugruppe, int anzahl){
 		Vector<TeileListe> stueckliste= baugruppe.connectedBaugruppen;
 		TreeItem sub = new TreeItem();
@@ -110,23 +110,20 @@ public class TreeGUI {
 		if(stueckliste.isEmpty()){
 			stueckliste = baugruppe.connectedBauteile;
 			for(int i = 0; i<stueckliste.size();i++){
-				for(int j = 0; j<allBt.size(); j++)
+				for(int j = 0; j<allBt.size(); j++){
 					if(stueckliste.elementAt(i).getId() == allBt.elementAt(j).getId()){
 						TreeItem root = new TreeItem();
 						root.setText(allBt.elementAt(j).getName()+ "[" + Integer.toString(stueckliste.elementAt(i).getAnzahl())+"]");
 						root.setUserObject(allBt.elementAt(j));
 						sub.addItem(root);
-						
-						
-						
-						
 					}
+				}
 			}
 			sub.setText(baugruppe.getName() + "[" + Integer.toString(anzahl) + "]");
 			sub.setUserObject(baugruppe);
 			return sub;
-				
 		}
+		
 		sub.setText(baugruppe.getName() + "[" + Integer.toString(anzahl) + "]");
 		sub.setUserObject(baugruppe);
 			
@@ -138,7 +135,6 @@ public class TreeGUI {
 						//sub.addItem(root);
 						int anz = stueckliste.elementAt(i).getAnzahl();
 						 sub.addItem(treerek(allBg.elementAt(j),anz));
-						
 					}
 				}
 				
@@ -147,6 +143,7 @@ public class TreeGUI {
 			if(stueckliste.isEmpty()){
 				return sub;
 			}
+			
 			else {
 				for(int i = 0; i<stueckliste.size();i++){
 					for(int j = 0; j<allBt.size(); j++){
@@ -159,32 +156,22 @@ public class TreeGUI {
 						}
 					}
 				}
-			
 			}
 			
-		
-			
-		
 		return sub;
 	}
 	
 	
-	
+	/**
+	 * Methode, die den Tree erstellt mit Selektion Handler
+	 * @return Widget
+	 */
 	
 	
 	public Widget tree(){
 		
 		getAllVectoren();
-		
-		
-		
-
-		/*VerticalPanel vPanel= new VerticalPanel();
-		for(int i = 0; i<allEz.size(); i++){
-			Label lbl = new Label(allEz.elementAt(i).getName());
-			vPanel.add(lbl);
-		}*/
-		
+	
 		Baugruppe baugruppe = new Baugruppe();
 		 
 		for (int i = 0; i<allEz.size(); i++){
@@ -197,39 +184,25 @@ public class TreeGUI {
 					baugruppe = allBg.elementAt(j);
 					int anzahl= 1;
 					root.addItem(treerek(baugruppe, anzahl));
-					
 				}
 			}
 			
 			t.addItem(root);
-			
 		}
-		
-		
-		//int anzahl = 1;
-		//t.addItem(treerek(baugruppe,anzahl));
-		
-		
-		
-		
-
-		
 		
     	t.addSelectionHandler(new SelectionHandler<TreeItem>(){
 			
 			@Override
 			public void onSelection(SelectionEvent<TreeItem> event) {
 					TreeItem selectedItem = event.getSelectedItem();
-					
-					
 					Object result = selectedItem.getUserObject();
+					
 					if (result instanceof Baugruppe){
 						Baugruppe bg = new Baugruppe();
 						bg = (Baugruppe) result;
 						Vector<Baugruppe> bguebergabe = new Vector<Baugruppe>();
 						bguebergabe.add(bg);
 						ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(bguebergabe));
-						
 					}
 					else if (result instanceof Bauteil){
 						Bauteil bt = new Bauteil();
@@ -237,8 +210,6 @@ public class TreeGUI {
 						Vector<Bauteil> btuebergabe = new Vector<Bauteil>();
 						btuebergabe.add(bt);
 						ContentContainer.getInstance().setContent(new BauteilGUI().showAllBauteile(btuebergabe));
-						
-						
 					}
 						else if(result instanceof Enderzeugnis){
 							Enderzeugnis ez = new Enderzeugnis();
@@ -246,85 +217,10 @@ public class TreeGUI {
 							Vector<Enderzeugnis> ezuebergabe = new Vector<Enderzeugnis>();
 							ezuebergabe.add(ez);
 							ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showAllEnderzeugnisse(ezuebergabe));
-							
+						}
 				}
-				
-				
-			}
-    		
     	});
-    	
-    	
     	return t;
-    	
-		
-    /*	//root.removeItems();
-    	root.setText(bg.getName());
-    	t.addItem(root);
-    	
-    	
-    	for(int i=0; i<bg.connectedBaugruppen.size(); i++){
-    		
-    		sms.getBaugruppe(bg.connectedBaugruppen.elementAt(i).getId(), new AsyncCallback<Vector<Baugruppe>>() {
-
-    			@Override
-    			public void onFailure(Throwable caught) {
-    				// TODO Auto-generated method stub
-    				
-    			}
-
-    			@Override
-    			public void onSuccess(Vector<Baugruppe> result) {
-    				
-    				addNextBaugruppe(result.firstElement());
-    					
-    			}
-    		});
-    		
-    		                                
-    		
-    	}
-    	
-    	
-    	return t;	*/
-	
-	
-}
-	
-	
-	private void addNextBaugruppe(Baugruppe bg){
-		
-		//final TreeItem parent = new TreeItem();
-		
-		for(int i=0; i<bg.connectedBaugruppen.size();i++){
-    		
-    		sms.getBaugruppe(bg.connectedBaugruppen.elementAt(i).getId(), new AsyncCallback<Vector<Baugruppe>>() {
-
-    			@Override
-    			public void onFailure(Throwable caught) {
-    				// TODO Auto-generated method stub
-    				
-    			}
-
-    			@Override
-    			public void onSuccess(Vector<Baugruppe> result) {
-    				
-    				
-    				//addChildItem(parent, result.firstElement().getName());
-    					
-    			}
-    		});
-    		
-    		
-    	}
 	}
-	
-	
-	
-	private void addChildItem(TreeItem parent, String label) {
-		    TreeItem section = parent.addTextItem(label);
-		    }
-
-	
 	
 }
