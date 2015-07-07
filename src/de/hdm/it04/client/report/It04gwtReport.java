@@ -22,11 +22,13 @@ import de.hdm.it04.shared.LoginInfo;
 /**
  * Die Klasse It04gwtEditor ist die Entry Point Klasse fuer den Editor und
  * definiert <code>onModuleLoad()</code>.
+ * 
  * @author Schwab, Tschullik
  */
 public class It04gwtReport implements EntryPoint {
-	
-	// TODO #05: add constants for OAuth2 (don't forget to update GOOGLE_CLIENT_ID)
+
+	// TODO #05: add constants for OAuth2 (don't forget to update
+	// GOOGLE_CLIENT_ID)
 	private static final Auth AUTH = Auth.get();
 	private static final String GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth";
 	private static final String GOOGLE_CLIENT_ID = "184594870148-srbcc60r0u9hfevtrtsoq47it8rt6dgp.apps.googleusercontent.com";
@@ -41,16 +43,19 @@ public class It04gwtReport implements EntryPoint {
 	// TODO #06:> end
 
 	/**
-	 * The message displayed to the user when the server cannot be reached or returns an error.
+	 * The message displayed to the user when the server cannot be reached or
+	 * returns an error.
 	 */
 	private static final String SERVER_ERROR = "An error occurred while "
 			+ "attempting to contact the server. Please check your network "
 			+ "connection and try again.";
 
 	/**
-	 * Create a remote service proxy to talk to the server-side Greeting service.
+	 * Create a remote service proxy to talk to the server-side Greeting
+	 * service.
 	 */
-	private final It04gwtServiceAsync greetingService = GWT.create(It04gwtService.class);
+	private final It04gwtServiceAsync greetingService = GWT
+			.create(It04gwtService.class);
 
 	// TODO #07: add helper methods for Login, Logout and AuthRequest
 
@@ -67,47 +72,58 @@ public class It04gwtReport implements EntryPoint {
 	}
 
 	private void addGoogleAuthHelper() {
-		final AuthRequest req = new AuthRequest(GOOGLE_AUTH_URL, GOOGLE_CLIENT_ID)
-				.withScopes(PLUS_ME_SCOPE);
+		final AuthRequest req = new AuthRequest(GOOGLE_AUTH_URL,
+				GOOGLE_CLIENT_ID).withScopes(PLUS_ME_SCOPE);
 		AUTH.login(req, new Callback<String, Throwable>() {
 			@Override
 			public void onSuccess(final String token) {
 
 				if (!token.isEmpty()) {
-					greetingService.loginDetails(token, new AsyncCallback<LoginInfo>() {
-						@Override
-						public void onFailure(final Throwable caught) {
-							GWT.log("loginDetails -> onFailure");
-						}
-
-						@Override
-						public void onSuccess(final LoginInfo loginInfo) {
-							signInLink.setText(loginInfo.getName());
-							nameField.setText(loginInfo.getName());
-							signInLink.setStyleName("login-area");
-							loginImage.setUrl(loginInfo.getPictureUrl());
-							loginImage.setVisible(false);
-							loginPanel.add(loginImage);
-							loginImage.addLoadHandler(new LoadHandler() {
+					greetingService.loginDetails(token,
+							new AsyncCallback<LoginInfo>() {
 								@Override
-								public void onLoad(final LoadEvent event) {
-									final int newWidth = 24;
-									final com.google.gwt.dom.client.Element element = event
-											.getRelativeElement();
-									if (element.equals(loginImage.getElement())) {
-										final int originalHeight = loginImage.getOffsetHeight();
-										final int originalWidth = loginImage.getOffsetWidth();
-										if (originalHeight > originalWidth) {
-											loginImage.setHeight(newWidth + "px");
-										} else {
-											loginImage.setWidth(newWidth + "px");
-										}
-										loginImage.setVisible(true);
-									}
+								public void onFailure(final Throwable caught) {
+									GWT.log("loginDetails -> onFailure");
+								}
+
+								@Override
+								public void onSuccess(final LoginInfo loginInfo) {
+									signInLink.setText(loginInfo.getName());
+									nameField.setText(loginInfo.getName());
+									signInLink.setStyleName("login-area");
+									loginImage.setUrl(loginInfo.getPictureUrl());
+									loginImage.setVisible(false);
+									loginPanel.add(loginImage);
+									loginImage
+											.addLoadHandler(new LoadHandler() {
+												@Override
+												public void onLoad(
+														final LoadEvent event) {
+													final int newWidth = 24;
+													final com.google.gwt.dom.client.Element element = event
+															.getRelativeElement();
+													if (element.equals(loginImage
+															.getElement())) {
+														final int originalHeight = loginImage
+																.getOffsetHeight();
+														final int originalWidth = loginImage
+																.getOffsetWidth();
+														if (originalHeight > originalWidth) {
+															loginImage
+																	.setHeight(newWidth
+																			+ "px");
+														} else {
+															loginImage
+																	.setWidth(newWidth
+																			+ "px");
+														}
+														loginImage
+																.setVisible(true);
+													}
+												}
+											});
 								}
 							});
-						}
-					});
 				}
 			}
 
@@ -120,50 +136,49 @@ public class It04gwtReport implements EntryPoint {
 
 	// TODO #07:> end
 
-	
-	  /**
-	   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
-	   * zusichert, benötigen wir eine Methode
-	   * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
-	   * <code>main()</code>-Methode normaler Java-Applikationen.
-	   */
-		public void onModuleLoad() {
-			
-			// TODO #08: create login controls
-			
+	/**
+	 * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
+	 * zusichert, benötigen wir eine Methode
+	 * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
+	 * <code>main()</code>-Methode normaler Java-Applikationen.
+	 */
+	public void onModuleLoad() {
 
-			signInLink.getElement().setClassName("login-area");
-			signInLink.setTitle("sign out");
-			loginImage.getElement().setClassName("login-area");
-			loginPanel.add(signInLink);
-			RootPanel.get("loginPanelContainer").add(loginPanel);
-			final StringBuilder userEmail = new StringBuilder();
-			greetingService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
-				@Override
-				public void onFailure(final Throwable caught) {
-					GWT.log("login -> onFailure");
-				}
+		// TODO #08: create login controls
 
-				@Override
-				public void onSuccess(final LoginInfo result) {
-					if (result.getName() != null && !result.getName().isEmpty()) {
-						addGoogleAuthHelper();
-						loadLogout(result);
-						GWT.getHostPageBaseURL();
-						
-						RootPanel.get("header").add(new MenuFormReport());
-						
-						RootPanel.get("content").add(new Welcome().load());
-					
-						
-					} else {
-						loadLogin(result);
+		signInLink.getElement().setClassName("login-area");
+		signInLink.setTitle("sign out");
+		loginImage.getElement().setClassName("login-area");
+		loginPanel.add(signInLink);
+		RootPanel.get("loginPanelContainer").add(loginPanel);
+		final StringBuilder userEmail = new StringBuilder();
+		greetingService.login(GWT.getHostPageBaseURL(),
+				new AsyncCallback<LoginInfo>() {
+					@Override
+					public void onFailure(final Throwable caught) {
+						GWT.log("login -> onFailure");
 					}
-					userEmail.append(result.getEmailAddress());
-				}
-			});
-			// TODO #08:> end
-			
-			;
-		}
+
+					@Override
+					public void onSuccess(final LoginInfo result) {
+						if (result.getName() != null
+								&& !result.getName().isEmpty()) {
+							addGoogleAuthHelper();
+							loadLogout(result);
+							GWT.getHostPageBaseURL();
+
+							RootPanel.get("header").add(new MenuFormReport());
+
+							RootPanel.get("content").add(new Welcome().load());
+
+						} else {
+							loadLogin(result);
+						}
+						userEmail.append(result.getEmailAddress());
+					}
+				});
+		// TODO #08:> end
+
+		;
+	}
 }

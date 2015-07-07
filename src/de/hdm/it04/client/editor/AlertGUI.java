@@ -10,16 +10,26 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Die Klasse AlertGUI stellt ein Panel fuer das Anzeigen von Statusmeldungen bereit. 
+ * Die Klasse AlertGUI stellt ein Panel fuer das Anzeigen von Statusmeldungen
+ * bereit.
  * 
  * @author Tschullik
  *
  */
 
-public class AlertGUI  {
+public class AlertGUI {
+
+	/**
+	 * Methode die augerufen wird, wenn ein Alert erstellt wird. Diese Methode
+	 * hat keinen Rückgabewert, da das erstellte Panel dem RootPannel
+	 * hinzugefügt wird.
+	 * 
+	 * @param text
+	 * @param color
+	 */
 
 	public void load(String text, String color) {
-		
+
 		RootPanel.get("alert").clear();
 		VerticalPanel vPanel = new VerticalPanel();
 		HorizontalPanel hPanel = new HorizontalPanel();
@@ -40,27 +50,31 @@ public class AlertGUI  {
 				lbl.setStyleName("alertGreen");
 			}
 		}
-		
+
+		/**
+		 * Widgets werden hinzugefuegt.
+		 */
+
 		hPanel.add(lbl);
-		
+
 		Button btn = new Button("Close");
 		btn.addClickHandler(new BtnClickHandler());
-		
+
 		vPanel.add(hPanel);
-		
+
 		hPanel.add(btn);
 		vPanel.add(hPanel);
-		
+
 		RootPanel.get("alert").add(vPanel);
-		
+
 	}
-	
+
 	public class BtnClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			
-			RootPanel.get("alert").clear();			
+
+			RootPanel.get("alert").clear();
 		}
 	}
 }

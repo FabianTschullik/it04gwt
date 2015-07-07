@@ -59,7 +59,7 @@ public class BaugruppeGUI {
 
 	/**
 	 * Formular zum Suchen von Baugruppen per Name oder ID
-	 *  
+	 * 
 	 * @return vPanel
 	 */
 
@@ -186,9 +186,9 @@ public class BaugruppeGUI {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						new AlertGUI().load(
-								"Baugruppe konnte nicht gelöscht werden",
-								"red");
+						new AlertGUI()
+								.load("Baugruppe konnte nicht gelöscht werden",
+										"red");
 					}
 
 					@Override
