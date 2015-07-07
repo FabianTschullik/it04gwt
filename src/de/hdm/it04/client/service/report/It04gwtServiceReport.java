@@ -9,6 +9,9 @@ import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Enderzeugnis;
 
 /**
+ * Das Interface It04gwtServiceReport wird von der Klasse It04gwtServiceReportImpl implementiert.
+ * Es enthält alle Methoden, die auf der Serverseite für die Erstellung der Reports vorhanden sein müssen. 
+ * Das Interface wird für die RPCs benötigt.
  * @author Schwab
  *
  */
