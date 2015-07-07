@@ -16,6 +16,8 @@ import de.hdm.it04.shared.Bauteil;
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
  * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
  * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ *  * @see BaugruppeMapper, EnderzeugnisMapper, BenutzerMapper
+ * @author Maehler, Voelker, Thies
  */
 public class BauteilMapper {
 

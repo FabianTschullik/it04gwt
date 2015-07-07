@@ -17,8 +17,10 @@ import de.hdm.it04.shared.TeileListe;
  * Mapper-Klasse, die <code>Baugruppe</code>-Objekte auf eine relationale
  * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur VerfÃ¼gung
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gelÃ¶scht werden kÃ¶nnen. Das Mapping ist bidirektional. D.h., Objekte kÃ¶nnen
+ * gelÃ¶scht werden kÃ¶nnen. Das Mapping ist bidirektional. D.h., Objekte koennen
  * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ * @see BauteilMapper, EnderzeugnisMapper, BenutzerMapper
+ * @author Geier, Maehler, Voelker, Tschullik, Thies
  */
 public class BaugruppeMapper {
 
