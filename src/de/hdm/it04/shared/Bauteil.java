@@ -6,6 +6,7 @@ package de.hdm.it04.shared;
  * Die Klasse Bauteil repräsentiert ein Bauteil und ist im <code>shared</code> Package.
  * Da die Klasse von <code>Element</code> und <code>BusinessObject</code> erbt, 
  * enthält sie auch deren Attribute.
+ * @author Geier, Tschullik, Voelker
  */
 @SuppressWarnings("serial")
 public class Bauteil extends Element {

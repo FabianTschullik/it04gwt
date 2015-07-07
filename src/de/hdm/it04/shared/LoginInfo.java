@@ -5,6 +5,12 @@ package de.hdm.it04.shared;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Tschullik
+ *
+ */
+
 public class LoginInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
