@@ -20,6 +20,11 @@ import de.hdm.it04.client.service.report.It04gwtServiceReport;
 import de.hdm.it04.client.service.report.It04gwtServiceReportAsync;
 import de.hdm.it04.shared.Enderzeugnis;
 
+/**
+ * 
+ * @author Schwab
+ *
+ */
 
 public class MaterialbedarfGUI {
 	
@@ -37,7 +42,7 @@ public class MaterialbedarfGUI {
 	public Widget suchen(){
 		VerticalPanel vPanel = new VerticalPanel();
 		
-		txtSuchen.setText("id oder Name");
+		txtSuchen.setText("ID/Name Enderzeugnis");
 		vPanel.add(txtSuchen);
 		
 		Button btnSuchen = new Button("Suchen");

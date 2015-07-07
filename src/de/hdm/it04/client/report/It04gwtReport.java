@@ -27,10 +27,9 @@ import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.LoginInfo;
 
-
-
 	/**
 	 * Entry point classes define <code>onModuleLoad()</code>.
+	 * @author Schwab, Tschullik
 	 */
 public class It04gwtReport implements EntryPoint {
 	

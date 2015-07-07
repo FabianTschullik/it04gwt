@@ -23,7 +23,7 @@ import de.hdm.it04.shared.Bauteil;
 
 /**
  * 
- * @author 
+ * @author Schwab
  *
  */
 
@@ -42,7 +42,7 @@ public class StrukturstuecklisteGUI {
 	public Widget suchen(){
 		VerticalPanel vPanel = new VerticalPanel();
 		
-		txtSuchen.setText("id oder Name");
+		txtSuchen.setText("ID/Name Baugruppe");
 		vPanel.add(txtSuchen);
 		
 		Button btnSuchen = new Button("Suchen");

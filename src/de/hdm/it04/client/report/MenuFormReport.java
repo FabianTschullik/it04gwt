@@ -12,6 +12,12 @@ import de.hdm.it04.client.editor.Impressum;
 import de.hdm.it04.client.service.report.It04gwtServiceReport;
 import de.hdm.it04.client.service.report.It04gwtServiceReportAsync;
 
+/**
+ * 
+ * @author Schwab
+ *
+ */
+
 public class MenuFormReport extends HorizontalPanel {
 	private final It04gwtServiceReportAsync smsreport = GWT.create(It04gwtServiceReport.class);
 	AlertGUI alertGUI = new AlertGUI();

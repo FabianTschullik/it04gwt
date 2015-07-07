@@ -38,6 +38,8 @@ import java.util.Vector;
  * Diese Klasse wird benötigt, um die Kommunikation zwischen der Datenbank und
  * dem Client zu ermöglichen. Hierbei werden die Methoden der Mapper-Klasse
  * aufgerufen.
+ * 
+ * @author
  */
 public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		It04gwtService {
