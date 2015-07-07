@@ -707,7 +707,7 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 											
 						bg = result.firstElement();
 						//tree (bg);
-						ContentContainer.getInstance().setContent(new TreeGUI().tree(bg));				
+						ContentContainer.getInstance().setContent(new TreeGUI().tree());				
 					}
 				});			
 			}
