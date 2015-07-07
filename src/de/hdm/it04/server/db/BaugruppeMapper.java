@@ -130,63 +130,6 @@ public class BaugruppeMapper {
 	}
 	
 	
-	
-	
-	
-	
-/*
-	public Vector<Bauteil> findConnectedBauteileByKey(int id) {
-
-		// DB-Verbindung holen
-		Connection con = DbConnection.connection();
-
-		// Ergebnisvektor vorbereiten
-		Vector<Bauteil> result = new Vector<Bauteil>();
-
-		try {
-
-			// Leeres SQL-Statement (JDBC) anlegen
-
-			Statement stmt = con.createStatement();
-
-			// Statement ausfï¿½llen und als Query an die DB schicken
-
-			ResultSet rs = stmt
-					.executeQuery("SELECT bauteil.id, bauteil.name, bauteil.materialBezeichnung,"
-							+ " bauteil.beschreibung, bauteil.materialBezeichnung, bauteil.erstellungsDatum, bauteil.aenderungsDatum " +
-									"FROM bauteil, baugruppe, bauteilBaugruppe " +
-									"WHERE bauteil.id = bauteilBaugruppe.bauteil " +
-									"AND baugruppe.id = bauteilBaugruppe.baugruppe " +
-									"AND baugruppe.id=" + id);
-							
-							
-			
-
-			if (rs.next()) {
-
-				// Ergebnis-Tupel in Objekt umwandeln
-
-				Bauteil bt = new Bauteil();
-				bt.setId(rs.getInt("id"));
-				bt.setName(rs.getString("name"));
-				bt.setMaterialBezeichnung(rs.getString("materialBezeichnung"));
-				bt.setBeschreibung(rs.getString("beschreibung"));
-				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
-				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
-
-				result.add(bt);
-
-				return result;
-			}
-
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-			return null;
-		}
-		return null;
-	}
-
-*/
 	/**
 	 * EinfÃ¼gen eines <code>Baugruppen</code>-Objekts in die Datenbank. Dabei wird
 	 * auch der PrimÃ¤rschlÃ¼ssel des Ã¼bergebenen Objekts geprÃ¼ft und ggf.

@@ -250,11 +250,6 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		return BauteilMapper.bauteilMapper().findByKey(id);
 	}
 
-	public Vector<Bauteil> getBauteilForUpdate(int id) {
-
-		return BauteilMapper.bauteilMapper().findByKey(id);
-	}
-
 	/**
 	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
 	 * finden. Da mehrere Bauteile mit dem selben Namen existieren können, wird
@@ -379,11 +374,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		return BaugruppeMapper.baugruppeMapper().findAll();
 	}
 
-	@Override
-	public Vector<Baugruppe> getBaugruppeForUpdate(int id) {
-
-		return BaugruppeMapper.baugruppeMapper().findByKey(id);
-	}
+	
 	
 public Vector<Bauteil> getBauteilZwischenTabelle(int id) {
 		
@@ -428,12 +419,6 @@ public Vector<Bauteil> getBauteilZwischenTabelle(int id) {
 	public Vector<Enderzeugnis> getAllEnderzeugnisse() {
 
 		return EnderzeugnisMapper.enderzeugnisMapper().findAll();
-	}
-
-	@Override
-	public Vector<Enderzeugnis> getEnderzeugnisForUpdate(int id) {
-		// TODO Auto-generated method stub blabla
-		return null;
 	}
 
 	/**

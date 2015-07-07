@@ -7,10 +7,8 @@ import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.service.It04gwtService;
@@ -21,10 +19,9 @@ import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.TeileListe;
 
 /**
- * Die Klasse TreeGUI
+ *Die Klasse TreeGUI dient der Erstellung des dynamischen Tree 
  * 
  * @author Geier, Tschullik
- *
  */
 
 public class TreeGUI {
@@ -45,6 +42,9 @@ public class TreeGUI {
 	/**
 	 * Methode zum Speichern von allen Bauteilen und Baugruppen global, um einen
 	 * Vereinfachten Zugriff auf die Bauteile und Baugruppen zu erreichen.
+	 * Methode zum globalen Speichern von allen Bauteilen und Baugruppen, 
+	 * um einen vereinfachten Zugriff auf die Bauteile und Baugruppen
+	 * zu erreichen.
 	 * 
 	 * @return: void
 	 * 
@@ -178,6 +178,7 @@ public class TreeGUI {
 
 	/**
 	 * Methode, die den Tree erstellt mit Selektion Handler
+	 * Methode, die den Tree erstellt, mit Selektion-Handler
 	 * 
 	 * @return Widget
 	 */
@@ -238,5 +239,4 @@ public class TreeGUI {
 		});
 		return t;
 	}
-
 }

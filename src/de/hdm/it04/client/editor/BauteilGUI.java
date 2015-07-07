@@ -463,49 +463,6 @@ public Widget showAllBauteile(Vector<Bauteil> bauteile) {
 
 }
 
-
-
-
-
-
-
-
-
-
-/**
- * 
- * ClickHandler der Klasse BauteilGUI
- *
- */
-
-/**
- * ClickHandler zum Men�Button Anlegen
- * Es wird �ber createBauteil() ein leeres Bauteil erstellt
- * und an die GUI zur�ck gesendet an die Methode
- * Update(Bauteil bt)
- *
- */
-
-
-	
-	
-	
-	/**
-	 * ClickHandler zum Men�button Speichern
-	 * Wenn ein Bauteil angelegt oder ver�ndert wurde, 
-	 * wird das Bauteil in der DB aktualisiert �ber die Methode
-	 *  updateBauteil() (Client Impl)
-	 * Danach wird das Objekt, welches ver�ndert wurde durch die Methode
-	 * getBauteil(Bauteil bt) (BauteilGUI) auf der GUI sichtbar gemacht
-	 *
-	 */
-
-	
-	
-	
-
-
-				
   }
 
 

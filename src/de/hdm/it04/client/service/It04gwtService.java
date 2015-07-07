@@ -15,7 +15,7 @@ import de.hdm.it04.shared.LoginInfo;
  * Das Interface It04gwtService wird von der Klasse It04gwtServiceImpl implementiert.
  * Es enthält alle Methoden, die auf der Serverseite vorhanden sein müssen. 
  * Das Interface wird für die RPCs benötigt.
- * @author
+ * @author Geier, Maehler, Schwab, Tschullik, Voelker
  *
  */
 @RemoteServiceRelativePath("sms")
@@ -57,7 +57,6 @@ public interface It04gwtService extends RemoteService {
 	 * @return Vektor mit Bauteil-Objekten
 	 */
 	Vector<Bauteil> getBauteil(int id);
-	Vector<Bauteil> getBauteilForUpdate(int id);
 	
 	/**
 	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
@@ -111,7 +110,6 @@ public interface It04gwtService extends RemoteService {
 	String deleteBaugruppe(int id);
 	Vector <Baugruppe> getBaugruppe(int id);
 	Vector <Baugruppe> getBaugruppe(String name);
-	Vector <Baugruppe> getBaugruppeForUpdate(int id);
 	Vector <Baugruppe> getAllBaugruppen();
 //---------------------------------------------------------------------------
 //---------------------------Ende Baugruppe---------------------------------------
@@ -127,7 +125,6 @@ public interface It04gwtService extends RemoteService {
 	Vector <Enderzeugnis> getAllEnderzeugnisse();
 	Vector <Enderzeugnis> getEnderzeugnis(int id);
 	Vector <Enderzeugnis> getEnderzeugnis(String name);
-	Vector <Enderzeugnis> getEnderzeugnisForUpdate(int id);
 	Vector <Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez);
 	Vector <Baugruppe> getBaugruppeForZuordnungDetails(int id);
 	
