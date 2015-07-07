@@ -8,10 +8,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Vector;
 
-import com.google.gwt.user.client.Window;
-
 import de.hdm.it04.shared.Baugruppe;
-import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
 
 /**

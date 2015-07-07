@@ -1,16 +1,14 @@
 package de.hdm.it04.server.db;
 
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Vector;
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Vector;
 
 import de.hdm.it04.shared.Baugruppe;
-import de.hdm.it04.shared.Bauteil;
-import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.TeileListe;
 
 /**

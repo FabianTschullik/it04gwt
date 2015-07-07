@@ -3,14 +3,11 @@ package de.hdm.it04.client.service;
 import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
-import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.LoginInfo;
-import de.hdm.it04.client.service.It04gwtService;
 
 /**
  * Das asynchrone Gegenstück des Interface {@link It04gwtService}. Es wird

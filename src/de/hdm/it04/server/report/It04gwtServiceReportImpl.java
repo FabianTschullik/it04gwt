@@ -5,14 +5,13 @@ import java.util.Vector;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.it04.client.service.report.It04gwtServiceReport;
+import de.hdm.it04.client.service.report.It04gwtServiceReportAsync;
+import de.hdm.it04.server.It04gwtServiceImpl;
 import de.hdm.it04.server.db.BaugruppeMapper;
 import de.hdm.it04.server.db.EnderzeugnisMapper;
 import de.hdm.it04.shared.Baugruppe;
-import de.hdm.it04.shared.Enderzeugnis;
-import de.hdm.it04.server.It04gwtServiceImpl;
-import de.hdm.it04.client.service.report.It04gwtServiceReport;
-import de.hdm.it04.client.service.report.It04gwtServiceReportAsync;
 import de.hdm.it04.shared.Benutzer;
+import de.hdm.it04.shared.Enderzeugnis;
 
 /**
  * <p>
