@@ -9,7 +9,7 @@ import de.hdm.it04.shared.Enderzeugnis;
 /**
  * Interface für RPC: Alle Methoden die auf Serverseite vorhanden sind,
  * müssen hier gelistet werden, damit RPC funktioniert.
- * @author 
+ * @author Tschullik, Voelker
  */
 public interface It04gwtServiceClientInt {
 

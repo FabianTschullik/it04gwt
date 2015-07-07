@@ -15,7 +15,7 @@ import de.hdm.it04.shared.LoginInfo;
  * Das Interface It04gwtService wird von der Klasse It04gwtServiceImpl implementiert.
  * Es enthält alle Methoden, die auf der Serverseite vorhanden sein müssen. 
  * Das Interface wird für die RPCs benötigt.
- * @author
+ * @author Geier, Maehler, Schwab, Tschullik, Voelker
  *
  */
 @RemoteServiceRelativePath("sms")
