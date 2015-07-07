@@ -17,6 +17,7 @@ import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
+import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.TeileListe;
 
 public class TreeGUI {
@@ -28,6 +29,7 @@ public class TreeGUI {
 	
 	public static Vector<Bauteil> allBt;
 	public static Vector<Baugruppe> allBg;
+	public static Vector<Enderzeugnis> allEz;
 	
 	
 	public TreeGUI (){
@@ -78,11 +80,33 @@ public class TreeGUI {
 	
 	private void saveBg(Vector<Baugruppe> result) {
 		allBg = result;
+		sms.getAllEnderzeugnisse(new AsyncCallback<Vector<Enderzeugnis>>(){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Vector<Enderzeugnis> result) {
+				saveEz(result);
+				
+			}
+			
+		});
 
 		
 	}
 	
-	public TreeItem treerek(Baugruppe baugruppe){
+	public void saveEz(Vector<Enderzeugnis> result){
+		allEz = result;
+	}
+	
+	
+	
+	
+	public TreeItem treerek(Baugruppe baugruppe, int anzahl){
 		Vector<TeileListe> stueckliste= baugruppe.connectedBaugruppen;
 		TreeItem sub = new TreeItem();
 		
@@ -92,7 +116,8 @@ public class TreeGUI {
 				for(int j = 0; j<allBt.size(); j++)
 					if(stueckliste.elementAt(i).getId() == allBt.elementAt(j).getId()){
 						TreeItem root = new TreeItem();
-						root.setText(allBt.elementAt(j).getName());
+						root.setText(allBt.elementAt(j).getName()+ "[" + Integer.toString(stueckliste.elementAt(i).getAnzahl())+"]");
+						root.setUserObject(allBt.elementAt(j));
 						sub.addItem(root);
 						
 						
@@ -100,11 +125,13 @@ public class TreeGUI {
 						
 					}
 			}
-			sub.setText(baugruppe.getName());
+			sub.setText(baugruppe.getName() + "[" + Integer.toString(anzahl) + "]");
+			sub.setUserObject(baugruppe);
 			return sub;
 				
 		}
-		sub.setText(baugruppe.getName());
+		sub.setText(baugruppe.getName() + "[" + Integer.toString(anzahl) + "]");
+		sub.setUserObject(baugruppe);
 			
 			for(int i = 0; i<stueckliste.size();i++){
 				for(int j = 0; j<allBg.size(); j++){
@@ -112,11 +139,12 @@ public class TreeGUI {
 						//TreeItem root = new TreeItem();
 						//root.setText(allBg.elementAt(j).getName());
 						//sub.addItem(root);
-						
-						 sub.addItem(treerek(allBg.elementAt(j)));
+						int anz = stueckliste.elementAt(i).getAnzahl();
+						 sub.addItem(treerek(allBg.elementAt(j),anz));
 						
 					}
 				}
+				
 			}
 		
 			
@@ -126,25 +154,47 @@ public class TreeGUI {
 		return sub;
 	}
 	
+	
+	
+	
+	
 	public Widget tree(Baugruppe baugruppe){
 		
 		
 		
-		VerticalPanel vPanel= new VerticalPanel();
-		for(int i = 0; i<allBg.size(); i++){
-			Label lbl = new Label(allBg.elementAt(i).getName());
+		/*VerticalPanel vPanel= new VerticalPanel();
+		for(int i = 0; i<allEz.size(); i++){
+			Label lbl = new Label(allEz.elementAt(i).getName());
 			vPanel.add(lbl);
+		}*/
+		 
+		for (int i = 0; i<allEz.size(); i++){
+			TreeItem root = new TreeItem();
+			root.setText(allEz.elementAt(i).getName());
+			root.setUserObject(allEz.elementAt(i));
+			int id = allEz.elementAt(i).getBaugruppe();
+			for(int j = 0; j<allBg.size(); j++){
+				if(id == allBg.elementAt(j).getId()){
+					baugruppe = allBg.elementAt(j);
+					int anzahl= 1;
+					root.addItem(treerek(baugruppe, anzahl));
+					
+				}
+			}
+			
+			t.addItem(root);
+			
 		}
 		
 		
+		//int anzahl = 1;
+		//t.addItem(treerek(baugruppe,anzahl));
 		
-		t.addItem(treerek(baugruppe));
 		
 		
-		return t;
 		
-}
-		/*
+
+		
 		
     	t.addSelectionHandler(new SelectionHandler<TreeItem>(){
 			
@@ -155,14 +205,29 @@ public class TreeGUI {
 					
 					Object result = selectedItem.getUserObject();
 					if (result instanceof Baugruppe){
-						int id = ((Baugruppe) result).getId();
-						//sms.getBaugruppeForUpdate(id);
+						Baugruppe bg = new Baugruppe();
+						bg = (Baugruppe) result;
+						Vector<Baugruppe> bguebergabe = new Vector<Baugruppe>();
+						bguebergabe.add(bg);
+						ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(bguebergabe));
+						
 					}
 					else if (result instanceof Bauteil){
-						int id = ((Bauteil) result).getId();
-						//sms.getBauteilForUpdate(id);
+						Bauteil bt = new Bauteil();
+						bt = (Bauteil) result;
+						Vector<Bauteil> btuebergabe = new Vector<Bauteil>();
+						btuebergabe.add(bt);
+						ContentContainer.getInstance().setContent(new BauteilGUI().showAllBauteile(btuebergabe));
+						
+						
 					}
-						else{	
+						else if(result instanceof Enderzeugnis){
+							Enderzeugnis ez = new Enderzeugnis();
+							ez = (Enderzeugnis) result;
+							Vector<Enderzeugnis> ezuebergabe = new Vector<Enderzeugnis>();
+							ezuebergabe.add(ez);
+							ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showAllEnderzeugnisse(ezuebergabe));
+							
 				}
 				
 				
@@ -171,10 +236,10 @@ public class TreeGUI {
     	});
     	
     	
-    	
+    	return t;
     	
 		
-    	//root.removeItems();
+    /*	//root.removeItems();
     	root.setText(bg.getName());
     	t.addItem(root);
     	
@@ -205,7 +270,7 @@ public class TreeGUI {
     	return t;	*/
 	
 	
-	
+}
 	
 	
 	private void addNextBaugruppe(Baugruppe bg){
