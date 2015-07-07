@@ -617,7 +617,6 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 	 */
 	HTML topic = new HTML("<h2>Was wollen Sie mit der Baugruppe tun?</h2>");
 	this.vPanel.add(topic);
-		
 	this.vPanel.add(this.hPanel);	
 	
 	/**
