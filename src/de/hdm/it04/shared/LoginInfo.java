@@ -6,7 +6,7 @@ package de.hdm.it04.shared;
 import java.io.Serializable;
 
 /**
- * 
+ * Die Klasse LoginInfo wird fuer den Login benoetigt und ist im <code>shared</code> Package.
  * @author Tschullik
  *
  */

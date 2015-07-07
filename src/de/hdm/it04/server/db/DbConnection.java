@@ -16,6 +16,7 @@ import java.sql.DriverManager;
  * Datenbank-Verbindungen wäre sicherlich leistungsfähiger. Dies würde
  * allerdings den Rahmen dieses Projekts sprengen bzw. die Software unnötig
  * verkomplizieren, da dies für diesen Anwendungsfall nicht erforderlich ist.
+ * @author 
  */
 public class DbConnection {
 

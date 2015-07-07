@@ -8,9 +8,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.media.client.Audio;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -19,12 +17,13 @@ import com.google.gwt.user.client.ui.TextBox;
 
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
-import de.hdm.it04.shared.Benutzer;
 import de.hdm.it04.shared.LoginInfo;
 
 
 	/**
-	 * Entry point classes define <code>onModuleLoad()</code>.
+	 * Die Klasse It04gwtEditor ist die Entry Point Klasse fuer den Editor und
+	 * definiert <code>onModuleLoad()</code>.
+	 * @author Schwab, Tschullik
 	 */
 	public class It04gwtEditor implements EntryPoint {
 		

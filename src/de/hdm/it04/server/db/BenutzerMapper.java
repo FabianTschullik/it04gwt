@@ -1,5 +1,15 @@
 package de.hdm.it04.server.db;
+	
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Vector;
 
+import de.hdm.it04.shared.Baugruppe;
+import de.hdm.it04.shared.Benutzer;
+	
 /**
  * Mapper-Klasse, die <code>Bauteil</code>-Objekte auf eine relationale
  * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
@@ -10,20 +20,7 @@ package de.hdm.it04.server.db;
  * @author Maehler, Voelker, Thies
  */
 	
-	
-	import java.sql.Connection;
-import java.util.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Vector;
-import java.sql.Timestamp;
-
-import de.hdm.it04.shared.Baugruppe;
-import de.hdm.it04.shared.Bauteil;
-import de.hdm.it04.shared.Benutzer;
-	
-	public class BenutzerMapper {
+public class BenutzerMapper {
 		
 		/**
 		 * Die Klasse BenutzerMapper wird nur einmal instantiiert. Man spricht

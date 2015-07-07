@@ -35,6 +35,12 @@ import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.TeileListe;
 
+/**
+ * Die Klasse BaugruppeGUI ermöglicht es dem User, Baugruppen Objekte zu erstellen und zu verwalten.
+ * Hier wird das User Interface dafuer definiert. 
+ * @author Schwab, Tschullik, Voelker
+ *
+ */
 
 public class BaugruppeGUI  {
 	
@@ -75,14 +81,12 @@ public class BaugruppeGUI  {
 					int id = Integer.parseInt(bgSuche);
 					sms.getBaugruppe(id, new AsyncCallback<Vector<Baugruppe>>() {
 
-						public void onFailure(Throwable arg0) {
-									
+						public void onFailure(Throwable arg0) {				
 						}
 
 						
 						public void onSuccess(Vector<Baugruppe> result) {
-							ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));
-							
+							ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));		
 						}
 					});
 					
@@ -113,7 +117,6 @@ public class BaugruppeGUI  {
 	//----------------------------------------------------------------------------
 	public Widget showAnlegenForm(Baugruppe baugruppe){
 		
-		
 		this.bg = baugruppe;
 		txtName.setText(bg.getName());
 		txtBeschreibung.setText(bg.getBeschreibung());
@@ -143,14 +146,12 @@ public class BaugruppeGUI  {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
+						// TODO Auto-generated method stub	
 					}
 
 					@Override
 					public void onSuccess(Vector<Bauteil> result) {
-						ContentContainer.getInstance().setContent(new BaugruppeGUI().showZuordnungsFormForBauteile(result));
-						
+						ContentContainer.getInstance().setContent(new BaugruppeGUI().showZuordnungsFormForBauteile(result));	
 					}
 				});		
 			}
@@ -168,16 +169,13 @@ public class BaugruppeGUI  {
 						new AlertGUI()
 								.load("Baugruppe konnte nicht gelöscht werden",
 										"red");
-
 					}
 
 					@Override
 					public void onSuccess(Object result) {
 						new AlertGUI().load("Vorgang wurde erfolgreich abgebrochen",
-								"green");
-						
+								"green");	
 					}
-				
 				});
 				
 				ContentContainer.getInstance().setContent(new Welcome().load());
@@ -266,14 +264,12 @@ public class BaugruppeGUI  {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
+						// TODO Auto-generated method stub	
 					}
 
 					@Override
 					public void onSuccess(Vector<Baugruppe> result) {
-						ContentContainer.getInstance().setContent(new BaugruppeGUI().showZuordnungsFormForBaugruppen(result));
-						
+						ContentContainer.getInstance().setContent(new BaugruppeGUI().showZuordnungsFormForBaugruppen(result));	
 					}
 				});			
 			}
@@ -411,9 +407,7 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 
 					@Override
 					public void onFailure(Throwable caught) {
-						new AlertGUI().load("Baugruppe konnte nicht gespeichert werden", "red");
-						
-						
+						new AlertGUI().load("Baugruppe konnte nicht gespeichert werden", "red");	
 					}
 
 					@Override
@@ -431,8 +425,7 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 
 							@Override
 							public void onSuccess(Vector<Baugruppe> result) {
-								ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));
-								
+								ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));	
 							}
 						});				
 					}
@@ -632,8 +625,7 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 				int id = Integer.parseInt(id1);
 				
 				vPanel.clear();
-				baugruppeTable.removeAllRows();
-				
+				baugruppeTable.removeAllRows();			
 				
 				sms.deleteBaugruppe(id, new AsyncCallback() {
 
@@ -650,15 +642,13 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 
 							@Override
 							public void onFailure(Throwable caught) {
-								new AlertGUI().load("Baugruppen konnten nicht angezeigt werden", "red");
-								
+								new AlertGUI().load("Baugruppen konnten nicht angezeigt werden", "red");			
 							}
 
 							@Override
 							public void onSuccess(Vector<Baugruppe> result) {
 								ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));
-								new AlertGUI().load("Baugruppe wurde erfolgreich gelöscht", "green");
-								
+								new AlertGUI().load("Baugruppe wurde erfolgreich gelöscht", "green");	
 							}
 						});					
 					}
@@ -684,18 +674,14 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 
 					@Override
 					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
+						// TODO Auto-generated method stub		
 					}
 
 					@Override
 					public void onSuccess(Vector<Baugruppe> result) {
-						ContentContainer.getInstance().setContent(new BaugruppeGUI().showAnlegenForm(result.firstElement()));
-						
+						ContentContainer.getInstance().setContent(new BaugruppeGUI().showAnlegenForm(result.firstElement()));					
 					}
-				});
-				
-				
+				});		
 			}
 		});
 		
@@ -713,21 +699,17 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 
 					@Override
 					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
+						// TODO Auto-generated method stub					
 					}
 
 					@Override
 					public void onSuccess(Vector<Baugruppe> result) {
-						
-						
+											
 						bg = result.firstElement();
 						//tree (bg);
-						ContentContainer.getInstance().setContent(new TreeGUI().tree(bg));
-					
+						ContentContainer.getInstance().setContent(new TreeGUI().tree(bg));				
 					}
-				});
-				
+				});			
 			}
 		});
 			
@@ -737,8 +719,6 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 		Date d1 = new Date();
 		d1 = baugruppen.elementAt(j).getErstellungsDatum();
 		String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
-	
-		
 		
 		/**
 		 * Formatiert Timestamp zu String
@@ -746,9 +726,7 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 		Date d2 = new Date();
 		d2 = baugruppen.elementAt(j).getAenderungsDatum();
 		String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
-		
-		
-	
+			
 		/**
 		 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
 		 */
@@ -778,8 +756,7 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 	 * Bauteil-Tabelle zum Panel hinzugefuegen damit das Ganze auch angezeigt wird 
 	 */
 	this.vPanel.add(baugruppeTable);
-	return vPanel;
-	
+	return vPanel;	
 }
 
 public Widget tree(Baugruppe bauguppe){
@@ -788,8 +765,7 @@ public Widget tree(Baugruppe bauguppe){
 	root.setText(bg.getName());
 	
 	
- 	for(int i=0; i<bg.connectedBaugruppen.size();i++){
-		
+ 	for(int i=0; i<bg.connectedBaugruppen.size();i++){		
    
 		sms.getBaugruppe(bg.connectedBaugruppen.elementAt(i).getId(), new AsyncCallback<Vector<Baugruppe>>() {
 
@@ -805,9 +781,7 @@ public Widget tree(Baugruppe bauguppe){
 				sub.setText(result.firstElement().getName());
 				root.addItem(sub);
 			}
-		});
-		
-		
+		});	
 	}
 	
     	for(int i=0; i<bg.connectedBauteile.size();i++){
@@ -831,36 +805,6 @@ public Widget tree(Baugruppe bauguppe){
 				}
 			}); 		
     	}   
-    /*
-    for(int i = 0; i<bt.length;i++){
-    	TreeItem sub = new TreeItem();
-    	sub.setUserObject(bt[i]);
-    	sub.setText(bt[i].getName());
-    	root.addItem(sub);
-    }
-    */
-    
-   /* TreeItem sub = new TreeItem();
-    sub.setUserObject(bt[0]);
-    sub.setText(bt[0].getName());
-    root.addItem(sub);*/
-    
-    
-    
-    /*for(int i = 0; i< baugruppe.length; i++){
-    	//root.addTextItem(baugruppe[i].getName());
-    	TreeItem sub = new TreeItem();
-    	sub.setText(baugruppe[i].getName());
-    	for(int z = 0; z<baugruppe.length; z ++)
-    	sub.addTextItem(baugruppe[z].getName());
-    	root.addItem(sub);
- }
-    
-   
-  		for(int i = 0; i< baugruppe.length; i++){
-    	sub.addTextItem(baugruppe[i].getName());
-	   	root.addItem(sub);
- }*/
     
     	Tree t = new Tree();
     	t.addSelectionHandler(new SelectionHandler<TreeItem>(){
