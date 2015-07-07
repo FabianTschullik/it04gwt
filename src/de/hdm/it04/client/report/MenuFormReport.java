@@ -18,13 +18,14 @@ import de.hdm.it04.client.service.report.It04gwtServiceReportAsync;
  */
 
 public class MenuFormReport extends HorizontalPanel {
-	private final It04gwtServiceReportAsync smsreport = GWT.create(It04gwtServiceReport.class);
+	private final It04gwtServiceReportAsync smsreport = GWT
+			.create(It04gwtServiceReport.class);
 	AlertGUI alertGUI = new AlertGUI();
 
 	/*
 	 * Im Konstruktor werden die Widgets z.T. erzeugt. Alle werden in einem
-	 * Raster angeordnet, dessen Groesse sich aus dem Platzbedarf der enthaltenen
-	 * Widgets bestimmt.
+	 * Raster angeordnet, dessen Groesse sich aus dem Platzbedarf der
+	 * enthaltenen Widgets bestimmt.
 	 */
 	public MenuFormReport() {
 
@@ -33,34 +34,35 @@ public class MenuFormReport extends HorizontalPanel {
 
 		Command openImpressum = new Command() {
 			public void execute() {
-				
-	
-				ContentContainer.getInstance().setContent(new Impressum().load());
+
+				ContentContainer.getInstance().setContent(
+						new Impressum().load());
 			}
 		};
-		
+
 		Command openSucheStrukturstueckliste = new Command() {
 
 			@Override
 			public void execute() {
-				ContentContainer.getInstance().setContent(new StrukturstuecklisteGUI().suchen());	
-			}	
+				ContentContainer.getInstance().setContent(
+						new StrukturstuecklisteGUI().suchen());
+			}
 		};
-		
+
 		Command openSucheMaterialbedarf = new Command() {
 
 			@Override
 			public void execute() {
-				ContentContainer.getInstance().setContent(new MaterialbedarfGUI().suchen());	
-			}	
+				ContentContainer.getInstance().setContent(
+						new MaterialbedarfGUI().suchen());
+			}
 		};
-		
+
 		MenuBar strukturstuecklisteMenu = new MenuBar(true);
 		strukturstuecklisteMenu.addItem("suchen", openSucheStrukturstueckliste);
-		
+
 		MenuBar materialbedarfMenu = new MenuBar(true);
 		materialbedarfMenu.addItem("suche", openSucheMaterialbedarf);
-		
 
 		// Make a new menu bar, adding a few cascading menus to it.
 		MenuBar menu = new MenuBar();

@@ -2,14 +2,22 @@ package de.hdm.it04.client.editor;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
 /**
- * Die Klasse Impressum haelt das Impressum der Webseite nach §5 TMG bereit, um die Betreiber der Webseite
- * identifizieren zu koennen.
+ * Die Klasse Impressum haelt das Impressum der Webseite nach §5 TMG bereit, um
+ * die Betreiber der Webseite identifizieren zu koennen.
+ * 
  * @author Schwab, Tschullik
  *
  */
 public class Impressum {
 	private VerticalPanel vPanel = new VerticalPanel();
+
+	/**
+	 * Der HTML Inhalt für das Impessum wird hier definiert.
+	 * 
+	 * @return html
+	 */
 
 	public HTML load() {
 
@@ -33,7 +41,7 @@ public class Impressum {
 						+ "ft027@hdm-stuttgart.de<br>"
 						+ "mv045@hdm-stuttgart.de<br>" + "</td>" + "</tr>"
 						+ "</table>");
-		
+
 		return html;
 
 	}

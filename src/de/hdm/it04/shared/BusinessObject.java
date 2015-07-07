@@ -5,14 +5,16 @@ import java.sql.Timestamp;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * Die abstrakte Klasse BusinessObject repräsentiert ein BusinessObject und ist im
- * <code>shared</code> Package. Die Klasse wird benötigt, da sie alle
- * gemeinsamen Attribute enthält (auch die Attribute der Klasse Benutzer, welches
- * kein Element darstellt und deshalb nicht von der Klasse Element erben kann).
+ * Die abstrakte Klasse BusinessObject repraesentiert ein BusinessObject und ist
+ * im <code>shared</code> Package. Die Klasse wird benoetigt, da sie alle
+ * gemeinsamen Attribute enthaelt (auch die Attribute der Klasse Benutzer,
+ * welches kein Element darstellt und deshalb nicht von der Klasse Element erben
+ * kann).
  * 
- * Die Klasse BusinessObject implementiert Serializable, damit Objekte übergeben werden
- * können. Serializable wandelt Objekte in Binärcode um, damit die Kommunikation
- * zwischen Client und Server funktioniert.
+ * Die Klasse BusinessObject implementiert Serializable, damit Objekte
+ * uebergeben werden koennen. IsSerializable wandelt Objekte in Binaercode um,
+ * damit die Kommunikation zwischen Client und Server funktioniert.
+ * 
  * @author Maehler, Voelker
  */
 @SuppressWarnings("serial")
@@ -34,7 +36,7 @@ public abstract class BusinessObject implements IsSerializable {
 
 	/**
 	 * Getter-Methode, welche die ID eines BusinessObjects (bzw. der geerbten
-	 * Klassen) zurückgibt.
+	 * Klassen) zurueckgibt.
 	 * 
 	 * @param void
 	 * @return die ID als Integer
@@ -47,7 +49,8 @@ public abstract class BusinessObject implements IsSerializable {
 	 * Setter-Methode, welche die ID eines BusinessObjects (bzw. die ID der
 	 * geerbten Klassen) setzt.
 	 * 
-	 * @param ID als Integer
+	 * @param ID
+	 *            als Integer
 	 * @return void
 	 */
 	public void setId(int id) {
@@ -56,7 +59,7 @@ public abstract class BusinessObject implements IsSerializable {
 
 	/**
 	 * Getter-Methode, welche das Erstellungsdatum (bzw. das Erstellungsdatum
-	 * der geerbten Klassen) zurückgibt.
+	 * der geerbten Klassen) zurueckgibt.
 	 * 
 	 * @param void
 	 * @return das Erstellungsdatum als Timestamp
@@ -69,7 +72,8 @@ public abstract class BusinessObject implements IsSerializable {
 	 * Setter-Methode, welche die ID eines BusinessObjects (bzw. die ID der
 	 * geerbten Klassen) setzt.
 	 * 
-	 * @param ID als Integer
+	 * @param ID
+	 *            als Integer
 	 * @return void
 	 */
 	public void setErstellungsDatum(Timestamp erstellungsDatum) {
@@ -77,21 +81,22 @@ public abstract class BusinessObject implements IsSerializable {
 	}
 
 	/**
-	 * Getter-Methode, welche das Änderungsdatum (bzw. das Änderungsdatum
-	 * der geerbten Klassen) zurückgibt.
+	 * Getter-Methode, welche das Aenderungsdatum (bzw. das Aenderungsdatum der
+	 * geerbten Klassen) zurückgibt.
 	 * 
 	 * @param void
-	 * @return das Änderungsdatum als Timestamp
+	 * @return das Aenderungsdatum als Timestamp
 	 */
 	public Timestamp getAenderungsDatum() {
 		return aenderungsDatum;
 	}
 
 	/**
-	 * Setter-Methode, welche das Änderungsdatum eines BusinessObjects (bzw. das 
-	 * Änderungsdatum der geerbten Klassen) setzt.
+	 * Setter-Methode, welche das Aenderungsdatum eines BusinessObjects (bzw.
+	 * das Aenderungsdatum der geerbten Klassen) setzt.
 	 * 
-	 * @param Änderungsdatum als Timestamp
+	 * @param Aenderungsdatum
+	 *            als Timestamp
 	 * @return void
 	 */
 	public void setAenderungsDatum(Timestamp aenderungsDatum) {

@@ -19,7 +19,7 @@ import de.hdm.it04.shared.Enderzeugnis;
  * koennen in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
  * @see BaugruppeMapper, BauteilMapper, BenutzerMapper
- * @author Maehler, Voelker, Tschullik, Thies 
+ * @author Maehler, Voelker, Tschullik, Thies
  */
 public class EnderzeugnisMapper {
 

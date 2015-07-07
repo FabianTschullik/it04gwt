@@ -13,8 +13,12 @@ import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
+
 /**
- * Die Klasse MenuForm
+ * Die Klasse MenuForm baut die grundsaetzliche GUI Ansicht auf und 
+ * erzeugt einige Widgets. Auch das Menue ist enthalten, worueber die
+ * einzelnen Bereiche zur Verwaltung des SMS erreicht werden.
+ * 
  * @author Schwab, Tschullik
  *
  */
@@ -25,8 +29,8 @@ public class MenuForm extends HorizontalPanel {
 
 	/**
 	 * Im Konstruktor werden die Widgets z.T. erzeugt. Alle werden in einem
-	 * Raster angeordnet, dessen Groesse sich aus dem Platzbedarf der enthaltenen
-	 * Widgets bestimmt.
+	 * Raster angeordnet, dessen Groesse sich aus dem Platzbedarf der
+	 * enthaltenen Widgets bestimmt.
 	 */
 	public MenuForm() {
 
@@ -41,67 +45,75 @@ public class MenuForm extends HorizontalPanel {
 
 		Command openImpressum = new Command() {
 			public void execute() {
-				
-				ContentContainer.getInstance().setContent(new Impressum().load());
+
+				ContentContainer.getInstance().setContent(
+						new Impressum().load());
 			}
 		};
-		
-		Command openHandbuch = new Command(){
-			public void execute(){
-				
-				ContentContainer.getInstance().setContent(new BenutzerHandbuch().load());
+
+		Command openHandbuch = new Command() {
+			public void execute() {
+
+				ContentContainer.getInstance().setContent(
+						new BenutzerHandbuch().load());
 			}
 		};
 
 		Command openSucheEnderzeugnis = new Command() {
 			public void execute() {
-				ContentContainer.getInstance().setContent(new EnderzeugnisGUI().suchen());
+				ContentContainer.getInstance().setContent(
+						new EnderzeugnisGUI().suchen());
 			}
-			
+
 		};
-			
-			Command showEnderzeugnis = new Command() {
-				public void execute() {
-					
-					sms.getAllEnderzeugnisse(new AsyncCallback<Vector<Enderzeugnis>>() {
 
-						@Override
-						public void onFailure(Throwable caught) {
-							
-						}
+		Command showEnderzeugnis = new Command() {
+			public void execute() {
 
-						@Override
-						public void onSuccess(Vector<Enderzeugnis> result) {
-							
-							
-							ContentContainer.getInstance().setContent(new EnderzeugnisGUI().showAllEnderzeugnisse(result));
-							
-						}
-					});
-				}
+				sms.getAllEnderzeugnisse(new AsyncCallback<Vector<Enderzeugnis>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+
+					}
+
+					@Override
+					public void onSuccess(Vector<Enderzeugnis> result) {
+
+						ContentContainer.getInstance().setContent(
+								new EnderzeugnisGUI()
+										.showAllEnderzeugnisse(result));
+
+					}
+				});
+			}
 		};
 
 		Command openSucheBaugruppe = new Command() {
 			public void execute() {
-				ContentContainer.getInstance().setContent(new BaugruppeGUI().suchen());
+				ContentContainer.getInstance().setContent(
+						new BaugruppeGUI().suchen());
 
 			}
 		};
-		
+
 		Command showBaugruppe = new Command() {
 			public void execute() {
 				sms.getAllBaugruppen(new AsyncCallback<Vector<Baugruppe>>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						new AlertGUI().load("Baugruppen konnten nicht geladen werden", "red");
-						
+						new AlertGUI().load(
+								"Baugruppen konnten nicht geladen werden",
+								"red");
+
 					}
 
 					@Override
 					public void onSuccess(Vector<Baugruppe> result) {
-						ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));
-						
+						ContentContainer.getInstance().setContent(
+								new BaugruppeGUI().showAllBaugruppen(result));
+
 					}
 				});
 			}
@@ -109,26 +121,28 @@ public class MenuForm extends HorizontalPanel {
 
 		Command openSucheBauteil = new Command() {
 			public void execute() {
-				ContentContainer.getInstance().setContent(new BauteilGUI().suchen());
+				ContentContainer.getInstance().setContent(
+						new BauteilGUI().suchen());
 
 			}
-		};	
-		
+		};
+
 		Command showBauteil = new Command() {
 			public void execute() {
-				
+
 				sms.getAll(new AsyncCallback<Vector<Bauteil>>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
 						// TODO Auto-generated method stub
-						
+
 					}
 
 					@Override
 					public void onSuccess(Vector<Bauteil> result) {
-						ContentContainer.getInstance().setContent(new BauteilGUI().showAllBauteile(result));
-						
+						ContentContainer.getInstance().setContent(
+								new BauteilGUI().showAllBauteile(result));
+
 					}
 				});
 			}
@@ -174,8 +188,9 @@ public class MenuForm extends HorizontalPanel {
 					@Override
 					public void onSuccess(Bauteil result) {
 
-						ContentContainer.getInstance().setContent(new BauteilGUI().showAnlegenForm(result));
-				
+						ContentContainer.getInstance().setContent(
+								new BauteilGUI().showAnlegenForm(result));
+
 					}
 				});
 			}
@@ -183,7 +198,7 @@ public class MenuForm extends HorizontalPanel {
 
 		Command newBaugruppe = new Command() {
 			public void execute() {
-				
+
 				sms.createBaugruppe(new AsyncCallback<Baugruppe>() {
 
 					@Override
@@ -211,8 +226,6 @@ public class MenuForm extends HorizontalPanel {
 		bauteilMenu.addItem("alle anzeigen", showBauteil);
 		bauteilMenu.addItem("anlegen", newBauteil);
 		bauteilMenu.addItem("suchen", openSucheBauteil);
-		
-		
 
 		MenuBar baugruppeMenu = new MenuBar(true);
 		baugruppeMenu.addItem("alle anzeigen", showBaugruppe);

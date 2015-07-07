@@ -39,8 +39,8 @@ import de.hdm.it04.shared.Enderzeugnis;
  * <li>{@link It04gwtServiceReport}: Dies ist das <em>lokale</em> - also
  * Server-seitige - Interface, das die im System zur Verfügung gestellten
  * Funktionen deklariert.</li>
- * <li>{@link It04gwtServiceReportAsync}: <code>It04gwtServiceReportImpl</code> und
- * <code>It04gwtServiceReport</code> bilden nur die Server-seitige Sicht der
+ * <li>{@link It04gwtServiceReportAsync}: <code>It04gwtServiceReportImpl</code>
+ * und <code>It04gwtServiceReport</code> bilden nur die Server-seitige Sicht der
  * Applikationslogik ab. Diese basiert vollständig auf synchronen
  * Funktionsaufrufen. Wir müssen jedoch in der Lage sein, Client-seitige
  * asynchrone Aufrufe zu bedienen. Dies bedingt ein weiteres Interface, das in
@@ -86,8 +86,9 @@ import de.hdm.it04.shared.Enderzeugnis;
  * @author Schwab, Thies
  */
 
-public class It04gwtServiceReportImpl extends RemoteServiceServlet implements It04gwtServiceReport {
-	
+public class It04gwtServiceReportImpl extends RemoteServiceServlet implements
+		It04gwtServiceReport {
+
 	/**
 	 * Strukturstueckliste
 	 */
@@ -97,13 +98,15 @@ public class It04gwtServiceReportImpl extends RemoteServiceServlet implements It
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	/**
 	 * Die Methode wird benötigt, um eine Baugruppe mit einer bestimmten ID zu
-	 * finden. 
-	 * @param Eine ID einer Baugruppe, welche gefunden werden soll
-	 * @return Vektor vom Typ Baugruppe, welcher die Baugruppe mit der übergebenen
-	 *         ID enthält
+	 * finden.
+	 * 
+	 * @param Eine
+	 *            ID einer Baugruppe, welche gefunden werden soll
+	 * @return Vektor vom Typ Baugruppe, welcher die Baugruppe mit der
+	 *         übergebenen ID enthält
 	 */
 	@Override
 	public Vector<Baugruppe> getBaugruppe(int id) {
@@ -111,26 +114,29 @@ public class It04gwtServiceReportImpl extends RemoteServiceServlet implements It
 	}
 
 	/**
-	 * Die Methode wird benötigt, um eine Baugruppe mit einem bestimmten Namen zu
-	 * finden. Da mehrere Baugruppen mit dem selben Namen existieren können, wird
-	 * die Baugruppe in einem Vektor gespeichert.
+	 * Die Methode wird benötigt, um eine Baugruppe mit einem bestimmten Namen
+	 * zu finden. Da mehrere Baugruppen mit dem selben Namen existieren können,
+	 * wird die Baugruppe in einem Vektor gespeichert.
 	 * 
-	 * @param Ein Name einer Baugruppe, welche gefunden werden soll
-	 * @return Vektor vom Typ Baugruppe, welcher alle Baugruppen mit dem übergebenen
-	 *         Namen enthält
+	 * @param Ein
+	 *            Name einer Baugruppe, welche gefunden werden soll
+	 * @return Vektor vom Typ Baugruppe, welcher alle Baugruppen mit dem
+	 *         übergebenen Namen enthält
 	 */
 	@Override
 	public Vector<Baugruppe> getBaugruppe(String name) {
 		return BaugruppeMapper.baugruppeMapper().findByName(name);
-		
+
 	}
 
 	/**
 	 * Die Methode wird benötigt, um ein Enderzeugnis mit einer bestimmten ID zu
-	 * finden. 
-	 * @param Eine ID eines Enderzeugnisses, welche gefunden werden soll
-	 * @return Vektor vom Typ Enderzeugnis, welcher das Enderzeugnis mit der übergebenen
-	 *         ID enthält
+	 * finden.
+	 * 
+	 * @param Eine
+	 *            ID eines Enderzeugnisses, welche gefunden werden soll
+	 * @return Vektor vom Typ Enderzeugnis, welcher das Enderzeugnis mit der
+	 *         übergebenen ID enthält
 	 */
 	@Override
 	public Vector<Enderzeugnis> getEnderzeugnis(int id) {
@@ -138,24 +144,25 @@ public class It04gwtServiceReportImpl extends RemoteServiceServlet implements It
 	}
 
 	/**
-	 * Die Methode wird benötigt, um ein Enderzeugnis mit einem bestimmten Namen zu
-	 * finden. Da mehrere Enderzeugnisse mit dem selben Namen existieren können, wird
-	 * das Enderzeugnis in einem Vektor gespeichert.
+	 * Die Methode wird benötigt, um ein Enderzeugnis mit einem bestimmten Namen
+	 * zu finden. Da mehrere Enderzeugnisse mit dem selben Namen existieren
+	 * können, wird das Enderzeugnis in einem Vektor gespeichert.
 	 * 
-	 * @param Ein Name eines Enderzeugnisses, welche gefunden werden soll
-	 * @return Vektor vom Typ Enderzeugnis, welcher alle Enderzeugnisse mit dem übergebenen
-	 *         Namen enthält
+	 * @param Ein
+	 *            Name eines Enderzeugnisses, welche gefunden werden soll
+	 * @return Vektor vom Typ Enderzeugnis, welcher alle Enderzeugnisse mit dem
+	 *         übergebenen Namen enthält
 	 */
 	@Override
 	public Vector<Enderzeugnis> getEnderzeugnis(String name) {
-		//return EnderzeugnisMapper.enderzeugnisMapper().findByName(name);
+		// return EnderzeugnisMapper.enderzeugnisMapper().findByName(name);
 		return null;
 	}
-	
+
 	@Override
 	public Enderzeugnis createMaterialbedarfReport(int id, int anzahl) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
