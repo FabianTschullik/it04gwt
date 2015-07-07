@@ -3,7 +3,7 @@ package de.hdm.it04.client.editor;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
 /**
- * 
+ * Die Klasse Impressum
  * @author Schwab, Tschullik
  *
  */

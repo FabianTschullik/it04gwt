@@ -1,6 +1,5 @@
 package de.hdm.it04.shared;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
@@ -14,7 +13,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * Die Klasse BusinessObject implementiert Serializable, damit Objekte übergeben werden
  * können. Serializable wandelt Objekte in Binärcode um, damit die Kommunikation
  * zwischen Client und Server funktioniert.
- * @author 
+ * @author Maehler, Voelker
  */
 @SuppressWarnings("serial")
 public abstract class BusinessObject implements IsSerializable {

@@ -2,8 +2,8 @@ package de.hdm.it04.shared;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 /**
- * 
- * @author 
+ * Die KlasseTeileListe repräsentiert eine TeileListe und ist im <code>shared</code> Package.
+ * @author Voelker
  *
  */
 public class TeileListe implements IsSerializable {

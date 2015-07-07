@@ -6,7 +6,7 @@ import java.util.Vector;
  * Die Klasse Baugruppe repräsentiert eine Baugruppe und ist im <code>shared</code> Package.
  * Da die Klasse von <code>Element</code> und <code>BusinessObject</code> erbt, 
  * enthält sie auch deren Attribute.
- * @author 
+ * @author Maehler
  */
 @SuppressWarnings("serial")
 public class Baugruppe extends Element {

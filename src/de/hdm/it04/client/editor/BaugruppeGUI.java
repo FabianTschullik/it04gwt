@@ -36,7 +36,7 @@ import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.TeileListe;
 
 /**
- * 
+ * Die Klasse BaugruppeGUI
  * @author Schwab, Tschullik, Voelker
  *
  */

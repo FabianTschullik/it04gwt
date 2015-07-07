@@ -3,8 +3,6 @@ package de.hdm.it04.client.editor;
 import java.util.Vector;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.logical.shared.SelectionEvent;
-import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
@@ -17,10 +15,9 @@ import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
-
 import de.hdm.it04.shared.TeileListe;
 /**
- * 
+ *Die Klasse TreeGUI 
  * @author Geier, Tschullik
  *
  */

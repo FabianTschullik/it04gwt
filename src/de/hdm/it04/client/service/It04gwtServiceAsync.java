@@ -10,11 +10,15 @@ import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.LoginInfo;
+import de.hdm.it04.client.service.It04gwtService;
 
 /**
+ * Das asynchrone Gegenstück des Interface {@link It04gwtService}. Es wird
+ * semiautomatisch durch das Google Plugin erstellt und gepflegt. Daher erfolgt
+ * hier keine weitere Dokumentation. Für weitere Informationen siehe das
+ * synchrone Interface {@link It04gwtService}.
  * 
- * @author 
- *
+ * @author Tschullik, Maehler, Voelker, Thies
  */
 
 public interface It04gwtServiceAsync {

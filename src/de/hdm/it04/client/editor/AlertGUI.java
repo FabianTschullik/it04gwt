@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * 
+ * Die Klasse AlertGUI
  * @author Tschullik
  *
  */
