@@ -16,6 +16,8 @@ import de.hdm.it04.shared.Bauteil;
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
  * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
  * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ *  * @see BaugruppeMapper, EnderzeugnisMapper, BenutzerMapper
+ * @author Maehler, Voelker, Thies
  */
 public class BauteilMapper {
 
@@ -38,7 +40,7 @@ public class BauteilMapper {
 	}
 
 	/**
-	 * Diese statische Methode kann aufgrufen werden durch
+	 * Diese statische Methode kann aufgerufen werden durch
 	 * <code>BauteilMapper.bauteilMapper()</code>. Sie stellt die
 	 * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine
 	 * einzige Instanz von <code>BauteilMapper</code> existiert.
@@ -49,7 +51,7 @@ public class BauteilMapper {
 	 * Methode.
 	 * 
 	 * @return DAS <code>BauteilMapper</code>-Objekt.
-	 * @see bauteilMapper
+	 * @see BauteilMapper
 	 */
 	public static BauteilMapper bauteilMapper() {
 		if (bauteilMapper == null)

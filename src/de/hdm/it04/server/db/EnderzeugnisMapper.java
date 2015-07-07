@@ -20,6 +20,8 @@ import de.hdm.it04.shared.Enderzeugnis;
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
  * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
  * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ *  @see BaugruppeMapper, BauteilMapper, BenutzerMapper
+ * @author Maehler, Voelker, Tschullik, Thies
  */
 public class EnderzeugnisMapper {
 
@@ -327,7 +329,6 @@ public class EnderzeugnisMapper {
 		return null;
 	}
 	
-	
 	public Vector<Enderzeugnis> findByName(String name) {
 
 		// DB-Verbindung holen
@@ -372,8 +373,6 @@ public class EnderzeugnisMapper {
 		return result;
 	}
 	
-	
-	
 	public String deleteEnderzeugnis(int id) {
 
 		String ergebnis = "Enderzeugnis wurde erfolgreich geloescht!";
@@ -389,6 +388,5 @@ public class EnderzeugnisMapper {
 			e2.printStackTrace();
 		}
 		return ergebnis;
-	}
-	
+	}	
 }

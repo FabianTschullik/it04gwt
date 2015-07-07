@@ -1,12 +1,31 @@
 package de.hdm.it04.server;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonToken;
+
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.it04.client.service.It04gwtService;
+import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.server.db.BaugruppeMapper;
 import de.hdm.it04.server.db.BauteilMapper;
 import de.hdm.it04.server.db.BenutzerMapper;
 import de.hdm.it04.server.db.EnderzeugnisMapper;
+import de.hdm.it04.server.report.It04gwtServiceReportImpl;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Benutzer;
@@ -14,30 +33,77 @@ import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.LoginInfo;
 import de.hdm.it04.shared.TeileListe;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.net.URL;
-import java.net.URLConnection;
-
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonToken;
-
-import java.util.Vector;
-
 /**
- * Diese Klasse wird benötigt, um die Kommunikation zwischen der Datenbank und
- * dem Client zu ermöglichen. Hierbei werden die Methoden der Mapper-Klasse
- * aufgerufen.
+ * <p>
+ * Implementierungsklasse des Interface <code>It04gwtService</code>. Diese
+ * Klasse ist <em>die</em> Klasse, die neben {@link It04gwtServiceReportImpl}
+ * sämtliche Applikationslogik (oder engl. Business Logic) aggregiert. Sie ist
+ * wie eine Spinne, die sämtliche Zusammenhänge in ihrem Netz (in unserem Fall
+ * die Daten der Applikation) überblickt und für einen geordneten Ablauf und
+ * dauerhafte Konsistenz der Daten und Abläufe sorgt.
+ * </p>
+ * <p>
+ * Die Applikationslogik findet sich in den Methoden dieser Klasse. Jede dieser
+ * Methoden kann als <em>Transaction Script</em> bezeichnet werden. Dieser Name
+ * lässt schon vermuten, dass hier analog zu Datenbanktransaktion pro
+ * Transaktion gleiche mehrere Teilaktionen durchgeführt werden, die das System
+ * von einem konsistenten Zustand in einen anderen, auch wieder konsistenten
+ * Zustand überführen. Wenn dies zwischenzeitig scheitern sollte, dann ist das
+ * jeweilige Transaction Script dafür verwantwortlich, eine Fehlerbehandlung
+ * durchzuführen.
+ * </p>
+ * <p>
+ * Diese Klasse steht mit einer Reihe weiterer Datentypen in Verbindung. Dies
+ * sind:
+ * <ol>
+ * <li>{@link It04gwtService}: Dies ist das <em>lokale</em> - also
+ * Server-seitige - Interface, das die im System zur Verfügung gestellten
+ * Funktionen deklariert.</li>
+ * <li>{@link It04gwtServiceAsync}: <code>It04gwtServiceImpl</code> und
+ * <code>It04gwtService</code> bilden nur die Server-seitige Sicht der
+ * Applikationslogik ab. Diese basiert vollständig auf synchronen
+ * Funktionsaufrufen. Wir müssen jedoch in der Lage sein, Client-seitige
+ * asynchrone Aufrufe zu bedienen. Dies bedingt ein weiteres Interface, das in
+ * der Regel genauso benannt wird, wie das synchrone Interface, jedoch mit dem
+ * zusätzlichen Suffix "Async". Es steht nur mittelbar mit dieser Klasse in
+ * Verbindung. Die Erstellung und Pflege der Async Interfaces wird durch das
+ * Google Plugin semiautomatisch unterstützt. Weitere Informationen unter
+ * {@link It04gwtServiceAsync}.</li>
+ * <li> {@link RemoteServiceServlet}: Jede Server-seitig instantiierbare und
+ * Client-seitig über GWT RPC nutzbare Klasse muss die Klasse
+ * <code>RemoteServiceServlet</code> implementieren. Sie legt die funktionale
+ * Basis für die Anbindung von <code>BankVerwaltungImpl</code> an die Runtime
+ * des GWT RPC-Mechanismus.</li>
+ * </ol>
+ * </p>
+ * <p>
+ * <b>Wichtiger Hinweis:</b> Diese Klasse bedient sich sogenannter
+ * Mapper-Klassen. Sie gehören der Datenbank-Schicht an und bilden die
+ * objektorientierte Sicht der Applikationslogik auf die relationale
+ * organisierte Datenbank ab. Zuweilen kommen "kreative" Zeitgenossen auf die
+ * Idee, in diesen Mappern auch Applikationslogik zu realisieren. Siehe dazu
+ * auch die Hinweise in {@link #delete(Benutzer)} Einzig nachvollziehbares
+ * Argument für einen solchen Ansatz ist die Steigerung der Performance
+ * umfangreicher Datenbankoperationen. Doch auch dieses Argument zieht nur dann,
+ * wenn wirklich große Datenmengen zu handhaben sind. In einem solchen Fall
+ * würde man jedoch eine entsprechend erweiterte Architektur realisieren, die
+ * wiederum sämtliche Applikationslogik in der Applikationsschicht isolieren
+ * würde. Also, keine Applikationslogik in die Mapper-Klassen "stecken" sondern
+ * dies auf die Applikationsschicht konzentrieren!
+ * </p>
+ * <p>
+ * Beachten Sie, dass sämtliche Methoden, die mittels GWT RPC aufgerufen werden
+ * können ein <code>throws IllegalArgumentException</code> in der
+ * Methodendeklaration aufweisen. Diese Methoden dürfen also Instanzen von
+ * {@link IllegalArgumentException} auswerfen. Mit diesen Exceptions können z.B.
+ * Probleme auf der Server-Seite in einfacher Weise auf die Client-Seite
+ * transportiert und dort systematisch in einem Catch-Block abgearbeitet werden.
+ * </p>
+ * 
+ * @see It04gwtService
+ * @see It04gwtServiceAsync
+ * @see RemoteServiceServlet
+ * @author Geier, Tschullik, Thies, Voelker
  */
 public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		It04gwtService {
@@ -193,7 +259,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 	/**
 	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
-	 * finden. Da mehrere Bauteile mit dem selben Namen exisitieren können, wird
+	 * finden. Da mehrere Bauteile mit dem selben Namen existieren können, wird
 	 * das Bauteil in einem Vektor gespeichert.
 	 * 
 	 * @param Ein

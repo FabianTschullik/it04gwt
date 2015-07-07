@@ -12,9 +12,10 @@ import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.LoginInfo;
 
 /**
- * Das Interface Service wird von der Klasse Service Impl implementiert.
- * Es entählt alle Methoden, die auf der Serverseite vorhanden sein müssen. 
+ * Das Interface It04gwtService wird von der Klasse It04gwtServiceImpl implementiert.
+ * Es enthält alle Methoden, die auf der Serverseite vorhanden sein müssen. 
  * Das Interface wird für die RPCs benötigt.
+ * @author
  *
  */
 @RemoteServiceRelativePath("sms")

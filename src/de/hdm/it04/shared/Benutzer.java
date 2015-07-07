@@ -6,8 +6,6 @@ package de.hdm.it04.shared;
  */
 public class Benutzer extends BusinessObject {
 	
-	
-	
 	private String email;
 
 	public String getEmail() {
@@ -17,7 +15,4 @@ public class Benutzer extends BusinessObject {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
-
 }

@@ -5,6 +5,7 @@ package de.hdm.it04.shared;
  * <code>shared</code> Package. Da die Klasse von <code>BusinessObject</code>
  * erbt, enthält sie auch deren Attribute. Die Klasse wird benötigt, da sie alle
  * gemeinsamen Attribute enthält.
+ * @author Tschullik, Voelker, Thies
  */
 public abstract class Element extends BusinessObject {
 
@@ -57,5 +58,4 @@ public abstract class Element extends BusinessObject {
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
 	}
-
 }
