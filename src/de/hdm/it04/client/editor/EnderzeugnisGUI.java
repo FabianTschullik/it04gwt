@@ -34,7 +34,11 @@ import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Enderzeugnis;
-
+/**
+ * 
+ * @author Geier, Schwab, Tschullik, Maehler, Voelker
+ *
+ */
 public class EnderzeugnisGUI {
 
 	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);

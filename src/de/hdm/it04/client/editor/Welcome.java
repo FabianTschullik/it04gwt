@@ -2,7 +2,11 @@ package de.hdm.it04.client.editor;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
+/**
+ * 
+ * @author Tschullik, Maehler
+ *
+ */
 public class Welcome {
 	
 	private VerticalPanel vPanel = new VerticalPanel();

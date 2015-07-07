@@ -25,6 +25,7 @@ import de.hdm.it04.shared.LoginInfo;
 
 	/**
 	 * Entry point classes define <code>onModuleLoad()</code>.
+	 * @author Schwab, Tschullik
 	 */
 	public class It04gwtEditor implements EntryPoint {
 		

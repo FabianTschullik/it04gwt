@@ -9,7 +9,11 @@ import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-
+/**
+ * 
+ * @author Maehler
+ *
+ */
 public class BenutzerHandbuch {
 	private VerticalPanel vPanel = new VerticalPanel();
 	DialogBox box = new DialogBox();
@@ -26,9 +30,7 @@ public class BenutzerHandbuch {
 
 		frame.setPixelSize(Window.getClientWidth()/2, 700);
 		vPanel.add(frame);
-		
-		
-		
+			
 		box.add(vPanel);
 		
 		box.setGlassEnabled(true);
@@ -41,8 +43,5 @@ public class BenutzerHandbuch {
 		box.show();
 		
 		return box;
-		
-
 	}
 }
-

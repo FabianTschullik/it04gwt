@@ -9,12 +9,13 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * 
+ * @author Tschullik
+ *
+ */
 
 public class AlertGUI  {
-
-	
-
-	
 
 	public void load(String text, String color) {
 		
@@ -37,7 +38,6 @@ public class AlertGUI  {
 
 				lbl.setStyleName("alertGreen");
 			}
-
 		}
 		
 		hPanel.add(lbl);
@@ -59,9 +59,7 @@ public class AlertGUI  {
 		@Override
 		public void onClick(ClickEvent event) {
 			
-			RootPanel.get("alert").clear();
-		
-			
+			RootPanel.get("alert").clear();			
 		}
 	}
 }

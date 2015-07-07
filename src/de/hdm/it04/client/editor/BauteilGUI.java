@@ -30,7 +30,11 @@ import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
-
+/**
+ * 
+ * @author Geier, Voelker
+ *
+ */
 public class BauteilGUI {
 	
 	AlertGUI alertGUI = new AlertGUI();

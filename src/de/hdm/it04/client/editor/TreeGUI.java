@@ -14,7 +14,11 @@ import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
-
+/**
+ * 
+ * @author Tschullik
+ *
+ */
 public class TreeGUI {
 	
 	public Tree t = new Tree();
