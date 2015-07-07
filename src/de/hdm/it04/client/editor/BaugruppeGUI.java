@@ -59,7 +59,7 @@ public class BaugruppeGUI {
 
 	/**
 	 * Formular zum Suchen von Baugruppen per Name oder ID
-	 * 
+	 *  
 	 * @return vPanel
 	 */
 
