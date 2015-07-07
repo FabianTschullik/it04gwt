@@ -58,7 +58,7 @@ public class BaugruppeGUI {
 	String user = It04gwtEditor.user;
 
 	/**
-	 * Methode zum Suchen von Baugruppen per Name oder ID
+	 * Formular zum Suchen von Baugruppen per Name oder ID
 	 * 
 	 * @return vPanel
 	 */

@@ -232,8 +232,7 @@ public class TreeGUI {
 					Vector<Enderzeugnis> ezuebergabe = new Vector<Enderzeugnis>();
 					ezuebergabe.add(ez);
 					ContentContainer.getInstance().setContent(
-							new EnderzeugnisGUI()
-									.showAllEnderzeugnisse(ezuebergabe));
+							new EnderzeugnisGUI().showAllEnderzeugnisse(ezuebergabe));
 				}
 			}
 		});
