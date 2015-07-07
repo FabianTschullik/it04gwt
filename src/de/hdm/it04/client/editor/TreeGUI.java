@@ -20,7 +20,7 @@ import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.TeileListe;
 /**
- *Die Klasse TreeGUI 
+ *Die Klasse TreeGUI dient der Erstellung des dynamischen Tree 
  * @author Geier, Tschullik
  *
  */
@@ -41,9 +41,10 @@ public class TreeGUI {
 
 	}
 	/**
-	 * Methode zum Speichern von allen Bauteilen und Baugruppen global, 
-	 * um einen Vereinfachten Zugriff auf die Bauteile und Baugruppen
+	 * Methode zum globalen Speichern von allen Bauteilen und Baugruppen, 
+	 * um einen vereinfachten Zugriff auf die Bauteile und Baugruppen
 	 * zu erreichen.
+	 * 
 	 * @return: void
 	 * 
 	 */
@@ -95,13 +96,13 @@ public class TreeGUI {
 	
 	/**
 	 * Rekursive Methode, welche die Tree Elemente setzt 
-	 * und miteinander zu einem Tree zusammen fügt
+	 * und miteinander zu einem Tree zusammenfuegt
 	 * @param baugruppe: Baugruppe von der wir jeweils
-	 * die unteren Baugruppen und Bauteile dem Baum hinzufügen wollen
-	 * @param anzahl : Anzahl in welcher Menge ein Bauteil oder eine
-	 * Baugruppe benötigt wird
-	 * @return TreeItem, welches immer dem vorherigen TreeItem hinzugefügt
-	 * über return
+	 * die unteren Baugruppen und Bauteile dem Baum hinzufuegen wollen
+	 * @param anzahl : Anzahl, in welcher Menge ein Bauteil oder eine
+	 * Baugruppe benoetigt wird
+	 * @return TreeItem, welches immer dem vorherigen TreeItem hinzugefuegt
+	 * ueber return
 	 */
 	public TreeItem treerek(Baugruppe baugruppe, int anzahl){
 		Vector<TeileListe> stueckliste= baugruppe.connectedBaugruppen;
@@ -163,7 +164,7 @@ public class TreeGUI {
 	
 	
 	/**
-	 * Methode, die den Tree erstellt mit Selektion Handler
+	 * Methode, die den Tree erstellt, mit Selektion-Handler
 	 * @return Widget
 	 */
 	
@@ -221,6 +222,5 @@ public class TreeGUI {
 				}
     	});
     	return t;
-	}
-	
+	}	
 }
