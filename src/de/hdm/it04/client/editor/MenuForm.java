@@ -23,9 +23,9 @@ public class MenuForm extends HorizontalPanel {
 	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
 	AlertGUI alertGUI = new AlertGUI();
 
-	/*
+	/**
 	 * Im Konstruktor werden die Widgets z.T. erzeugt. Alle werden in einem
-	 * Raster angeordnet, dessen Gr��e sich aus dem Platzbedarf der enthaltenen
+	 * Raster angeordnet, dessen Groesse sich aus dem Platzbedarf der enthaltenen
 	 * Widgets bestimmt.
 	 */
 	public MenuForm() {
@@ -43,12 +43,7 @@ public class MenuForm extends HorizontalPanel {
 			public void execute() {
 				
 				ContentContainer.getInstance().setContent(new Impressum().load());
-				
-				
-
-
 			}
-
 		};
 		
 		Command openHandbuch = new Command(){
@@ -61,8 +56,6 @@ public class MenuForm extends HorizontalPanel {
 		Command openSucheEnderzeugnis = new Command() {
 			public void execute() {
 				ContentContainer.getInstance().setContent(new EnderzeugnisGUI().suchen());
-				
-
 			}
 			
 		};
@@ -74,7 +67,6 @@ public class MenuForm extends HorizontalPanel {
 
 						@Override
 						public void onFailure(Throwable caught) {
-						
 							
 						}
 
@@ -86,16 +78,7 @@ public class MenuForm extends HorizontalPanel {
 							
 						}
 					});
-					
-					
-					
-					
-					
-					
-					
-
 				}
-
 		};
 
 		Command openSucheBaugruppe = new Command() {
@@ -103,7 +86,6 @@ public class MenuForm extends HorizontalPanel {
 				ContentContainer.getInstance().setContent(new BaugruppeGUI().suchen());
 
 			}
-
 		};
 		
 		Command showBaugruppe = new Command() {
@@ -122,10 +104,7 @@ public class MenuForm extends HorizontalPanel {
 						
 					}
 				});
-			
-
 			}
-
 		};
 
 		Command openSucheBauteil = new Command() {
@@ -133,9 +112,7 @@ public class MenuForm extends HorizontalPanel {
 				ContentContainer.getInstance().setContent(new BauteilGUI().suchen());
 
 			}
-
-		};
-		
+		};	
 		
 		Command showBauteil = new Command() {
 			public void execute() {
@@ -154,10 +131,7 @@ public class MenuForm extends HorizontalPanel {
 						
 					}
 				});
-				
-
 			}
-
 		};
 
 		Command newEnderzeugnis = new Command() {
@@ -170,7 +144,6 @@ public class MenuForm extends HorizontalPanel {
 						alertGUI.load(
 								"Leeres Enderzeugnis konnte nicht geladen werden",
 								"red");
-
 					}
 
 					@Override
@@ -181,9 +154,6 @@ public class MenuForm extends HorizontalPanel {
 
 					}
 				});
-				
-				
-
 			}
 		};
 
@@ -205,11 +175,9 @@ public class MenuForm extends HorizontalPanel {
 					public void onSuccess(Bauteil result) {
 
 						ContentContainer.getInstance().setContent(new BauteilGUI().showAnlegenForm(result));
-						
-
+				
 					}
 				});
-
 			}
 		};
 
@@ -235,7 +203,6 @@ public class MenuForm extends HorizontalPanel {
 
 					}
 				});
-
 			}
 		};
 
@@ -269,6 +236,5 @@ public class MenuForm extends HorizontalPanel {
 		menu.addItem("Benutzerhandbuch", openHandbuch);
 
 		buttonsPanel.add(menu);
-
 	}
 }

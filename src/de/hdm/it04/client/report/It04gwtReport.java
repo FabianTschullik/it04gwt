@@ -19,10 +19,11 @@ import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.LoginInfo;
 
-	/**
-	 * Entry point classes define <code>onModuleLoad()</code>.
-	 * @author Schwab, Tschullik
-	 */
+/**
+ * Die Klasse It04gwtEditor ist die Entry Point Klasse fuer den Editor und
+ * definiert <code>onModuleLoad()</code>.
+ * @author Schwab, Tschullik
+ */
 public class It04gwtReport implements EntryPoint {
 	
 	// TODO #05: add constants for OAuth2 (don't forget to update GOOGLE_CLIENT_ID)

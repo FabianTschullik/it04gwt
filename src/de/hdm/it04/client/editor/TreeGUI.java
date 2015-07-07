@@ -38,6 +38,11 @@ public class TreeGUI {
 	
 	
 	public TreeGUI (){
+
+	}
+	
+	private void getAllVectoren() {
+		
 		sms.getAll(new AsyncCallback<Vector<Bauteil>>(){
 
 			@Override
@@ -48,68 +53,55 @@ public class TreeGUI {
 
 			@Override
 			public void onSuccess(Vector<Bauteil> result) {
-				save(result);
+				allBt = result;	
 				
+				sms.getAllBaugruppen(new AsyncCallback<Vector<Baugruppe>>(){
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Keine Baugruppen");
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Baugruppe> result) {
+						allBg = result;
+						sms.getAllEnderzeugnisse(new AsyncCallback<Vector<Enderzeugnis>>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Vector<Enderzeugnis> result) {
+								allEz = result;
+								
+								
+							}
+							
+						});
+						
+						
+						
+					}
+				});
 				
 			}
 
-			
-			
 		});
 		
 		
 		
-	}
-	
-	private void save(Vector<Bauteil> result) {
-		allBt = result;
-		sms.getAllBaugruppen(new AsyncCallback<Vector<Baugruppe>>(){
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Keine Baugruppen");
-				
-			}
-
-			@Override
-			public void onSuccess(Vector<Baugruppe> result) {
-				saveBg(result);
-				
-			}
-
-			
-			
-		});
-	}
-	
-	
-	private void saveBg(Vector<Baugruppe> result) {
-		allBg = result;
-		sms.getAllEnderzeugnisse(new AsyncCallback<Vector<Enderzeugnis>>(){
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onSuccess(Vector<Enderzeugnis> result) {
-				saveEz(result);
-				
-			}
-			
-		});
-
 		
+		
+						
+	
 	}
 	
-	public void saveEz(Vector<Enderzeugnis> result){
-		allEz = result;
-	}
 	
-	
-	
+
 	
 	public TreeItem treerek(Baugruppe baugruppe, int anzahl){
 		Vector<TeileListe> stueckliste= baugruppe.connectedBaugruppen;
@@ -151,7 +143,24 @@ public class TreeGUI {
 				}
 				
 			}
-		
+			stueckliste = baugruppe.connectedBauteile;
+			if(stueckliste.isEmpty()){
+				return sub;
+			}
+			else {
+				for(int i = 0; i<stueckliste.size();i++){
+					for(int j = 0; j<allBt.size(); j++){
+						if(stueckliste.elementAt(i).getId() == allBt.elementAt(j).getId()){
+							TreeItem root = new TreeItem();
+							root.setText(allBt.elementAt(j).getName()+ "[" + Integer.toString(stueckliste.elementAt(i).getAnzahl())+"]");
+							root.setUserObject(allBt.elementAt(j));
+							sub.addItem(root);
+							
+						}
+					}
+				}
+			
+			}
 			
 		
 			
@@ -163,15 +172,20 @@ public class TreeGUI {
 	
 	
 	
-	public Widget tree(Baugruppe baugruppe){
+	public Widget tree(){
+		
+		getAllVectoren();
 		
 		
 		
+
 		/*VerticalPanel vPanel= new VerticalPanel();
 		for(int i = 0; i<allEz.size(); i++){
 			Label lbl = new Label(allEz.elementAt(i).getName());
 			vPanel.add(lbl);
 		}*/
+		
+		Baugruppe baugruppe = new Baugruppe();
 		 
 		for (int i = 0; i<allEz.size(); i++){
 			TreeItem root = new TreeItem();
@@ -310,5 +324,7 @@ public class TreeGUI {
 	private void addChildItem(TreeItem parent, String label) {
 		    TreeItem section = parent.addTextItem(label);
 		    }
+
+	
 	
 }
