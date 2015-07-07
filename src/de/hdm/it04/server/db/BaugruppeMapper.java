@@ -379,10 +379,7 @@ public void updateBaugruppeBaugruppe(int id, int anzahl){
 			// Leeres SQL-Statement (JDBC) anlegen
 			Statement stmt = con.createStatement();
 			
-			Date date = new Date();
-			new Timestamp(date.getTime());
 
-			
 			stmt.executeUpdate("UPDATE baugruppeBaugruppe SET anzahl = '" + anzahl + "' " 
 					+ " WHERE id=" + id);
 			

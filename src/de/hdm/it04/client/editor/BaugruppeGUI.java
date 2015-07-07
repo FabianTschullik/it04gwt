@@ -249,7 +249,7 @@ public class BaugruppeGUI  {
 		/**
 		 * neuer HTML Bereich
 		 */
-		HTML topic = new HTML("<h2>Aus welchen Bauteilen besteht Ihre Baugruppe?</h2>");
+		HTML topic = new HTML("<h2>Aus welchen Bauteilen besteht Ihre Baugruppe " + bg.getName() + "?</h2>");
 		this.vPanel.add(topic);
 		
 		Button btnZuordnung = new Button("weiter");
@@ -269,6 +269,15 @@ public class BaugruppeGUI  {
 
 					@Override
 					public void onSuccess(Vector<Baugruppe> result) {
+						
+						//Überprüfe, ob Überbaugruppe in result und entferne von Übergabe
+						//da diese nicht angezeigt werden soll in der Zuordnung
+						for(int i=0; i<result.size(); i++){
+							if(result.elementAt(i).getId() == bg.getId()){
+								result.remove(i);
+							}
+						}
+						
 						ContentContainer.getInstance().setContent(new BaugruppeGUI().showZuordnungsFormForBaugruppen(result));	
 					}
 				});			
@@ -361,9 +370,15 @@ public class BaugruppeGUI  {
 			bauteileTable.setWidget(j+1, 6, cb);
 			bauteileTable.setWidget(j+1, 7, txtMenge);
 			
-			//if(Integer.parseInt(bauteileTable.getText(j+1, 0)) == ez.getBaugruppe()){
-				//rb.setValue(true);
-			//}
+			
+			for(int i=0; i<bg.connectedBauteile.size(); i++){
+				if(Integer.parseInt(bauteileTable.getText(j+1, 0)) == bg.connectedBauteile.elementAt(i).getId()){
+					cb.setValue(true);
+					txtMenge.setText(Integer.toString(bg.connectedBauteile.elementAt(i).getAnzahl()));
+				}
+			}
+			
+			
 		
 			
 			/**
@@ -386,10 +401,11 @@ public class BaugruppeGUI  {
 	
 public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 		
+	
 		/**
 		 * neuer HTML Bereich
 		 */
-		HTML topic = new HTML("<h2>Aus welchen Unterbaugruppen besteht Ihre Baugruppe?</h2>");
+		HTML topic = new HTML("<h2>Aus welchen Unterbaugruppen besteht Ihre Baugruppe " + bg.getName() + "?</h2>");
 		this.vPanel.add(topic);
 		
 
@@ -453,7 +469,7 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 		 */
 		for(int j=0; j < baugruppen.size(); j++ ){
 			
-			if (baugruppen.elementAt(j).getId() != bg.getId()) {
+			//if (baugruppen.elementAt(j).getId() != bg.getId()) {
 				
 		
 			final TextBox txtMenge = new TextBox();
@@ -507,6 +523,7 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			d2 = baugruppen.elementAt(j).getAenderungsDatum();
 			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 			
+			//if (baugruppen.elementAt(j).getId() != bg.getId()) {
 		
 			/**
 			 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
@@ -521,10 +538,13 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			baugruppeTable.setWidget(j+1, 6, cb);
 			baugruppeTable.setWidget(j+1, 7, txtMenge);
 			
-			//if(Integer.parseInt(bauteileTable.getText(j+1, 0)) == ez.getBaugruppe()){
-			//	rb.setValue(true);
-			//
-			//}
+			//Falls eine Untergeordnete Baugruppe bereits zugeordnet wurde, check sie an
+			for(int i=0; i<bg.connectedBaugruppen.size(); i++){
+				if(Integer.parseInt(baugruppeTable.getText(j+1, 0)) == bg.connectedBaugruppen.elementAt(i).getId()){
+					cb.setValue(true);
+					txtMenge.setText(Integer.toString(bg.connectedBaugruppen.elementAt(i).getAnzahl()));
+				}
+			}
 					
 			/**
 			 * Verknuepfung zu style.css
@@ -533,7 +553,15 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			baugruppeTable.getRowFormatter().addStyleName(0,  "watchListHeader");
 			baugruppeTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
 			baugruppeTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");			
-			}		
+			//}	
+			
+			
+			/*
+			if(Integer.parseInt(baugruppeTable.getText(j+1, 0))==bg.getId()){
+				baugruppeTable.removeRow(j+1);
+			}
+			*/
+			
 		}	
 		
 		/**
