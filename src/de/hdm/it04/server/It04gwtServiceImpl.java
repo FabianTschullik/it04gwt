@@ -129,8 +129,6 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 				.replaceAll(">", "&gt;");
 	}
 
-	// TODO #11: implement login helper methods in service implementation
-
 	@Override
 	public String getUserEmail(final String token) {
 		final UserService userService = UserServiceFactory.getUserService();
@@ -219,16 +217,15 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		return loginInfo;
 	}
 
-	// TODO #11:> end
-
 	// --------------------------------------------------------------------------
-	// ------------------------- Bauteil
-	// ----------------------------------------
+	// -------------------------Bauteil-----------------------------------------
+	// --------------------------------------------------------------------------
 	// --------------------------------------------------------------------------
 	/**
 	 * Die Methode legt ein Bauteil an.
 	 * 
-	 * @param Ein Objekt vom Typ Bauteil welches gespeichert werden soll
+	 * @param Ein
+	 *            Objekt vom Typ Bauteil welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Bauteil
 	 */
 	public Bauteil createBauteil() {
@@ -242,7 +239,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * übergeben wird steht in diesem Vektor lediglich ein Objekt vom Typ
 	 * Bauteil.
 	 * 
-	 * @param ID als Integer
+	 * @param ID
+	 *            als Integer
 	 * @return Vektor mit Bauteil-Objekten
 	 */
 	public Vector<Bauteil> getBauteil(int id) {
@@ -288,41 +286,44 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 		return BauteilMapper.bauteilMapper().update(bt);
 	}
-	
+
 	/**
 	 * Die Methode loescht ein Bauteil.
 	 * 
-	 * @param 
-	 * @return 
+	 * @param
+	 * @return
 	 */
 	public String deleteBauteil(int id) {
 		return BauteilMapper.bauteilMapper().delete(id);
 	}
 
 	// -----------------------------------------------------------------------------
-	// --------------------------- Ende Bauteil
-	// ------------------------------------
+	// ---------------------------Ende Bauteil--------------------------------------
+	// -----------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------
 
 	// -----------------------------------------------------------------------------
 	// ----------------------------Baugruppe----------------------------------------
 	// -----------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------
 
 	/**
 	 * Die Methode legt eine Baugruppe an.
 	 * 
-	 * @param Ein Objekt vom Typ Baugruppe welches gespeichert werden soll
+	 * @param Ein
+	 *            Objekt vom Typ Baugruppe welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Baugruppe
 	 */
 	public Baugruppe createBaugruppe() {
 
 		return BaugruppeMapper.baugruppeMapper().insert();
 	}
-	
+
 	/**
 	 * Die Methode aktualisiert eine Baugruppe.
 	 * 
-	 * @param Ein Objekt vom Typ Baugruppe
+	 * @param Ein
+	 *            Objekt vom Typ Baugruppe
 	 * @return Objekt vom Typ Baugruppe
 	 */
 	public Vector<Baugruppe> updateBaugruppe(Baugruppe bg) {
@@ -333,8 +334,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode loescht eine Baugruppe.
 	 * 
-	 * @param 
-	 * @return 
+	 * @param id
+	 * @return String mit einer Bestätigung
 	 */
 	public String deleteBaugruppe(int id) {
 
@@ -347,7 +348,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * übergeben wird steht in diesem Vektor lediglich ein Objekt vom Typ
 	 * Baugruppe.
 	 * 
-	 * @param ID als Integer
+	 * @param ID
+	 *            als Integer
 	 * @return Vektor mit Baugruppe-Objekten
 	 */
 	public Vector<Baugruppe> getBaugruppe(int id) {
@@ -356,64 +358,92 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	}
 
 	/**
-	 * Die Methode wird benötigt, um eine Baugruppe mit einem bestimmten Namen zu
-	 * finden. Da mehrere Baugruppen mit dem selben Namen existieren können, wird
-	 * die Baugruppe in einem Vektor gespeichert.
+	 * Die Methode wird benötigt, um eine Baugruppe mit einem bestimmten Namen
+	 * zu finden. Da mehrere Baugruppen mit dem selben Namen existieren können,
+	 * wird die Baugruppe in einem Vektor gespeichert.
 	 * 
-	 * @param Ein Name einer Baugruppe, welches gefunden werden soll
-	 * @return Vektor vom Typ Baugruppe, welches alle Baugruppen mit dem übergebenen
-	 *         Namen enthält
+	 * @param Ein
+	 *            Name einer Baugruppe, welches gefunden werden soll
+	 * @return Vektor vom Typ Baugruppe, welches alle Baugruppen mit dem
+	 *         übergebenen Namen enthält
 	 */
 	public Vector<Baugruppe> getBaugruppe(String name) {
 
 		return BaugruppeMapper.baugruppeMapper().findByName(name);
 	}
 
+	/**
+	 * Die Methode findet alle angelegten Baugruppen und speichert diese in
+	 * einem Vektor.
+	 * 
+	 * @param void
+	 * @return Ein Vektor vom Typ Baugruppe, welcher alle Bauteile enthält
+	 */
 	public Vector<Baugruppe> getAllBaugruppen() {
 
 		return BaugruppeMapper.baugruppeMapper().findAll();
 	}
 
-	
-	
-public Vector<Bauteil> getBauteilZwischenTabelle(int id) {
-		
+	/**
+	 * Die Methode findet alle angelegten Bauteile die mit einer Baugruppe
+	 * verbunden sind und speichert diese in eine Vektor. Diese Methode greift
+	 * auf die Zwischentabelle bauteilBaugruppe zu.
+	 * 
+	 * @param void
+	 * @return Ein Vektor vom Typ Bauteil, welcher alle Bauteile mit der
+	 *         zuordnung zu Baugruppen enthaelt
+	 */
+
+	public Vector<Bauteil> getBauteilZwischenTabelle(int id) {
+
 		Vector<TeileListe> list = new Vector<TeileListe>();
-		
+
 		list = BaugruppeMapper.baugruppeMapper().findConnectedBauteile(id);
 		Vector<Bauteil> btl = new Vector<Bauteil>();
-		
-		for(int i=0; i <list.size(); i++){
+
+		for (int i = 0; i < list.size(); i++) {
 			Vector<Bauteil> bt = new Vector<Bauteil>();
 			int id1;
-			id1= list.elementAt(i).getId();
+			id1 = list.elementAt(i).getId();
 			bt = BauteilMapper.bauteilMapper().findByKey(id1);
 			btl.add(bt.firstElement());
-		}		
-		
+		}
+
 		return btl;
-}
+	}
 
-	// -----------------------------------------------------------------------------
-	// ----------------------------Ende
-	// Baugruppe----------------------------------------
-	// -----------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------------
+	// ----------------------------Ende Baugruppe------------------------------------------
+	// ------------------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------------
 
-	// -----------------------------------------------------------------------------
-	// ----------------------------Enderzeugnis----------------------------------------
-	// -----------------------------------------------------------------------------
-	
+	// ------------------------------------------------------------------------------------
+	// ----------------------------Enderzeugnis--------------------------------------------
+	// ------------------------------------------------------------------------------------
+	// -------------------------------------------------------------------------------------
+
 	/**
-	 * Die Methode loescht ein Enderzeugnis.
+	 * Die Methode loescht ein Enderzeugnis. Sie greift auf die Klasse
+	 * EnderzeugnisMapper zu und findet das zuloeschende Enderzeugnis durch die
+	 * id als Parameter wert.
 	 * 
-	 * @param 
-	 * @return 
+	 * @param id
+	 * @return null
 	 */
 	@Override
 	public String deleteEnderzeugnis(int id) {
 		EnderzeugnisMapper.enderzeugnisMapper().deleteEnderzeugnis(id);
 		return null;
 	}
+
+	/**
+	 * Die Methode findet alle angelegten Enderzeugnisse. Sie greift auf die
+	 * Klasse EnderzeugnisMapper zu.
+	 * 
+	 * @param void
+	 * @return Ein Vektor vom Typ Enderzeugnis, welcher alle Enderzeugnise
+	 *         enthaehlt.
+	 */
 
 	@Override
 	public Vector<Enderzeugnis> getAllEnderzeugnisse() {
@@ -422,27 +452,30 @@ public Vector<Bauteil> getBauteilZwischenTabelle(int id) {
 	}
 
 	/**
-	 * Diese Methode wird benötigt, um ein Enderzeugnis mit einer bestimmten ID zu
-	 * finden. Die Methode gibt ein Enderzeugnis als Vektor zurück. Da die ID
+	 * Diese Methode wird benötigt, um ein Enderzeugnis mit einer bestimmten ID
+	 * zu finden. Die Methode gibt ein Enderzeugnis als Vektor zurück. Da die ID
 	 * übergeben wird steht in diesem Vektor lediglich ein Objekt vom Typ
 	 * Enderzeugnis.
 	 * 
-	 * @param ID als Integer
+	 * @param ID
+	 *            als Integer
 	 * @return Vektor mit Enderzeugnis-Objekten
 	 */
+
 	public Vector<Enderzeugnis> getEnderzeugnis(int id) {
 
 		return EnderzeugnisMapper.enderzeugnisMapper().findByKey(id);
 	}
-	
+
 	/**
-	 * Die Methode wird benötigt, um ein Enderzeugnis mit einem bestimmten Namen zu
-	 * finden. Da mehrere Enderzeugnisse mit dem selben Namen existieren können, wird
-	 * das Enderzeugnis in einem Vektor gespeichert.
+	 * Die Methode wird benötigt, um ein Enderzeugnis mit einem bestimmten Namen
+	 * zu finden. Da mehrere Enderzeugnisse mit dem selben Namen existieren
+	 * können, wird das Enderzeugnis in einem Vektor gespeichert.
 	 * 
-	 * @param Ein Name eines Enderzeugnisses, welches gefunden werden soll
-	 * @return Vektor vom Typ Enderzeugnis, welches alle Enderzeugnisse mit dem übergebenen
-	 *         Namen enthält
+	 * @param Ein
+	 *            Name eines Enderzeugnisses, welches gefunden werden soll
+	 * @return Vektor vom Typ Enderzeugnis, welches alle Enderzeugnisse mit dem
+	 *         übergebenen Namen enthält
 	 */
 	public Vector<Enderzeugnis> getEnderzeugnis(String name) {
 
@@ -452,7 +485,8 @@ public Vector<Bauteil> getBauteilZwischenTabelle(int id) {
 	/**
 	 * Die Methode legt ein Enderzeugnis an.
 	 * 
-	 * @param Ein Objekt vom Typ Enderzeugnis welches gespeichert werden soll
+	 * @param Ein
+	 *            Objekt vom Typ Enderzeugnis welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Enderzeugnis
 	 */
 	public Enderzeugnis createEnderzeugnis() {
@@ -463,55 +497,64 @@ public Vector<Bauteil> getBauteilZwischenTabelle(int id) {
 	/**
 	 * Die Methode aktualisiert ein Enderzeugnis.
 	 * 
-	 * @param Ein Objekt vom Typ Enderzeugnis
+	 * @param Ein
+	 *            Objekt vom Typ Enderzeugnis
 	 * @return Objekt vom Typ Enderzeugnis
 	 */
 	public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {
 
 		return EnderzeugnisMapper.enderzeugnisMapper().updateEnderzeugnis(ez);
 	}
-	
-	public String delete(int id) {
 
-		return BauteilMapper.bauteilMapper().delete(id);
-	}
-	
-	public Vector<Baugruppe> getBaugruppeForZuordnungDetails(int id){
+	/**
+	 * Die Methode findet die ausgewaehlte Baugruppe, damit diese zu einem
+	 * Enderzeugnis hinzugefuegt werden kann.
+	 * 
+	 * @param id
+	 * @return Ein Vektor vom Typ Baugruppe, welcher die Baugruppe mit der
+	 *         zuordnung zu dem Enderzeugnis enthaelt.
+	 */
+
+	public Vector<Baugruppe> getBaugruppeForZuordnungDetails(int id) {
 		return BaugruppeMapper.baugruppeMapper().findByKey(id);
 	}
 
+	// -----------------------------------------------------------------------------
+	// ----------------------------Ende Enderzeugnis--------------------------------
+	// -----------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------
 
 	// -----------------------------------------------------------------------------
-	// ----------------------------Ende
-	// Enderzeugnis----------------------------------------
+	// ----------------------------Benutzer-----------------------------------------
+	// ------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------
 
-
-	// -----------------------------------------------------------------------------
-	// ----------------------------Benutzer
-	//----------------------------------------
-	// -----------------------------------------------------------------------------
-
+	/**
+	 * Die Methode speichert einen Benutzer und verweist auf die Klasse
+	 * BenutzerMapper.
+	 * 
+	 * 
+	 * @param mail
+	 * @return Ein Objekt vom Abstrakten-Datentyp Benutzer.
+	 */
 
 	@Override
 	public Benutzer saveBenutzer(String mail) {
-		
+
 		return BenutzerMapper.benutzerMapper().saveBenutzer(mail);
-	
-	
+
 	}
-	
+
 	@Override
 	public Benutzer checkBenutzer(String mail) {
-		
+
 		return BenutzerMapper.benutzerMapper().checkBenutzer(mail);
-	
-	
+
 	}
-	
+
 	// -----------------------------------------------------------------------------
-		// ----------------------------Ende Benutzer
-		//----------------------------------------
-		// -----------------------------------------------------------------------------
+	// ----------------------------Ende Benutzer------------------------------------
+	// ------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------
 
 }
