@@ -8,7 +8,8 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 /**
- * Die Klasse BenutzerHandbuch
+ * Die Klasse BenutzerHandbuch ermoeglicht es dem User, sich das Benutzerhandbuch anzeigen zu lassen.
+ * Hier wird das User Interface dafuer definiert.
  * @author Maehler
  *
  */

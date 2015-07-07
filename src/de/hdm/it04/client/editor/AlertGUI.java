@@ -10,7 +10,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Die Klasse AlertGUI
+ * Die Klasse AlertGUI stellt ein Panel fuer das Anzeigen von Statusmeldungen bereit. 
+ * 
  * @author Tschullik
  *
  */

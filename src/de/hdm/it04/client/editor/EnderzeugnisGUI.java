@@ -32,7 +32,8 @@ import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Enderzeugnis;
 /**
- * Die Klasse EnderzeugnisGUI
+ * Die Klasse EnderzeugnisGUI ermöglicht es dem User, Enderzeugnis Objekte zu erstellen und zu verwalten.
+ * Hier wird das User Interface dafuer definiert. 
  * @author Geier, Schwab, Tschullik, Maehler, Voelker
  *
  */
