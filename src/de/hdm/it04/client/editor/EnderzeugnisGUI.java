@@ -31,9 +31,11 @@ import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Enderzeugnis;
+
 /**
- * Die Klasse EnderzeugnisGUI ermÃ¶glicht es dem User, Enderzeugnis Objekte zu erstellen und zu verwalten.
- * Hier wird das User Interface dafuer definiert. 
+ * Die Klasse EnderzeugnisGUI ermoeglicht es dem User, Enderzeugnis Objekte zu
+ * erstellen und zu verwalten. Hier wird das User Interface dafuer definiert.
+ * 
  * @author Geier, Schwab, Tschullik, Maehler, Voelker
  *
  */
@@ -41,7 +43,7 @@ public class EnderzeugnisGUI {
 
 	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
 	AlertGUI alertGUI = new AlertGUI();
-	
+
 	String user = It04gwtEditor.user;
 
 	private TextBox txtSuchen = new TextBox();
@@ -54,6 +56,13 @@ public class EnderzeugnisGUI {
 	FlexTable enderzeugnisseTable = new FlexTable();
 	FlexTable baugruppeTable = new FlexTable();
 
+	/**
+	 * Einem Enderzeugnis wird eine Baugruppe zugeordnet
+	 * 
+	 * @param baugruppe
+	 * @return vPanel
+	 */
+
 	public Widget showZuordnungsForm(Vector<Baugruppe> baugruppe) {
 
 		VerticalPanel vPanel = new VerticalPanel();
@@ -61,7 +70,7 @@ public class EnderzeugnisGUI {
 		 * neuer HTML Bereich
 		 */
 		HTML topic = new HTML(
-				"<h2>Welche Baugruppe mÃ¶chten Sie dem Enderzeugnis zuordnen?</h2>");
+				"<h2>Welche Baugruppe moechten Sie dem Enderzeugnis zuordnen?</h2>");
 		vPanel.add(topic);
 
 		/**
@@ -75,7 +84,6 @@ public class EnderzeugnisGUI {
 		baugruppeTable.setText(0, 4, "Zuletzt geaendert am");
 		baugruppeTable.setText(0, 5, "letzter Bearbeiter");
 		baugruppeTable.setText(0, 6, "Zuordnen");
-		
 
 		/**
 		 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem
@@ -92,7 +100,6 @@ public class EnderzeugnisGUI {
 					boolean checked = ((CheckBox) event.getSource()).getValue();
 
 					if (checked == true) {
-
 						Cell cell = baugruppeTable.getCellForEvent(event);
 
 						int rowIndex = cell.getRowIndex();
@@ -106,34 +113,35 @@ public class EnderzeugnisGUI {
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			
-			 Date d1 = new Date(); d1 =
-			 baugruppe.elementAt(j).getErstellungsDatum(); 
-			 String s1 =DateTimeFormat.getMediumDateTimeFormat().format(d1);
-			 
+
+			Date d1 = new Date();
+			d1 = baugruppe.elementAt(j).getErstellungsDatum();
+			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
 
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			
-			 Date d2 = new Date(); d2 =
-			 baugruppe.elementAt(j).getAenderungsDatum(); String s2 =
-			 DateTimeFormat.getMediumDateTimeFormat().format(d2);
-			 
+
+			Date d2 = new Date();
+			d2 = baugruppe.elementAt(j).getAenderungsDatum();
+			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 
 			/**
 			 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
 			 */
 			baugruppeTable.setText(j + 1, 0,
-			Integer.toString(baugruppe.elementAt(j).getId()));
+					Integer.toString(baugruppe.elementAt(j).getId()));
 			baugruppeTable.setText(j + 1, 1, baugruppe.elementAt(j).getName());
-			baugruppeTable.setText(j + 1, 2, baugruppe.elementAt(j).getBeschreibung());
-			baugruppeTable.setText(j+1, 3, s1);
-			baugruppeTable.setText(j+1, 4, s2);
-			baugruppeTable.setText(j+1, 5, baugruppe.elementAt(j).getLetzterBearbeiter());
+			baugruppeTable.setText(j + 1, 2, baugruppe.elementAt(j)
+					.getBeschreibung());
+			baugruppeTable.setText(j + 1, 3, s1);
+			baugruppeTable.setText(j + 1, 4, s2);
+			baugruppeTable.setText(j + 1, 5, baugruppe.elementAt(j)
+					.getLetzterBearbeiter());
 			baugruppeTable.setWidget(j + 1, 6, rb);
 
-			if (Integer.parseInt(baugruppeTable.getText(j + 1, 0)) == ez.getBaugruppe()) {
+			if (Integer.parseInt(baugruppeTable.getText(j + 1, 0)) == ez
+					.getBaugruppe()) {
 				rb.setValue(true);
 			}
 
@@ -142,8 +150,10 @@ public class EnderzeugnisGUI {
 			 */
 			baugruppeTable.setCellPadding(6);
 			baugruppeTable.getRowFormatter().addStyleName(0, "watchListHeader");
-			baugruppeTable.getCellFormatter().addStyleName(0, 2,"watchListNumericColumn");
-			baugruppeTable.getCellFormatter().addStyleName(0, 3,"watchListNumericColumn");
+			baugruppeTable.getCellFormatter().addStyleName(0, 2,
+					"watchListNumericColumn");
+			baugruppeTable.getCellFormatter().addStyleName(0, 3,
+					"watchListNumericColumn");
 		}
 
 		/**
@@ -167,7 +177,6 @@ public class EnderzeugnisGUI {
 								new AlertGUI()
 										.load("Enderzeugnis konnte nicht gespeichert werden",
 												"red");
-
 							}
 
 							@Override
@@ -182,7 +191,6 @@ public class EnderzeugnisGUI {
 
 							}
 						});
-
 			}
 		});
 
@@ -191,6 +199,11 @@ public class EnderzeugnisGUI {
 		return vPanel;
 	}
 
+	/**
+	 * Enderzeugnis wird über die Eingabe einer ID oder des Namens gesucht
+	 * 
+	 * @return vPanel
+	 */
 	public Widget suchen() {
 		VerticalPanel vPanel = new VerticalPanel();
 
@@ -212,6 +225,9 @@ public class EnderzeugnisGUI {
 							new AsyncCallback<Vector<Enderzeugnis>>() {
 
 								public void onFailure(Throwable arg0) {
+									new AlertGUI()
+											.load("Enderzeugnis konnte nicht gefunden werden",
+													"red");
 
 								}
 
@@ -232,6 +248,9 @@ public class EnderzeugnisGUI {
 						new AsyncCallback<Vector<Enderzeugnis>>() {
 
 							public void onFailure(Throwable arg0) {
+								new AlertGUI()
+										.load("Enderzeugnis konnte nicht gefunden werden",
+												"red");
 
 							}
 
@@ -248,19 +267,21 @@ public class EnderzeugnisGUI {
 		});
 
 		return vPanel;
-		
-		
-		
+
 	}
 
 	// ----------------------------------------------------------------------------
 	// ----------------------- Form zum Anlegen eines EZ
 	// --------------------------
 	// ----------------------------------------------------------------------------
+	/**
+	 * Hier können Name, Beschreibung und Preis eines Enderzeugnisses verändert
+	 * und eingetragen werden
+	 * 
+	 * @param enderzeugnis
+	 * @return vPanel
+	 */
 	public Widget showAnlegenForm(Enderzeugnis enderzeugnis) {
-
-		
-		
 
 		this.ez = enderzeugnis;
 		txtName.setText(ez.getName());
@@ -283,13 +304,10 @@ public class EnderzeugnisGUI {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				
-				
+
 				String preis = txtPreis.getText();
-				
+
 				String test = preis.replace(',', '.');
-				
-					
 
 				ez.setName(txtName.getText());
 				ez.setPreis(Double.parseDouble(test));
@@ -300,7 +318,9 @@ public class EnderzeugnisGUI {
 
 					@Override
 					public void onFailure(Throwable caught) {
-
+						new AlertGUI().load(
+								"Enderzeugnis konnte nicht gespeichert werden",
+								"red");
 					}
 
 					@Override
@@ -325,28 +345,20 @@ public class EnderzeugnisGUI {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						new AlertGUI()
-								.load("Baugruppe konnte nicht gelÃ¶scht werden",
-										"red");
-
+						new AlertGUI().load(
+								"Baugruppe konnte nicht geloescht werden",
+								"red");
 					}
 
 					@Override
 					public void onSuccess(Object result) {
-						new AlertGUI().load("Vorgang wurde erfolgreich abgebrochen",
+						new AlertGUI().load(
+								"Vorgang wurde erfolgreich abgebrochen",
 								"green");
-						
 					}
-
-					
-					
-					
-					
 				});
-				
-				ContentContainer.getInstance().setContent(new Welcome().load());
-				
 
+				ContentContainer.getInstance().setContent(new Welcome().load());
 			}
 		});
 
@@ -375,9 +387,13 @@ public class EnderzeugnisGUI {
 	// ----------------------- Ende Form zum Anlegen eines EZ
 	// --------------------------
 	// ----------------------------------------------------------------------------
-
-
-
+	/**
+	 * Anzeigen aller Enderzeugnisse in Tabellenform
+	 * 
+	 * @param enderzeugnisse
+	 *            Vektor
+	 * @return vPanel welches die Tabelle enthält
+	 */
 	public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse) {
 
 		/**
@@ -386,8 +402,6 @@ public class EnderzeugnisGUI {
 		HTML topic = new HTML(
 				"<h2>Was wollen Sie mit dem Enderzeugnis tun?</h2>");
 		this.vPanel.add(topic);
-
-		
 
 		this.vPanel.add(this.hPanel);
 
@@ -406,16 +420,14 @@ public class EnderzeugnisGUI {
 		enderzeugnisseTable.setText(0, 7, "Bearbeiten");
 		enderzeugnisseTable.setText(0, 8, "LÃ¶schen");
 		enderzeugnisseTable.setText(0, 9, "Zuordnungdetails");
-		
-		if(enderzeugnisse.size() == 0){
-			
-			
+
+		if (enderzeugnisse.size() == 0) {
+
 			new AlertGUI().load("Kein Enderzeugnis vorhanden!", "red");
 			vPanel.clear();
-			
+
 			return vPanel;
 		}
-		
 
 		/**
 		 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem
@@ -440,7 +452,7 @@ public class EnderzeugnisGUI {
 						@Override
 						public void onFailure(Throwable caught) {
 							new AlertGUI()
-									.load("Enderzeugnis konnte nicht gelÃ¶scht werden",
+									.load("Enderzeugnis konnte nicht geloescht werden",
 											"red");
 
 						}
@@ -448,12 +460,13 @@ public class EnderzeugnisGUI {
 						@Override
 						public void onSuccess(Object result) {
 							new AlertGUI().load(
-									"Enderzeugnis wurde erfolgreich gelÃ¶scht",
+									"Enderzeugnis wurde erfolgreich geloescht",
 									"green");
 							sms.getAllEnderzeugnisse(new AsyncCallback<Vector<Enderzeugnis>>() {
 
 								@Override
 								public void onFailure(Throwable caught) {
+									new AlertGUI().load("Fehler", "red");
 
 								}
 
@@ -492,7 +505,7 @@ public class EnderzeugnisGUI {
 
 								@Override
 								public void onFailure(Throwable caught) {
-									// TODO Auto-generated method stub
+									new AlertGUI().load("Fehler", "red");
 
 								}
 
@@ -507,97 +520,97 @@ public class EnderzeugnisGUI {
 
 								}
 							});
-
 				}
 			});
-			
-			
+
 			Button btnZuordnungDetails = new Button("Zuordnungdetails");
-			btnZuordnungDetails.addClickHandler(new ClickHandler(){
-				
-					public void onClick(ClickEvent event) {
-						Cell cell = enderzeugnisseTable.getCellForEvent(event);
+			btnZuordnungDetails.addClickHandler(new ClickHandler() {
 
-						int rowIndex = cell.getRowIndex();
-						String id1 = enderzeugnisseTable.getText(rowIndex, 0);
-						int id = Integer.parseInt(id1);
-	
-						sms.getEnderzeugnis(id,new AsyncCallback<Vector<Enderzeugnis>>() {
+				public void onClick(ClickEvent event) {
+					Cell cell = enderzeugnisseTable.getCellForEvent(event);
 
-							@Override
-							public void onFailure(Throwable caught) {
-								
-								
-							}
+					int rowIndex = cell.getRowIndex();
+					String id1 = enderzeugnisseTable.getText(rowIndex, 0);
+					int id = Integer.parseInt(id1);
 
-							@Override
-							public void onSuccess(Vector<Enderzeugnis> result) {
-								ez = result.firstElement();
-								int id = ez.getBaugruppe();
-								sms.getBaugruppeForZuordnungDetails(id, 
-										new AsyncCallback<Vector<Baugruppe>>(){
+					sms.getEnderzeugnis(id,
+							new AsyncCallback<Vector<Enderzeugnis>>() {
 
-									@Override
-									public void onFailure(Throwable caught) {
-										// TODO Auto-generated method stub
-										
-									}
+								@Override
+								public void onFailure(Throwable caught) {
 
-									@Override
-									public void onSuccess(Vector<Baugruppe> result) {
-										ContentContainer.getInstance().setContent(
-												new EnderzeugnisGUI()
-														.tree(result));
-										
-										
-									}
-									
-								});
-								
-								
-							}
-							
-						});	
+								}
+
+								@Override
+								public void onSuccess(
+										Vector<Enderzeugnis> result) {
+									ez = result.firstElement();
+									int id = ez.getBaugruppe();
+									sms.getBaugruppeForZuordnungDetails(
+											id,
+											new AsyncCallback<Vector<Baugruppe>>() {
+
+												@Override
+												public void onFailure(
+														Throwable caught) {
+													// TODO Auto-generated
+													// method stub
+
+												}
+
+												@Override
+												public void onSuccess(
+														Vector<Baugruppe> result) {
+													ContentContainer
+															.getInstance()
+															.setContent(
+																	new EnderzeugnisGUI()
+																			.tree(result));
+												}
+
+											});
+								}
+
+							});
 				}
 			}
-			
-				
+
 			);
 
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			
-			 Date d1 = new Date(); d1 =
-			 enderzeugnisse.elementAt(j).getErstellungsDatum(); String s1 =
-			 DateTimeFormat.getMediumDateTimeFormat().format(d1);
-			 
+
+			Date d1 = new Date();
+			d1 = enderzeugnisse.elementAt(j).getErstellungsDatum();
+			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
 
 			/**
 			 * Formatiert Timestamp zu String
 			 */
-			
-			 Date d2 = new Date(); d2 =
-			 enderzeugnisse.elementAt(j).getAenderungsDatum(); String s2 =
-			 DateTimeFormat.getMediumDateTimeFormat().format(d2);
-			 
-			 
-			 
+
+			Date d2 = new Date();
+			d2 = enderzeugnisse.elementAt(j).getAenderungsDatum();
+			String s2 = DateTimeFormat.getMediumDateTimeFormat().format(d2);
 
 			/**
 			 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
 			 */
 			enderzeugnisseTable.setText(j + 1, 0,
 					Integer.toString(enderzeugnisse.elementAt(j).getId()));
-			enderzeugnisseTable.setText(j + 1, 1, enderzeugnisse.elementAt(j).getName());
-			enderzeugnisseTable.setText(j + 1, 2, enderzeugnisse.elementAt(j).getBeschreibung());
-			enderzeugnisseTable.setText(j + 1, 3, Double.toString(enderzeugnisse.elementAt(j).getPreis()));
-			enderzeugnisseTable.setText(j+1, 4, s1);
-			enderzeugnisseTable.setText(j+1, 5, s2);
-			enderzeugnisseTable.setText(j + 1, 6, enderzeugnisse.elementAt(j).getLetzterBearbeiter());
+			enderzeugnisseTable.setText(j + 1, 1, enderzeugnisse.elementAt(j)
+					.getName());
+			enderzeugnisseTable.setText(j + 1, 2, enderzeugnisse.elementAt(j)
+					.getBeschreibung());
+			enderzeugnisseTable.setText(j + 1, 3,
+					Double.toString(enderzeugnisse.elementAt(j).getPreis()));
+			enderzeugnisseTable.setText(j + 1, 4, s1);
+			enderzeugnisseTable.setText(j + 1, 5, s2);
+			enderzeugnisseTable.setText(j + 1, 6, enderzeugnisse.elementAt(j)
+					.getLetzterBearbeiter());
 			enderzeugnisseTable.setWidget(j + 1, 7, btnBearbeiten);
 			enderzeugnisseTable.setWidget(j + 1, 8, btnLoeschen);
-			enderzeugnisseTable.setWidget(j+1, 9, btnZuordnungDetails);
+			enderzeugnisseTable.setWidget(j + 1, 9, btnZuordnungDetails);
 
 			/**
 			 * Verknuepfung zu style.css
@@ -621,86 +634,88 @@ public class EnderzeugnisGUI {
 
 	}
 
-
-public Widget tree(Vector<Baugruppe> baugruppe){
+	/**
+	 * Tree zeigt das Enderzeugnis mit seiner zusammengehörigen Baugruppe
+	 * 
+	 * @param baugruppe
+	 * @return vPanel mit SichtbarenTree
+	 */
+	public Widget tree(Vector<Baugruppe> baugruppe) {
 		Baugruppe[] bg = new Baugruppe[baugruppe.size()];
 		baugruppe.copyInto(bg);
-	
-	
+
 		TreeItem root = new TreeItem();
-	
+
 		root.setUserObject(ez);
 		root.setText(ez.getName());
-    
+
 		TreeItem sub = new TreeItem();
 		sub.setUserObject(bg[0]);
 		sub.setText(bg[0].getName());
 		root.addItem(sub);
-    
-    	Tree t = new Tree();
-    	t.addSelectionHandler(new SelectionHandler<TreeItem>(){
-			
+
+		Tree t = new Tree();
+		t.addSelectionHandler(new SelectionHandler<TreeItem>() {
+
 			@Override
 			public void onSelection(SelectionEvent<TreeItem> event) {
-				 TreeItem selectedItem = event.getSelectedItem();
-					
-					
-					Object result = selectedItem.getUserObject();
-					if (result instanceof Baugruppe){
-						int id = ((Baugruppe) result).getId();
-						sms.getBaugruppe(id, new AsyncCallback<Vector<Baugruppe>>() {
+				TreeItem selectedItem = event.getSelectedItem();
 
-							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
+				Object result = selectedItem.getUserObject();
+				if (result instanceof Baugruppe) {
+					int id = ((Baugruppe) result).getId();
+					sms.getBaugruppe(id,
+							new AsyncCallback<Vector<Baugruppe>>() {
 
-							@Override
-							public void onSuccess(Vector<Baugruppe> result) {
-								ContentContainer.getInstance().setContent(new BaugruppeGUI().showAnlegenForm(result.firstElement()));
-								
-							}
-						});
-					}
-					else if (result instanceof Enderzeugnis){
-						int id = ((Enderzeugnis) result).getId();
-						sms.getEnderzeugnis(id,
-								new AsyncCallback<Vector<Enderzeugnis>>() {
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
 
-									@Override
-									public void onFailure(Throwable caught) {
-										// TODO Auto-generated method stub
+								}
 
-									}
+								@Override
+								public void onSuccess(Vector<Baugruppe> result) {
+									ContentContainer.getInstance().setContent(
+											new BaugruppeGUI()
+													.showAnlegenForm(result
+															.firstElement()));
 
-									@Override
-									public void onSuccess(
-											Vector<Enderzeugnis> result) {
+								}
+							});
+				} else if (result instanceof Enderzeugnis) {
+					int id = ((Enderzeugnis) result).getId();
+					sms.getEnderzeugnis(id,
+							new AsyncCallback<Vector<Enderzeugnis>>() {
 
-										ContentContainer.getInstance().setContent(
-												new EnderzeugnisGUI()
-														.showAnlegenForm(result
-																.firstElement()));
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
 
-									}
-								});
+								}
 
-					}
-				
-				
+								@Override
+								public void onSuccess(
+										Vector<Enderzeugnis> result) {
+
+									ContentContainer.getInstance().setContent(
+											new EnderzeugnisGUI()
+													.showAnlegenForm(result
+															.firstElement()));
+
+								}
+							});
+
 				}
-    		
-    		});
-    		t.addItem(root);
 
-    
-    
-    		this.vPanel.add(t);
-	
-	
-    	return this.vPanel;
-	
+			}
+
+		});
+		t.addItem(root);
+
+		this.vPanel.add(t);
+
+		return this.vPanel;
+
 	}
 
 }
