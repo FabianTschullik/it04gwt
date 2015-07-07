@@ -38,8 +38,6 @@ import de.hdm.it04.shared.TeileListe;
 
 public class BaugruppeGUI  {
 	
-	
-	
 	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
 	AlertGUI alertGUI = new AlertGUI();
 	
@@ -78,8 +76,7 @@ public class BaugruppeGUI  {
 					sms.getBaugruppe(id, new AsyncCallback<Vector<Baugruppe>>() {
 
 						public void onFailure(Throwable arg0) {
-						
-							
+									
 						}
 
 						
@@ -100,21 +97,13 @@ public class BaugruppeGUI  {
 
 					public void onSuccess(Vector<Baugruppe> result) {
 						ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));;
-						
-						
+										
 					}
-				});
-				
-				
-				
+				});			
 			}
-		} );
-			
-		
-		
+		} );		
 		return vPanel;
 	}
-
 
 //----------------------------------------------------------------------------
 //----------------------- Form zum Anlegen einer Baugruppe --------------------------
@@ -141,8 +130,6 @@ public class BaugruppeGUI  {
 	  cellFormatter.setHorizontalAlignment(
 	      0, 0, HasHorizontalAlignment.ALIGN_CENTER);
 
-	 
-		
 		Button btnSpeichern = new Button("weiter");
 		btnSpeichern.addClickHandler(new ClickHandler() {
 			
@@ -165,9 +152,7 @@ public class BaugruppeGUI  {
 						ContentContainer.getInstance().setContent(new BaugruppeGUI().showZuordnungsFormForBauteile(result));
 						
 					}
-				});
-				
-				
+				});		
 			}
 		});
 		
@@ -192,25 +177,13 @@ public class BaugruppeGUI  {
 								"green");
 						
 					}
-
-					
-					
-					
-					
+				
 				});
 				
 				ContentContainer.getInstance().setContent(new Welcome().load());
-				
-
 			}
 		});
-
-		
 	
-		
-		
-		
-		
 	  // Add some standard form options
 	  layout.setHTML(1, 0, "ID");
 	  layout.setText(1, 1, Integer.toString(bg.getId()));
@@ -232,26 +205,18 @@ public class BaugruppeGUI  {
 	//----------------------------------------------------------------------------
 	//----------------------- Ende Form zum Anlegen eines EZ --------------------------
 	//----------------------------------------------------------------------------
-
-	
 	
 	public void fuelleTeileListe (FlexTable table){
 		
-		
-		
-	
+
 			//Durch den gesamten Vektor gehen
 			for(int i=0; i<bg.connectedBauteile.size(); i++){
 				
-				
-				
+			
 				//Durch alle Tabellenzeilen durchgehen
 				for(int j=1; j<table.getRowCount(); j++){
 					
-					
-					
-						
-					
+			
 					int aktuellesVektorElement = bg.connectedBauteile.elementAt(i).getId();
 					int aktuelleZeile = Integer.parseInt(table.getText(j, 0));
 					
@@ -262,10 +227,7 @@ public class BaugruppeGUI  {
 					TextBox tb = new TextBox();
 				
 					tb = (TextBox) bauteileTable.getWidget(j, 7);
-						
-					
-					
-					
+										
 					if(aktuelleZeile == aktuellesVektorElement){		
 						
 						int anzahl;
@@ -283,9 +245,6 @@ public class BaugruppeGUI  {
 				}
 			}	
 	  }
-
-
-
 
 	public Widget showZuordnungsFormForBauteile (Vector <Bauteil> bauteile){
 		
@@ -316,10 +275,7 @@ public class BaugruppeGUI  {
 						ContentContainer.getInstance().setContent(new BaugruppeGUI().showZuordnungsFormForBaugruppen(result));
 						
 					}
-				});
-				
-				
-				
+				});			
 			}
 		});
 		
@@ -412,8 +368,7 @@ public class BaugruppeGUI  {
 			//if(Integer.parseInt(bauteileTable.getText(j+1, 0)) == ez.getBaugruppe()){
 				//rb.setValue(true);
 			//}
-			
-			
+		
 			
 			/**
 			 * Verknuepfung zu style.css
@@ -441,8 +396,7 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 		HTML topic = new HTML("<h2>Aus welchen Unterbaugruppen besteht Ihre Baugruppe?</h2>");
 		this.vPanel.add(topic);
 		
-		
-		
+
 		Button btnZuordnung = new Button("speichern");
 		btnZuordnung.addClickHandler(new ClickHandler() {
 			
@@ -480,11 +434,7 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 								ContentContainer.getInstance().setContent(new BaugruppeGUI().showAllBaugruppen(result));
 								
 							}
-						});
-						
-						
-				
-						
+						});				
 					}
 				});
 				vPanel.clear();
@@ -512,8 +462,7 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			
 			if (baugruppen.elementAt(j).getId() != bg.getId()) {
 				
-			
-			
+		
 			final TextBox txtMenge = new TextBox();
 			txtMenge.setText("1");
 			
@@ -557,8 +506,7 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			Date d1 = new Date();
 			d1 = baugruppen.elementAt(j).getErstellungsDatum();
 			String s1 = DateTimeFormat.getMediumDateTimeFormat().format(d1);
-			
-			
+				
 			/**
 			 * Formatiert Timestamp zu String
 			 */
@@ -584,19 +532,15 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 			//	rb.setValue(true);
 			//
 			//}
-			
-			
-			
+					
 			/**
 			 * Verknuepfung zu style.css
 			 */
 			baugruppeTable.setCellPadding(6);
 			baugruppeTable.getRowFormatter().addStyleName(0,  "watchListHeader");
 			baugruppeTable.getCellFormatter().addStyleName(0,2, "watchListNumericColumn");
-			baugruppeTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");	
-			
-			}
-			
+			baugruppeTable.getCellFormatter().addStyleName(0,3, "watchListNumericColumn");			
+			}		
 		}	
 		
 		/**
@@ -608,41 +552,23 @@ public Widget showZuordnungsFormForBaugruppen (Vector <Baugruppe> baugruppen){
 	}
 	
 
-
-
-
-
-
 public void fuelleConnectedBaugruppen (FlexTable table){
-	
-	
 	
 	
 	//Durch den gesamten Vektor gehen
 	for(int i=0; i<bg.connectedBaugruppen.size(); i++){
-		
-		
-		
+			
 		//Durch alle Tabellenzeilen durchgehen
 		for(int j=1; j<table.getRowCount(); j++){
 			
-			
-			
-				
-			
+		
 			int aktuellesVektorElement = bg.connectedBaugruppen.elementAt(i).getId();
 			int aktuelleZeile = Integer.parseInt(table.getText(j, 0));
-			
-	
-			
-			
+					
 			TextBox tb = new TextBox();
 		
 			tb = (TextBox) baugruppeTable.getWidget(j, 7);
-				
-			
-			
-			
+						
 			if(aktuelleZeile == aktuellesVektorElement){		
 				
 				int anzahl;
@@ -662,11 +588,6 @@ public void fuelleConnectedBaugruppen (FlexTable table){
 }
 
 
-
-
-
-
-
 public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 	
 	this.hPanel.clear();
@@ -675,11 +596,8 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 	 */
 	HTML topic = new HTML("<h2>Was wollen Sie mit der Baugruppe tun?</h2>");
 	this.vPanel.add(topic);
-	
-	
-	
-	this.vPanel.add(this.hPanel);
-	
+		
+	this.vPanel.add(this.hPanel);	
 	
 	/**
 	 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
@@ -721,8 +639,7 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 
 					@Override
 					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
+						// TODO Auto-generated method stub			
 					}
 
 					@Override
@@ -743,19 +660,12 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 								new AlertGUI().load("Baugruppe wurde erfolgreich gelöscht", "green");
 								
 							}
-						});
-						
-						
-						
+						});					
 					}
-				});
-			
-				
+				});			
 			}
 		});
-		
-		
-		
+	
 		/**
 		 * Button, um Editieren des Bauteils innerhalb der Tabelle aufzurufen
 		 */
@@ -814,17 +724,13 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 						bg = result.firstElement();
 						//tree (bg);
 						ContentContainer.getInstance().setContent(new TreeGUI().tree(bg));
-						
-						
+					
 					}
 				});
 				
 			}
 		});
 			
-				
-		
-		
 			/**
 		 * Formatiert Timestamp zu String
 		 */
@@ -884,9 +790,7 @@ public Widget tree(Baugruppe bauguppe){
 	
  	for(int i=0; i<bg.connectedBaugruppen.size();i++){
 		
-		
-		
-	    
+   
 		sms.getBaugruppe(bg.connectedBaugruppen.elementAt(i).getId(), new AsyncCallback<Vector<Baugruppe>>() {
 
 			@Override
@@ -906,11 +810,6 @@ public Widget tree(Baugruppe bauguppe){
 		
 	}
 	
-	
-	
-		
-	
-    	
     	for(int i=0; i<bg.connectedBauteile.size();i++){
     		
     		
@@ -930,13 +829,8 @@ public Widget tree(Baugruppe bauguppe){
 					sub.setText(result.firstElement().getName());
 					root.addItem(sub);
 				}
-			});
-    		
-    		
-    	}
-    	
-    
-    
+			}); 		
+    	}   
     /*
     for(int i = 0; i<bt.length;i++){
     	TreeItem sub = new TreeItem();
@@ -985,27 +879,15 @@ public Widget tree(Baugruppe bauguppe){
 						int id = ((Bauteil) result).getId();
 						//sms.getBauteilForUpdate(id);
 					}
-						else{
-						
-						
-				}
-				
-				
+						else{			
+				}		
 			}
     		
     	});
     	t.addItem(root);
 
-    
-    
     	this.vPanel.add(t);
-	
 	
 	return this.vPanel;
 }
-
-
-
-
-
 }
