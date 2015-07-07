@@ -14,6 +14,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * Die Klasse BusinessObject implementiert Serializable, damit Objekte übergeben werden
  * können. Serializable wandelt Objekte in Binärcode um, damit die Kommunikation
  * zwischen Client und Server funktioniert.
+ * @author 
  */
 @SuppressWarnings("serial")
 public abstract class BusinessObject implements IsSerializable {

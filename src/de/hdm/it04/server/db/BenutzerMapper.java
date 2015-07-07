@@ -1,17 +1,6 @@
 package de.hdm.it04.server.db;
-
-/**
- * Mapper-Klasse, die <code>Bauteil</code>-Objekte auf eine relationale
- * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
- * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
- * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
- *  * @see BaugruppeMapper, EnderzeugnisMapper, BenutzerMapper
- * @author Maehler, Voelker, Thies
- */
 	
-	
-	import java.sql.Connection;
+import java.sql.Connection;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +12,17 @@ import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Benutzer;
 	
-	public class BenutzerMapper {
+/**
+ * Mapper-Klasse, die <code>Bauteil</code>-Objekte auf eine relationale
+ * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
+ * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
+ * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
+ * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ *  * @see BaugruppeMapper, EnderzeugnisMapper, BenutzerMapper
+ * @author Maehler, Voelker, Thies
+ */
+	
+public class BenutzerMapper {
 		
 		/**
 		 * Die Klasse BenutzerMapper wird nur einmal instantiiert. Man spricht

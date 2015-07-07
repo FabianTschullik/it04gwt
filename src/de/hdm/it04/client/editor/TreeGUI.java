@@ -19,7 +19,11 @@ import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 
 import de.hdm.it04.shared.TeileListe;
-
+/**
+ * 
+ * @author Geier, Tschullik
+ *
+ */
 
 public class TreeGUI {
 	

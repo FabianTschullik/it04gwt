@@ -11,6 +11,12 @@ import de.hdm.it04.shared.Element;
 import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.LoginInfo;
 
+/**
+ * 
+ * @author 
+ *
+ */
+
 public interface It04gwtServiceAsync {
 
 	//Asyncs geben niemals einen wert zurück, da dieser über callback zurück kommt.

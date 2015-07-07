@@ -1,8 +1,11 @@
 package de.hdm.it04.shared;
 
-
 import com.google.gwt.user.client.rpc.IsSerializable;
-
+/**
+ * 
+ * @author 
+ *
+ */
 public class TeileListe implements IsSerializable {
 
 	
