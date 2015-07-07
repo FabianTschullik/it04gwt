@@ -3,7 +3,8 @@ package de.hdm.it04.client.editor;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
 /**
- * Die Klasse Impressum
+ * Die Klasse Impressum haelt das Impressum der Webseite nach §5 TMG bereit, um die Betreiber der Webseite
+ * identifizieren zu koennen.
  * @author Schwab, Tschullik
  *
  */

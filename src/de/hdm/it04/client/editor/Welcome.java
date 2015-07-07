@@ -2,8 +2,9 @@ package de.hdm.it04.client.editor;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
 /**
- * 
+ * Die Klasse Welcome zeigt einen Begruessungstext auf der Startseite
  * @author Tschullik, Maehler
  *
  */
@@ -31,9 +32,7 @@ public class Welcome {
 				+ "<b>"
 				+ "<p style='font-family:courier'>Das innovative System der Maschinen!</b></p>"
 				+ "</span style='color:#6E6E6E'>"
-				+ "</center>");
-						
-		
+				+ "</center>");	
 		return html;
-
-}}
+	}
+}
