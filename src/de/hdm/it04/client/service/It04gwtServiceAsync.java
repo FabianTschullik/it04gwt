@@ -39,7 +39,6 @@ public interface It04gwtServiceAsync {
 		//------------------------------------------------------
 		void createBauteil(AsyncCallback callback);
 		void getBauteil(int id, AsyncCallback<Vector<Bauteil>> callback);
-		void getBauteilForUpdate(int id, AsyncCallback<Vector<Bauteil>> callback);
 		void getBauteil (String name, AsyncCallback<Vector<Bauteil>> callback);
 		void getAll(AsyncCallback<Vector<Bauteil>> callback);
 		void updateBauteil(Bauteil bt, AsyncCallback<Vector<Bauteil>> callback);
@@ -56,7 +55,6 @@ public interface It04gwtServiceAsync {
 		void deleteBaugruppe(int id, AsyncCallback callback);
 		void getBaugruppe(int id, AsyncCallback<Vector<Baugruppe>> callback);
 		void getBaugruppe(String name, AsyncCallback<Vector<Baugruppe>> callback);
-		void getBaugruppeForUpdate(int id, AsyncCallback<Vector<Baugruppe>> callback);
 		void getAllBaugruppen(AsyncCallback<Vector<Baugruppe>> callback);
 		//------------------------------------------------------
 		//------------Ende Baugruppe---------------------------------
@@ -68,8 +66,7 @@ public interface It04gwtServiceAsync {
 		//------------Enderzeugnis---------------------------------
 		//------------------------------------------------------
 		void createEnderzeugnis(AsyncCallback<Enderzeugnis> callback);
-		void getEnderzeugnis(int id, AsyncCallback<Vector<Enderzeugnis>> callback );	
-		void getEnderzeugnisForUpdate(int id, AsyncCallback<Vector<Enderzeugnis>> callback );	
+		void getEnderzeugnis(int id, AsyncCallback<Vector<Enderzeugnis>> callback );		
 		void getEnderzeugnis(String name, AsyncCallback<Vector<Enderzeugnis>> callback );
 		void getAllEnderzeugnisse(AsyncCallback<Vector<Enderzeugnis>> callback );	
 		void deleteEnderzeugnis(int id, AsyncCallback callback);

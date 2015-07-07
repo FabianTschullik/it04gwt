@@ -57,7 +57,6 @@ public interface It04gwtService extends RemoteService {
 	 * @return Vektor mit Bauteil-Objekten
 	 */
 	Vector<Bauteil> getBauteil(int id);
-	Vector<Bauteil> getBauteilForUpdate(int id);
 	
 	/**
 	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
@@ -111,7 +110,6 @@ public interface It04gwtService extends RemoteService {
 	String deleteBaugruppe(int id);
 	Vector <Baugruppe> getBaugruppe(int id);
 	Vector <Baugruppe> getBaugruppe(String name);
-	Vector <Baugruppe> getBaugruppeForUpdate(int id);
 	Vector <Baugruppe> getAllBaugruppen();
 //---------------------------------------------------------------------------
 //---------------------------Ende Baugruppe---------------------------------------
@@ -127,7 +125,6 @@ public interface It04gwtService extends RemoteService {
 	Vector <Enderzeugnis> getAllEnderzeugnisse();
 	Vector <Enderzeugnis> getEnderzeugnis(int id);
 	Vector <Enderzeugnis> getEnderzeugnis(String name);
-	Vector <Enderzeugnis> getEnderzeugnisForUpdate(int id);
 	Vector <Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez);
 	Vector <Baugruppe> getBaugruppeForZuordnungDetails(int id);
 	

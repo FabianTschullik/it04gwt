@@ -24,7 +24,6 @@ public interface It04gwtServiceClientInt {
 	 * @return void
 	 */
 	void getBauteil(int id);
-	void getBauteilForUpdate(int id);
 	
 	/**
 	 * Die Methode legt ein Bauteil an.
@@ -82,7 +81,6 @@ public interface It04gwtServiceClientInt {
 	void deleteBaugruppe(int id);
 	void getBaugruppe(int id);
 	void getBaugruppe(String name);
-	void getBaugruppeForUpdate (int id);
 	void getAllBaugruppen();
 //------------------------------------------------------------------------------------
 //------------------------------ENDE Baugruppe----------------------------------
@@ -97,7 +95,6 @@ public interface It04gwtServiceClientInt {
 	void deleteEnderzeugnis(int id);
 	void getEnderzeugnis(int id);
 	void getEnderzeugnis(String name);
-	void getEnderzeugnisForUpdate (int id);
 	void getAllEnderzeugnisse();
 //------------------------------------------------------------------------------------
 //------------------------------Ende Enderzeugnis----------------------------------
