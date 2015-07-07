@@ -31,13 +31,6 @@ import de.hdm.it04.shared.LoginInfo;
 		Audio sound;
 		public static String user;
 
-	
-		
-
-		
-
-		
-		
 		
 		// TODO #05: add constants for OAuth2 (don't forget to update GOOGLE_CLIENT_ID)
 		private static final Auth AUTH = Auth.get();
@@ -133,17 +126,14 @@ import de.hdm.it04.shared.LoginInfo;
 
 		// TODO #07:> end
 
-		/**
-		 * This is the entry point method.
-		 */
-
-		
-		
+		  /**
+		   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
+		   * zusichert, benötigen wir eine Methode
+		   * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
+		   * <code>main()</code>-Methode normaler Java-Applikationen.
+		   */
 		public void onModuleLoad() {
 		
-			
-			
-			
 			
 			// TODO #08: create login controls
 			
@@ -176,20 +166,14 @@ import de.hdm.it04.shared.LoginInfo;
 						@Override
 						public void onFailure(Throwable caught) {
 
-						;
-
-							
+						;				
 						}
 
 						@Override
 						public void onSuccess(Object result) {
 
-					
-
-
 							
 						}});
-					
 					
 					
 					sound = sound.createIfSupported();
@@ -209,19 +193,7 @@ import de.hdm.it04.shared.LoginInfo;
 				}
 			});
 			// TODO #08:> end
-			
-			
-			
-			
-			
-			
-			
+				
 			;
 		}
 	}
-	
-	
-
-
-
-
