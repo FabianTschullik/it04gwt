@@ -1,6 +1,14 @@
 package de.hdm.it04.server.db;
 
-	
+/**
+ * Mapper-Klasse, die <code>Bauteil</code>-Objekte auf eine relationale
+ * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
+ * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
+ * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
+ * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ *  * @see BaugruppeMapper, EnderzeugnisMapper, BenutzerMapper
+ * @author Maehler, Voelker, Thies
+ */
 	
 	
 	import java.sql.Connection;
@@ -16,13 +24,38 @@ import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Benutzer;
 	
 	public class BenutzerMapper {
-
-	
+		
+		/**
+		 * Die Klasse BenutzerMapper wird nur einmal instantiiert. Man spricht
+		 * hierbei von einem sogenannten <b>Singleton</b>. Hierbei kann global auf
+		 * das Objekt über die Instanzoperation zugegriffen werden.
+		 * <p>
+		 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
+		 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
+		 * speichert die einzige Instanz dieser Klasse.
+		 */
 		private static BenutzerMapper benutzerMapper = null;
 		
-		
+		/**
+		 * Geschützter Konstruktor - verhindert die Möglichkeit, mit
+		 * <code>new</code> neue Instanzen dieser Klasse zu erzeugen.
+		 */
 		protected BenutzerMapper() {}
-
+		
+		/**
+		 * Diese statische Methode kann aufgerufen werden durch
+		 * <code>BauteilMapper.bauteilMapper()</code>. Sie stellt die
+		 * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine
+		 * einzige Instanz von <code>BauteilMapper</code> existiert.
+		 * <p>
+		 * 
+		 * <b>Fazit:</b> BauteilMapper sollte nicht mittels <code>new</code>
+		 * instantiiert werden, sondern stets durch Aufruf dieser statischen
+		 * Methode.
+		 * 
+		 * @return DAS <code>BauteilMapper</code>-Objekt.
+		 * @see BauteilMapper
+		 */
 
 		public static BenutzerMapper benutzerMapper() {
 			if (benutzerMapper == null)
@@ -102,15 +135,6 @@ import de.hdm.it04.shared.Benutzer;
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 				return null;
-			}
-			
-		}
-		
-		
-		
-		}
-	
-	
-	
-
-
+			}		
+		}	
+}

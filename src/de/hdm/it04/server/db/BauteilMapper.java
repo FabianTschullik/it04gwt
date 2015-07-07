@@ -40,7 +40,7 @@ public class BauteilMapper {
 	}
 
 	/**
-	 * Diese statische Methode kann aufgrufen werden durch
+	 * Diese statische Methode kann aufgerufen werden durch
 	 * <code>BauteilMapper.bauteilMapper()</code>. Sie stellt die
 	 * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine
 	 * einzige Instanz von <code>BauteilMapper</code> existiert.
@@ -51,7 +51,7 @@ public class BauteilMapper {
 	 * Methode.
 	 * 
 	 * @return DAS <code>BauteilMapper</code>-Objekt.
-	 * @see bauteilMapper
+	 * @see BauteilMapper
 	 */
 	public static BauteilMapper bauteilMapper() {
 		if (bauteilMapper == null)
