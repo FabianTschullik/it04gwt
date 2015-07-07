@@ -287,6 +287,9 @@ public class BaugruppeMapper {
 				bg.setBeschreibung(rs.getString("beschreibung"));
 				bg.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bg.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
+				
+				bg.connectedBauteile = findConnectedBauteile(bg.getId());
+				bg.connectedBaugruppen = findConnectedBaugruppen(bg.getId());
 
 				// HinzufÃ¼gen des neuen Objekts zum Ergebnisvektor
 				result.addElement(bg);
