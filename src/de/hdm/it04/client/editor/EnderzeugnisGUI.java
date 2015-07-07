@@ -282,9 +282,16 @@ public class EnderzeugnisGUI {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				
+				
+				String preis = txtPreis.getText();
+				
+				String test = preis.replace(',', '.');
+				
+					
 
 				ez.setName(txtName.getText());
-				ez.setPreis(Double.parseDouble(txtPreis.getText()));
+				ez.setPreis(Double.parseDouble(test));
 				ez.setBeschreibung(txtBeschreibung.getText());
 				ez.setLetzterBearbeiter(user);
 

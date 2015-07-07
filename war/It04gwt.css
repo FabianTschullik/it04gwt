@@ -116,7 +116,7 @@ color: green;
 font-size: 150%}
 
 .back{
-background-image : url('background.jpg');
+background-image : url("images/background.jpg");
 background-attachment : fixed;
 background-size : 100% auto;
 }
@@ -134,10 +134,11 @@ background-size : 100% auto;
 
 
 #body{
-background-image : url('background.jpg');
+background-image : url(images/background.jpg);
 background-attachment : fixed;
 background-size : 100% auto;
 }
+
 
 
 /** Add css rules here for your application. */
