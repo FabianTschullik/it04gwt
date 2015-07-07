@@ -130,6 +130,7 @@ public class EnderzeugnisGUI {
 			baugruppeTable.setText(j + 1, 2, baugruppe.elementAt(j).getBeschreibung());
 			baugruppeTable.setText(j+1, 3, s1);
 			baugruppeTable.setText(j+1, 4, s2);
+			baugruppeTable.setText(j+1, 5, baugruppe.elementAt(j).getLetzterBearbeiter());
 			baugruppeTable.setWidget(j + 1, 6, rb);
 
 			if (Integer.parseInt(baugruppeTable.getText(j + 1, 0)) == ez.getBaugruppe()) {
@@ -593,7 +594,7 @@ public class EnderzeugnisGUI {
 			enderzeugnisseTable.setText(j + 1, 3, Double.toString(enderzeugnisse.elementAt(j).getPreis()));
 			enderzeugnisseTable.setText(j+1, 4, s1);
 			enderzeugnisseTable.setText(j+1, 5, s2);
-			enderzeugnisseTable.setText(j + 1, 6, user);
+			enderzeugnisseTable.setText(j + 1, 6, enderzeugnisse.elementAt(j).getLetzterBearbeiter());
 			enderzeugnisseTable.setWidget(j + 1, 7, btnBearbeiten);
 			enderzeugnisseTable.setWidget(j + 1, 8, btnLoeschen);
 			enderzeugnisseTable.setWidget(j+1, 9, btnZuordnungDetails);
