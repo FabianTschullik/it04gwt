@@ -8,12 +8,17 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.HTMLTable.Cell;
 
 import de.hdm.it04.client.editor.AlertGUI;
 import de.hdm.it04.client.editor.ContentContainer;
+import de.hdm.it04.client.service.It04gwtService;
+import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.client.service.report.It04gwtServiceReport;
 import de.hdm.it04.client.service.report.It04gwtServiceReportAsync;
 import de.hdm.it04.shared.Baugruppe;
@@ -30,7 +35,9 @@ public class StrukturstuecklisteGUI {
 	
 	TextBox txtSuchen = new TextBox();
 	private final It04gwtServiceReportAsync smsReport = GWT.create(It04gwtServiceReport.class);
+	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
 	VerticalPanel vPanel = new VerticalPanel();
+	FlexTable baugruppeReportTable = new FlexTable();
 
 	
 	/**
@@ -88,7 +95,7 @@ public class StrukturstuecklisteGUI {
 		/**
 		 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften belegen
 		 */
-		FlexTable baugruppeReportTable = new FlexTable();
+		
 		baugruppeReportTable.setText(0,0,"ID");
 		baugruppeReportTable.setText(0,1,"Name");
 		baugruppeReportTable.setText(0,2,"Beschreibung");
@@ -142,10 +149,32 @@ public class StrukturstuecklisteGUI {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			//Mit Klick auf diesen Button soll die Strukturstueckliste zur ausgewählten Baugruppe erzeugt und ausgegeben werden.
-			//Bereich clearen, Methode aufrufen, um Struktur in HTML zu pressen und anzuzeigen.
-		//	vPanel.clear();
-			//It04gwtServiceReportImpl.createStrukturstuecklisteReport();
+			
+			Cell cell = baugruppeReportTable.getCellForEvent(event);
+
+			int rowIndex = cell.getRowIndex();
+			String id1 = baugruppeReportTable.getText(rowIndex, 0);
+			int id = Integer.parseInt(id1);
+			
+			
+			sms.getStrukturstueckliste(id, new AsyncCallback<String>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onSuccess(String result) {
+					RootPanel.get("content").clear();
+					HTML html = new HTML(result);
+					RootPanel.get("content").add(html);
+					
+					
+				}
+			});
+			
 		}
 	}
 }

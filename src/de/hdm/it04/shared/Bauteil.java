@@ -14,6 +14,8 @@ public class Bauteil extends Element {
 
 	// Variablendeklarationen
 	private String materialBezeichnung;
+	
+	private int anzahl;
 
 	/**
 	 * Getter-Methode, welche die Materialbezichnung eines
@@ -36,5 +38,15 @@ public class Bauteil extends Element {
 	public void setMaterialBezeichnung(String materialBezeichnung) {
 		this.materialBezeichnung = materialBezeichnung;
 	}
+
+	public int getAnzahl() {
+		return anzahl;
+	}
+
+	public void setAnzahl(int anzahl) {
+		this.anzahl = anzahl;
+	}
+
+	
 
 }

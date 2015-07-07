@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.google.gwt.user.client.ui.HTML;
 
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
@@ -140,5 +141,13 @@ public interface It04gwtService extends RemoteService {
 	
 	Benutzer saveBenutzer(String mail);
 	Benutzer checkBenutzer(String mail);
+	
+	//---------------------------------------------------------------------------
+	//---------------------------Report-------------------------------------
+	//----------------------------------------------------------------------------	
+	
+	Vector <Bauteil> getMaterialbedarf(int id, int menge);
+	String getStrukturstueckliste(int id);
+	
 	
 }

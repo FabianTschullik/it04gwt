@@ -3,6 +3,7 @@ package de.hdm.it04.client.service;
 import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HTML;
 
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
@@ -87,4 +88,11 @@ public interface It04gwtServiceAsync {
 		//------------Ende Benutzer---------------------------------
 		//------------------------------------------------------
 		
+		//------------------------------------------------------
+		//------------Report---------------------------------
+		//------------------------------------------------------
+		
+		void getMaterialbedarf(int id, int menge, AsyncCallback<Vector<Bauteil>> callback);
+		void getStrukturstueckliste(int id, AsyncCallback<String> callback);
+	
 }

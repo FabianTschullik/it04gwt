@@ -17,6 +17,7 @@ import org.codehaus.jackson.JsonToken;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.it04.client.service.It04gwtService;
@@ -298,7 +299,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	}
 
 	// -----------------------------------------------------------------------------
-	// ---------------------------Ende Bauteil--------------------------------------
+	// ---------------------------Ende
+	// Bauteil--------------------------------------
 	// -----------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------
 
@@ -413,7 +415,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	}
 
 	// ------------------------------------------------------------------------------------
-	// ----------------------------Ende Baugruppe------------------------------------------
+	// ----------------------------Ende
+	// Baugruppe------------------------------------------
 	// ------------------------------------------------------------------------------------
 	// ------------------------------------------------------------------------------------
 
@@ -520,7 +523,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	}
 
 	// -----------------------------------------------------------------------------
-	// ----------------------------Ende Enderzeugnis--------------------------------
+	// ----------------------------Ende
+	// Enderzeugnis--------------------------------
 	// -----------------------------------------------------------------------------
 	// ------------------------------------------------------------------------------
 
@@ -553,8 +557,209 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	}
 
 	// -----------------------------------------------------------------------------
-	// ----------------------------Ende Benutzer------------------------------------
+	// ----------------------------Ende
+	// Benutzer------------------------------------
 	// ------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------
+	// ----------------------------Report------------------------------------
+	// ------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------
+
+	Vector<Baugruppe> bg = new Vector<Baugruppe>();
+	Vector<Bauteil> bt = new Vector<Bauteil>();
+	Vector<Bauteil> mb = new Vector<Bauteil>();
+	Vector<Enderzeugnis> ez = new Vector<Enderzeugnis>();
+	Enderzeugnis ezroot = new Enderzeugnis();
+	Baugruppe bgroot = new Baugruppe();
+	boolean pruefung = true;
+
+	public Vector<Bauteil> getMaterialbedarf(int id, int menge) {
+		mb.removeAllElements();
+		bg = getAllBaugruppen();
+		bt = getAll();
+		ez = getAllEnderzeugnisse();
+
+		ezroot = getEnderzeugnis(id).firstElement();
+		bgroot = getBaugruppe(ezroot.getBaugruppe()).firstElement();
+
+		rekursiv(bgroot, menge);
+
+		return mb;
+		
+	}
+
+	public void rekursiv(Baugruppe bgroot, int menge) {
+		pruefung = true;
+		if (bgroot.connectedBaugruppen.size() == 0) {
+
+			for (int i = 0; i < bgroot.connectedBauteile.size(); i++) {
+				pruefung = true;
+				for (int j = 0; j < mb.size(); j++) {
+
+					if (bgroot.connectedBauteile.elementAt(i).getId() == mb
+							.elementAt(j).getId()) {
+
+						mb.elementAt(j).setAnzahl(
+								mb.elementAt(j).getAnzahl()
+										+ bgroot.connectedBauteile.elementAt(i)
+												.getAnzahl() * menge);
+						pruefung = false;
+
+					}
+
+				}
+
+				if (pruefung == true) {
+					for (int z = 0; z < bt.size(); z++) {
+
+						if (bgroot.connectedBauteile.elementAt(i).getId() == bt
+								.elementAt(z).getId()) {
+							mb.add(bt.elementAt(z));
+							bt.elementAt(z).setAnzahl(
+									bgroot.connectedBauteile.elementAt(i)
+											.getAnzahl() * menge);
+
+						}
+
+					}
+				}
+
+			}
+
+		}
+
+		else {
+
+			for (int i = 0; i < bgroot.connectedBaugruppen.size(); i++) {
+				for (int y = 0; y< bg.size(); y++){
+					if (bgroot.connectedBaugruppen.elementAt(i).getId() == bg
+							.elementAt(y).getId()){
+						
+					
+				rekursiv(bg.elementAt(y), menge);}
+				}
+
+			}
+			if (bgroot.connectedBauteile.size() != 0) {
+				
+				for (int i = 0; i < bgroot.connectedBauteile.size(); i++) {
+					pruefung = true;
+					for (int j = 0; j < mb.size(); j++) {
+
+						if (bgroot.connectedBauteile.elementAt(i).getId() == mb
+								.elementAt(j).getId()) {
+
+							mb.elementAt(j).setAnzahl(
+									mb.elementAt(j).getAnzahl()
+											+ bgroot.connectedBauteile.elementAt(i)
+													.getAnzahl() * menge);
+							pruefung = false;
+
+						}
+
+					}
+
+					if (pruefung == true) {
+						for (int z = 0; z < bt.size(); z++) {
+
+							if (bgroot.connectedBauteile.elementAt(i).getId() == bt
+									.elementAt(z).getId()) {
+								mb.add(bt.elementAt(z));
+								bt.elementAt(z).setAnzahl(
+										bgroot.connectedBauteile.elementAt(i)
+												.getAnzahl() * menge);
+
+							}
+
+						}
+					}
+
+				}
+				
+
+			}
+		}
+	
+
+	}
+
+	@Override
+	public String getStrukturstueckliste(int id) {
+		
+		Vector<Baugruppe> bg = new Vector<Baugruppe>();
+		Vector<Bauteil> bt = new Vector<Bauteil>();
+		Vector<Enderzeugnis> ez = new Vector<Enderzeugnis>();
+		
+		bgroot= getBaugruppe(id).firstElement();
+		return buildHTMLTree(bgroot, 0);
+		
+		
+		
+		
+		
+		
+	}
+	
+	private String buildHTMLTree(Baugruppe bgroot, int level){
+		String result = "";
+		
+		
+		
+		
+		if (bgroot.connectedBaugruppen.size() == 0){
+			
+			
+				for(int i = 0; i<level; i++){
+					result+="----------";}
+				level++;
+			
+			result+="<b>"+bgroot.getName()+"</b>"+"<br/>";
+			
+			for(int y = 0; y < bgroot.connectedBauteile.size(); y++){
+				
+				
+				for(int i = 0; i<level; i++){
+					result+="----------";}
+					
+				
+				result+= getBauteil(bgroot.connectedBauteile.elementAt(y).getId()).firstElement().getName()+"<br/>";
+				}
+				
+			}
+			
+			
+			
+		
+		else {
+			for(int i = 0; i<level; i++){
+				result+="----------";}
+			result+="<b>"+bgroot.getName()+"</b>"+"<br/>";
+			
+			
+			for(int z = 0; z< bgroot.connectedBaugruppen.size();z++){
+				
+				level++;
+				result+=buildHTMLTree(getBaugruppe(bgroot.connectedBaugruppen.elementAt(z).getId()).firstElement(), level);
+				
+			}
+			
+			
+			for(int p = 0; p <bgroot.connectedBauteile.size(); p++ ){
+				for(int i = 0; i<level; i++){
+					result+="----------";}
+				
+				result+= getBauteil(bgroot.connectedBauteile.elementAt(p).getId()).firstElement().getName()+"<br/>";
+				
+				
+				}
+
+			
+		}
+		
+		
+		
+		return result;
+	}
 
 }
