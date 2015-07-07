@@ -95,6 +95,9 @@ public class TreeGUI {
 						root.setText(allBt.elementAt(j).getName());
 						sub.addItem(root);
 						
+						
+						
+						
 					}
 			}
 			sub.setText(baugruppe.getName());
