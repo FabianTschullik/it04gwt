@@ -97,12 +97,28 @@ public class It04gwtServiceReportImpl extends RemoteServiceServlet implements It
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * Die Methode wird benötigt, um eine Baugruppe mit einer bestimmten ID zu
+	 * finden. 
+	 * @param Eine ID einer Baugruppe, welche gefunden werden soll
+	 * @return Vektor vom Typ Baugruppe, welcher die Baugruppe mit der übergebenen
+	 *         ID enthält
+	 */
 	@Override
 	public Vector<Baugruppe> getBaugruppe(int id) {
 		return BaugruppeMapper.baugruppeMapper().findByKey(id);
 	}
 
+	/**
+	 * Die Methode wird benötigt, um eine Baugruppe mit einem bestimmten Namen zu
+	 * finden. Da mehrere Baugruppen mit dem selben Namen existieren können, wird
+	 * die Baugruppe in einem Vektor gespeichert.
+	 * 
+	 * @param Ein Name einer Baugruppe, welche gefunden werden soll
+	 * @return Vektor vom Typ Baugruppe, welcher alle Baugruppen mit dem übergebenen
+	 *         Namen enthält
+	 */
 	@Override
 	public Vector<Baugruppe> getBaugruppe(String name) {
 		return BaugruppeMapper.baugruppeMapper().findByName(name);
@@ -110,14 +126,26 @@ public class It04gwtServiceReportImpl extends RemoteServiceServlet implements It
 	}
 
 	/**
-	 * Materialbedarf
+	 * Die Methode wird benötigt, um ein Enderzeugnis mit einer bestimmten ID zu
+	 * finden. 
+	 * @param Eine ID eines Enderzeugnisses, welche gefunden werden soll
+	 * @return Vektor vom Typ Enderzeugnis, welcher das Enderzeugnis mit der übergebenen
+	 *         ID enthält
 	 */
-	
 	@Override
 	public Vector<Enderzeugnis> getEnderzeugnis(int id) {
 		return EnderzeugnisMapper.enderzeugnisMapper().findByKey(id);
 	}
 
+	/**
+	 * Die Methode wird benötigt, um ein Enderzeugnis mit einem bestimmten Namen zu
+	 * finden. Da mehrere Enderzeugnisse mit dem selben Namen existieren können, wird
+	 * das Enderzeugnis in einem Vektor gespeichert.
+	 * 
+	 * @param Ein Name eines Enderzeugnisses, welche gefunden werden soll
+	 * @return Vektor vom Typ Enderzeugnis, welcher alle Enderzeugnisse mit dem übergebenen
+	 *         Namen enthält
+	 */
 	@Override
 	public Vector<Enderzeugnis> getEnderzeugnis(String name) {
 		//return EnderzeugnisMapper.enderzeugnisMapper().findByName(name);
