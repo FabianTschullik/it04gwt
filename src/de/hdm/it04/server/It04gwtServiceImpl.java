@@ -39,7 +39,7 @@ import java.util.Vector;
  * dem Client zu ermöglichen. Hierbei werden die Methoden der Mapper-Klasse
  * aufgerufen.
  * 
- * @author
+ * @author Geier, Tschullik, Voelker
  */
 public class It04gwtServiceImpl extends RemoteServiceServlet implements
 		It04gwtService {
@@ -195,7 +195,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 
 	/**
 	 * Die Methode wird benötigt, um ein Bauteil mit einem bestimmten Namen zu
-	 * finden. Da mehrere Bauteile mit dem selben Namen exisitieren können, wird
+	 * finden. Da mehrere Bauteile mit dem selben Namen existieren können, wird
 	 * das Bauteil in einem Vektor gespeichert.
 	 * 
 	 * @param Ein
