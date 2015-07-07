@@ -24,7 +24,5 @@ public class TeileListe implements IsSerializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-	
+	}	
 }

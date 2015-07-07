@@ -329,7 +329,6 @@ public class EnderzeugnisMapper {
 		return null;
 	}
 	
-	
 	public Vector<Enderzeugnis> findByName(String name) {
 
 		// DB-Verbindung holen
@@ -374,8 +373,6 @@ public class EnderzeugnisMapper {
 		return result;
 	}
 	
-	
-	
 	public String deleteEnderzeugnis(int id) {
 
 		String ergebnis = "Enderzeugnis wurde erfolgreich geloescht!";
@@ -391,6 +388,5 @@ public class EnderzeugnisMapper {
 			e2.printStackTrace();
 		}
 		return ergebnis;
-	}
-	
+	}	
 }

@@ -57,5 +57,4 @@ public abstract class Element extends BusinessObject {
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
 	}
-
 }

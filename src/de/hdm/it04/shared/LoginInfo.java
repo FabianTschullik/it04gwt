@@ -69,6 +69,5 @@ public class LoginInfo implements Serializable {
 	public String getPictureUrl() {
 		return pictureUrl;
 	}
-
 }
 //TODO #12:> end

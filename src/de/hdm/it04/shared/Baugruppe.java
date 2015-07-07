@@ -14,4 +14,3 @@ public class Baugruppe extends Element {
 		public Vector<TeileListe> connectedBauteile = new Vector<TeileListe>();
 		public Vector<TeileListe> connectedBaugruppen = new Vector<TeileListe>();
 	}
-
