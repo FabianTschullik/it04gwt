@@ -309,6 +309,15 @@ public Widget showAllBauteile(Vector<Bauteil> bauteile) {
 	bauteileTable.setText(0, 6, "letzter Bearbeiter");
 	bauteileTable.setText(0, 7, "Bearbeiten");
 	bauteileTable.setText(0, 8, "Löschen");
+	
+	if(bauteile.size() == 0){
+		
+		
+		new AlertGUI().load("Kein Bauteil vorhanden!", "red");
+		vPanel.clear();
+		
+		return vPanel;
+	}
 
 	/**
 	 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem

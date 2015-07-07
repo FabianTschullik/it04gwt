@@ -632,6 +632,16 @@ public Widget showAllBaugruppen(Vector<Baugruppe> baugruppen){
 	baugruppeTable.setText(0,7,"Löschen");
 	baugruppeTable.setText(0,8,"Zuordnungsdetails");
 	
+	
+if(baugruppen.size() == 0){
+		
+		
+		new AlertGUI().load("Keine Baugruppe vorhanden!", "red");
+		vPanel.clear();
+		
+		return vPanel;
+	}
+	
 	/**
 	 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem Vektor belegt
 	 */

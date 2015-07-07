@@ -405,6 +405,16 @@ public class EnderzeugnisGUI {
 		enderzeugnisseTable.setText(0, 7, "Bearbeiten");
 		enderzeugnisseTable.setText(0, 8, "Löschen");
 		enderzeugnisseTable.setText(0, 9, "Zuordnungdetails");
+		
+		if(enderzeugnisse.size() == 0){
+			
+			
+			new AlertGUI().load("Kein Enderzeugnis vorhanden!", "red");
+			vPanel.clear();
+			
+			return vPanel;
+		}
+		
 
 		/**
 		 * Fuer jedes Bauteil werden die Tabellenspalten mit den Werten aus dem
