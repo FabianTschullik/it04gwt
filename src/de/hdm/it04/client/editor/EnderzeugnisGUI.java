@@ -636,23 +636,6 @@ public Widget tree(Vector<Baugruppe> baugruppe){
 		sub.setText(bg[0].getName());
 		root.addItem(sub);
     
-    
-    
-    /*for(int i = 0; i< baugruppe.length; i++){
-    	//root.addTextItem(baugruppe[i].getName());
-    	TreeItem sub = new TreeItem();
-    	sub.setText(baugruppe[i].getName());
-    	for(int z = 0; z<baugruppe.length; z ++)
-    	sub.addTextItem(baugruppe[z].getName());
-    	root.addItem(sub);
- }
-    
-   
-  		for(int i = 0; i< baugruppe.length; i++){
-    	sub.addTextItem(baugruppe[i].getName());
-	   	root.addItem(sub);
- }*/
-    
     	Tree t = new Tree();
     	t.addSelectionHandler(new SelectionHandler<TreeItem>(){
 			
