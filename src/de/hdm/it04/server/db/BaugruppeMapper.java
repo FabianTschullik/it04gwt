@@ -26,7 +26,7 @@ public class BaugruppeMapper {
 	/**
 	 * Die Klasse BaugruppeMapper wird nur einmal instantiiert. Man spricht
 	 * hierbei von einem sogenannten <b>Singleton</b>. Hierbei kann global auf
-	 * das Objekt ueber die Instanzoperation zugegriffen werden.
+	 * das Objekt ueber die Instanzoperation zugegriffen werden.   
 	 * <p>
 	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
 	 * fuer saemtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
