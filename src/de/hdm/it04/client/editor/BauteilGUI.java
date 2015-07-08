@@ -252,7 +252,7 @@ public class BauteilGUI {
 	/**
 	 * Anzeigen von allen Bauteilen, die in der DB enthalten sind
 	 * 
-	 * @param Vektor
+	 * @param bauteile
 	 *            mit Bauteilen gefuellt
 	 */
 

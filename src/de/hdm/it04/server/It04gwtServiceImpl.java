@@ -35,7 +35,7 @@ import de.hdm.it04.shared.TeileListe;
 /**
  * <p>
  * Implementierungsklasse des Interface <code>It04gwtService</code>. Diese
- * Klasse ist <em>die</em> Klasse, die neben {@link It04gwtServiceReportImpl}
+ * Klasse ist <em>die</em> Klasse, die
  * sämtliche Applikationslogik (oder engl. Business Logic) aggregiert. Sie ist
  * wie eine Spinne, die sämtliche Zusammenhänge in ihrem Netz (in unserem Fall
  * die Daten der Applikation) überblickt und für einen geordneten Ablauf und
@@ -74,14 +74,12 @@ import de.hdm.it04.shared.TeileListe;
  * Basis für die Anbindung von <code>BankVerwaltungImpl</code> an die Runtime
  * des GWT RPC-Mechanismus.</li>
  * </ol>
- * </p>
  * <p>
  * <b>Wichtiger Hinweis:</b> Diese Klasse bedient sich sogenannter
  * Mapper-Klassen. Sie gehören der Datenbank-Schicht an und bilden die
  * objektorientierte Sicht der Applikationslogik auf die relationale
  * organisierte Datenbank ab. Zuweilen kommen "kreative" Zeitgenossen auf die
- * Idee, in diesen Mappern auch Applikationslogik zu realisieren. Siehe dazu
- * auch die Hinweise in {@link #delete(Benutzer)} Einzig nachvollziehbares
+ * Idee, in diesen Mappern auch Applikationslogik zu realisieren. Einzig nachvollziehbares
  * Argument für einen solchen Ansatz ist die Steigerung der Performance
  * umfangreicher Datenbankoperationen. Doch auch dieses Argument zieht nur dann,
  * wenn wirklich große Datenmengen zu handhaben sind. In einem solchen Fall
@@ -223,8 +221,6 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode legt ein Bauteil an.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Bauteil welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Bauteil
 	 */
 	public Bauteil createBauteil() {
@@ -238,7 +234,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * übergeben wird steht in diesem Vektor lediglich ein Objekt vom Typ
 	 * Bauteil.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            als Integer
 	 * @return Vektor mit Bauteil-Objekten
 	 */
@@ -252,8 +248,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * finden. Da mehrere Bauteile mit dem selben Namen existieren können, wird
 	 * das Bauteil in einem Vektor gespeichert.
 	 * 
-	 * @param Ein
-	 *            Name eines Bauteils, welches gefunden werden soll
+	 * @param name
+	 *           Ein Name eines Bauteils, welches gefunden werden soll
 	 * @return Vektor vom Typ Bauteil, welches alle Bauteile mit dem übergebenen
 	 *         Namen enthält
 	 */
@@ -266,7 +262,6 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem
 	 * Vektor.
 	 * 
-	 * @param void
 	 * @return Ein Vektor vom Typ Bauteil, welcher alle Bauteile enthält
 	 */
 	public Vector<Bauteil> getAll() {
@@ -277,8 +272,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode aktualisiert ein Bauteil.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Bauteil
+	 * @param bt
+	 *           Ein Objekt vom Typ Bauteil
 	 * @return Objekt vom Typ Bauteil
 	 */
 	public Vector<Bauteil> updateBauteil(Bauteil bt) {
@@ -289,7 +284,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode loescht ein Bauteil.
 	 * 
-	 * @param
+	 * @param id
 	 * @return
 	 */
 	public String deleteBauteil(int id) {
@@ -310,8 +305,6 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode legt eine Baugruppe an.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Baugruppe welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Baugruppe
 	 */
 	public Baugruppe createBaugruppe() {
@@ -322,8 +315,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode aktualisiert eine Baugruppe.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Baugruppe
+	 * @param bg
+	 *           Ein Objekt vom Typ Baugruppe
 	 * @return Objekt vom Typ Baugruppe
 	 */
 	public Vector<Baugruppe> updateBaugruppe(Baugruppe bg) {
@@ -348,7 +341,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * übergeben wird steht in diesem Vektor lediglich ein Objekt vom Typ
 	 * Baugruppe.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            als Integer
 	 * @return Vektor mit Baugruppe-Objekten
 	 */
@@ -362,8 +355,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * zu finden. Da mehrere Baugruppen mit dem selben Namen existieren können,
 	 * wird die Baugruppe in einem Vektor gespeichert.
 	 * 
-	 * @param Ein
-	 *            Name einer Baugruppe, welches gefunden werden soll
+	 * @param name
+	 *          Ein Name einer Baugruppe, welches gefunden werden soll
 	 * @return Vektor vom Typ Baugruppe, welches alle Baugruppen mit dem
 	 *         übergebenen Namen enthält
 	 */
@@ -376,7 +369,6 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * Die Methode findet alle angelegten Baugruppen und speichert diese in
 	 * einem Vektor.
 	 * 
-	 * @param void
 	 * @return Ein Vektor vom Typ Baugruppe, welcher alle Bauteile enthält
 	 */
 	public Vector<Baugruppe> getAllBaugruppen() {
@@ -389,7 +381,6 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * verbunden sind und speichert diese in eine Vektor. Diese Methode greift
 	 * auf die Zwischentabelle bauteilBaugruppe zu.
 	 * 
-	 * @param void
 	 * @return Ein Vektor vom Typ Bauteil, welcher alle Bauteile mit der
 	 *         zuordnung zu Baugruppen enthaelt
 	 */
@@ -441,7 +432,6 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * Die Methode findet alle angelegten Enderzeugnisse. Sie greift auf die
 	 * Klasse EnderzeugnisMapper zu.
 	 * 
-	 * @param void
 	 * @return Ein Vektor vom Typ Enderzeugnis, welcher alle Enderzeugnise
 	 *         enthaehlt.
 	 */
@@ -458,7 +448,7 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * übergeben wird steht in diesem Vektor lediglich ein Objekt vom Typ
 	 * Enderzeugnis.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            als Integer
 	 * @return Vektor mit Enderzeugnis-Objekten
 	 */
@@ -473,8 +463,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	 * zu finden. Da mehrere Enderzeugnisse mit dem selben Namen existieren
 	 * können, wird das Enderzeugnis in einem Vektor gespeichert.
 	 * 
-	 * @param Ein
-	 *            Name eines Enderzeugnisses, welches gefunden werden soll
+	 * @param name
+	 *          Ein Name eines Enderzeugnisses, welches gefunden werden soll
 	 * @return Vektor vom Typ Enderzeugnis, welches alle Enderzeugnisse mit dem
 	 *         übergebenen Namen enthält
 	 */
@@ -486,8 +476,6 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode legt ein Enderzeugnis an.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Enderzeugnis welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Enderzeugnis
 	 */
 	public Enderzeugnis createEnderzeugnis() {
@@ -498,8 +486,8 @@ public class It04gwtServiceImpl extends RemoteServiceServlet implements
 	/**
 	 * Die Methode aktualisiert ein Enderzeugnis.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Enderzeugnis
+	 * @param ez
+	 *          Ein  Objekt vom Typ Enderzeugnis
 	 * @return Objekt vom Typ Enderzeugnis
 	 */
 	public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {

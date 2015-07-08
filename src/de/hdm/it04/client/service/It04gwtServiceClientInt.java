@@ -20,9 +20,8 @@ public interface It04gwtServiceClientInt {
 	 * Diese Getter-Methode wird benoetigt, um ein Bauteil mit einer bestimmten
 	 * ID zu finden.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            als Integer
-	 * @return void
 	 */
 	void getBauteil(int id);
 
@@ -41,23 +40,23 @@ public interface It04gwtServiceClientInt {
 	 * Die Getter-Methode wird benoetigt, um ein Bauteil mit einem bestimmten
 	 * Namen zu finden.
 	 * 
-	 * @param Ein
-	 *            Name eines Bauteils als String, welches gefunden werden soll
+	 * @param name
+	 *          Ein Name eines Bauteils als String, welches gefunden werden soll
 	 */
 	void getBauteil(String name);
 
 	/**
 	 * Die Methode aktualisiert ein Bauteil.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Bauteil
+	 * @param bt
+	 * Ein Objekt vom Typ Bauteil
 	 */
 	void updateBauteil(Bauteil bt);
 
 	/**
 	 * Die Methode loescht ein Bauteil mit einer bestimmten ID.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            von einem Bauteil als Integer,
 	 */
 	void deleteBauteil(int id);
@@ -78,8 +77,8 @@ public interface It04gwtServiceClientInt {
 	/**
 	 * Die Methode aktualisiert eine Baugruppe.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Baugruppe
+	 * @param bg
+	 *           Ein Objekt vom Typ Baugruppe
 	 */
 	void updateBaugruppe(Baugruppe bg);
 
@@ -128,8 +127,8 @@ public interface It04gwtServiceClientInt {
 	/**
 	 * Die Methode aktualisiert ein Enderzeugnis
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Enderzeugnis
+	 * @param ez
+	 *         Ein Objekt vom Typ Enderzeugnis
 	 */
 	void updateEnderzeugnis(Enderzeugnis ez);
 
@@ -173,16 +172,16 @@ public interface It04gwtServiceClientInt {
 	/**
 	 * Die Methode speichert einen Benutzer.
 	 * 
-	 * @param Objekt
-	 *            vom Typ String
+	 * @param name
+	 *            Objekt vom Typ String
 	 */
 	void saveBenutzer(String name);
 
 	/**
 	 * Die Methode ueberprueft den Benutzer.
 	 * 
-	 * @param Objekt
-	 *            vom Typ String
+	 * @param name
+	 *           Objekt vom Typ String
 	 */
 	void checkBenutzer(String name);
 

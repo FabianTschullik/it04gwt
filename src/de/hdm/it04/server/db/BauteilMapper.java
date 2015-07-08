@@ -73,7 +73,7 @@ public class BauteilMapper {
 	 * findByKey Methode im Prinzip nicht notwendig.
 	 * 
 	 * @param id
-	 *            Primaerschluesselattribut (->DB)
+	 *            Primaerschluesselattribut (DB)
 	 * @return Konto-Objekt-Vektor, das dem uebergebenen Schluessel entspricht,
 	 *         null bei nicht vorhandenem DB-Tupel.
 	 */
@@ -129,8 +129,6 @@ public class BauteilMapper {
 	 * Einfuegen eines <code>Bauteil</code>-Objekts in die Datenbank. Dabei wird
 	 * auch der Primaerschluessel des uebergebenen Objekts geprueft und ggf.
 	 * berichtigt.
-	 * 
-	 * @param bt
 	 *            das zu speichernde Objekt
 	 * @return das bereits uebergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>id</code>.
