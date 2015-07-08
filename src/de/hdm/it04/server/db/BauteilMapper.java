@@ -259,19 +259,17 @@ public class BauteilMapper {
 		try {
 
 			// Leeres SQL-Statement (JDBC) anlegen
-
 			Statement stmt = con.createStatement();
 
 			// Statement ausfuellen und als Query an die DB schicken
-
 			ResultSet rs = stmt
 					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum, letzterBearbeiter FROM bauteil "
 							+ "WHERE name=" + "'" + name + "'");
+
 			/*
 			 * Da id Primarschluessel ist, kann max. nur ein Tupel
 			 * zurueckgegeben werden. Pruefe, ob ein Ergebnis vorliegt.
 			 */
-
 			while (rs.next()) {
 
 				// Ergebnis-Tupel in Objekt umwandeln
@@ -329,6 +327,12 @@ public class BauteilMapper {
 		return result;
 	}
 
+	/**
+	 * Loescht ein Bauteil aus der Datenbank
+	 * 
+	 * @param id
+	 * @return ergebnis als String-Erfolgsmeldung
+	 */
 	public String delete(int id) {
 
 		String ergebnis = "Bauteil wurde erfolgreich geloescht!";
