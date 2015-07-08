@@ -1,10 +1,10 @@
 package de.hdm.it04.shared;
 
 /**
- * Die abstrakte Klasse Element repräsentiert ein Element und ist im
+ * Die abstrakte Klasse Element repraesentiert ein Element und ist im
  * <code>shared</code> Package. Da die Klasse von <code>BusinessObject</code>
- * erbt, enthält sie auch deren Attribute. Die Klasse wird benötigt, da sie alle
- * gemeinsamen Attribute enthält.
+ * erbt, enthaelt sie auch deren Attribute. Die Klasse wird benoetigt, da sie
+ * alle gemeinsamen Attribute enthaelt.
  * 
  * @author Tschullik, Voelker, Thies
  */
@@ -16,7 +16,7 @@ public abstract class Element extends BusinessObject {
 
 	/**
 	 * Getter-Methode, welche den Namen eines Elements (bzw. der geerbten
-	 * Klassen) zurückgibt.
+	 * Klassen) zurueckgibt.
 	 * 
 	 * @param void
 	 * @return der Name des Elements als String
@@ -39,7 +39,7 @@ public abstract class Element extends BusinessObject {
 
 	/**
 	 * Getter-Methode, welche die Beschreibung eines Elements (bzw. der geerbten
-	 * Klassen) zurückgibt.
+	 * Klassen) zurueckgibt.
 	 * 
 	 * @param void
 	 * @return die Beschreibung des Elements als String
