@@ -38,7 +38,6 @@ public abstract class BusinessObject implements IsSerializable {
 	 * Getter-Methode, welche die ID eines BusinessObjects (bzw. der geerbten
 	 * Klassen) zurueckgibt.
 	 * 
-	 * @param void
 	 * @return die ID als Integer
 	 */
 	public int getId() {
@@ -49,9 +48,8 @@ public abstract class BusinessObject implements IsSerializable {
 	 * Setter-Methode, welche die ID eines BusinessObjects (bzw. die ID der
 	 * geerbten Klassen) setzt.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            als Integer
-	 * @return void
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -61,7 +59,6 @@ public abstract class BusinessObject implements IsSerializable {
 	 * Getter-Methode, welche das Erstellungsdatum (bzw. das Erstellungsdatum
 	 * der geerbten Klassen) zurueckgibt.
 	 * 
-	 * @param void
 	 * @return das Erstellungsdatum als Timestamp
 	 */
 	public Timestamp getErstellungsDatum() {
@@ -69,12 +66,10 @@ public abstract class BusinessObject implements IsSerializable {
 	}
 
 	/**
-	 * Setter-Methode, welche die ID eines BusinessObjects (bzw. die ID der
-	 * geerbten Klassen) setzt.
+	 * Setter-Methode, welche die das Erstellungsdatum setzt.
 	 * 
-	 * @param ID
+	 * @param erstellungsDatum
 	 *            als Integer
-	 * @return void
 	 */
 	public void setErstellungsDatum(Timestamp erstellungsDatum) {
 		this.erstellungsDatum = erstellungsDatum;
@@ -84,7 +79,6 @@ public abstract class BusinessObject implements IsSerializable {
 	 * Getter-Methode, welche das Aenderungsdatum (bzw. das Aenderungsdatum der
 	 * geerbten Klassen) zurückgibt.
 	 * 
-	 * @param void
 	 * @return das Aenderungsdatum als Timestamp
 	 */
 	public Timestamp getAenderungsDatum() {
@@ -95,9 +89,8 @@ public abstract class BusinessObject implements IsSerializable {
 	 * Setter-Methode, welche das Aenderungsdatum eines BusinessObjects (bzw.
 	 * das Aenderungsdatum der geerbten Klassen) setzt.
 	 * 
-	 * @param Aenderungsdatum
+	 * @param aenderungsDatum
 	 *            als Timestamp
-	 * @return void
 	 */
 	public void setAenderungsDatum(Timestamp aenderungsDatum) {
 		this.aenderungsDatum = aenderungsDatum;

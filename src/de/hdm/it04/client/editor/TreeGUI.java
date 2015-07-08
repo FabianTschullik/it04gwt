@@ -46,7 +46,6 @@ public class TreeGUI {
 	 * Methode zum globalen Speichern von allen Bauteilen und Baugruppen, um
 	 * einen vereinfachten Zugriff auf die Bauteile und Baugruppen zu erreichen.
 	 * 
-	 * @return: void
 	 * 
 	 */
 	public void getAllVectoren() {
@@ -184,7 +183,6 @@ public class TreeGUI {
 	 * Methode, die den Tree erstellt mit Selektion Handler Methode, die den
 	 * Tree erstellt, mit Selektion-Handler
 	 * 
-	 * @return Widget
 	 */
 
 	public void tree() {

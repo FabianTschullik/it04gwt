@@ -18,7 +18,6 @@ public abstract class Element extends BusinessObject {
 	 * Getter-Methode, welche den Namen eines Elements (bzw. der geerbten
 	 * Klassen) zurueckgibt.
 	 * 
-	 * @param void
 	 * @return der Name des Elements als String
 	 */
 	public String getName() {
@@ -29,9 +28,8 @@ public abstract class Element extends BusinessObject {
 	 * Setter-Methode, welche den Namen eines Elements (bzw. der Name der
 	 * geerbten Klassen) setzt.
 	 * 
-	 * @param Name
+	 * @param name
 	 *            als String
-	 * @return void
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -41,7 +39,6 @@ public abstract class Element extends BusinessObject {
 	 * Getter-Methode, welche die Beschreibung eines Elements (bzw. der geerbten
 	 * Klassen) zurueckgibt.
 	 * 
-	 * @param void
 	 * @return die Beschreibung des Elements als String
 	 */
 	public String getBeschreibung() {
@@ -52,9 +49,8 @@ public abstract class Element extends BusinessObject {
 	 * Setter-Methode, welche die Beschreibung eines Elements (bzw. die
 	 * Beschreibung der geerbten Klassen) setzt.
 	 * 
-	 * @param Beschreibung
+	 * @param beschreibung
 	 *            als String
-	 * @return void
 	 */
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;

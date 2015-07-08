@@ -36,8 +36,6 @@ public interface It04gwtService extends RemoteService {
 	/**
 	 * Die Methode legt ein Bauteil an.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Bauteil welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Bauteil
 	 */
 	Bauteil createBauteil();
@@ -48,7 +46,7 @@ public interface It04gwtService extends RemoteService {
 	 * übergeben wird steht in diesem Vektor lediglich ein Objekt vom Typ
 	 * Bauteil.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            als Integer
 	 * @return Vektor mit Bauteil-Objekten
 	 */
@@ -59,8 +57,8 @@ public interface It04gwtService extends RemoteService {
 	 * finden. Da mehrere Bauteile mit dem selben Namen exisitieren können, wird
 	 * das Bauteil in einem Vektor gespeichert.
 	 * 
-	 * @param Ein
-	 *            Name eines Bauteils, welches gefunden werden soll
+	 * @param name
+	 *           Ein Name eines Bauteils, welches gefunden werden soll
 	 * @return Vektor vom Typ Bauteil, welches alle Bauteile mit dem übergebenen
 	 *         Namen enthält
 	 */
@@ -70,7 +68,6 @@ public interface It04gwtService extends RemoteService {
 	 * Die Methode findet alle angelegten Bauteile und speichert diese in einem
 	 * Vektor.
 	 * 
-	 * @param void
 	 * @return Ein Vektor vom Typ Bauteil, welcher alle Bauteile enthält
 	 */
 	Vector<Bauteil> getAll();
@@ -78,8 +75,8 @@ public interface It04gwtService extends RemoteService {
 	/**
 	 * Die Methode aktualisiert ein Bauteil.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Bauteil
+	 * @param bt
+	 *         Ein Objekt vom Typ Bauteil
 	 * @return Objekt vom Typ Bauteil
 	 */
 	Vector<Bauteil> updateBauteil(Bauteil bt);
@@ -87,7 +84,7 @@ public interface It04gwtService extends RemoteService {
 	/**
 	 * Die Methode löscht ein Bauteil mit einer bestimmten ID.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            von einem Bauteil als Integer,
 	 * @return Ein String mit einer Meldung, ob Bauteil erfolgreich gelöscht
 	 *         wurde
@@ -106,9 +103,6 @@ public interface It04gwtService extends RemoteService {
 	/**
 	 * Die Methode legt eine Baugruppe an.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Baugruppe welches gespeichert werden soll
-	 * @return Ein Objekt vom Typ Baugruppe
 	 */
 
 	Baugruppe createBaugruppe();
@@ -116,8 +110,8 @@ public interface It04gwtService extends RemoteService {
 	/**
 	 * Die Methode aktualisiert eine Baugruppe.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Baugruppe
+	 * @param bg
+	 *          Ein Objekt vom Typ Baugruppe
 	 * @return Objekt vom Typ Baugruppe
 	 */
 
@@ -126,7 +120,7 @@ public interface It04gwtService extends RemoteService {
 	/**
 	 * Die Methode löscht eine Baugruppe mit einer bestimmten ID.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            von einer Baugruppe als Integer,
 	 * @return Ein String mit einer Meldung, ob die Baugruppe erfolgreich
 	 *         gelöscht wurde
@@ -140,7 +134,7 @@ public interface It04gwtService extends RemoteService {
 	 * übergeben wird steht in diesem Vektor lediglich ein Objekt vom Typ
 	 * Baugruppe.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            als Integer
 	 * @return Vektor mit Bauteil-Objekten
 	 */
@@ -152,8 +146,8 @@ public interface It04gwtService extends RemoteService {
 	 * zu finden. Da mehrere Baugruppen mit dem selben Namen exisitieren können,
 	 * wird das Bauteil in einem Vektor gespeichert.
 	 * 
-	 * @param Ein
-	 *            Name einer Baugruppe, welches gefunden werden soll
+	 * @param name
+	 *          Ein Name einer Baugruppe, welches gefunden werden soll
 	 * @return Vektor vom Typ Baugruppe, welches alle Baugruppen mit dem
 	 *         übergebenen Namen enthält
 	 */
@@ -164,7 +158,6 @@ public interface It04gwtService extends RemoteService {
 	 * Die Methode findet alle angelegten Baugruppen und speichert diese in
 	 * einem Vektor.
 	 * 
-	 * @param void
 	 * @return Ein Vektor vom Typ Baugruppe, welcher alle Baugruppen enthält
 	 */
 
@@ -182,8 +175,6 @@ public interface It04gwtService extends RemoteService {
 	/**
 	 * Die Methode legt ein Enderzeugnis an.
 	 * 
-	 * @param Ein
-	 *            Objekt vom Typ Enderzeugnis welches gespeichert werden soll
 	 * @return Ein Objekt vom Typ Enderzeugnis
 	 */
 
@@ -192,7 +183,7 @@ public interface It04gwtService extends RemoteService {
 	/**
 	 * Die Methode löscht ein Enderzeugnis mit einer bestimmten ID.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            von einem Enderzeugnis als Integer,
 	 * @return Ein String mit einer Meldung, ob das Enderzeugnis erfolgreich
 	 *         gelöscht wurde
@@ -204,7 +195,6 @@ public interface It04gwtService extends RemoteService {
 	 * Die Methode findet alle angelegten Enderzeugnisse und speichert diese in
 	 * einem Vektor.
 	 * 
-	 * @param void
 	 * @return Ein Vektor vom Typ Enderzeugnis, welcher alle Enderzeugnisse
 	 *         enthält
 	 */
@@ -217,7 +207,7 @@ public interface It04gwtService extends RemoteService {
 	 * übergeben wird steht in diesem Vektor lediglich ein Objekt vom Typ
 	 * Enderzeugnis.
 	 * 
-	 * @param ID
+	 * @param id
 	 *            als Integer
 	 * @return Vektor mit Enderzeugnis-Objekten
 	 */
@@ -229,8 +219,8 @@ public interface It04gwtService extends RemoteService {
 	 * zu finden. Da mehrere Enderzeugnisse mit dem selben Namen exisitieren
 	 * können, wird das Enderzeugnis in einem Vektor gespeichert.
 	 * 
-	 * @param Ein
-	 *            Name eines Enderzeugnisses, welches gefunden werden soll
+	 * @param name
+	 *            Ein Name eines Enderzeugnisses, welches gefunden werden soll
 	 * @return Vektor vom Typ Enderzeugnis, welches alle Enderzeugnisse mit dem
 	 *         übergebenen Namen enthält
 	 */
@@ -238,14 +228,11 @@ public interface It04gwtService extends RemoteService {
 	Vector<Enderzeugnis> getEnderzeugnis(String name);
 
 	/**
-	 * Die Methode löscht ein Enderzeugnis mit einer bestimmten ID.
+	 * Die Methode aktualisiert ein Enderzeugnis.
 	 * 
-	 * @param ID
-	 *            von einem Enderzeugnis als Integer,
-	 * @return Ein String mit einer Meldung, ob das Enderzeugnis erfolgreich
-	 *         gelöscht wurde
+	 * @param ez
+	 *  
 	 */
-
 	Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez);
 
 	/**

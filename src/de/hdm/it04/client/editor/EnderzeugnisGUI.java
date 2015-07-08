@@ -200,7 +200,7 @@ public class EnderzeugnisGUI {
 	}
 
 	/**
-	 * Enderzeugnis wird über die Eingabe einer ID oder des Namens gesucht
+	 * Enderzeugnis wird ueber die Eingabe einer ID oder des Namens gesucht
 	 * 
 	 * @return vPanel
 	 */
@@ -275,7 +275,7 @@ public class EnderzeugnisGUI {
 	// --------------------------
 	// ----------------------------------------------------------------------------
 	/**
-	 * Hier können Name, Beschreibung und Preis eines Enderzeugnisses verändert
+	 * Hier kï¿½nnen Name, Beschreibung und Preis eines Enderzeugnisses verï¿½ndert
 	 * und eingetragen werden
 	 * 
 	 * @param enderzeugnis
@@ -392,7 +392,7 @@ public class EnderzeugnisGUI {
 	 * 
 	 * @param enderzeugnisse
 	 *            Vektor
-	 * @return vPanel welches die Tabelle enthält
+	 * @return vPanel welches die Tabelle enthï¿½lt
 	 */
 	public Widget showAllEnderzeugnisse(Vector<Enderzeugnis> enderzeugnisse) {
 
@@ -635,7 +635,7 @@ public class EnderzeugnisGUI {
 	}
 
 	/**
-	 * Tree zeigt das Enderzeugnis mit seiner zusammengehörigen Baugruppe
+	 * Tree zeigt das Enderzeugnis mit seiner zusammengehï¿½rigen Baugruppe
 	 * 
 	 * @param baugruppe
 	 * @return vPanel mit SichtbarenTree

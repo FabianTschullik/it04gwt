@@ -18,7 +18,6 @@ import de.hdm.it04.shared.Enderzeugnis;
  * geloescht werden koennen. Das Mapping ist bidirektional. D.h., Objekte
  * koennen in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
- * @see BaugruppeMapper, BauteilMapper, BenutzerMapper
  * @author Maehler, Voelker, Tschullik, Thies
  */
 public class EnderzeugnisMapper {
@@ -53,7 +52,7 @@ public class EnderzeugnisMapper {
 	 * Methode.
 	 * 
 	 * @return DAS <code>BaugruppeMapper</code>-Objekt.
-	 * @see baugruppeMapper
+	 * @see BaugruppeMapper
 	 */
 	public static EnderzeugnisMapper enderzeugnisMapper() {
 		if (enderzeugnisMapper == null)
@@ -74,7 +73,7 @@ public class EnderzeugnisMapper {
 	 * findByKey Methode im Prinzip nicht notwendig.
 	 * 
 	 * @param id
-	 *            Primaerschluesselattribut (->DB)
+	 *            Primaerschluesselattribut (DB)
 	 * @return Konto-Objekt-Vektor, das dem uebergebenen Schluessel entspricht,
 	 *         null bei nicht vorhandenem DB-Tupel.
 	 */
@@ -286,7 +285,7 @@ public class EnderzeugnisMapper {
 	 * findByKey Methode im Prinzip nicht notwendig.
 	 * 
 	 * @param id
-	 *            Primaerschluesselattribut (->DB)
+	 *            Primaerschluesselattribut (DB)
 	 * @return Konto-Objekt-Vektor, das dem uebergebenen Schluessel entspricht,
 	 *         null bei nicht vorhandenem DB-Tupel.
 	 */
