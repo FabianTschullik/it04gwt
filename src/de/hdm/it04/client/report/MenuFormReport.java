@@ -1,6 +1,5 @@
 package de.hdm.it04.client.report;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.MenuBar;
@@ -8,8 +7,7 @@ import com.google.gwt.user.client.ui.MenuBar;
 import de.hdm.it04.client.editor.AlertGUI;
 import de.hdm.it04.client.editor.ContentContainer;
 import de.hdm.it04.client.editor.Impressum;
-import de.hdm.it04.client.service.report.It04gwtServiceReport;
-import de.hdm.it04.client.service.report.It04gwtServiceReportAsync;
+
 
 /**
  * 
@@ -18,8 +16,7 @@ import de.hdm.it04.client.service.report.It04gwtServiceReportAsync;
  */
 
 public class MenuFormReport extends HorizontalPanel {
-	private final It04gwtServiceReportAsync smsreport = GWT
-			.create(It04gwtServiceReport.class);
+	
 	AlertGUI alertGUI = new AlertGUI();
 
 	/*

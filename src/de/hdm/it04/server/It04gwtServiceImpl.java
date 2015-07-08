@@ -17,7 +17,6 @@ import org.codehaus.jackson.JsonToken;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.it04.client.service.It04gwtService;
@@ -26,7 +25,6 @@ import de.hdm.it04.server.db.BaugruppeMapper;
 import de.hdm.it04.server.db.BauteilMapper;
 import de.hdm.it04.server.db.BenutzerMapper;
 import de.hdm.it04.server.db.EnderzeugnisMapper;
-import de.hdm.it04.server.report.It04gwtServiceReportImpl;
 import de.hdm.it04.shared.Baugruppe;
 import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Benutzer;
