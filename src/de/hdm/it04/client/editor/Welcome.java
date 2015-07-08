@@ -30,7 +30,6 @@ public class Welcome {
 						+ "<br>"
 						+ "</br>"
 						+ "<p></p>"
-						+ "<center>"
 						+ "<span style='color:#000000'>"
 						+ "<b>"
 						+ "<p style='font-family:courier'>Herzlich Willkommen zu dem Stücklisten Management System.</b>"
@@ -41,7 +40,7 @@ public class Welcome {
 						+ "</p>"
 						+ "<b>"
 						+ "<p style='font-family:courier'>Das innovative System der Maschinen!</b></p>"
-						+ "</span style='color:#6E6E6E'>" + "</center>");
+						+ "</span style='color:#6E6E6E'>");
 		return html;
 	}
 }

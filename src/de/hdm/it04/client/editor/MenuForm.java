@@ -246,8 +246,9 @@ public class MenuForm extends HorizontalPanel {
 		menu.addItem("Baugruppe", baugruppeMenu);
 		menu.addItem("Enderzeugnis", enderzeugnisMenu);
 		menu.addItem("Impressum", openImpressum);
-		menu.addItem("Benutzerhandbuch", openHandbuch);
+		//menu.addItem("Benutzerhandbuch", openHandbuch);
 
 		buttonsPanel.add(menu);
+		buttonsPanel.setStyleName("style");
 	}
 }

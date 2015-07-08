@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Tree;
 
 import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
@@ -187,14 +188,11 @@ public class It04gwtEditor implements EntryPoint {
 										}
 									});
 
-							sound = sound.createIfSupported();
-							sound.setSrc(GWT.getModuleBaseURL()
-									+ "images/sound.mp3");
-							sound.play();
+						
 
 							RootPanel.get("header").add(new MenuForm());
-
 							RootPanel.get("content").add(new Welcome().load());
+							new TreeGUI().getAllVectoren();
 
 						} else {
 							loadLogin(result);

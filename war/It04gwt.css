@@ -199,4 +199,13 @@ h1 {
 	color: #FFF;
 	text-decoration: none;
 }
-/** TODO #01:> end   */
+
+.style {
+    margin-left: 45%;
+}
+
+.tree{
+	margin-left: 15px;
+	margin-top: 10px
+	
+}

@@ -7,6 +7,7 @@ import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -244,6 +245,8 @@ public class TreeGUI {
 				}
 			}
 		});
-		ContentContainer.getInstance().setContent(t);
+		
+		t.setStyleName("tree");
+		RootPanel.get("tree").add(t);
 	}
 }

@@ -214,7 +214,7 @@ public class MaterialbedarfGUI {
 
 						@Override
 						public void onSuccess(Vector<Bauteil> result) {
-
+							RootPanel.get("content").clear();
 							int rows = result.size() + 1;
 
 							Grid grid = new Grid(rows, 2);

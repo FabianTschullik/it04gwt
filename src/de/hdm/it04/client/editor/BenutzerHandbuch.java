@@ -36,7 +36,7 @@ public class BenutzerHandbuch {
 		 */
 
 		Frame frame = new Frame(GWT.getModuleBaseURL()
-				+ "images/Benutzerhandbuch.pdf");
+				+ "files/Benutzerhandbuch.pdf");
 
 		frame.setPixelSize(Window.getClientWidth() / 2, 700);
 		vPanel.add(frame);

@@ -9,6 +9,7 @@ import java.io.Serializable;
  * <code>shared</code> Package.
  * 
  * @author Tschullik
+ * @author Quelle http://www.sw-engineering-candies.com/blog-1/howtogetuserinformationwithoauth2inagwtandgoogleappenginejavaapplication
  *
  */
 
