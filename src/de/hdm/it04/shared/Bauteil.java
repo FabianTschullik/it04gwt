@@ -16,7 +16,7 @@ public class Bauteil extends Element {
 	/**
 	 * Getter-Methode, welche die Materialbezichnung eines Bauteils zurückgibt.
 	 * 
-	 * @param void
+	 * @param 
 	 * @return die Materialbezeichnung als String
 	 */
 	public String getMaterialBezeichnung() {
@@ -24,11 +24,10 @@ public class Bauteil extends Element {
 	}
 
 	/**
-	 * Setter-Methode, welche die Materialbezichnung eines Bauteils setzt.
+	 * Setter-Methode, welche die Materialbezeichnung eines Bauteils setzt.
 	 * 
 	 * @param Materialbezeichnung
 	 *            als String
-	 * @return void
 	 */
 	public void setMaterialBezeichnung(String materialBezeichnung) {
 		this.materialBezeichnung = materialBezeichnung;
