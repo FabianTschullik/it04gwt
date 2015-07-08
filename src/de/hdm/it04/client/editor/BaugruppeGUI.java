@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -817,8 +818,9 @@ public class BaugruppeGUI {
 
 									bg = result.firstElement();
 									// tree (bg);
-									ContentContainer.getInstance().setContent(
-											new TreeGUI().tree());
+									new TreeGUI().getAllVectoren();
+									
+									
 								}
 							});
 				}

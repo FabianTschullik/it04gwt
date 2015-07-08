@@ -9,6 +9,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.it04.client.service.It04gwtService;
@@ -48,13 +49,13 @@ public class TreeGUI {
 	 * @return: void
 	 * 
 	 */
-	private void getAllVectoren() {
+	public void getAllVectoren() {
 
 		sms.getAll(new AsyncCallback<Vector<Bauteil>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Keine Bauteile");
+				
 
 			}
 
@@ -66,7 +67,7 @@ public class TreeGUI {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Keine Baugruppen");
+						
 
 					}
 
@@ -84,14 +85,18 @@ public class TreeGUI {
 							@Override
 							public void onSuccess(Vector<Enderzeugnis> result) {
 								allEz = result;
-
+								
+								tree();
+								
+								
+							
 							}
 						});
 					}
 				});
 			}
 		});
-
+	 
 	}
 
 	/**
@@ -182,10 +187,13 @@ public class TreeGUI {
 	 * @return Widget
 	 */
 
-	public Widget tree() {
+	public void tree() {
 
-		getAllVectoren();
+		
+		
+		
 
+		
 		Baugruppe baugruppe = new Baugruppe();
 
 		for (int i = 0; i < allEz.size(); i++) {
@@ -236,6 +244,6 @@ public class TreeGUI {
 				}
 			}
 		});
-		return t;
+		ContentContainer.getInstance().setContent(t);
 	}
 }
