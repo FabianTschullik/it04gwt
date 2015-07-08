@@ -18,7 +18,7 @@ import de.hdm.it04.shared.TeileListe;
  * geloescht werden koennen. Das Mapping ist bidirektional. D.h., Objekte
  * koennen in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
- * @see BauteilMapper, EnderzeugnisMapper, BenutzerMapper
+ * @see BauteilMapper, EnderzeugnisMapper, BenutzerMapper 
  * @author Geier, Maehler, Voelker, Tschullik, Thies
  */
 public class BaugruppeMapper {
