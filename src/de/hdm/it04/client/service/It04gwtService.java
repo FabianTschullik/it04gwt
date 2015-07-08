@@ -20,7 +20,7 @@ import de.hdm.it04.shared.LoginInfo;
  * @author Geier, Maehler, Schwab, Tschullik, Voelker
  *
  */
-@RemoteServiceRelativePath("sms")
+@RemoteServiceRelativePath("administration")
 public interface It04gwtService extends RemoteService {
 
 	String getUserEmail(String token);

@@ -45,7 +45,7 @@ public class DbConnection {
 	// "jdbc:google:mysql://it04sms:db:3306/sms?user=root&password=root";
 	// "jdbc:mysql://127.0.0.1:3306/sms?user=root&password=root"
 
-	private static String localUrl = "jdbc:mysql://127.0.0.1:3306/sms?user=root&password=root";
+	private static String localUrl = "jdbc:google:mysql://it04sms:db:3306/sms?user=root&password=root";
 
 	/**
 	 * Diese statische Methode kann aufgrufen werden durch
@@ -77,7 +77,7 @@ public class DbConnection {
 			String url = null;
 			try {
 
-				Class.forName("com.mysql.jdbc.Driver"); // fuer local use:
+				Class.forName("com.mysql.jdbc.GoogleDriver"); // fuer local use:
 														// "com.mysql.jdbc.Driver"
 														// or
 														// "com.mysql.jdbc.GoogleDriver"

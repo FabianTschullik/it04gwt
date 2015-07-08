@@ -18,9 +18,9 @@
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
   
   
-  <!-- TODO #03: inherit the OAuth2 lib -->
+  
 	<inherits name="com.google.api.gwt.oauth2.OAuth2" />
-	<!-- TODO #03:> end -->
+	
 
   <!-- Other module inherits                                      -->
 
