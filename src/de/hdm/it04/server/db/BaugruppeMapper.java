@@ -26,7 +26,7 @@ public class BaugruppeMapper {
 	/**
 	 * Die Klasse BaugruppeMapper wird nur einmal instantiiert. Man spricht
 	 * hierbei von einem sogenannten <b>Singleton</b>. Hierbei kann global auf
-	 * das Objekt ueber die Instanzoperation zugegriffen werden.   
+	 * das Objekt ueber die Instanzoperation zugegriffen werden.
 	 * <p>
 	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
 	 * fuer saemtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
@@ -71,7 +71,7 @@ public class BaugruppeMapper {
 	 * Suchfeld per Name und id zusuchen. Der Vektor ist notwendig, da der Name
 	 * nicht als primaer Schluessel gekennzeichnet ist. Daher koennen auch
 	 * mehrere Ergebnise zurueck gegeben werden. Der Vektor ist fuer die
-	 * findByKey Methode im prinzip nicht notwendig.
+	 * findByKey Methode im Prinzip nicht notwendig.
 	 * 
 	 * @param id
 	 *            Primaerschluesselattribut (->DB)
@@ -134,6 +134,7 @@ public class BaugruppeMapper {
 	 * Einfuegen einer <code>Baugruppe</code>-Objekts in die Datenbank. Dabei
 	 * wird auch der Primaerschluessel des uebergebenen Objekts geprueft und
 	 * ggf. berichtigt.
+	 * 
 	 * @return das bereits uebergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>id</code>.
 	 */
@@ -243,6 +244,16 @@ public class BaugruppeMapper {
 		return result;
 	}
 
+	/**
+	 * Suchen einer Baugruppe mit vorgegebenen Namen. Da dieser nicht eindeutig
+	 * ist, wird ein Vektor-Objekt zurueckgegeben.
+	 * 
+	 * Warum Vektor? Da name kein Primaerschluesselattribut ist koennen
+	 * Baugruppen mit dem gleiche Namen in diesem Vektor zurueck gegeben werden.
+	 * 
+	 * @return Konto-Objekt-Vektor, das dem uebergebenen namen entspricht, null
+	 *         bei nicht vorhandenem DB-Tupel.
+	 */
 	public Vector<Baugruppe> findByName(String name) {
 
 		// DB-Verbindung holen
@@ -287,6 +298,13 @@ public class BaugruppeMapper {
 		return result;
 	}
 
+	/**
+	 * Wird ein Bauteil einer Baugruppe zugeordnet, schreibt die Methode diese
+	 * Zuordnung in die Zwischentabelle der Datenbank.
+	 * 
+	 * @param id
+	 * @param anzahl
+	 */
 	public void updateBauteilBaugruppe(int id, int anzahl) {
 
 		Connection con = DbConnection.connection();
@@ -306,6 +324,14 @@ public class BaugruppeMapper {
 		}
 	}
 
+	/**
+	 * Wird eine Baugruppe einer Baugruppe als Unterbaugruppe zugeordnet,
+	 * schreibt die Methode diese Zuordnung in die Zwischentabelle der
+	 * Datenbank.
+	 * 
+	 * @param id
+	 * @param anzahl
+	 */
 	public void updateBaugruppeBaugruppe(int id, int anzahl) {
 
 		Connection con = DbConnection.connection();
@@ -387,6 +413,15 @@ public class BaugruppeMapper {
 		return result;
 	}
 
+	/**
+	 * Die Methode ueberprueft, ob die Bauteil-Baugruppe Beziehung in der
+	 * Zwischentabelle vorhanden ist, bevor diese Beziehung aktualisiert wird.
+	 * 
+	 * @param bauteilID
+	 * @param baugruppeID
+	 * @return Ist eine Bauteil-Baugruppe Beziehung vorhanden, wird die dieser
+	 *         zugeordneten ID ausgegeben.
+	 */
 	public int pruefeObBtBgVorhanden(int bauteilID, int baugruppeID) {
 
 		int id = 0;
@@ -418,6 +453,15 @@ public class BaugruppeMapper {
 		return id;
 	}
 
+	/**
+	 * Die Methode ueberprueft, ob die Baugruppe-Baugruppe Beziehung in der
+	 * Zwischentabelle vorhanden ist, bevor diese Beziehung aktualisiert wird.
+	 * 
+	 * @param uebergeordneteBaugruppeID
+	 * @param untergeordneteBaugruppeID
+	 * @return Ist eine Baugruppe-Baugruppe Beziehung vorhanden, wird die dieser
+	 *         zugeordneten ID ausgegeben.
+	 */
 	public int pruefeObBgBgVorhanden(int uebergeordneteBaugruppeID,
 			int untergeordneteBaugruppeID) {
 
@@ -453,6 +497,14 @@ public class BaugruppeMapper {
 		return id;
 	}
 
+	/**
+	 * Die Methode fuegt der Zwischentabelle eine neue Bauteil-Baugruppe
+	 * Beziehung hinzu.
+	 * 
+	 * @param bauteilID
+	 * @param anzahl
+	 * @param baugruppeID
+	 */
 	public void insertZwischentabelleBauteilBaugruppe(int bauteilID,
 			int anzahl, int baugruppeID) {
 
@@ -492,6 +544,14 @@ public class BaugruppeMapper {
 		}
 	}
 
+	/**
+	 * Die Methode fuegt der Zwischentabelle eine neue Baugruppe-Baugruppe
+	 * Beziehung hinzu.
+	 * 
+	 * @param uebergeordneteBaugruppeID
+	 * @param untergeordneteBaugruppeID
+	 * @param anzahl
+	 */
 	public void insertZwischentabelleBaugruppeBaugruppe(
 			int uebergeordneteBaugruppeID, int untergeordneteBaugruppeID,
 			int anzahl) {
@@ -535,6 +595,12 @@ public class BaugruppeMapper {
 		}
 	}
 
+	/**
+	 * Loescht eine Baugruppe aus der Datenbank
+	 * 
+	 * @param id
+	 * @return ergebnis als String-Erfolgsmeldung
+	 */
 	public String deleteBaugruppe(int id) {
 
 		String ergebnis = "Baugruppe wurde erfolgreich geloescht!";
@@ -552,6 +618,13 @@ public class BaugruppeMapper {
 		return ergebnis;
 	}
 
+	/**
+	 * Die Methode gibt die mit einer Baugruppe verbundenen Bauteile aus.
+	 * 
+	 * @param id
+	 * @return Der mit den verbundenen Bauteilen befuellte Vector wird
+	 *         zurueckgegeben.
+	 */
 	public Vector<TeileListe> findConnectedBauteile(int id) {
 
 		// DB-Verbindung holen
@@ -590,6 +663,13 @@ public class BaugruppeMapper {
 		return list;
 	}
 
+	/**
+	 * Die Methode gibt die mit einer Baugruppe verbundenen Baugruppen aus.
+	 * 
+	 * @param id
+	 * @return Der mit den verbundenen Baugruppen befuellte Vector wird
+	 *         zurueckgegeben.
+	 */
 	public Vector<TeileListe> findConnectedBaugruppen(int id) {
 
 		// DB-Verbindung holen
