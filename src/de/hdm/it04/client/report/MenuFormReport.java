@@ -8,15 +8,16 @@ import de.hdm.it04.client.editor.AlertGUI;
 import de.hdm.it04.client.editor.ContentContainer;
 import de.hdm.it04.client.editor.Impressum;
 
-
 /**
- * 
- * @author Schwab
+ * Die Klasse MenuFormReport baut die grundsaetzliche GUI Ansicht auf und 
+ * erzeugt einige Widgets. Auch das Menue ist enthalten, worueber die
+ * einzelnen Bereiche zur Verwaltung des Report Generators erreicht werden.
+ * @author Schwab, Tschullik
  *
  */
 
 public class MenuFormReport extends HorizontalPanel {
-	
+
 	AlertGUI alertGUI = new AlertGUI();
 
 	/*

@@ -23,8 +23,9 @@ import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.Baugruppe;
 
 /**
- * 
- * @author Schwab
+ * Die Klasse StrukturstuecklisteGUI ermoeglicht es dem User, Strukturstuecklisten
+ * als HTML zu erstellen und anzeigen zu lassen. Hier wird das User Interface dafuer definiert.
+ * @author Schwab, Tschullik
  *
  */
 
@@ -34,10 +35,7 @@ public class StrukturstuecklisteGUI {
 
 	TextBox txtSuchen = new TextBox();
 
-
 	private final It04gwtServiceAsync sms = GWT.create(It04gwtService.class);
-
-
 
 	VerticalPanel vPanel = new VerticalPanel();
 	FlexTable baugruppeReportTable = new FlexTable();
@@ -83,25 +81,23 @@ public class StrukturstuecklisteGUI {
 				}
 				String name = bgSuche;
 
-				sms.getBaugruppe(name,
-						new AsyncCallback<Vector<Baugruppe>>() {
+				sms.getBaugruppe(name, new AsyncCallback<Vector<Baugruppe>>() {
 
-							public void onFailure(Throwable arg0) {
-								// alertGUI.load("Enderzeugnis konnte nicht gefunden werden",
-								// "red");
-							}
+					public void onFailure(Throwable arg0) {
+						// alertGUI.load("Enderzeugnis konnte nicht gefunden werden",
+						// "red");
+					}
 
-							public void onSuccess(Vector<Baugruppe> result) {
-								ContentContainer
-										.getInstance()
-										.setContent(
-												new StrukturstuecklisteGUI()
-														.showBaugruppeStrukturstueckliste(result));
-								;
-								alertGUI.load("Enderzeugnis wurde gefunden",
-										"green");
-							}
-						});
+					public void onSuccess(Vector<Baugruppe> result) {
+						ContentContainer
+								.getInstance()
+								.setContent(
+										new StrukturstuecklisteGUI()
+												.showBaugruppeStrukturstueckliste(result));
+						;
+						alertGUI.load("Enderzeugnis wurde gefunden", "green");
+					}
+				});
 			}
 		});
 		return vPanel;
@@ -114,18 +110,15 @@ public class StrukturstuecklisteGUI {
 		 * belegen
 		 */
 
-		
-		baugruppeReportTable.setText(0,0,"ID");
-		baugruppeReportTable.setText(0,1,"Name");
-		baugruppeReportTable.setText(0,2,"Beschreibung");
-		baugruppeReportTable.setText(0,3,"Strukturstueckliste erstellen");
-
-		
 		baugruppeReportTable.setText(0, 0, "ID");
 		baugruppeReportTable.setText(0, 1, "Name");
 		baugruppeReportTable.setText(0, 2, "Beschreibung");
 		baugruppeReportTable.setText(0, 3, "Strukturstueckliste erstellen");
 
+		baugruppeReportTable.setText(0, 0, "ID");
+		baugruppeReportTable.setText(0, 1, "Name");
+		baugruppeReportTable.setText(0, 2, "Beschreibung");
+		baugruppeReportTable.setText(0, 3, "Strukturstueckliste erstellen");
 
 		/**
 		 * Fuer jede Baugruppe werden die Tabellenspalten mit den Werten aus dem
@@ -137,9 +130,8 @@ public class StrukturstuecklisteGUI {
 			 * Button, um Strukturstueckliste zu erstellen
 			 */
 			Button btnStrukturstuecklisteErstellen = new Button("Erstellen");
-			btnStrukturstuecklisteErstellen.addClickHandler(new ClickHandlerErstellen());
-						
-					
+			btnStrukturstuecklisteErstellen
+					.addClickHandler(new ClickHandlerErstellen());
 
 			/**
 			 * Konvertieren der Baugruppe-Daten und befuellen der Tabelle
@@ -168,9 +160,6 @@ public class StrukturstuecklisteGUI {
 			baugruppeReportTable.getCellFormatter().addStyleName(0, 3,
 					"watchListNumericColumn");
 		}
-		
-		
-	
 
 		/**
 		 * Baugruppe-Tabelle zum Panel hinzugefuegen damit das Ganze auch
@@ -180,41 +169,38 @@ public class StrukturstuecklisteGUI {
 
 		return vPanel;
 	}
-	private class ClickHandlerErstellen implements ClickHandler{
+
+	private class ClickHandlerErstellen implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			
+
 			Cell cell = baugruppeReportTable.getCellForEvent(event);
 
 			int rowIndex = cell.getRowIndex();
 			String id1 = baugruppeReportTable.getText(rowIndex, 0);
 			int id = Integer.parseInt(id1);
-			
-			
+
 			sms.getStrukturstueckliste(id, new AsyncCallback<String>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
 					Window.alert("asd");
-					
+
 				}
 
 				@Override
 				public void onSuccess(String result) {
-					
+
 					RootPanel.get("content").clear();
 					HTML html = new HTML(result);
 					RootPanel.get("content").add(html);
-					
-					
+
 				}
 			});
-			
+
 		}
-		
-		
-		
+
 	}
 
 }

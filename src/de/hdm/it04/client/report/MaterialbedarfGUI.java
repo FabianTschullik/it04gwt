@@ -23,8 +23,9 @@ import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
 
 /**
- * 
- * @author Schwab
+ * Die Klasse MaterialbedarfGUI ermoeglicht es dem User, den Materialbedarf von
+ * Enderzeugnissen als HTML erstellen und anzeigen zu lassen. Hier wird das User Interface dafuer definiert.
+ * @author Schwab, Tschullik
  *
  */
 
@@ -33,7 +34,6 @@ public class MaterialbedarfGUI {
 	AlertGUI alertGUI = new AlertGUI();
 
 	FlexTable enderzeugnisReportTable = new FlexTable();
-	
 
 	TextBox txtSuchen = new TextBox();
 
@@ -115,7 +115,7 @@ public class MaterialbedarfGUI {
 		 * Objekt der Klasse FlexTable erstellen und mit Spaltenueberschriften
 		 * belegen
 		 */
-		
+
 		enderzeugnisReportTable.setText(0, 0, "ID");
 		enderzeugnisReportTable.setText(0, 1, "Name");
 		enderzeugnisReportTable.setText(0, 2, "Beschreibung");
@@ -134,19 +134,16 @@ public class MaterialbedarfGUI {
 			 * aufzurufen
 			 */
 
-			
-			enderzeugnisReportTable.setText(0,0,"ID");
-			enderzeugnisReportTable.setText(0,1,"Name");
-			enderzeugnisReportTable.setText(0,2,"Beschreibung");
-			enderzeugnisReportTable.setText(0,3,"Preis");	
-			enderzeugnisReportTable.setText(0,4,"Menge");
-			enderzeugnisReportTable.setText(0,5,"Materialbedarf berechnen");
-			
+			enderzeugnisReportTable.setText(0, 0, "ID");
+			enderzeugnisReportTable.setText(0, 1, "Name");
+			enderzeugnisReportTable.setText(0, 2, "Beschreibung");
+			enderzeugnisReportTable.setText(0, 3, "Preis");
+			enderzeugnisReportTable.setText(0, 4, "Menge");
+			enderzeugnisReportTable.setText(0, 5, "Materialbedarf berechnen");
 
 			Button btnMaterialbedarfBerechnen = new Button("Berechnen");
 			btnMaterialbedarfBerechnen
 					.addClickHandler(new btnMaterialbedarfBerechnenClickHandler());
-
 
 			/**
 			 * Konvertieren der Bauteil-Daten und befuellen der Tabelle
@@ -200,50 +197,47 @@ public class MaterialbedarfGUI {
 		@Override
 		public void onClick(ClickEvent event) {
 
-			
 			Cell cell = enderzeugnisReportTable.getCellForEvent(event);
 
 			int rowIndex = cell.getRowIndex();
 			String id1 = enderzeugnisReportTable.getText(rowIndex, 0);
 			int id = Integer.parseInt(id1);
 			int menge = Integer.parseInt(mengeMaterial.getText());
-			
-			sms.getMaterialbedarf(id, menge, new AsyncCallback<Vector<Bauteil>>() {
 
-				@Override
-				public void onFailure(Throwable caught) {
-			
-				}
+			sms.getMaterialbedarf(id, menge,
+					new AsyncCallback<Vector<Bauteil>>() {
 
-				@Override
-				public void onSuccess(Vector<Bauteil> result) {
-					
-					int rows = result.size()+1;
-					
-				Grid grid = new Grid(rows, 2);
-				
-				grid.setHTML(0, 0, "Bauteile");
-				grid.setHTML(0, 1, "Anzahl");
-				
-			for (int i =0; i<rows-1; i++){
-				grid.setHTML(i+1, 0, result.elementAt(i).getName());
-				grid.setHTML(i+1, 1, Integer.toString(result.elementAt(i).getAnzahl()));
-				
-			}
-									
-					
-					
-				RootPanel.get("content").add(grid);
-					
-					
-				}
-			});
-			
-		}	
+						@Override
+						public void onFailure(Throwable caught) {
 
-			// TODO Auto-generated method stub
+						}
+
+						@Override
+						public void onSuccess(Vector<Bauteil> result) {
+
+							int rows = result.size() + 1;
+
+							Grid grid = new Grid(rows, 2);
+
+							grid.setHTML(0, 0, "Bauteile");
+							grid.setHTML(0, 1, "Anzahl");
+
+							for (int i = 0; i < rows - 1; i++) {
+								grid.setHTML(i + 1, 0, result.elementAt(i)
+										.getName());
+								grid.setHTML(i + 1, 1, Integer.toString(result
+										.elementAt(i).getAnzahl()));
+
+							}
+
+							RootPanel.get("content").add(grid);
+
+						}
+					});
+
 		}
 
+		// TODO Auto-generated method stub
 	}
 
-
+}
