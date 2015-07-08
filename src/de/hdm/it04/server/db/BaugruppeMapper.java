@@ -131,12 +131,9 @@ public class BaugruppeMapper {
 	}
 
 	/**
-	 * Einfuegen eines <code>Baugruppen</code>-Objekts in die Datenbank. Dabei
+	 * Einfuegen einer <code>Baugruppe</code>-Objekts in die Datenbank. Dabei
 	 * wird auch der Primaerschluessel des uebergebenen Objekts geprueft und
 	 * ggf. berichtigt.
-	 * 
-	 * @param bt
-	 *            das zu speichernde Objekt
 	 * @return das bereits uebergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>id</code>.
 	 */

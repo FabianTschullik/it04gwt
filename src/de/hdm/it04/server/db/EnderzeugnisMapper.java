@@ -124,6 +124,14 @@ public class EnderzeugnisMapper {
 		return null;
 	}
 
+	/**
+	 * Einfuegen eines <code>Enderzeugnis</code>-Objekts in die Datenbank. Dabei
+	 * wird auch der Primaerschluessel des uebergebenen Objekts geprueft und
+	 * ggf. berichtigt.
+	 * 
+	 * @return das bereits uebergebene Objekt, jedoch mit ggf. korrigierter
+	 *         <code>id</code>.
+	 */
 	public Enderzeugnis insert() {
 		Connection con = DbConnection.connection();
 
@@ -185,6 +193,13 @@ public class EnderzeugnisMapper {
 		return ez;
 	}
 
+	/**
+	 * Auslesen aller Enderzeugnisse.
+	 * 
+	 * @return Ein Vektor mit Enderzeugnis-Objekten, die saemtliche
+	 *         Enderzeugnisse repraesentieren. Bei evtl. Exceptions wird ein
+	 *         partiell gefuellter oder ggf. auch leerer Vetor zurueckgeliefert.
+	 */
 	public Vector<Enderzeugnis> findAll() {
 		Connection con = DbConnection.connection();
 
@@ -223,6 +238,13 @@ public class EnderzeugnisMapper {
 		return result;
 	}
 
+	/**
+	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
+	 * 
+	 * @param ez
+	 *            das Objekt, das in die DB geschrieben werden soll
+	 * @return das als Parameter uebergebene Objekt
+	 */
 	public Vector<Enderzeugnis> updateEnderzeugnis(Enderzeugnis ez) {
 
 		Connection con = DbConnection.connection();
@@ -317,6 +339,17 @@ public class EnderzeugnisMapper {
 		return null;
 	}
 
+	/**
+	 * Suchen eines Enderzeugnisses mit vorgegebenen Namen. Da dieser nicht
+	 * eindeutig ist, wird ein Vektor-Objekt zurueckgegeben.
+	 * 
+	 * Warum Vektor? Da name kein Primaerschluesselattribut ist koennen
+	 * Enderzeugnisse mit dem gleiche Namen in diesem Vektor zurueck gegeben
+	 * werden.
+	 * 
+	 * @return Konto-Objekt-Vektor, das dem uebergebenen namen entspricht, null
+	 *         bei nicht vorhandenem DB-Tupel.
+	 */
 	public Vector<Enderzeugnis> findByName(String name) {
 
 		// DB-Verbindung holen
@@ -361,6 +394,12 @@ public class EnderzeugnisMapper {
 		return result;
 	}
 
+	/**
+	 * Loescht ein Enderzeugnis aus der Datenbank
+	 * 
+	 * @param id
+	 * @return ergebnis als String-Erfolgsmeldung
+	 */
 	public String deleteEnderzeugnis(int id) {
 
 		String ergebnis = "Enderzeugnis wurde erfolgreich geloescht!";
