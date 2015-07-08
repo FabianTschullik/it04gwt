@@ -15,7 +15,9 @@ import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
 
 /**
- * Die Klasse MenuForm 
+ * Die Klasse MenuForm baut die grundsaetzliche GUI Ansicht auf und 
+ * erzeugt einige Widgets. Auch das Menue ist enthalten, worueber die
+ * einzelnen Bereiche zur Verwaltung des SMS erreicht werden.
  * 
  * @author Schwab, Tschullik
  *
