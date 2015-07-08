@@ -12,11 +12,12 @@ import de.hdm.it04.shared.Bauteil;
 
 /**
  * Mapper-Klasse, die <code>Bauteil</code>-Objekte auf eine relationale
- * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
+ * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfuegung
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
- * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
- *  * @see BaugruppeMapper, EnderzeugnisMapper, BenutzerMapper
+ * geloescht werden koennen. Das Mapping ist bidirektional. D.h., Objekte
+ * koennen in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden. * @see
+ * BaugruppeMapper, EnderzeugnisMapper, BenutzerMapper
+ * 
  * @author Maehler, Voelker, Thies
  */
 public class BauteilMapper {
@@ -24,16 +25,16 @@ public class BauteilMapper {
 	/**
 	 * Die Klasse BauteilMapper wird nur einmal instantiiert. Man spricht
 	 * hierbei von einem sogenannten <b>Singleton</b>. Hierbei kann global auf
-	 * das Objekt über die Instanzoperation zugegriffen werden.
+	 * das Objekt ueber die Instanzoperation zugegriffen werden.
 	 * <p>
 	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
-	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
+	 * fuer saemtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
 	 * speichert die einzige Instanz dieser Klasse.
 	 */
 	private static BauteilMapper bauteilMapper = null;
 
 	/**
-	 * Geschützter Konstruktor - verhindert die Möglichkeit, mit
+	 * Geschuetzter Konstruktor - verhindert die Moeglichkeit, mit
 	 * <code>new</code> neue Instanzen dieser Klasse zu erzeugen.
 	 */
 	protected BauteilMapper() {
@@ -42,7 +43,7 @@ public class BauteilMapper {
 	/**
 	 * Diese statische Methode kann aufgerufen werden durch
 	 * <code>BauteilMapper.bauteilMapper()</code>. Sie stellt die
-	 * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine
+	 * Singleton-Eigenschaft sicher, indem Sie dafuer sorgt, dass nur eine
 	 * einzige Instanz von <code>BauteilMapper</code> existiert.
 	 * <p>
 	 * 
@@ -62,18 +63,18 @@ public class BauteilMapper {
 
 	/**
 	 * Suchen eines Bauteils mit vorgegebener id. Da diese eindeutig ist, wird
-	 * genau ein Vektor-Objekt zurückgegeben.
+	 * genau ein Vektor-Objekt zurueckgegeben.
 	 * 
-	 * Warum Vektor? Da im späteren Verlauf die Methode findByKey und findByName
-	 * zusammen geführt werden. So ist es möglich über das Suchfeld per Name und
-	 * id zusuchen. Der Vektor ist notwendig, da der Name nicht als primär
-	 * Schlüssel gekennzeichnet ist. Daher können auch mehrere Ergebnise zurück
-	 * gegeben werden. Der Vektor ist für die findByKey Methode im prinzip nicht
-	 * notwendig.
+	 * Warum Vektor? Da im spaeteren Verlauf die Methode findByKey und
+	 * findByName zusammen gefuehrt werden. So ist es moeglich ueber das
+	 * Suchfeld per Name und id zusuchen. Der Vektor ist notwendig, da der Name
+	 * nicht als primaer Schluessel gekennzeichnet ist. Daher koennen auch
+	 * mehrere Ergebnisse zurueck gegeben werden. Der Vektor ist fuer die
+	 * findByKey Methode im Prinzip nicht notwendig.
 	 * 
 	 * @param id
-	 *            Primärschlüsselattribut (->DB)
-	 * @return Konto-Objekt-Vektor, das dem übergebenen Schlüssel entspricht,
+	 *            Primaerschluesselattribut (->DB)
+	 * @return Konto-Objekt-Vektor, das dem uebergebenen Schluessel entspricht,
 	 *         null bei nicht vorhandenem DB-Tupel.
 	 */
 	public Vector<Bauteil> findByKey(int id) {
@@ -90,14 +91,14 @@ public class BauteilMapper {
 
 			Statement stmt = con.createStatement();
 
-			// Statement ausf�llen und als Query an die DB schicken
+			// Statement ausfuellen und als Query an die DB schicken
 
 			ResultSet rs = stmt
 					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum FROM bauteil "
 							+ "WHERE id=" + id);
 			/*
-			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
-			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+			 * Da id Primarschluessel ist, kann max. nur ein Tupel
+			 * zurueckgegeben werden. Pruefe, ob ein Ergebnis vorliegt.
 			 */
 
 			while (rs.next()) {
@@ -113,7 +114,7 @@ public class BauteilMapper {
 				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
 				result.addElement(bt);
-				
+
 				return result;
 			}
 
@@ -125,50 +126,51 @@ public class BauteilMapper {
 	}
 
 	/**
-	 * Einfügen eines <code>Bauteil</code>-Objekts in die Datenbank. Dabei wird
-	 * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
+	 * Einfuegen eines <code>Bauteil</code>-Objekts in die Datenbank. Dabei wird
+	 * auch der Primaerschluessel des uebergebenen Objekts geprueft und ggf.
 	 * berichtigt.
 	 * 
 	 * @param bt
 	 *            das zu speichernde Objekt
-	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+	 * @return das bereits uebergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>id</code>.
 	 */
 	public Bauteil insert() {
 		Connection con = DbConnection.connection();
-		
+
 		Bauteil bt = new Bauteil();
 
 		try {
 			Statement stmt = con.createStatement();
 
 			/*
-			 * Zun�chst schauen wir nach, welches der momentan h�chste
-			 * Prim�rschl�sselwert ist.
+			 * Zunaechst schauen wir nach, welches der momentan hoechste
+			 * Primaerschluesselwert ist.
 			 */
 			ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
 					+ "FROM bauteil ");
 
-			// Wenn wir etwas zur�ckerhalten, kann dies nur einzeilig sein
+			// Wenn wir etwas zurueckerhalten, kann dies nur einzeilig sein
 			if (rs.next()) {
 				/*
-				 * bt erh�lt den bisher maximalen, nun um 1 inkrementierten
-				 * Prim�rschl�ssel.
+				 * bt erhaelt den bisher maximalen, nun um 1 inkrementierten
+				 * Primaerschluessel.
 				 */
 				bt.setId(rs.getInt("maxid") + 1);
 
 				stmt = con.createStatement();
 
-				// Aktuelle Zeit f�r Timestamp erstellungsDatum, aenderungsDatum
+				// Aktuelle Zeit fuer Timestamp erstellungsDatum,
+				// aenderungsDatum
 				// holen
 
 				Date date = new Date();
 				Timestamp timestamp = new Timestamp(date.getTime());
-				
+
 				bt.setAenderungsDatum(timestamp);
 				bt.setErstellungsDatum(timestamp);
 
-				// Jetzt erst erfolgt die tats�chliche Einf�geoperation
+				// Jetzt erst erfolgt die tatsaechliche Einfuegeoperation
 				stmt.executeUpdate("INSERT INTO bauteil (id, erstellungsDatum, aenderungsDatum) "
 						+ "VALUES ("
 						+ bt.getId()
@@ -182,27 +184,24 @@ public class BauteilMapper {
 		}
 
 		/*
-		 * R�ckgabe, des evtl. korrigierten Bauteils.
+		 * Rueckgabe, des evtl. korrigierten Bauteils.
 		 * 
 		 * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-		 * Objekte �bergeben werden, w�re die Anpassung des Bauteil-Objekts auch
-		 * ohne diese explizite R�ckgabe au�erhalb dieser Methode sichtbar. Die
-		 * explizite R�ckgabe von be ist eher ein Stilmittel, um zu
-		 * signalisieren, dass sich das Objekt evtl. im Laufe der Methode
-		 * ver�ndert hat.
+		 * Objekte uebergeben werden, waere die Anpassung des Bauteil-Objekts
+		 * auch ohne diese explizite Rueckgabe ausserhalb dieser Methode
+		 * sichtbar. Die explizite Rueckgabe von be ist eher ein Stilmittel, um
+		 * zu signalisieren, dass sich das Objekt evtl. im Laufe der Methode
+		 * veraendert hat.
 		 */
 		return bt;
 	}
-	
-	
-	
 
 	/**
 	 * Auslesen aller Bauteile.
 	 * 
-	 * @return Ein Vektor mit Bauteil-Objekten, die sämtliche Bauteile
-	 *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
-	 *         oder ggf. auch leerer Vetor zurückgeliefert.
+	 * @return Ein Vektor mit Bauteil-Objekten, die saemtliche Bauteile
+	 *         repraesentieren. Bei evtl. Exceptions wird ein partiell
+	 *         gefuellter oder ggf. auch leerer Vetor zurueckgeliefert.
 	 */
 	public Vector<Bauteil> findAll() {
 		Connection con = DbConnection.connection();
@@ -217,7 +216,7 @@ public class BauteilMapper {
 					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum, letzterBearbeiter FROM bauteil "
 							+ " ORDER BY id");
 
-			// Für jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt
+			// Fuer jeden Eintrag im Suchergebnis wird nun ein Bauteil-Objekt
 			// erstellt.
 			while (rs.next()) {
 				Bauteil bt = new Bauteil();
@@ -229,25 +228,25 @@ public class BauteilMapper {
 				bt.setErstellungsDatum(rs.getTimestamp("erstellungsDatum"));
 				bt.setAenderungsDatum(rs.getTimestamp("aenderungsDatum"));
 
-				// Hinzufügen des neuen Objekts zum Ergebnisvektor
+				// Hinzufuegen des neuen Objekts zum Ergebnisvektor
 				result.addElement(bt);
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
-		// Ergebnisvektor zurückgeben
+		// Ergebnisvektor zurueckgeben
 		return result;
 	}
 
 	/**
-	 * Suchen eines Bauteils mit vorgegebenen namen. Da dieser nicht eindeutig
-	 * ist, wird ein Vektor-Objekt zurückgegeben.
+	 * Suchen eines Bauteils mit vorgegebenen Namen. Da dieser nicht eindeutig
+	 * ist, wird ein Vektor-Objekt zurueckgegeben.
 	 * 
-	 * Warum Vektor? Da name kein Primörschlüsselattribut ist können Bauteile
-	 * mit dem gleiche Namen in diesem Vektor zurück gegeben werden.
+	 * Warum Vektor? Da name kein Primaerschluesselattribut ist koennen Bauteile
+	 * mit dem gleiche Namen in diesem Vektor zurueck gegeben werden.
 	 * 
-	 * @return Konto-Objekt-Vektor, das dem übergebenen namen entspricht, null
+	 * @return Konto-Objekt-Vektor, das dem uebergebenen namen entspricht, null
 	 *         bei nicht vorhandenem DB-Tupel.
 	 */
 	public Vector<Bauteil> findByName(String name) {
@@ -263,14 +262,14 @@ public class BauteilMapper {
 
 			Statement stmt = con.createStatement();
 
-			// Statement ausf�llen und als Query an die DB schicken
+			// Statement ausfuellen und als Query an die DB schicken
 
 			ResultSet rs = stmt
 					.executeQuery("SELECT id, name, beschreibung, materialBezeichnung, erstellungsDatum, aenderungsDatum, letzterBearbeiter FROM bauteil "
 							+ "WHERE name=" + "'" + name + "'");
 			/*
-			 * Da id Primarschl�ssel ist, kann max. nur ein Tupel zur�ckgegeben
-			 * werden. Pr�fe, ob ein Ergebnis vorliegt.
+			 * Da id Primarschluessel ist, kann max. nur ein Tupel
+			 * zurueckgegeben werden. Pruefe, ob ein Ergebnis vorliegt.
 			 */
 
 			while (rs.next()) {
@@ -300,7 +299,7 @@ public class BauteilMapper {
 	 * 
 	 * @param bt
 	 *            das Objekt, das in die DB geschrieben werden soll
-	 * @return das als Parameter übergebene Objekt
+	 * @return das als Parameter uebergebene Objekt
 	 */
 	public Vector<Bauteil> update(Bauteil bt) {
 
@@ -309,14 +308,15 @@ public class BauteilMapper {
 
 		try {
 			Statement stmt = con.createStatement();
-			
+
 			Date date = new Date();
 			new Timestamp(date.getTime());
 
-			stmt.executeUpdate("UPDATE bauteil SET name = '" + bt.getName()+ "', " 
-					+ "beschreibung = '" + bt.getBeschreibung() + "', "
-					+ "aenderungsDatum = '" + new Timestamp(date.getTime()) + "', "
-					+ "materialBezeichnung = '" + bt.getMaterialBezeichnung() + "', "
+			stmt.executeUpdate("UPDATE bauteil SET name = '" + bt.getName()
+					+ "', " + "beschreibung = '" + bt.getBeschreibung() + "', "
+					+ "aenderungsDatum = '" + new Timestamp(date.getTime())
+					+ "', " + "materialBezeichnung = '"
+					+ bt.getMaterialBezeichnung() + "', "
 					+ "letzterBearbeiter = '" + bt.getLetzterBearbeiter()
 					+ "' WHERE id=" + bt.getId());
 
@@ -324,7 +324,7 @@ public class BauteilMapper {
 			e2.printStackTrace();
 		}
 
-		// Um Analogie zu insert(Bauteil bt) zu wahren, geben wir bt zurück
+		// Um Analogie zu insert(Bauteil bt) zu wahren, geben wir bt zurueck
 		result.add(bt);
 		return result;
 	}
@@ -343,8 +343,6 @@ public class BauteilMapper {
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-
 		return ergebnis;
 	}
-
 }
