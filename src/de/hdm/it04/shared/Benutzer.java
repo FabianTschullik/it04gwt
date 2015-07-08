@@ -11,10 +11,21 @@ public class Benutzer extends BusinessObject {
 
 	private String email;
 
+	/**
+	 * E-mail Adresse des Benutzers wird eingelesen.
+	 * 
+	 * @return E-Mail Adresse des Benutzers
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * E-mail Adresse des Benutzers wird gesetzt
+	 * 
+	 * @param email
+	 *            als String
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
