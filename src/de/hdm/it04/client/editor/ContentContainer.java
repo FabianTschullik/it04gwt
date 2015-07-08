@@ -16,11 +16,18 @@ public class ContentContainer {
 	private ContentContainer() {
 	}
 
-	/* Static 'instance' method */
+	/** 
+	 * Static 'instance' method
+	 * @return singleton 
+	*/
 	public static ContentContainer getInstance() {
 		return singleton;
 	}
 
+	/**
+	 * Setter-Methode, die dem content-Container ein Widget setzt.
+	 * @param widget
+	 */
 	public void setContent(Widget widget) {
 
 		RootPanel.get("content").clear();
