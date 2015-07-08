@@ -10,17 +10,17 @@ import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.LoginInfo;
 
 /**
- * Das asynchrone Gegenstück des Interface {@link It04gwtService}. Es wird
+ * Das asynchrone Gegenstueck des Interface {@link It04gwtService}. Es wird
  * semiautomatisch durch das Google Plugin erstellt und gepflegt. Daher erfolgt
- * hier keine weitere Dokumentation. Für weitere Informationen siehe das
+ * hier keine weitere Dokumentation. Fuer weitere Informationen siehe das
  * synchrone Interface {@link It04gwtService}.
  * 
- * @author Tschullik, Maehler, Voelker, Thies
+ * @author Schwab, Tschullik, Maehler, Voelker, Thies
  */
 
 public interface It04gwtServiceAsync {
 
-	// Asyncs geben niemals einen wert zurück, da dieser über callback zurück
+	// Asyncs geben niemals einen Wert zurueck, da dieser ueber callback zurueck
 	// kommt.
 
 	// TODO #10: create login helper methods in service asynchronous interface

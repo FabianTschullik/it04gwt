@@ -15,7 +15,7 @@ import de.hdm.it04.shared.Bauteil;
 import de.hdm.it04.shared.Enderzeugnis;
 
 /**
- * Die Klasse MenuForm
+ * Die Klasse MenuForm 
  * 
  * @author Schwab, Tschullik
  *
