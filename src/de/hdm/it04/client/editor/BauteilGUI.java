@@ -437,7 +437,7 @@ public Widget showAllBauteile(Vector<Bauteil> bauteile) {
 		bauteileTable.setText(j + 1, 3, bauteile.elementAt(j).getMaterialBezeichnung());
 		bauteileTable.setText(j+1, 4, s1);
 		bauteileTable.setText(j+1, 5, s2);
-		bauteileTable.setText(j + 1, 6, user);
+		bauteileTable.setText(j + 1, 6, bauteile.elementAt(j).getLetzterBearbeiter());
 		bauteileTable.setWidget(j + 1, 7, btnBearbeiten);
 		bauteileTable.setWidget(j + 1, 8, btnLoeschen);
 
