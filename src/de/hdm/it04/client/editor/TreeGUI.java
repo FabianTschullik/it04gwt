@@ -19,7 +19,7 @@ import de.hdm.it04.shared.Enderzeugnis;
 import de.hdm.it04.shared.TeileListe;
 
 /**
- *Die Klasse TreeGUI dient der Erstellung des dynamischen Tree 
+ * Die Klasse TreeGUI dient der Erstellung des dynamischen Tree
  * 
  * @author Geier, Tschullik
  */
@@ -42,9 +42,8 @@ public class TreeGUI {
 	/**
 	 * Methode zum Speichern von allen Bauteilen und Baugruppen global, um einen
 	 * Vereinfachten Zugriff auf die Bauteile und Baugruppen zu erreichen.
-	 * Methode zum globalen Speichern von allen Bauteilen und Baugruppen, 
-	 * um einen vereinfachten Zugriff auf die Bauteile und Baugruppen
-	 * zu erreichen.
+	 * Methode zum globalen Speichern von allen Bauteilen und Baugruppen, um
+	 * einen vereinfachten Zugriff auf die Bauteile und Baugruppen zu erreichen.
 	 * 
 	 * @return: void
 	 * 
@@ -97,15 +96,15 @@ public class TreeGUI {
 
 	/**
 	 * Rekursive Methode, welche die Tree Elemente setzt und miteinander zu
-	 * einem Tree zusammen fügt
+	 * einem Tree zusammen fï¿½gt
 	 * 
 	 * @param baugruppe
 	 *            : Baugruppe von der wir jeweils die unteren Baugruppen und
-	 *            Bauteile dem Baum hinzufügen wollen
+	 *            Bauteile dem Baum hinzufï¿½gen wollen
 	 * @param anzahl
 	 *            : Anzahl in welcher Menge ein Bauteil oder eine Baugruppe
-	 *            benötigt wird
-	 * @return TreeItem, welches immer dem vorherigen TreeItem hinzugefügt über
+	 *            benï¿½tigt wird
+	 * @return TreeItem, welches immer dem vorherigen TreeItem hinzugefï¿½gt ï¿½ber
 	 *         return
 	 */
 	public TreeItem treerek(Baugruppe baugruppe, int anzahl) {
@@ -177,8 +176,8 @@ public class TreeGUI {
 	}
 
 	/**
-	 * Methode, die den Tree erstellt mit Selektion Handler
-	 * Methode, die den Tree erstellt, mit Selektion-Handler
+	 * Methode, die den Tree erstellt mit Selektion Handler Methode, die den
+	 * Tree erstellt, mit Selektion-Handler
 	 * 
 	 * @return Widget
 	 */
@@ -232,7 +231,8 @@ public class TreeGUI {
 					Vector<Enderzeugnis> ezuebergabe = new Vector<Enderzeugnis>();
 					ezuebergabe.add(ez);
 					ContentContainer.getInstance().setContent(
-							new EnderzeugnisGUI().showAllEnderzeugnisse(ezuebergabe));
+							new EnderzeugnisGUI()
+									.showAllEnderzeugnisse(ezuebergabe));
 				}
 			}
 		});

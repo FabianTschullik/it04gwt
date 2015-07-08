@@ -2,11 +2,12 @@ package de.hdm.it04.shared;
 
 //TODO #12: add LoginInfo helper class
 
-
 import java.io.Serializable;
 
 /**
- * Die Klasse LoginInfo wird fuer den Login benoetigt und ist im <code>shared</code> Package.
+ * Die Klasse LoginInfo wird fuer den Login benoetigt und ist im
+ * <code>shared</code> Package.
+ * 
  * @author Tschullik
  *
  */
@@ -76,4 +77,4 @@ public class LoginInfo implements Serializable {
 		return pictureUrl;
 	}
 }
-//TODO #12:> end
+// TODO #12:> end

@@ -19,180 +19,191 @@ import de.hdm.it04.client.service.It04gwtService;
 import de.hdm.it04.client.service.It04gwtServiceAsync;
 import de.hdm.it04.shared.LoginInfo;
 
+/**
+ * Die Klasse It04gwtEditor ist die Entry Point Klasse fuer den Editor und
+ * definiert <code>onModuleLoad()</code>.
+ * 
+ * @author Schwab, Tschullik
+ */
+public class It04gwtEditor implements EntryPoint {
+
+	Audio sound;
+	public static String user;
+
+	// TODO #05: add constants for OAuth2 (don't forget to update
+	// GOOGLE_CLIENT_ID)
+	private static final Auth AUTH = Auth.get();
+	private static final String GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth";
+	private static final String GOOGLE_CLIENT_ID = "184594870148-srbcc60r0u9hfevtrtsoq47it8rt6dgp.apps.googleusercontent.com";
+	private static final String PLUS_ME_SCOPE = "https://www.googleapis.com/auth/userinfo.profile";
+	// TODO #05:> end
+
+	// TODO #06: define controls for login
+	private final HorizontalPanel loginPanel = new HorizontalPanel();
+	private final Anchor signInLink = new Anchor("");
+	private final Image loginImage = new Image();
+	private final TextBox nameField = new TextBox();
+	// TODO #06:> end
 
 	/**
-	 * Die Klasse It04gwtEditor ist die Entry Point Klasse fuer den Editor und
-	 * definiert <code>onModuleLoad()</code>.
-	 * @author Schwab, Tschullik
+	 * The message displayed to the user when the server cannot be reached or
+	 * returns an error.
 	 */
-	public class It04gwtEditor implements EntryPoint {
-		
-		Audio sound;
-		public static String user;
+	private static final String SERVER_ERROR = "An error occurred while "
+			+ "attempting to contact the server. Please check your network "
+			+ "connection and try again.";
 
-		
-		// TODO #05: add constants for OAuth2 (don't forget to update GOOGLE_CLIENT_ID)
-		private static final Auth AUTH = Auth.get();
-		private static final String GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth";
-		private static final String GOOGLE_CLIENT_ID = "184594870148-srbcc60r0u9hfevtrtsoq47it8rt6dgp.apps.googleusercontent.com";
-		private static final String PLUS_ME_SCOPE = "https://www.googleapis.com/auth/userinfo.profile";
-		// TODO #05:> end
+	/**
+	 * Create a remote service proxy to talk to the server-side Greeting
+	 * service.
+	 */
+	private final It04gwtServiceAsync greetingService = GWT
+			.create(It04gwtService.class);
 
-		// TODO #06: define controls for login
-		private final HorizontalPanel loginPanel = new HorizontalPanel();
-		private final Anchor signInLink = new Anchor("");
-		private final Image loginImage = new Image();
-		private final TextBox nameField = new TextBox();
-		// TODO #06:> end
+	// TODO #07: add helper methods for Login, Logout and AuthRequest
 
-		/**
-		 * The message displayed to the user when the server cannot be reached or returns an error.
-		 */
-		private static final String SERVER_ERROR = "An error occurred while "
-				+ "attempting to contact the server. Please check your network "
-				+ "connection and try again.";
-
-		/**
-		 * Create a remote service proxy to talk to the server-side Greeting service.
-		 */
-		private final It04gwtServiceAsync greetingService = GWT.create(It04gwtService.class);
-
-		// TODO #07: add helper methods for Login, Logout and AuthRequest
-
-		private void loadLogin(final LoginInfo loginInfo) {
-			signInLink.setHref(loginInfo.getLoginUrl());
-			signInLink.setText("Please, sign in with your Google Account");
-			signInLink.setTitle("Sign in");
-		}
-
-		private void loadLogout(final LoginInfo loginInfo) {
-			signInLink.setHref(loginInfo.getLogoutUrl());
-			signInLink.setText(loginInfo.getName());
-			signInLink.setTitle("Sign out");
-		}
-
-		private void addGoogleAuthHelper() {
-			final AuthRequest req = new AuthRequest(GOOGLE_AUTH_URL, GOOGLE_CLIENT_ID)
-					.withScopes(PLUS_ME_SCOPE);
-			AUTH.login(req, new Callback<String, Throwable>() {
-				@Override
-				public void onSuccess(final String token) {
-
-					if (!token.isEmpty()) {
-						greetingService.loginDetails(token, new AsyncCallback<LoginInfo>() {
-							@Override
-							public void onFailure(final Throwable caught) {
-								GWT.log("loginDetails -> onFailure");
-							}
-
-							@Override
-							public void onSuccess(final LoginInfo loginInfo) {
-								signInLink.setText(loginInfo.getName());
-								nameField.setText(loginInfo.getName());
-								signInLink.setStyleName("login-area");
-								loginImage.setUrl(loginInfo.getPictureUrl());
-								loginImage.setVisible(false);
-								loginPanel.add(loginImage);
-								loginImage.addLoadHandler(new LoadHandler() {
-									@Override
-									public void onLoad(final LoadEvent event) {
-										final int newWidth = 24;
-										final com.google.gwt.dom.client.Element element = event
-												.getRelativeElement();
-										if (element.equals(loginImage.getElement())) {
-											final int originalHeight = loginImage.getOffsetHeight();
-											final int originalWidth = loginImage.getOffsetWidth();
-											if (originalHeight > originalWidth) {
-												loginImage.setHeight(newWidth + "px");
-											} else {
-												loginImage.setWidth(newWidth + "px");
-											}
-											loginImage.setVisible(true);
-										}
-									}
-								});
-							}
-						});
-					}
-				}
-
-				@Override
-				public void onFailure(final Throwable caught) {
-					GWT.log("Error -> loginDetails\n" + caught.getMessage());
-				}
-			});
-		}
-
-		// TODO #07:> end
-
-		  /**
-		   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
-		   * zusichert, benötigen wir eine Methode
-		   * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
-		   * <code>main()</code>-Methode normaler Java-Applikationen.
-		   */
-		public void onModuleLoad() {
-		
-			
-			// TODO #08: create login controls
-			
-
-			signInLink.getElement().setClassName("login-area");
-			signInLink.setTitle("sign out");
-			loginImage.getElement().setClassName("login-area");
-			loginPanel.add(signInLink);
-			RootPanel.get("loginPanelContainer").add(loginPanel);
-			final StringBuilder userEmail = new StringBuilder();
-			greetingService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
-				@Override
-				public void onFailure(final Throwable caught) {
-					GWT.log("login -> onFailure");
-				}
-
-				@Override
-				public void onSuccess(final LoginInfo result) {
-					
-					
-					user = result.getName();
-														
-					if (result.getName() != null && !result.getName().isEmpty()) {
-						addGoogleAuthHelper();
-						loadLogout(result);
-						
-						
-					greetingService.saveBenutzer(result.getName(), new AsyncCallback(){
-
-						@Override
-						public void onFailure(Throwable caught) {
-
-						;				
-						}
-
-						@Override
-						public void onSuccess(Object result) {
-
-							
-						}});
-					
-					
-					sound = sound.createIfSupported();
-					sound.setSrc(GWT.getModuleBaseURL()+"images/sound.mp3");
-					sound.play();
-					
-					
-						RootPanel.get("header").add(new MenuForm());
-						
-						RootPanel.get("content").add(new Welcome().load());
-					
-						
-					} else {
-						loadLogin(result);
-					}
-					userEmail.append(result.getEmailAddress());
-				}
-			});
-			// TODO #08:> end
-				
-			;
-		}
+	private void loadLogin(final LoginInfo loginInfo) {
+		signInLink.setHref(loginInfo.getLoginUrl());
+		signInLink.setText("Please, sign in with your Google Account");
+		signInLink.setTitle("Sign in");
 	}
+
+	private void loadLogout(final LoginInfo loginInfo) {
+		signInLink.setHref(loginInfo.getLogoutUrl());
+		signInLink.setText(loginInfo.getName());
+		signInLink.setTitle("Sign out");
+	}
+
+	private void addGoogleAuthHelper() {
+		final AuthRequest req = new AuthRequest(GOOGLE_AUTH_URL,
+				GOOGLE_CLIENT_ID).withScopes(PLUS_ME_SCOPE);
+		AUTH.login(req, new Callback<String, Throwable>() {
+			@Override
+			public void onSuccess(final String token) {
+
+				if (!token.isEmpty()) {
+					greetingService.loginDetails(token,
+							new AsyncCallback<LoginInfo>() {
+								@Override
+								public void onFailure(final Throwable caught) {
+									GWT.log("loginDetails -> onFailure");
+								}
+
+								@Override
+								public void onSuccess(final LoginInfo loginInfo) {
+									signInLink.setText(loginInfo.getName());
+									nameField.setText(loginInfo.getName());
+									signInLink.setStyleName("login-area");
+									loginImage.setUrl(loginInfo.getPictureUrl());
+									loginImage.setVisible(false);
+									loginPanel.add(loginImage);
+									loginImage
+											.addLoadHandler(new LoadHandler() {
+												@Override
+												public void onLoad(
+														final LoadEvent event) {
+													final int newWidth = 24;
+													final com.google.gwt.dom.client.Element element = event
+															.getRelativeElement();
+													if (element.equals(loginImage
+															.getElement())) {
+														final int originalHeight = loginImage
+																.getOffsetHeight();
+														final int originalWidth = loginImage
+																.getOffsetWidth();
+														if (originalHeight > originalWidth) {
+															loginImage
+																	.setHeight(newWidth
+																			+ "px");
+														} else {
+															loginImage
+																	.setWidth(newWidth
+																			+ "px");
+														}
+														loginImage
+																.setVisible(true);
+													}
+												}
+											});
+								}
+							});
+				}
+			}
+
+			@Override
+			public void onFailure(final Throwable caught) {
+				GWT.log("Error -> loginDetails\n" + caught.getMessage());
+			}
+		});
+	}
+
+	// TODO #07:> end
+
+	/**
+	 * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
+	 * zusichert, benötigen wir eine Methode
+	 * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
+	 * <code>main()</code>-Methode normaler Java-Applikationen.
+	 */
+	public void onModuleLoad() {
+
+		// TODO #08: create login controls
+
+		signInLink.getElement().setClassName("login-area");
+		signInLink.setTitle("sign out");
+		loginImage.getElement().setClassName("login-area");
+		loginPanel.add(signInLink);
+		RootPanel.get("loginPanelContainer").add(loginPanel);
+		final StringBuilder userEmail = new StringBuilder();
+		greetingService.login(GWT.getHostPageBaseURL(),
+				new AsyncCallback<LoginInfo>() {
+					@Override
+					public void onFailure(final Throwable caught) {
+						GWT.log("login -> onFailure");
+					}
+
+					@Override
+					public void onSuccess(final LoginInfo result) {
+
+						user = result.getName();
+
+						if (result.getName() != null
+								&& !result.getName().isEmpty()) {
+							addGoogleAuthHelper();
+							loadLogout(result);
+
+							greetingService.saveBenutzer(result.getName(),
+									new AsyncCallback() {
+
+										@Override
+										public void onFailure(Throwable caught) {
+
+											;
+										}
+
+										@Override
+										public void onSuccess(Object result) {
+
+										}
+									});
+
+							sound = sound.createIfSupported();
+							sound.setSrc(GWT.getModuleBaseURL()
+									+ "images/sound.mp3");
+							sound.play();
+
+							RootPanel.get("header").add(new MenuForm());
+
+							RootPanel.get("content").add(new Welcome().load());
+
+						} else {
+							loadLogin(result);
+						}
+						userEmail.append(result.getEmailAddress());
+					}
+				});
+		// TODO #08:> end
+
+		;
+	}
+}
