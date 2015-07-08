@@ -29,7 +29,7 @@ import de.hdm.it04.shared.Bauteil;
  * Die Klasse BauteilGUI ermoeglicht es dem User, Bauteil Objekte zu erstellen
  * und zu verwalten. Hier wird das User Interface dafuer definiert.
  * 
- * @author Geier, Voelker
+ * @author Geier, Voelker   
  *
  */
 public class BauteilGUI {
